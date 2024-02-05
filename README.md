@@ -2,7 +2,7 @@
 Fixes corrupted Windows useing CHKDSK, DISM and SFC commands.
 ## The following options are available
 **1.** SFC Scan Now  
-**2.** SFc Verify Only  
+**2.** SFC Verify Only  
 **3.** SFC Scan File  
 **4.** SFC Verify File  
 **5.** SFC Logs  
