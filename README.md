@@ -1,2 +1,2 @@
 # Windows-Corruption-Fixer
-Fixes corrupted Windows.
+Fixes corrupted Windows useing SFC DISM and CHKDSK
