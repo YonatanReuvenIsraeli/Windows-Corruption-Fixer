@@ -1,5 +1,5 @@
 # Windows-Corruption-Fixer
-Fixes corrupted Windows useing CHKDSK, DISM and SFC commands.
+Fixes corrupted Windows using CHKDSK, DISM and SFC commands.
 ## The following options are available
 **1.** Check Disk  
 **2.** DISM Check Health  
