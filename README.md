@@ -1,12 +1,13 @@
 # Windows-Corruption-Fixer
 Fixes corrupted Windows useing CHKDSK, DISM and SFC commands.
 ## The following options are available
-**1.** SFC Scan Now  
-**2.** SFC Verify Only  
-**3.** SFC Scan File  
-**4.** SFC Verify File  
-**5.** SFC Logs  
-**6.** DISM Check Health  
-**7.** DISM Scan Health  
-**8.** DISM Restore Health  
-**9.** DISM Logs
+**1.** Check Disk  
+**2.** DISM Check Health  
+**3.** DISM Scan Health  
+**4.** DISM Restore Health  
+**5.** DISM Logs  
+**6.** SFC Scan Now  
+**7.** SFC Verify Only  
+**8.** SFC Scan File  
+**9.** SFC Verify File  
+**10.** SFC Logs
