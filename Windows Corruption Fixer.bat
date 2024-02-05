@@ -7,16 +7,16 @@ goto :Start
 :Start
 echo.
 echo Do you want to-
-echo [1] SFC Scan Now
-echo [2] SFc Verify Only
-echo [3] SFC Scan File
-echo [4] SFc Verify File
-echo [5] SFC Logs
-echo [6] DISM Check Health
-echo [7] DISM Scan Health
-echo [8] DISM Restore Health
-echo [9] DISM Logs
-echo [10] Check Disk
+echo [1] Check Disk
+echo [2] DISM Check Health
+echo [3] DISM Scan Health
+echo [4] DISM Restore Health
+echo [5] View DISM Logs
+echo [6] SFC Scan Now
+echo [7] SFC Verify Only
+echo [8] SFC Scan File
+echo [9] SFC Verify File
+echo [10] View SFC Logs
 echo [11] Close
 set /p input="Which one do you want? (1/12) "
 if /i "%input%"=="1" goto :1
@@ -34,40 +34,58 @@ echo Invalid Syntax
 goto :Main
 
 :1
-sfc /scannow
+echo.
+set /p DriveLetter="Which drive do you want to run Check Disk on? (A:-Z:) "
+if /i "%DriveLetter%"=="A:" goto :SureDriveLetterCHKDSK
+if /i "%DriveLetter%"=="B:" goto :SureDriveLetterCHKDSK
+if /i "%DriveLetter%"=="C:" goto :SureDriveLetterCHKDSK
+if /i "%DriveLetter%"=="D:" goto :SureDriveLetterCHKDSK
+if /i "%DriveLetter%"=="E:" goto :SureDriveLetterCHKDSK
+if /i "%DriveLetter%"=="F:" goto :SureDriveLetterCHKDSK
+if /i "%DriveLetter%"=="G:" goto :SureDriveLetterCHKDSK
+if /i "%DriveLetter%"=="H:" goto :SureDriveLetterCHKDSK
+if /i "%DriveLetter%"=="I:" goto :SureDriveLetterCHKDSK
+if /i "%DriveLetter%"=="J:" goto :SureDriveLetterCHKDSK
+if /i "%DriveLetter%"=="K:" goto :SureDriveLetterCHKDSK
+if /i "%DriveLetter%"=="L:" goto :SureDriveLetterCHKDSK
+if /i "%DriveLetter%"=="M:" goto :SureDriveLetterCHKDSK
+if /i "%DriveLetter%"=="N:" goto :SureDriveLetterCHKDSK
+if /i "%DriveLetter%"=="O:" goto :SureDriveLetterCHKDSK
+if /i "%DriveLetter%"=="P:" goto :SureDriveLetterCHKDSK
+if /i "%DriveLetter%"=="Q:" goto :SureDriveLetterCHKDSK
+if /i "%DriveLetter%"=="R:" goto :SureDriveLetterCHKDSK
+if /i "%DriveLetter%"=="S:" goto :SureDriveLetterCHKDSK
+if /i "%DriveLetter%"=="T:" goto :SureDriveLetterCHKDSK
+if /i "%DriveLetter%"=="U:" goto :SureDriveLetterCHKDSK
+if /i "%DriveLetter%"=="V:" goto :SureDriveLetterCHKDSK
+if /i "%DriveLetter%"=="W:" goto :SureDriveLetterCHKDSK
+if /i "%DriveLetter%"=="X:" goto :SureDriveLetterCHKDSK
+if /i "%DriveLetter%"=="Y:" goto :SureDriveLetterCHKDSK
+if /i "%DriveLetter%"=="Z:" goto :SureDriveLetterCHKDSK
+echo Invalid Syntax!
+goto :10
+
+:SureDriveLetterCHKDSK
+echo.
+set /p SureDriveLetter="Are you sure %DriveLetter% is the drive letter of your Windows Disk Image? (Yes/No) "
+if /i "%SureDriveLetter%"=="Yes" goto :CHKDSK
+if /i "%SureDriveLetter%"=="No" goto :DriveLetter
+echo Invalid Syntax!
+goto :SureDriveLetterCHKDSK
+
+:CHKDSK
+chkdsk %DriveLetter% /f /r
 goto :Start
 
 :2
-sfc /verifyonly
-goto :Start
-
-:3
-echo. 
-set /p ScanFile="Please specify a file. You can add /offwindir, /offbootdir and/or /offlogfile as part of the file if needed. "
-sfc /scanfile="%ScanFile%"
-goto :Start
-
-:4
-echo.
-set /p VerifyFile="Please specify a file. You can add /offwindir, /offbootdir and/or /offlogfile as part of the file if needed. "
-sfc /verifyfile="%VerifyFile%"
-goto :Start
-
-:5
-%SystemDrive%
-cd Windows\Logs\CBS
-CBS.log
-goto :Start
-
-:6
 DISM /Online /Cleanup-Image /CheckHealth
 goto :Start
 
-:7
+:3
 DISM /Online /Cleanup-Image /ScanHealth
 goto :Start
 
-:8
+:4
 echo.
 set /p Media="Do you want to use a Windows installation Media? (Yes/No) "
 if /i "%Media%"=="Yes" goto :Install
@@ -144,54 +162,36 @@ goto :Start
 DISM /Online /Cleanup-Image /RestoreHealth
 goto :Start
 
-:9
+:5
 %SystemDrive%
 cd Windows\Logs\DISM
 dism.log
 goto :Start
 
+:6
+sfc /scannow
+goto :Start
+
+:7
+sfc /verifyonly
+goto :Start
+
+:8
+echo. 
+set /p ScanFile="Please specify a file. You can add /offwindir, /offbootdir and/or /offlogfile as part of the file if needed. "
+sfc /scanfile="%ScanFile%"
+goto :Start
+
+:9
+echo.
+set /p VerifyFile="Please specify a file. You can add /offwindir, /offbootdir and/or /offlogfile as part of the file if needed. "
+sfc /verifyfile="%VerifyFile%"
+goto :Start
+
 :10
-echo.
-set /p DriveLetter="Which drive do you want to run Check Disk on? (A:-Z:) "
-if /i "%DriveLetter%"=="A:" goto :SureDriveLetterCHKDSK
-if /i "%DriveLetter%"=="B:" goto :SureDriveLetterCHKDSK
-if /i "%DriveLetter%"=="C:" goto :SureDriveLetterCHKDSK
-if /i "%DriveLetter%"=="D:" goto :SureDriveLetterCHKDSK
-if /i "%DriveLetter%"=="E:" goto :SureDriveLetterCHKDSK
-if /i "%DriveLetter%"=="F:" goto :SureDriveLetterCHKDSK
-if /i "%DriveLetter%"=="G:" goto :SureDriveLetterCHKDSK
-if /i "%DriveLetter%"=="H:" goto :SureDriveLetterCHKDSK
-if /i "%DriveLetter%"=="I:" goto :SureDriveLetterCHKDSK
-if /i "%DriveLetter%"=="J:" goto :SureDriveLetterCHKDSK
-if /i "%DriveLetter%"=="K:" goto :SureDriveLetterCHKDSK
-if /i "%DriveLetter%"=="L:" goto :SureDriveLetterCHKDSK
-if /i "%DriveLetter%"=="M:" goto :SureDriveLetterCHKDSK
-if /i "%DriveLetter%"=="N:" goto :SureDriveLetterCHKDSK
-if /i "%DriveLetter%"=="O:" goto :SureDriveLetterCHKDSK
-if /i "%DriveLetter%"=="P:" goto :SureDriveLetterCHKDSK
-if /i "%DriveLetter%"=="Q:" goto :SureDriveLetterCHKDSK
-if /i "%DriveLetter%"=="R:" goto :SureDriveLetterCHKDSK
-if /i "%DriveLetter%"=="S:" goto :SureDriveLetterCHKDSK
-if /i "%DriveLetter%"=="T:" goto :SureDriveLetterCHKDSK
-if /i "%DriveLetter%"=="U:" goto :SureDriveLetterCHKDSK
-if /i "%DriveLetter%"=="V:" goto :SureDriveLetterCHKDSK
-if /i "%DriveLetter%"=="W:" goto :SureDriveLetterCHKDSK
-if /i "%DriveLetter%"=="X:" goto :SureDriveLetterCHKDSK
-if /i "%DriveLetter%"=="Y:" goto :SureDriveLetterCHKDSK
-if /i "%DriveLetter%"=="Z:" goto :SureDriveLetterCHKDSK
-echo Invalid Syntax!
-goto :10
-
-:SureDriveLetterCHKDSK
-echo.
-set /p SureDriveLetter="Are you sure %DriveLetter% is the drive letter of your Windows Disk Image? (Yes/No) "
-if /i "%SureDriveLetter%"=="Yes" goto :CHKDSK
-if /i "%SureDriveLetter%"=="No" goto :DriveLetter
-echo Invalid Syntax!
-goto :SureDriveLetterCHKDSK
-
-:CHKDSK
-chkdsk %DriveLetter% /f /r
+%SystemDrive%
+cd Windows\Logs\CBS
+CBS.log
 goto :Start
 
 :Done
