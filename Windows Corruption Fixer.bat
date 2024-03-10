@@ -18,7 +18,7 @@ echo [8] SFC Scan File
 echo [9] SFC Verify File
 echo [10] View SFC Logs
 echo [11] Close
-set /p input="Which one do you want? (1/12) "
+set /p input="Which one do you want to do? (1/12) "
 if /i "%input%"=="1" goto :1
 if /i "%input%"=="2" goto :2
 if /i "%input%"=="3" goto :3
