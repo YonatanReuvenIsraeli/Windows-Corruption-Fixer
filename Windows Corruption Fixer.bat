@@ -165,7 +165,7 @@ goto :Start
 :5
 %SystemDrive%
 cd Windows\Logs\DISM
-start dism.log
+dism.log
 goto :Start
 
 :6
@@ -191,7 +191,7 @@ goto :Start
 :10
 %SystemDrive%
 cd Windows\Logs\CBS
-start CBS.log
+CBS.log
 goto :Start
 
 :Done
