@@ -31,7 +31,7 @@ if /i "%input%"=="9" goto :9
 if /i "%input%"=="10" goto :10
 if /i "%input%"=="11" goto :Done
 echo Invalid Syntax
-goto :Main
+goto :Start
 
 :1
 echo.
