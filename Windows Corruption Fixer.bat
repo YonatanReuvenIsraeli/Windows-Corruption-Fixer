@@ -18,18 +18,18 @@ echo [8] SFC Scan File
 echo [9] SFC Verify File
 echo [10] View SFC Logs
 echo [11] Close
-set /p input="Which one do you want to do? (1/12) "
-if /i "%input%"=="1" goto 1
-if /i "%input%"=="2" goto 2
-if /i "%input%"=="3" goto 3
-if /i "%input%"=="4" goto 4
-if /i "%input%"=="5" goto 5
-if /i "%input%"=="6" goto 6
-if /i "%input%"=="7" goto 7
-if /i "%input%"=="8" goto 8
-if /i "%input%"=="9" goto 9
-if /i "%input%"=="10" goto 10
-if /i "%input%"=="11" goto Done
+set /p Input="Which one do you want to do? (1/12) "
+if /i "%Input%"=="1" goto 1
+if /i "%Input%"=="2" goto 2
+if /i "%Input%"=="3" goto 3
+if /i "%Input%"=="4" goto 4
+if /i "%Input%"=="5" goto 5
+if /i "%Input%"=="6" goto 6
+if /i "%Input%"=="7" goto 7
+if /i "%Input%"=="8" goto 8
+if /i "%Input%"=="9" goto 9
+if /i "%Input%"=="10" goto 10
+if /i "%Input%"=="11" goto Done
 echo Invalid Syntax
 goto Start
 
