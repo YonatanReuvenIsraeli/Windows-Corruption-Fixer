@@ -18,6 +18,7 @@ echo [8] SFC Scan File
 echo [9] SFC Verify File
 echo [10] View SFC Logs
 echo [11] Close
+set Input=
 set /p Input="Which one do you want to do? (1/12) "
 if /i "%Input%"=="1" goto 1
 if /i "%Input%"=="2" goto 2
@@ -35,6 +36,7 @@ goto Start
 
 :1
 echo.
+set DriveLetter=
 set /p DriveLetter="Which drive do you want to run Check Disk on? (A:-Z:) "
 if /i "%DriveLetter%"=="A:" goto SureDriveLetterCHKDSK
 if /i "%DriveLetter%"=="B:" goto SureDriveLetterCHKDSK
@@ -67,6 +69,7 @@ goto 1
 
 :SureDriveLetterCHKDSK
 echo.
+set SureDriveLetter=
 set /p SureDriveLetter="Are you sure %DriveLetter% is the drive letter of your Windows Disk Image? (Yes/No) "
 if /i "%SureDriveLetter%"=="Yes" goto CHKDSK
 if /i "%SureDriveLetter%"=="No" goto DriveLetter
@@ -87,6 +90,8 @@ goto Start
 
 :4
 echo.
+SureDriveLetter
+set Media=
 set /p Media="Do you want to use a Windows installation Media? (Yes/No) "
 if /i "%Media%"=="Yes" goto Install
 if /i "%Media%"=="No" goto DISM
@@ -98,6 +103,7 @@ goto ESDWIM
 
 :ESDWIM
 echo.
+set install=
 set /p install="Do you have install.esd or install.wim? (install.esd/install.wim) "
 if "%install%"=="install.esd" goto DriveLetter
 if "%install%"=="install.wim" goto DriveLetter
@@ -106,6 +112,7 @@ goto ESDWIM
 
 :DriveLetter
 echo.
+set DriveLetter=
 set /p DriveLetter="What is your drive letter of your Windows Installation Media? (A:-Z:) "
 if /i "%DriveLetter%"=="A:" goto SureDriveLetterDISM
 if /i "%DriveLetter%"=="B:" goto SureDriveLetterDISM
@@ -138,6 +145,7 @@ goto DriveLetter
 
 :SureDriveLetterDISM
 echo.
+set SureDriveLetter=
 set /p SureDriveLetter="Are you sure %DriveLetter% is the drive letter of your Windows Disk Image? (Yes/No) "
 if /i "%SureDriveLetter%"=="Yes" goto ESDWIM1
 if /i "%SureDriveLetter%"=="No" goto DriveLetter
@@ -178,12 +186,14 @@ goto Start
 
 :8
 echo. 
+set ScanFile=
 set /p ScanFile="Please specify a file. You can add /offwindir, /offbootdir and/or /offlogfile as part of the file if needed. "
 sfc /scanfile="%ScanFile%"
 goto Start
 
 :9
 echo.
+set VerifyFile=
 set /p VerifyFile="Please specify a file. You can add /offwindir, /offbootdir and/or /offlogfile as part of the file if needed. "
 sfc /verifyfile="%VerifyFile%"
 goto Start
