@@ -1,7 +1,7 @@
 @echo off
 setlocal
 title Windows Corruption Fixer
-echo Windows Corruption Fixer v2.0.0
+echo Windows Corruption Fixer v2.0.1
 echo.
 echo Please run this batch file as an administrator.
 goto Start
@@ -95,22 +95,8 @@ echo.
 SureDriveLetter
 set Media=
 set /p Media="Do you want to use a Windows installation Media? (Yes/No) "
-if /i "%Media%"=="Yes" goto Install
+if /i "%Media%"=="Yes" goto DriveLetter
 if /i "%Media%"=="No" goto DISM
-
-:Install
-echo Go to "X:\sources", where "X:" is the drive letter of you monted disk image and look for install.esd or install.wim and then press any key to continue.
-pause
-goto ESDWIM
-
-:ESDWIM
-echo.
-set install=
-set /p install="Do you have install.esd or install.wim? (install.esd/install.wim) "
-if "%install%"=="install.esd" goto DriveLetter
-if "%install%"=="install.wim" goto DriveLetter
-echo Invalid Syntax!
-goto ESDWIM
 
 :DriveLetter
 echo.
