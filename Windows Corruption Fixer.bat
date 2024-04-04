@@ -1,7 +1,7 @@
 @echo off
 setlocal
 title Windows Corruption Fixer
-echo Windows Corruption Fixer v1.0.1
+echo Windows Corruption Fixer v2.0.0
 echo.
 echo Please run this batch file as an administrator.
 goto Start
@@ -149,21 +149,99 @@ goto DriveLetter
 echo.
 set SureDriveLetter=
 set /p SureDriveLetter="Are you sure "%DriveLetter%" is the drive letter of your Windows Disk Image? (Yes/No) "
-if /i "%SureDriveLetter%"=="Yes" goto ESDWIM1
+if /i "%SureDriveLetter%"=="Yes" goto BitDetection
 if /i "%SureDriveLetter%"=="No" goto DriveLetter
 echo Invalid Syntax!
 goto SureDriveLetter
 
-:ESDWIM2
-if /i "%install%"=="install.esd" goto DISMESD
-if /i "%install%"=="install.wim" goto DISMWIM
+:BitDetection
+if exist "%DriveLetter%\sources" goto ESDSWMWIM
+goto Bit1
+
+:Bit1
+echo.
+set Bit=
+set /p Bit="Do you have a 32-bit or 64-bit version of Windows? (32/64) "
+if /i "%Bit%"=="32" goto SureBit
+if /i "%Bit%"=="64" goto SureBit
+echo Invalid Syntax!
+goto Bit1
+
+:SureBit
+echo.
+set SureBit=
+set /p SureBit="Are you sure you have a %Bit%-bit version of Windows? "
+if /i "%SureBit%"=="Yes" goto Bit2
+if /i "%SureBit%"=="No" goto Bit1
+echo Invalid Syntax!
+goto SureBit
+
+:Bit2
+if /i "%Bit%"=="32" goto 32ESDSWMWIM
+if /i "%Bit%"=="64" goto 64ESDSWMWIM
+
+:ESDSWMWIM
+if exist "%DriveLetter%\sources\install.esd" goto DISMESD
+if exist "%DriveLetter%\sources\install.swm" goto DISMSWM
+if exist "%DriveLetter%\sources\install.wim" goto DISMWIM
+echo Invalid Drive Letter!
+goto DriveLetter
+
+:32ESDSWMWIM
+if exist "%DriveLetter%\x86\sources\install.esd" goto 32DISMESD
+if exist "%DriveLetter%\x86\sources\install.swm" goto 32DISMSWM
+if exist "%DriveLetter%\x86\sources\install.wim" goto 32DISMWIM
+echo Invalid Drive Letter!
+goto DriveLetter
+
+:64ESDSWMWIM
+if exist "%DriveLetter%\x64\sources\install.esd" goto 64DISMESD
+if exist "%DriveLetter%\x64\sources\install.swm" goto 64DISMSWM
+if exist "%DriveLetter%\x64\sources\install.wim" goto 64DISMWIM
+echo Invalid Drive Letter!
+goto DriveLetter
 
 :DISMESD
 DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\install.esd"
 if errorlevel 1 goto 8
 goto Start
 
+:DISMSWM
+DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\install.swm+"
+if errorlevel 1 goto 8
+goto Start
+
 :DISMWIM
+DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\install.wim"
+if errorlevel 1 goto 8
+goto Start
+
+:32DISMESD
+DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\install.esd"
+if errorlevel 1 goto 8
+goto Start
+
+:32DISMSWM
+DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\install.swm+"
+if errorlevel 1 goto 8
+goto Start
+
+:32DISMWIM
+DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\install.wim"
+if errorlevel 1 goto 8
+goto Start
+
+:64DISMESD
+DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\install.esd"
+if errorlevel 1 goto 8
+goto Start
+
+:64DISMSWM
+DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\install.swm+"
+if errorlevel 1 goto 8
+goto Start
+
+:64DISMWIM
 DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\install.wim"
 if errorlevel 1 goto 8
 goto Start
