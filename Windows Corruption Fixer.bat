@@ -1,7 +1,7 @@
 @echo off
 setlocal
 title Windows Corruption Fixer
-echo Windows Corruption Fixer v1.0
+echo Windows Corruption Fixer v1.0.0
 echo.
 echo Please run this batch file as an administrator.
 goto Start
