@@ -1,7 +1,7 @@
 @echo off
 setlocal
 title Windows Corruption Fixer
-echo Windows Corruption Fixer v1.0.0
+echo Windows Corruption Fixer v1.0.1
 echo.
 echo Please run this batch file as an administrator.
 goto Start
@@ -79,7 +79,7 @@ echo Invalid Syntax!
 goto SureDriveLetterCHKDSK
 
 :CHKDSK
-chkdsk %DriveLetter% /f /r
+chkdsk "%DriveLetter%" /f /r
 goto Start
 
 :2
@@ -99,7 +99,7 @@ if /i "%Media%"=="Yes" goto Install
 if /i "%Media%"=="No" goto DISM
 
 :Install
-echo Go to X:\sources, where X: is the drive letter of you monted disk image and look for install.esd or install.wim and then press any key to continue.
+echo Go to "X:\sources", where "X:" is the drive letter of you monted disk image and look for install.esd or install.wim and then press any key to continue.
 pause
 goto ESDWIM
 
@@ -148,7 +148,7 @@ goto DriveLetter
 :SureDriveLetterDISM
 echo.
 set SureDriveLetter=
-set /p SureDriveLetter="Are you sure %DriveLetter% is the drive letter of your Windows Disk Image? (Yes/No) "
+set /p SureDriveLetter="Are you sure "%DriveLetter%" is the drive letter of your Windows Disk Image? (Yes/No) "
 if /i "%SureDriveLetter%"=="Yes" goto ESDWIM1
 if /i "%SureDriveLetter%"=="No" goto DriveLetter
 echo Invalid Syntax!
@@ -159,12 +159,12 @@ if /i "%install%"=="install.esd" goto DISMESD
 if /i "%install%"=="install.wim" goto DISMWIM
 
 :DISMESD
-DISM /Online /Cleanup-Image /RestoreHealth /Source:%DriveLetter%:\Sources\install.esd
+DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\install.esd"
 if errorlevel 1 goto 8
 goto Start
 
 :DISMWIM
-DISM /Online /Cleanup-Image /RestoreHealth /Source:%DriveLetter%:\Sources\install.wim
+DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\install.wim"
 if errorlevel 1 goto 8
 goto Start
 
@@ -173,8 +173,9 @@ DISM /Online /Cleanup-Image /RestoreHealth
 goto Start
 
 :5
-%SystemDrive%
-cd Windows\Logs\DISM
+"%SystemDrive%"
+cd\
+cd "Windows\Logs\DISM"
 dism.log
 goto Start
 
@@ -201,8 +202,9 @@ sfc /verifyfile="%VerifyFile%"
 goto Start
 
 :10
-%SystemDrive%
-cd Windows\Logs\CBS
+"%SystemDrive%"
+cd\
+cd "Windows\Logs\CBS"
 CBS.log
 goto Start
 
