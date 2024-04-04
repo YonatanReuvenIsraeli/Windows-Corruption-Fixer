@@ -1,7 +1,7 @@
 @echo off
 setlocal
 title Windows Corruption Fixer
-echo Windows Corruption Fixer v2.0.1
+echo Windows Corruption Fixer v2.0.2
 echo.
 echo Please run this batch file as an administrator.
 goto Start
@@ -92,7 +92,6 @@ goto Start
 
 :4
 echo.
-SureDriveLetter
 set Media=
 set /p Media="Do you want to use a Windows installation Media? (Yes/No) "
 if /i "%Media%"=="Yes" goto DriveLetter
