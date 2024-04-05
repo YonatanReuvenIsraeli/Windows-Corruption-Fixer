@@ -1,7 +1,7 @@
 @echo off
 setlocal
 title Windows Corruption Fixer
-echo Windows Corruption Fixer v4.0.1
+echo Windows Corruption Fixer v4.0.2
 echo.
 echo Please run this batch file as an administrator.
 goto Start
@@ -250,19 +250,8 @@ goto Index
 
 :Index
 echo.
-echo [1] Home
-echo [2] Home N
-echo [3] Home Single Language
-echo [4] Education
-echo [5] Education N
-echo [6] Pro
-echo [7] Pro N
-echo [8] Pro Education
-echo [9] Pro Education N
-echo [10] Pro for Workstations
-echo [11] Pro for Workstations N
 set Index=
-set /p Index="Which one do you have (1-7/11)? "
+set /p Index="Which one do you have on your PC? (1-7/11)? "
 if /i "%Index%"=="1" goto SureIndex
 if /i "%Index%"=="2" goto SureIndex
 if /i "%Index%"=="3" goto SureIndex
