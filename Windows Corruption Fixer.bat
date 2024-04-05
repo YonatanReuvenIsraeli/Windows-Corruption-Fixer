@@ -1,7 +1,7 @@
 @echo off
 setlocal
 title Windows Corruption Fixer
-echo Windows Corruption Fixer v4.0.0
+echo Windows Corruption Fixer v4.0.1
 echo.
 echo Please run this batch file as an administrator.
 goto Start
@@ -311,7 +311,7 @@ if exist "%DriveLetter%\x64\sources\install.wim" goto 64DISMWIMUpdateCheck
 echo Invalid Drive Letter!
 goto DriveLetter
 
-:DISMESDUpdateCheck
+:DISMUpdateCheck
 if /i "%Update%"=="Yes" goto DISMESDNoUpdate
 if /i "%Update%"=="No" goto DISMESD
 
@@ -321,6 +321,10 @@ goto Start
 
 :DISMNoUpdate
 DISM /Online /Cleanup-Image /RestoreHealth /LimitAccess
+
+:DISMESDUpdateCheck
+if /i "%Update%"=="Yes" goto DISMESDNoUpdate
+if /i "%Update%"=="No" goto DISMESD
 
 :DISMESD
 DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\install.esd":%Index%
