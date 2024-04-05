@@ -1,14 +1,13 @@
 @echo off
 setlocal
 title Windows Corruption Fixer
-echo Windows Corruption Fixer v4.0.2
+echo Windows Corruption Fixer v4.0.3
 echo.
 echo Please run this batch file as an administrator.
 goto Start
 
 :Start
 echo.
-echo Do you want to-
 echo [1] Check Disk
 echo [2] DISM Check Health
 echo [3] DISM Scan Health
