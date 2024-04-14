@@ -1,7 +1,7 @@
 @echo off
 setlocal
 title Windows Corruption Fixer
-echo Windows Corruption Fixer v4.0.3
+echo Windows Corruption Fixer v4.0.4
 echo.
 echo Please run this batch file as an administrator.
 goto Start
@@ -20,7 +20,7 @@ echo [9] SFC Verify File
 echo [10] View SFC Logs
 echo [11] Close
 set Input=
-set /p Input="Which one do you want to do? (1/12) "
+set /p Input="Which one do you want to do? (1-12) "
 if /i "%Input%"=="1" goto 1
 if /i "%Input%"=="2" goto 2
 if /i "%Input%"=="3" goto 3
@@ -148,7 +148,10 @@ goto SureDriveLetter
 
 :BitDetection
 if exist "%DriveLetter%\sources" goto ESDSWMWIM1
-goto Bit1
+if exist "%DriveLetter%\x86\sources" goto Bit1
+if exist "%DriveLetter%\x64\sources" goto Bit1
+echo Invalid Drive Letter!
+goto DriveLetter
 
 :Bit1
 echo.
@@ -176,22 +179,16 @@ if /i "%Bit%"=="64" goto 64ESDSWMWIM1
 if exist "%DriveLetter%\sources\install.esd" goto DISMESD1
 if exist "%DriveLetter%\sources\install.swm" goto DISMSWM1
 if exist "%DriveLetter%\sources\install.wim" goto DISMWIM1
-echo Invalid Drive Letter!
-goto DriveLetter
 
 :32ESDSWMWIM1
 if exist "%DriveLetter%\x86\sources\install.esd" goto 32DISMESD1
 if exist "%DriveLetter%\x86\sources\install.swm" goto 32DISMSWM1
 if exist "%DriveLetter%\x86\sources\install.wim" goto 32DISMWIM1
-echo Invalid Drive Letter!
-goto DriveLetter
 
 :64ESDSWMWIM1
 if exist "%DriveLetter%\x64\sources\install.esd" goto 64DISMESD1
 if exist "%DriveLetter%\x64\sources\install.swm" goto 64DISMSWM1
 if exist "%DriveLetter%\x64\sources\install.wim" goto 64DISMWIM1
-echo Invalid Drive Letter!
-goto DriveLetter
 
 :DISMESD1
 set install=install.esd
