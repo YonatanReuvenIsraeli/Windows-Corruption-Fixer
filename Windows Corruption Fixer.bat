@@ -2,13 +2,19 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 4.1.0
+echo Version: 5.0.0
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
-echo.
-echo Please run this batch file as an administrator.
+net session > nul 2>&1
+if not "%errorlevel%"=="0" goto NotAdministrator
 goto Start
+
+:NotAdministrator
+echo.
+echo Please run this batch file as an administrator. Press any key to close this batch file.
+pause > nul 2>&1
+goto Close
 
 :Start
 echo.
