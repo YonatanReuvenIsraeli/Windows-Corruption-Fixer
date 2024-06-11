@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 5.0.1
+echo Version: 5.0.2
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -30,7 +30,7 @@ echo [9] SFC Verify File
 echo [10] View SFC Logs
 echo [11] Close
 set Input=
-set /p Input="Which one do you want to do? (1-12) "
+set /p Input="Which one do you want to do? (1-11) "
 if /i "%Input%"=="1" goto 1
 if /i "%Input%"=="2" goto 2
 if /i "%Input%"=="3" goto 3
