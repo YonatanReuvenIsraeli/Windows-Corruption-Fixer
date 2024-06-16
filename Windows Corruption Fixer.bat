@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 5.0.2
+echo Version: 5.0.3
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -42,7 +42,7 @@ if /i "%Input%"=="8" goto 8
 if /i "%Input%"=="9" goto 9
 if /i "%Input%"=="10" goto 10
 if /i "%Input%"=="11" goto Done
-echo Invalid Syntax
+echo Invalid syntax
 goto Start
 
 :1
@@ -75,7 +75,7 @@ if /i "%DriveLetter%"=="W:" goto SureDriveLetterCHKDSK
 if /i "%DriveLetter%"=="X:" goto SureDriveLetterCHKDSK
 if /i "%DriveLetter%"=="Y:" goto SureDriveLetterCHKDSK
 if /i "%DriveLetter%"=="Z:" goto SureDriveLetterCHKDSK
-echo Invalid Syntax!
+echo Invalid syntax!
 goto 1
 
 :SureDriveLetterCHKDSK
@@ -84,7 +84,7 @@ set SureDriveLetter=
 set /p SureDriveLetter="Are you sure %DriveLetter% is the drive letter of your Windows Disk Image? (Yes/No) "
 if /i "%SureDriveLetter%"=="Yes" goto CHKDSK
 if /i "%SureDriveLetter%"=="No" goto DriveLetter
-echo Invalid Syntax!
+echo Invalid syntax!
 goto SureDriveLetterCHKDSK
 
 :CHKDSK
@@ -144,7 +144,7 @@ if /i "%DriveLetter%"=="W:" goto SureDriveLetterDISM
 if /i "%DriveLetter%"=="X:" goto SureDriveLetterDISM
 if /i "%DriveLetter%"=="Y:" goto SureDriveLetterDISM
 if /i "%DriveLetter%"=="Z:" goto SureDriveLetterDISM
-echo Invalid Syntax!
+echo Invalid syntax!
 goto DriveLetterdDISM
 
 :SureDriveLetterDISM
@@ -153,7 +153,7 @@ set SureDriveLetter=
 set /p SureDriveLetter="Are you sure "%DriveLetter%" is the drive letter of your Windows Disk Image? (Yes/No) "
 if /i "%SureDriveLetter%"=="Yes" goto BitDetection
 if /i "%SureDriveLetter%"=="No" goto DriveLetter
-echo Invalid Syntax!
+echo Invalid syntax!
 goto SureDriveLetter
 
 :BitDetection
@@ -169,7 +169,7 @@ set Bit=
 set /p Bit="Do you have a 32-bit or 64-bit version of Windows? (32/64) "
 if /i "%Bit%"=="32" goto SureBit
 if /i "%Bit%"=="64" goto SureBit
-echo Invalid Syntax!
+echo Invalid syntax!
 goto Bit1
 
 :SureBit
@@ -178,7 +178,7 @@ set SureBit=
 set /p SureBit="Are you sure you have a %Bit%-bit version of Windows? "
 if /i "%SureBit%"=="Yes" goto Bit2
 if /i "%SureBit%"=="No" goto Bit1
-echo Invalid Syntax!
+echo Invalid syntax!
 goto SureBit
 
 :Bit2
@@ -269,7 +269,7 @@ if /i "%Index%"=="8" goto SureIndex
 if /i "%Index%"=="9" goto SureIndex
 if /i "%Index%"=="10" goto SureIndex
 if /i "%Index%"=="11" goto SureIndex
-echo Invalid Syntax!
+echo Invalid syntax!
 goto Index
 
 :SureIndex
