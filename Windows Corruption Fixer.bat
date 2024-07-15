@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 6.0.1
+echo Version: 6.0.2
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -151,10 +151,18 @@ goto DriveLetterDISM
 echo.
 set SureDriveLetter=
 set /p SureDriveLetter="Are you sure "%DriveLetter%" is the drive letter of your Windows Disk Image? (Yes/No) "
-if /i "%SureDriveLetter%"=="Yes" goto BitDetection
+if /i "%SureDriveLetter%"=="Yes" goto CheckExistDriveLetter
 if /i "%SureDriveLetter%"=="No" goto DriveLetter
 echo Invalid syntax!
 goto SureDriveLetter
+
+:CheckExistDriveLetter
+if not exist "%DriveLetter%" goto NotExist
+goto BitDetection
+
+:NotExist
+echo "%DriveLetter%" does not exist. Please try again.
+goto DriveLetter
 
 :BitDetection
 if exist "%DriveLetter%\sources" goto ESDSWMWIM1
