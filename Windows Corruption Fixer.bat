@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 6.0.0
+echo Version: 6.0.1
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -160,7 +160,7 @@ goto SureDriveLetter
 if exist "%DriveLetter%\sources" goto ESDSWMWIM1
 if exist "%DriveLetter%\x86\sources" goto Bit1
 if exist "%DriveLetter%\x64\sources" goto Bit1
-echo Invalid Drive Letter!
+echo Invalid drive letter!
 goto DriveLetter
 
 :Bit1
