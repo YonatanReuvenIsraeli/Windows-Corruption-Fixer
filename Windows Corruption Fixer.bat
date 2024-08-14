@@ -463,226 +463,226 @@ goto "Start"
 echo There has been an error! You can try again.
 goto "4"
 
-:5
+:"5"
 "%SystemDrive%"
 cd\
 "Windows\Logs\DISM\dism.log"
-goto Start
+goto "Start"
 
-:6
+:"6"
 sfc /scannow
-goto Start
+goto "Start"
 
-:7
+:"7"
 sfc /verifyonly
-goto Start
+goto "Start"
 
-:8
+:"8"
 echo.
 set DriveLetter=
 set /p DriveLetter="What is the drive letter of the Windows installation you are trying to scan file? (A:-Z:) "
-if /i "%DriveLetter%"=="A:" goto CheckExistDriveLetterSFCScanFile
-if /i "%DriveLetter%"=="B:" goto CheckExistDriveLetterSFCScanFile
-if /i "%DriveLetter%"=="C:" goto CheckExistDriveLetterSFCScanFile
-if /i "%DriveLetter%"=="D:" goto CheckExistDriveLetterSFCScanFile
-if /i "%DriveLetter%"=="E:" goto CheckExistDriveLetterSFCScanFile
-if /i "%DriveLetter%"=="F:" goto CheckExistDriveLetterSFCScanFile
-if /i "%DriveLetter%"=="G:" goto CheckExistDriveLetterSFCScanFile
-if /i "%DriveLetter%"=="H:" goto CheckExistDriveLetterSFCScanFile
-if /i "%DriveLetter%"=="I:" goto CheckExistDriveLetterSFCScanFile
-if /i "%DriveLetter%"=="J:" goto CheckExistDriveLetterSFCScanFile
-if /i "%DriveLetter%"=="K:" goto CheckExistDriveLetterSFCScanFile
-if /i "%DriveLetter%"=="L:" goto CheckExistDriveLetterSFCScanFile
-if /i "%DriveLetter%"=="M:" goto CheckExistDriveLetterSFCScanFile
-if /i "%DriveLetter%"=="N:" goto CheckExistDriveLetterSFCScanFile
-if /i "%DriveLetter%"=="O:" goto CheckExistDriveLetterSFCScanFile
-if /i "%DriveLetter%"=="P:" goto CheckExistDriveLetterSFCScanFile
-if /i "%DriveLetter%"=="Q:" goto CheckExistDriveLetterSFCScanFile
-if /i "%DriveLetter%"=="R:" goto CheckExistDriveLetterSFCScanFile
-if /i "%DriveLetter%"=="S:" goto CheckExistDriveLetterSFCScanFile
-if /i "%DriveLetter%"=="T:" goto CheckExistDriveLetterSFCScanFile
-if /i "%DriveLetter%"=="U:" goto CheckExistDriveLetterSFCScanFile
-if /i "%DriveLetter%"=="V:" goto CheckExistDriveLetterSFCScanFile
-if /i "%DriveLetter%"=="W:" goto CheckExistDriveLetterSFCScanFile
-if /i "%DriveLetter%"=="X:" goto CheckExistDriveLetterSFCScanFile
-if /i "%DriveLetter%"=="Y:" goto CheckExistDriveLetterSFCScanFile
-if /i "%DriveLetter%"=="Z:" goto CheckExistDriveLetterSFCScanFile
+if /i "%DriveLetter%"=="A:" goto "CheckExistDriveLetterSFCScanFile"
+if /i "%DriveLetter%"=="B:" goto "CheckExistDriveLetterSFCScanFile"
+if /i "%DriveLetter%"=="C:" goto "CheckExistDriveLetterSFCScanFile"
+if /i "%DriveLetter%"=="D:" goto "CheckExistDriveLetterSFCScanFile"
+if /i "%DriveLetter%"=="E:" goto "CheckExistDriveLetterSFCScanFile"
+if /i "%DriveLetter%"=="F:" goto "CheckExistDriveLetterSFCScanFile"
+if /i "%DriveLetter%"=="G:" goto "CheckExistDriveLetterSFCScanFile"
+if /i "%DriveLetter%"=="H:" goto "CheckExistDriveLetterSFCScanFile"
+if /i "%DriveLetter%"=="I:" goto "CheckExistDriveLetterSFCScanFile"
+if /i "%DriveLetter%"=="J:" goto "CheckExistDriveLetterSFCScanFile"
+if /i "%DriveLetter%"=="K:" goto "CheckExistDriveLetterSFCScanFile"
+if /i "%DriveLetter%"=="L:" goto "CheckExistDriveLetterSFCScanFile"
+if /i "%DriveLetter%"=="M:" goto "CheckExistDriveLetterSFCScanFile"
+if /i "%DriveLetter%"=="N:" goto "CheckExistDriveLetterSFCScanFile"
+if /i "%DriveLetter%"=="O:" goto "CheckExistDriveLetterSFCScanFile"
+if /i "%DriveLetter%"=="P:" goto "CheckExistDriveLetterSFCScanFile"
+if /i "%DriveLetter%"=="Q:" goto "CheckExistDriveLetterSFCScanFile"
+if /i "%DriveLetter%"=="R:" goto "CheckExistDriveLetterSFCScanFile"
+if /i "%DriveLetter%"=="S:" goto "CheckExistDriveLetterSFCScanFile"
+if /i "%DriveLetter%"=="T:" goto "CheckExistDriveLetterSFCScanFile"
+if /i "%DriveLetter%"=="U:" goto "CheckExistDriveLetterSFCScanFile"
+if /i "%DriveLetter%"=="V:" goto "CheckExistDriveLetterSFCScanFile"
+if /i "%DriveLetter%"=="W:" goto "CheckExistDriveLetterSFCScanFile"
+if /i "%DriveLetter%"=="X:" goto "CheckExistDriveLetterSFCScanFile"
+if /i "%DriveLetter%"=="Y:" goto "CheckExistDriveLetterSFCScanFile"
+if /i "%DriveLetter%"=="Z:" goto "CheckExistDriveLetterSFCScanFile"
 echo Invalid syntax!
-goto 8
+goto "8"
 
-:CheckExistDriveLetterSFCScanFile
-if not exist "%DriveLetter%" goto DriveLetterSFCScanFileNotExist
-if /i not "%DriveLetter%"=="%SystemDrive%" goto OfflineSFCScanFilePath
-goto SFCScanFilePath
+:"CheckExistDriveLetterSFCScanFile"
+if not exist "%DriveLetter%" goto "DriveLetterSFCScanFileNotExist"
+if /i not "%DriveLetter%"=="%SystemDrive%" goto "OfflineSFCScanFilePath"
+goto "SFCScanFilePath"
 
-:SFCScanFilePath
+:"SFCScanFilePath"
 echo.
 set SFCScanFile=
 set /p SFCScanFile="What is the full path to the file you want to scan? "
-if not exist "%SFCScanFile%" goto SFCScanFileNotExist
-goto SFCScanFile
+if not exist "%SFCScanFile%" goto "SFCScanFileNotExist"
+goto "SFCScanFile"
 
-:SFCScanFileNotExist
+:"SFCScanFileNotExist"
 echo.
 echo "%SFCScanFile%" does not exist! Please try again.
-goto SFCScanFilePath
+goto "SFCScanFilePath"
 
 :SFCScanFile
 sfc /scanfile="%SFCScanFile%"
-goto Start
+goto "Start"
 
-:DriveLetterSFCScanFileNotExist
+:"DriveLetterSFCScanFileNotExist"
 echo.
 echo "%DriveLetter%" does not exist! Please try again.
-goto 8
+goto "8"
 
-:OfflineSFCScanFilePath
+:"OfflineSFCScanFilePath"
 echo.
 set OfflineSFCScanFile=
 set /p OfflineSFCScanFile="What is the full path to the file you want to scan? "
-if not exist "%OfflineSFCScanFile%" goto OfflineSFCScanFileNotExist
-goto OfflineSFCScanFileLog
+if not exist "%OfflineSFCScanFile%" goto "OfflineSFCScanFileNotExist"
+goto "OfflineSFCScanFileLog"
 
-:OfflineSFCScanFileNotExist
+:"OfflineSFCScanFileNotExist"
 echo.
 echo "%OfflineSFCScanFile%" does not exist! Please try again.
-goto OfflineSFCScanFilePath
+goto "OfflineSFCScanFilePath"
 
-:OfflineSFCScanFileLog
+:"OfflineSFCScanFileLog"
 echo.
 set OfflineSFCScanLog=
 set /p OfflineSFCScanLog="Do you want to set a custom log file location? (Yes/No) "
-if /i "%OfflineSFCScanLog%"=="Yes" goto OfflineSFCScanLogLocation
-if /i "%OfflineSFCScanLog%"=="No" goto OfflineSFCScanFile
+if /i "%OfflineSFCScanLog%"=="Yes" goto "OfflineSFCScanLogLocation"
+if /i "%OfflineSFCScanLog%"=="No" goto "OfflineSFCScanFile"
 echo Invalid syntax!
-goto OfflineSFCScanFileLog
+goto "OfflineSFCScanFileLog"
 
-:OfflineSFCScanFile
+:"OfflineSFCScanFile"
 sfc /scanfile="%OfflineSFCScanFile%" /offbootdir="%DriveLetter%" /offwindir="%DriveLetter%\Windows"
-goto Start
+goto "Start"
 
-:OfflineSFCScanLogLocation
+:"OfflineSFCScanLogLocation"
 echo.
 set OfflineSFCScanLogLocation=
 set /p OfflineSFCscanLogLocation="What is the full path to the location you want to save the log file to? "
-if not exist "%OfflineSFCScanLogLocation%\nul" goto OfflineSFCScanLogLocationNotExist
-goto
+if not exist "%OfflineSFCScanLogLocation%\nul" goto "OfflineSFCScanLogLocationNotExist"
+goto "OfflineSFCScanLogSFCScanFile"
 
-:OfflineSFCScanLogLocationNotExist
+:"OfflineSFCScanLogLocationNotExist"
 echo.
 echo "%OfflineSScanLogLocation%" does not exist! Please try again.
-goto OfflineSFCScanLogLocation
+goto "OfflineSFCScanLogLocation"
 
-:OfflineSFCScanLogSFCScanFile
+:"OfflineSFCScanLogSFCScanFile"
 sfc /scanfile="%OfflineSFCScanFile%" /offbootdir="%DriveLetter%" /offwindir="%DriveLetter%\Windows" /offlogfile="%OfflineSFCScanLogLocation%"
-goto Start
+goto "Start"
 
-:9
+:"9"
 echo.
 set DriveLetter=
 set /p DriveLetter="What is the drive letter of the Windows installation you are trying to verify file? (A:-Z:) "
-if /i "%DriveLetter%"=="A:" goto CheckExistDriveLetterSFCVerifyFile
-if /i "%DriveLetter%"=="B:" goto CheckExistDriveLetterSFCVerifyFile
-if /i "%DriveLetter%"=="C:" goto CheckExistDriveLetterSFCVerifyFile
-if /i "%DriveLetter%"=="D:" goto CheckExistDriveLetterSFCVerifyFile
-if /i "%DriveLetter%"=="E:" goto CheckExistDriveLetterSFCVerifyFile
-if /i "%DriveLetter%"=="F:" goto CheckExistDriveLetterSFCVerifyFile
-if /i "%DriveLetter%"=="G:" goto CheckExistDriveLetterSFCVerifyFile
-if /i "%DriveLetter%"=="H:" goto CheckExistDriveLetterSFCVerifyFile
-if /i "%DriveLetter%"=="I:" goto CheckExistDriveLetterSFCVerifyFile
-if /i "%DriveLetter%"=="J:" goto CheckExistDriveLetterSFCVerifyFile
-if /i "%DriveLetter%"=="K:" goto CheckExistDriveLetterSFCVerifyFile
-if /i "%DriveLetter%"=="L:" goto CheckExistDriveLetterSFCVerifyFile
-if /i "%DriveLetter%"=="M:" goto CheckExistDriveLetterSFCVerifyFile
-if /i "%DriveLetter%"=="N:" goto CheckExistDriveLetterSFCVerifyFile
-if /i "%DriveLetter%"=="O:" goto CheckExistDriveLetterSFCVerifyFile
-if /i "%DriveLetter%"=="P:" goto CheckExistDriveLetterSFCVerifyFile
-if /i "%DriveLetter%"=="Q:" goto CheckExistDriveLetterSFCVerifyFile
-if /i "%DriveLetter%"=="R:" goto CheckExistDriveLetterSFCVerifyFile
-if /i "%DriveLetter%"=="S:" goto CheckExistDriveLetterSFCVerifyFile
-if /i "%DriveLetter%"=="T:" goto CheckExistDriveLetterSFCVerifyFile
-if /i "%DriveLetter%"=="U:" goto CheckExistDriveLetterSFCVerifyFile
-if /i "%DriveLetter%"=="V:" goto CheckExistDriveLetterSFCVerifyFile
-if /i "%DriveLetter%"=="W:" goto CheckExistDriveLetterSFCVerifyFile
-if /i "%DriveLetter%"=="X:" goto CheckExistDriveLetterSFCVerifyFile
-if /i "%DriveLetter%"=="Y:" goto CheckExistDriveLetterSFCVerifyFile
-if /i "%DriveLetter%"=="Z:" goto CheckExistDriveLetterSFCVerifyFile
+if /i "%DriveLetter%"=="A:" goto "CheckExistDriveLetterSFCVerifyFile"
+if /i "%DriveLetter%"=="B:" goto "CheckExistDriveLetterSFCVerifyFile"
+if /i "%DriveLetter%"=="C:" goto "CheckExistDriveLetterSFCVerifyFile"
+if /i "%DriveLetter%"=="D:" goto "CheckExistDriveLetterSFCVerifyFile"
+if /i "%DriveLetter%"=="E:" goto "CheckExistDriveLetterSFCVerifyFile"
+if /i "%DriveLetter%"=="F:" goto "CheckExistDriveLetterSFCVerifyFile"
+if /i "%DriveLetter%"=="G:" goto "CheckExistDriveLetterSFCVerifyFile"
+if /i "%DriveLetter%"=="H:" goto "CheckExistDriveLetterSFCVerifyFile"
+if /i "%DriveLetter%"=="I:" goto "CheckExistDriveLetterSFCVerifyFile"
+if /i "%DriveLetter%"=="J:" goto "CheckExistDriveLetterSFCVerifyFile"
+if /i "%DriveLetter%"=="K:" goto "CheckExistDriveLetterSFCVerifyFile"
+if /i "%DriveLetter%"=="L:" goto "CheckExistDriveLetterSFCVerifyFile"
+if /i "%DriveLetter%"=="M:" goto "CheckExistDriveLetterSFCVerifyFile"
+if /i "%DriveLetter%"=="N:" goto "CheckExistDriveLetterSFCVerifyFile"
+if /i "%DriveLetter%"=="O:" goto "CheckExistDriveLetterSFCVerifyFile"
+if /i "%DriveLetter%"=="P:" goto "CheckExistDriveLetterSFCVerifyFile"
+if /i "%DriveLetter%"=="Q:" goto "CheckExistDriveLetterSFCVerifyFile"
+if /i "%DriveLetter%"=="R:" goto "CheckExistDriveLetterSFCVerifyFile"
+if /i "%DriveLetter%"=="S:" goto "CheckExistDriveLetterSFCVerifyFile"
+if /i "%DriveLetter%"=="T:" goto "CheckExistDriveLetterSFCVerifyFile"
+if /i "%DriveLetter%"=="U:" goto "CheckExistDriveLetterSFCVerifyFile"
+if /i "%DriveLetter%"=="V:" goto "CheckExistDriveLetterSFCVerifyFile"
+if /i "%DriveLetter%"=="W:" goto "CheckExistDriveLetterSFCVerifyFile"
+if /i "%DriveLetter%"=="X:" goto "CheckExistDriveLetterSFCVerifyFile"
+if /i "%DriveLetter%"=="Y:" goto "CheckExistDriveLetterSFCVerifyFile"
+if /i "%DriveLetter%"=="Z:" goto "CheckExistDriveLetterSFCVerifyFile"
 echo Invalid syntax!
-goto 9
+goto "9"
 
-:CheckExistDriveLetterSFCVerifyFile
-if not exist "%DriveLetter%" goto DriveLetterSFCVerifyFileNotExist
-if /i not "%DriveLetter%"=="%SystemDrive%" goto OfflineSFCVerifyFilePath
-goto SFCVerifyFilePath
+:"CheckExistDriveLetterSFCVerifyFile"
+if not exist "%DriveLetter%" goto "DriveLetterSFCVerifyFileNotExist"
+if /i not "%DriveLetter%"=="%SystemDrive%" goto "OfflineSFCVerifyFilePath"
+goto "SFCVerifyFilePath"
 
-:SFCVerifyFilePath
+:"SFCVerifyFilePath"
 echo.
 set SFCVerifyFile=
 set /p SFCVerifyFile="What is the full path to the file you want to verify? "
-if not exist "%SFCVerifyFile%" goto SFCVerifyFileNotExist
-goto SFCVerifyFile
+if not exist "%SFCVerifyFile%" goto "SFCVerifyFileNotExist"
+goto "SFCVerifyFile"
 
-:SFCVerifyFileNotExist
+:"SFCVerifyFileNotExist"
 echo.
 echo "%SFCVerifyFile%" does not exist! Please try again.
-goto SFCVerifyFilePath
+goto "SFCVerifyFilePath"
 
-:SFCVerifyFile
+:"SFCVerifyFile"
 sfc /verifyfile="%SFCVerifyFile%"
-goto Start
+goto "Start"
 
-:DriveLetterSFCVerifyFileNotExist
+:"DriveLetterSFCVerifyFileNotExist"
 echo.
 echo "%SFCVerifyFile%" does not exist! Please try again.
-goto SFCVerifyFilePath
+goto "SFCVerifyFilePath"
 
-:OfflineSFCVerifyFilePath
+:"OfflineSFCVerifyFilePath"
 echo.
 set OfflineSFCVerifyFile=
 set /p OfflineSFCVerifyFile="What is the full path to the file you want to verify? "
-if not exist "%OfflineSFCVerifyFile%" goto OfflineSFCVerifyFileNotExist
-goto OfflineSFCVerifyFileLog
+if not exist "%OfflineSFCVerifyFile%" goto "OfflineSFCVerifyFileNotExist"
+goto "OfflineSFCVerifyFileLog"
 
-:OfflineSFCVerifyFileNotExist
+:"OfflineSFCVerifyFileNotExist"
 echo.
 echo "%OfflineSFCVerifyFile%" does not exist! Please try again.
-goto OfflineSFCVerifyFilePath
+goto "OfflineSFCVerifyFilePath"
 
-:OfflineSFCVerifyFileLog
+:"OfflineSFCVerifyFileLog"
 echo.
 set OfflineSFCVerifyLog=
 set /p OfflineSFCVerifyLog="Do you want to set a custom log file location? (Yes/No) "
-if /i "%OfflineSFCVerifyLog%"=="Yes" goto OfflineSFCVerifyLogLocation
-if /i "%OfflineSFCVerifyLog%"=="No" goto OfflineSFCVerifyFile
+if /i "%OfflineSFCVerifyLog%"=="Yes" goto "OfflineSFCVerifyLogLocation"
+if /i "%OfflineSFCVerifyLog%"=="No" goto "OfflineSFCVerifyFile"
 echo Invalid syntax!
-goto OfflineSFCVerifyFileLog
+goto "OfflineSFCVerifyFileLog"
 
-:OfflineSFCSVerifyFile
+:"OfflineSFCSVerifyFile"
 sfc /Verifyfile="%OfflineSFCVerifyFile%" /offbootdir="%DriveLetter%" /offwindir="%DriveLetter%\Windows"
-goto Start
+goto "Start"
 
-:OfflineSFCVerifyLogLocation
+:"OfflineSFCVerifyLogLocation"
 echo.
 set OfflineSFCVerifyLogLocation=
 set /p OfflineSFCVerifyLogLocation="What is the full path to the location you want to save the log file to? "
-if not exist "%OfflineSFCVerifyLogLocation%\nul" goto OfflineSFCVerifyLogLocationNotExist
-goto
+if not exist "%OfflineSFCVerifyLogLocation%\nul" goto "OfflineSFCVerifyLogLocationNotExist"
+goto "OfflineSFCVerifyLogVerifyVerifyFile"
 
-:OfflineSFCVerifyLogLocationNotExist
+:"OfflineSFCVerifyLogLocationNotExist"
 echo.
 echo "%OfflineSFCSVerifyLogLocation%" does not exist! Please try again.
-goto OfflineSFCVerifyLogLocation
+goto "OfflineSFCVerifyLogLocation"
 
 :OfflineSFCVerifyLogVerifyVerifyFile
 sfc /verifyfile="%OfflineSFCVerifyFile%" /offbootdir="%DriveLetter%" /offwindir="%DriveLetter%\Windows" /offlogfile="%OfflineSFCVerifyLogLocation%"
-goto Start
+goto "Start"
 
-:10
+:"10"
 "%SystemDrive%"
 cd\
 "Windows\Logs\CBS\CBS.log"
-goto Start
+goto "Start"
 
-:Done
+:"Done"
 endlocal
 exit
