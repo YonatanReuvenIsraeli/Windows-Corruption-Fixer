@@ -78,7 +78,7 @@ if /i "%DriveLetter%"=="Z:" goto "SureDriveLetterCHKDSK"
 echo Invalid syntax!
 goto "1"
 
-:SureDriveLetterCHKDSK
+:"SureDriveLetterCHKDSK"
 echo.
 set SureDriveLetter=
 set /p SureDriveLetter="Are you sure %DriveLetter% is the drive letter of your Windows Disk Image? (Yes/No) "
@@ -87,15 +87,20 @@ if /i "%SureDriveLetter%"=="No" goto "DriveLetter"
 echo Invalid syntax!
 goto "SureDriveLetterCHKDSK"
 
-:CHKDSK"SureDriveLetterCHKDSK"
+:"CHKDSK"
 chkdsk "%DriveLetter%" /f /r
+if not "%errorlevel%"=="0" goto "CHKDSKError"
 goto "Start"
 
-:2
+:"CHKDSKError"
+echo There has been an error! You can try again.
+goto "Start"
+
+:"2"
 DISM /Online /Cleanup-Image /CheckHealth
 goto "Start"
 
-:3
+:"3"
 DISM /Online /Cleanup-Image /ScanHealth
 goto "Start"
 
