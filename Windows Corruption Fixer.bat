@@ -10,13 +10,13 @@ net session > nul 2>&1
 if not "%errorlevel%"=="0" goto "NotAdministrator"
 goto "Start"
 
-:NotAdministrator
+:"NotAdministrator"
 echo.
 echo Please run this batch file as an administrator. Press any key to close this batch file.
 pause > nul 2>&1
 goto "Done"
 
-:Start
+:"Start"
 echo.
 echo [1] Check Disk
 echo [2] DISM Check Health
@@ -45,7 +45,7 @@ if /i "%Input%"=="11" goto "Done"
 echo Invalid syntax
 goto "Start"
 
-:1
+:"1"
 echo.
 set DriveLetter=
 set /p DriveLetter="Which drive do you want to run Check Disk on? (A:-Z:) "
