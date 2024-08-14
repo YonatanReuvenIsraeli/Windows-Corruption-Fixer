@@ -104,7 +104,7 @@ goto "Start"
 DISM /Online /Cleanup-Image /ScanHealth
 goto "Start"
 
-:4
+:"4"
 echo.
 set /p Update="Do you want to use Windows Update? (Yes/No) "
 if /i "%Update%"=="Yes" goto "Media"
@@ -112,14 +112,14 @@ if /i "%Update%"=="No" goto "Media"
 echo Invalid Sytax!
 goto "4"
 
-:Media
+:"Media"
 echo.
 set Media=
 set /p Media="Do you want to use a Windows Disk Image? (Yes/No) "
 if /i "%Media%"=="Yes" goto "DriveLetter"
 if /i "%Media%"=="No" goto "DISMUpdateCheck"
 
-:DriveLetterDISM
+:"DriveLetter"
 echo.
 set DriveLetter=
 set /p Dri"SureDriveLetterCHKDSK"veLetter="What is your drive letter of your Windows Disk Image? (A:-Z:) "
