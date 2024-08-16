@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 6.0.4
+echo Version: 6.0.5
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -500,7 +500,6 @@ if not exist "%SFCScanFile%" goto "SFCScanFileNotExist"
 goto "SFCScanFile"
 
 :"SFCScanFileNotExist"
-echo.
 echo "%SFCScanFile%" does not exist! Please try again.
 goto "SFCScanFilePath"
 
@@ -509,7 +508,6 @@ sfc /scanfile="%SFCScanFile%"
 goto "Start"
 
 :"DriveLetterSFCScanFileNotExist"
-echo.
 echo "%DriveLetter%" does not exist! Please try again.
 goto "8"
 
@@ -521,7 +519,6 @@ if not exist "%OfflineSFCScanFile%" goto "OfflineSFCScanFileNotExist"
 goto "OfflineSFCScanFileLog"
 
 :"OfflineSFCScanFileNotExist"
-echo.
 echo "%OfflineSFCScanFile%" does not exist! Please try again.
 goto "OfflineSFCScanFilePath"
 
@@ -546,7 +543,6 @@ if not exist "%OfflineSFCScanLogLocation%\nul" goto "OfflineSFCScanLogLocationNo
 goto "OfflineSFCScanLogSFCScanFile"
 
 :"OfflineSFCScanLogLocationNotExist"
-echo.
 echo "%OfflineSScanLogLocation%" does not exist! Please try again.
 goto "OfflineSFCScanLogLocation"
 
@@ -600,7 +596,6 @@ if not exist "%SFCVerifyFile%" goto "SFCVerifyFileNotExist"
 goto "SFCVerifyFile"
 
 :"SFCVerifyFileNotExist"
-echo.
 echo "%SFCVerifyFile%" does not exist! Please try again.
 goto "SFCVerifyFilePath"
 
@@ -621,7 +616,6 @@ if not exist "%OfflineSFCVerifyFile%" goto "OfflineSFCVerifyFileNotExist"
 goto "OfflineSFCVerifyFileLog"
 
 :"OfflineSFCVerifyFileNotExist"
-echo.
 echo "%OfflineSFCVerifyFile%" does not exist! Please try again.
 goto "OfflineSFCVerifyFilePath"
 
@@ -646,7 +640,6 @@ if not exist "%OfflineSFCVerifyLogLocation%\nul" goto "OfflineSFCVerifyLogLocati
 goto "OfflineSFCVerifyLogVerifyVerifyFile"
 
 :"OfflineSFCVerifyLogLocationNotExist"
-echo.
 echo "%OfflineSFCSVerifyLogLocation%" does not exist! Please try again.
 goto "OfflineSFCVerifyLogLocation"
 
