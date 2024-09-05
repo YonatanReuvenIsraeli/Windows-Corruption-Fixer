@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 6.0.8
+echo Version: 6.0.9
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -442,9 +442,7 @@ DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\Sources\i
 goto "Start"
 
 :"5"
-"%SystemDrive%"
-cd\
-"Windows\Logs\DISM\dism.log"
+"%SystemDrive%\Windows\Logs\DISM\dism.log"
 goto "Start"
 
 :"6"
@@ -649,9 +647,7 @@ sfc /verifyfile="%OfflineSFCVerifyFile%" /offbootdir="%DriveLetter%" /offwindir=
 goto "Start"
 
 :"10"
-"%SystemDrive%"
-cd\
-"Windows\Logs\CBS\CBS.log"
+"%SystemDrive%\Windows\Logs\CBS\CBS.log"
 goto "Start"
 
 :"Done"
