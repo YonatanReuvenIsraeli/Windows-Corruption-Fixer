@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.4.5
+echo Version: 8.4.6
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -760,7 +760,7 @@ sfc /scannow
 goto "Start"
 
 :"ScanNowOffline"
-sfc /scannow /offbotdir="%ScanNowDriveLetter%" /offwindir="%ScanNowDriveLetter%\Windows"
+sfc /scannow /offbootdir="%ScanNowDriveLetter%" /offwindir="%ScanNowDriveLetter%\Windows"
 goto "Start"
 
 :"7"
