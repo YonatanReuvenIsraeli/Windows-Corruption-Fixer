@@ -380,7 +380,7 @@ goto "MediaOffline"
 :"InstallationRestore"
 echo.
 set InstallationRestore=
-set /p InstallationRestore="What is the drive letter to your offline Windows installation? (A:Z:) "
+set /p InstallationRestore="What is the drive letter to your offline Windows installation? (A:-Z:) "
 if /i "%InstallationRestore%"=="A:" goto "SureInstallationRestore"
 if /i "%InstallationRestore%"=="B:" goto "SureInstallationRestore"
 if /i "%InstallationRestore%"=="C:" goto "SureInstallationRestore"
