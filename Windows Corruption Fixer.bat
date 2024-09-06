@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.0.13
+echo Version: 8.1.0
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -706,7 +706,87 @@ goto "Start"
 goto "Start"
 
 :"6"
+echo.
+set OnlineOffline=
+set /p OnlineOffline="Are you repairing an online or offline Windows installation? (Online/Offline) "
+if /i "%OnlineOffline%"=="Online" goto "ScanNowOnline"
+if /i "%OnlineOffline%"=="Offline" goto "ScanNowDriveLetter"
+echo Invalid syntax
+goto "6"
+
+:"ScanNowDriveLetter"
+echo.
+set ScanNowDriveLetter=
+set /p ScanNowDriveLetter="What is the drive letter of the offline Windows installation? (A:-Z:) "
+if /i "%ScanNowDriveLetter%"=="A:" goto "CheckExistScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="B:" goto "CheckExistScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="C:" goto "CheckExistScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="D:" goto "CheckExistScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="E:" goto "CheckExistScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="F:" goto "CheckExistScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="G:" goto "CheckExistScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="H:" goto "CheckExistScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="I:" goto "CheckExistScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="J:" goto "CheckExistScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="K:" goto "CheckExistScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="L:" goto "CheckExistScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="M:" goto "CheckExistScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="N:" goto "CheckExistScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="O:" goto "CheckExistScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="P:" goto "CheckExistScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="Q:" goto "CheckExistScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="R:" goto "CheckExistScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="S:" goto "CheckExistScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="T:" goto "CheckExistScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="U:" goto "CheckExistScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="V:" goto "CheckExistScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="W:" goto "CheckExistScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="X:" goto "CheckExistScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="Y:" goto "CheckExistScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="Z:" goto "CheckExistScanNowDriveLetter"
+echo Invalid syntax!
+goto :"ScanNowDriveLetter"
+
+:"CheckExistScanNowDriveLetter"
+if not exist "%ScanNowDriveLetter%" goto "ScanNowDriveLetterNotExist"
+goto "ScanNowLogAsk"
+
+:"ScanNowDriveLetterNotExist"
+echo "%ScanNowDriveLetter%" does not exist!
+goto "ScanNowDriveLetter"
+
+:"ScanNowLogAsk"
+echo.
+set SFCScanNowLog=
+set /p SFCScanNowLog="Do you want to set a custom log file location? (Yes/No) "
+if /i "%SFCScanNowLog%"=="Yes" goto "ScanNowLogLocation"
+if /i "%SFCScanNowLog%"=="No" goto "ScanNowOffline"
+echo Invalid syntax!
+goto "ScanNowLogAsk"
+
+:"ScanNowLogLocation"
+echo.
+set OfflineScanNowLogLocation=
+set /p OfflineScanNowLogLocation="What is the full path without the file extention to the location you want to save the log file to? "
+if exist "%OfflineScanNowLogLocation%" goto "OfflineScanNowLogLocationNul"
+echo "%OfflineScanNowLogLocation%" does not exist! Please try again.
+goto "ScanNowLogAsk"
+
+:"OfflineScanNowLogLocationNul"
+if not exist "%OfflineScanNowLogLocation%\nul" goto "ScanNowOfflineLog"
+echo "%OfflineScanNowLogLocation%" need to be a file not folder! Please try again.
+goto "ScanNowLogAsk"
+
+"ScanNowOnline"
 sfc /scannow
+goto "Start
+
+:"ScanNowOffline"
+sfc /scannow /OFFBOOTDIR="%ScanNowDriveLetter%" /OFFWINDIR="%ScanNowDriveLetter%\Windows"
+goto "Start"
+
+:"ScanNowOfflineLog"
+sfc /scannow /OFFBOOTDIR="%ScanNowDriveLetter%" /OFFWINDIR="%ScanNowDriveLetter%\Windows" /OFFLOGFILE="%OfflineScanNowLogLocation%.txt"
 goto "Start"
 
 :"7"
