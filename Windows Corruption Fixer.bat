@@ -779,7 +779,7 @@ goto "ScanNowLogAsk"
 
 "ScanNowOnline"
 sfc /scannow
-goto "Start
+goto "Start"
 
 :"ScanNowOffline"
 sfc /scannow /offbotdir="%ScanNowDriveLetter%" /offwindir="%ScanNowDriveLetter%\Windows"
