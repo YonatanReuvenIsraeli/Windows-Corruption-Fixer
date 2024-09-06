@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.0.7
+echo Version: 8.0.8
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -646,9 +646,9 @@ if /i "%IndexNumber%"=="No" goto "IndexOffline"
 goto "SureIndexOffline"
 
 :"Bit3Offline"
-if /i "%Bit%"=="32" goto "32DISMInstallUpdateCheckOffline"
-if /i "%Bit%"=="64" goto "64DISMInstallUpdateCheckOffline"
-goto "DISMInstallUpdateCheckOffline"
+if /i "%Bit%"=="32" goto "32DISMUpdateCheckOffline"
+if /i "%Bit%"=="64" goto "64DISMUpdateCheckOffline"
+goto "DISMUpdateCheckOffline"
 
 :"DISMUpdateCheckOffline"
 if /i "%Update%"=="Yes" goto "DISMNoUpdateOffline"
@@ -660,18 +660,6 @@ goto "Start"
 
 :"DISMNoUpdateOffline"
 DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /LimitAccess
-goto "Start"
-
-:"DISMUpdateCheckOffline"
-if /i "%Update%"=="Yes" goto "DISMNoUpdateOffline"
-if /i "%Update%"=="No" goto "DISMOffline"
-
-:"DISMOffline"
-DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\%Install%":%Index%
-goto "Start"
-
-:"DISMNoUpdateOffline"
-DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\%Install%":%Index% /LimitAccess
 goto "Start"
 
 :"32DISMUpdateCheckOffline"
