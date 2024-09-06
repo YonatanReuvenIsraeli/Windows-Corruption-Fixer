@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 7.2.1
+echo Version: 8.0.0
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -143,7 +143,7 @@ echo Invalid syntax!
 goto "SureInstallationCheck"
 
 :"CheckExistInstallationCheck"
-if not exist "%InstallationCheck%" goto "NotExistRestore"
+if not exist "%InstallationCheck%" goto "NotExistCheck"
 goto "CheckOffline"
 
 :"NotExistCheck"
@@ -163,24 +163,65 @@ echo.
 set OnlineOffline=
 set /p OnlineOffline="Are you repairing an online or offline Windows installation? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "ScanOnline"
-if /i "%OnlineOffline%"=="Offline" goto "OfflineInstallationScan"
+if /i "%OnlineOffline%"=="Offline" goto "InstallationScan"
 echo Invalid syntax
 goto "3"
 
-:"OfflineInstallationScan"
+:"InstallationScan"
 echo.
-set OfflineInstallation=
-set /p OfflineInstallation="What is the full path to your offline Windows installation? "
-if exist "%OfflineInstallation%" goto "ScanOffline"
-echo "%OfflineInstallation%" does not exist! Please try again.
-goto "OfflineInstallationScan"
+set InstallationScan=
+set /p InstallationScan="What is the drive letter to your offline Windows installation? (A:-Z:) "
+if /i "%InstallationScan%"=="A:" goto "SureInstallationScan"
+if /i "%InstallationScan%"=="B:" goto "SureInstallationScan"
+if /i "%InstallationScan%"=="C:" goto "SureInstallationScan"
+if /i "%InstallationScan%"=="D:" goto "SureInstallationScan"
+if /i "%InstallationScan%"=="E:" goto "SureInstallationScan"
+if /i "%InstallationScan%"=="F:" goto "SureInstallationScan"
+if /i "%InstallationScan%"=="G:" goto "SureInstallationScan"
+if /i "%InstallationScan%"=="H:" goto "SureInstallationScan"
+if /i "%InstallationScan%"=="I:" goto "SureInstallationScan"
+if /i "%InstallationScan%"=="J:" goto "SureInstallationScan"
+if /i "%InstallationScan%"=="K:" goto "SureInstallationScan"
+if /i "%InstallationScan%"=="L:" goto "SureInstallationScan"
+if /i "%InstallationScan%"=="M:" goto "SureInstallationScan"
+if /i "%InstallationScan%"=="N:" goto "SureInstallationScan"
+if /i "%InstallationScan%"=="O:" goto "SureInstallationScan"
+if /i "%InstallationScan%"=="P:" goto "SureInstallationScan"
+if /i "%InstallationScan%"=="Q:" goto "SureInstallationScan"
+if /i "%InstallationScan%"=="R:" goto "SureInstallationScan"
+if /i "%InstallationScan%"=="S:" goto "SureInstallationScan"
+if /i "%InstallationScan%"=="T:" goto "SureInstallationScan"
+if /i "%InstallationScan%"=="U:" goto "SureInstallationScan"
+if /i "%InstallationScan%"=="V:" goto "SureInstallationScan"
+if /i "%InstallationScan%"=="W:" goto "SureInstallationScan"
+if /i "%InstallationScan%"=="X:" goto "SureInstallationScan"
+if /i "%InstallationScan%"=="Y:" goto "SureInstallationScan"
+if /i "%InstallationScan%"=="Z:" goto "SureInstallationScan"
+goto "InstallationScan"
+
+:"SureSureInstallationScan"
+echo.
+set SureInstallationScan=
+set /p SureInstallationCheck="Are you sure "%DriveLetter%" is the drive letter of your offline Winddows installation? (Yes/No) "
+if /i "%SureInstallationScan%"=="Yes" goto "CheckExistInstallationScan"
+if /i "%SureInstallationScan%"=="No" goto "InstallationScan"
+echo Invalid syntax!
+goto "SureInstallationScan"
+
+:"CheckExistInstallationScan"
+if not exist "%InstallationScan%" goto "NotExistScan"
+goto "ScanOffline"
+
+:"NotExistCheck"
+echo "%InstallationScan%" does not exist. Please try again.
+goto "InstallationCScan"
 
 :"ScanOnline"
 DISM /Online /Cleanup-Image /ScanHealth
 goto "Start"
 
 :"ScanOffline"
-DISM /Image:"" /Cleanup-Image /ScanHealth
+DISM /Image:"%%" /Cleanup-Image /ScanHealth
 goto "Start"
 
 :"4"
