@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 7.0.1
+echo Version: 7.0.2
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -103,7 +103,7 @@ goto "Start"
 :"4"
 echo.
 set OnlineOffline=
-set /p OnlineOffline="Are you repairing an online or offline image? (Online/Offline) "
+set /p OnlineOffline="Are you repairing an online or offline Windows installation? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "UpdateOnline"
 if /i "%OnlineOffline%"=="Offline" goto "UpdateOffline"
 echo Invalid syntax
