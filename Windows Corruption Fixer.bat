@@ -148,14 +148,14 @@ goto "CheckOffline"
 
 :"NotExistCheck"
 echo "%InstallationCheck%" does not exist. Please try again.
-goto ""InstallationCheck"
+goto "InstallationCheck"
 
 :"CheckOnline"
 DISM /Online /Cleanup-Image /CheckHealth
 goto "Start"
 
 :"CheckOffline"
-DISM /Image:"" /Cleanup-Image /CheckHealth
+DISM /Image:"%InstallationCheck%" /Cleanup-Image /CheckHealth
 goto "Start"
 
 :"3"
@@ -309,7 +309,7 @@ goto "64DISMOnline"
 :"DISMOnline"
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOnline"
-goto "Index:"32DISMOnline""
+goto "Index:"32DISMOnline"
 
 :"32DISMOnline"
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x86\sources\%Install%"
@@ -454,7 +454,7 @@ echo.
 set SureInstallationRestore=
 set /p SureInstallationRestore="Are you sure "%DriveLetter%" is the drive letter of your offline Winddows installation? (Yes/No) "
 if /i "%SureInstallationRestore%"=="Yes" goto "CheckExistInstallationRestore"
-if /i "%SureInstallationRestore%"=="No" goto "OfflineInstallationRestore"
+if /i "%SureInstallationRestore%"=="No" goto "InstallationRestore"
 echo Invalid syntax!
 goto "SureInstallationRestore"
 
@@ -464,7 +464,7 @@ goto "DriveLetterOffline"
 
 :"NotExistRestore"
 echo "%OfflineInstallation%" does not exist. Please try again.
-goto ""OfflineInstallationRestore"
+goto "InstallationRestore"
 
 :"DriveLetterOffline"
 echo.
