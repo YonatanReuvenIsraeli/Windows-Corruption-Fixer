@@ -350,7 +350,7 @@ goto "64DISMOnline"
 :"DISMOnline"
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOnline"
-goto "Index:"32DISMOnline"
+goto "IndexOnline"
 
 :"32DISMOnline"
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x86\sources\%Install%"
