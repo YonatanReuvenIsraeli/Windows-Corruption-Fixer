@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.1.0
+echo Version: 8.2.0
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -766,15 +766,15 @@ goto "ScanNowLogAsk"
 
 :"ScanNowLogLocation"
 echo.
-set OfflineScanNowLogLocation=
-set /p OfflineScanNowLogLocation="What is the full path without the file extention to the location you want to save the log file to? "
-if exist "%OfflineScanNowLogLocation%" goto "OfflineScanNowLogLocationNul"
-echo "%OfflineScanNowLogLocation%" does not exist! Please try again.
+set ScanNowLogLocation=
+set /p ScanNowLogLocation="What is the full path without the file extention to the location you want to save the log file to? "
+if exist "%ScanNowLogLocation%" goto "ScanNowLogLocationNul"
+echo "%ScanNowLogLocation%" does not exist! Please try again.
 goto "ScanNowLogAsk"
 
-:"OfflineScanNowLogLocationNul"
-if not exist "%OfflineScanNowLogLocation%\nul" goto "ScanNowOfflineLog"
-echo "%OfflineScanNowLogLocation%" need to be a file not folder! Please try again.
+:"ScanNowLogLocationNul"
+if not exist "%ScanNowLogLocation%\nul" goto "ScanNowOfflineLog"
+echo "%ScanNowLogLocation%" need to be a file not folder! Please try again.
 goto "ScanNowLogAsk"
 
 "ScanNowOnline"
@@ -786,11 +786,91 @@ sfc /scannow /OFFBOOTDIR="%ScanNowDriveLetter%" /OFFWINDIR="%ScanNowDriveLetter%
 goto "Start"
 
 :"ScanNowOfflineLog"
-sfc /scannow /OFFBOOTDIR="%ScanNowDriveLetter%" /OFFWINDIR="%ScanNowDriveLetter%\Windows" /OFFLOGFILE="%OfflineScanNowLogLocation%.txt"
+sfc /scannow /OFFBOOTDIR="%ScanNowDriveLetter%" /OFFWINDIR="%ScanNowDriveLetter%\Windows" /OFFLOGFILE="%ScanNowLogLocation%.txt"
 goto "Start"
 
 :"7"
+echo.
+set OnlineOffline=
+set /p OnlineOffline="Are you repairing an online or offline Windows installation? (Online/Offline) "
+if /i "%OnlineOffline%"=="Online" goto "VerifyOnlyOnline"
+if /i "%OnlineOffline%"=="Offline" goto "VerifyOnlyDriveLetter"
+echo Invalid syntax
+goto "7"
+
+:"VerifyOnlyDriveLetter"
+echo.
+set VerifyOnlyDriveLetter=
+set /p VerifyOnlyDriveLetter="What is the drive letter of the offline Windows installation? (A:-Z:) "
+if /i "%VerifyOnlyDriveLetter%"=="A:" goto "CheckExistVerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="B:" goto "CheckExistVerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="C:" goto "CheckExistVerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="D:" goto "CheckExistVerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="E:" goto "CheckExistVerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="F:" goto "CheckExistVerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="G:" goto "CheckExistVerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="H:" goto "CheckExistVerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="I:" goto "CheckExistVerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="J:" goto "CheckExistVerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="K:" goto "CheckExistVerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="L:" goto "CheckExistVerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="M:" goto "CheckExistVerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="N:" goto "CheckExistVerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="O:" goto "CheckExistVerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="P:" goto "CheckExistVerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="Q:" goto "CheckExistVerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="R:" goto "CheckExistVerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="S:" goto "CheckExistVerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="T:" goto "CheckExistVerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="U:" goto "CheckExistVerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="V:" goto "CheckExistVerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="W:" goto "CheckExistVerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="X:" goto "CheckExistVerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="Y:" goto "CheckExistVerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="Z:" goto "CheckExistVerifyOnlyDriveLetter"
+echo Invalid syntax!
+goto :"VerifyOnlyDriveLetter"
+
+:"CheckExistVerifyOnlyDriveLetter"
+if not exist "%VerifyOnlyDriveLetter%" goto "VerifyOnlyDriveLetterNotExist"
+goto "VerifyOnlyLogAsk"
+
+:"VerifyOnlyDriveLetterNotExist"
+echo "%VerifyOnlyDriveLetterNotExist%" does not exist!
+goto "VerifyOnlyDriveLetter"
+
+:"VerifyOnlyLogAsk"
+echo.
+set VerifyOnlyNowLog=
+set /p VerifyOnlyNowLog="Do you want to set a custom log file location? (Yes/No) "
+if /i "%VerifyOnlyLog%"=="Yes" goto "VerifyOnlyLogLocation"
+if /i "%VerifyOnlyLog%"=="No" goto "VerifyOnlyOffline"
+echo Invalid syntax!
+goto "VerifyOnlyLogAsk"
+
+:"VerifyOnlyLogLocation"
+echo.
+set VerifyOnlyLogLocation=
+set /p VerifyOnlyLogLocation="What is the full path without the file extention to the location you want to save the log file to? "
+if exist "%VerifyOnlyLogLocation%" goto "VerifyOnlyLogLocationNul"
+echo "%VerifyOnlyLogLocation%" does not exist! Please try again.
+goto "VerifyOnlyLogAsk"
+
+:"VerifyOnlyLogLocationNul"
+if not exist "%VerifyOnlyLogLocation%\nul" goto "VerifyOnlyOfflineLog"
+echo "%VerifyOnlyLogLocation%" need to be a file not folder! Please try again.
+goto "VerifyOnlyLogAsk"
+
+"VerifyOnlyOnline"
 sfc /verifyonly
+goto "Start
+
+:"VerifyOnlyOffline"
+sfc /verifyonly /OFFBOOTDIR="%VerifyOnlyDriveLetter%" /OFFWINDIR="%VerifyOnlyDriveLetter%\Windows"
+goto "Start"
+
+:"VerifyOnlyOfflineLog"
+sfc /verifyonly /OFFBOOTDIR="%VerifyOnlyDriveLetter%" /OFFWINDIR="%VerifyOnlyDriveLetter%\Windows" /OFFLOGFILE="%VerifyOnlyLogLocation%.txt"
 goto "Start"
 
 :"8"
