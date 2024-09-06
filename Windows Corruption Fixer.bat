@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 6.0.12
+echo Version: 6.0.13
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -82,7 +82,7 @@ goto "1"
 :"SureDriveLetterCHKDSK"
 echo.
 set SureDriveLetter=
-set /p SureDriveLetter="Are you sure %DriveLetter% is the drive letter of your Windows Disk Image? (Yes/No) "
+set /p SureDriveLetter="Are you sure %DriveLetter% is the drive letter that you want to run Check Disk on? (Yes/No) "
 if /i "%SureDriveLetter%"=="Yes" goto "CHKDSK"
 if /i "%SureDriveLetter%"=="No" goto "DriveLetter"
 echo Invalid syntax!
@@ -90,11 +90,6 @@ goto "SureDriveLetterCHKDSK"
 
 :"CHKDSK"
 chkdsk "%DriveLetter%" /f /r
-if not "%errorlevel%"=="0" goto "CHKDSKError"
-goto "Start"
-
-:"CHKDSKError"
-echo There has been an error! You can try again.
 goto "Start"
 
 :"2"
