@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 7.0.2
+echo Version: 7.0.3
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -459,7 +459,7 @@ goto "UpdateOffline"
 echo.
 set Media=
 set /p Media="Do you want to use a Windows Disk Image? (Yes/No) "
-if /i "%Media%"=="Yes" goto "DriveLetterOffline"
+if /i "%Media%"=="Yes" goto "OfflineInstallation"
 if /i "%Media%"=="No" goto "DISMUpdateCheckOffline"
 echo Invalid Sytax!
 goto "MediaOffline"
