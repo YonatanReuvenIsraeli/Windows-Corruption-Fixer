@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.0.5
+echo Version: 8.0.6
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -136,7 +136,7 @@ goto "InstallationCheck"
 :"SureInstallationCheck"
 echo.
 set SureInstallationCheck=
-set /p SureInstallationCheck="Are you sure "%DriveLetter%" is the drive letter of your offline Winddows installation? (Yes/No) "
+set /p SureInstallationCheck="Are you sure "%InstallationCheck%" is the drive letter of your offline Winddows installation? (Yes/No) "
 if /i "%SureInstallationCheck%"=="Yes" goto "CheckExistInstallationCheck"
 if /i "%SureInstallationCheck%"=="No" goto "InstallationCheck"
 echo Invalid syntax!
@@ -202,7 +202,7 @@ goto "InstallationScan"
 :"SureSureInstallationScan"
 echo.
 set SureInstallationScan=
-set /p SureInstallationCheck="Are you sure "%DriveLetter%" is the drive letter of your offline Winddows installation? (Yes/No) "
+set /p SureInstallationCheck="Are you sure "%InstallationCheck%" is the drive letter of your offline Winddows installation? (Yes/No) "
 if /i "%SureInstallationScan%"=="Yes" goto "CheckExistInstallationScan"
 if /i "%SureInstallationScan%"=="No" goto "InstallationScan"
 echo Invalid syntax!
@@ -493,7 +493,7 @@ goto "InstallationRestore"
 :"SureInstallationRestore"
 echo.
 set SureInstallationRestore=
-set /p SureInstallationRestore="Are you sure "%DriveLetter%" is the drive letter of your offline Winddows installation? (Yes/No) "
+set /p SureInstallationRestore="Are you sure "%InstallationRestore%" is the drive letter of your offline Winddows installation? (Yes/No) "
 if /i "%SureInstallationRestore%"=="Yes" goto "CheckExistInstallationRestore"
 if /i "%SureInstallationRestore%"=="No" goto "InstallationRestore"
 echo Invalid syntax!
