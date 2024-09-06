@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.4.0
+echo Version: 8.4.1
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -1055,7 +1055,7 @@ goto "VerifyFileLogAsk"
 
 "VerifyFileOnline"
 sfc /verifyfile="%File%"
-goto "Start
+goto "Start"
 
 :"VerifyFileOffline"
 sfc /verifyfile="%File%" /offbootdir="%VerifyFileDriveLetter%" /offwindir="%VerifyFileDriveLetter%\Windows"
