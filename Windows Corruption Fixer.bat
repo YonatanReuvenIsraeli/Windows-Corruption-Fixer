@@ -959,7 +959,7 @@ goto "ScanFileLogAsk"
 
 "ScanFileOnline"
 sfc /scannfile="%File%"
-goto "Start
+goto "Start"
 
 :"ScanFileOffline"
 sfc /scannfile="%File%" /offbootdir="%ScanFileDriveLetter%" /offwindir="%ScanFileDriveLetter%\Windows"
