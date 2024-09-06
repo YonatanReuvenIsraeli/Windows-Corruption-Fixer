@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.4.11
+echo Version: 8.4.12
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -717,7 +717,7 @@ goto "Start"
 :"6"
 echo.
 set OnlineOffline=
-set /p OnlineOffline="Are you repairing an online or offline Windows installation? (Online/Offline) "
+set /p OnlineOffline="Are you scanning an online or offline Windows installation? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "ScanNowOnline"
 if /i "%OnlineOffline%"=="Offline" goto "ScanNowDriveLetter"
 echo Invalid syntax
@@ -775,7 +775,7 @@ goto "Start"
 :"7"
 echo.
 set OnlineOffline=
-set /p OnlineOffline="Are you repairing an online or offline Windows installation? (Online/Offline) "
+set /p OnlineOffline="Are you verifying an online or offline Windows installation? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "VerifyOnlyOnline"
 if /i "%OnlineOffline%"=="Offline" goto "VerifyOnlyDriveLetter"
 echo Invalid syntax
@@ -833,7 +833,7 @@ goto "Start"
 :"8"
 echo.
 set OnlineOffline=
-set /p OnlineOffline="Are you repairing an online or offline Windows installation? (Online/Offline) "
+set /p OnlineOffline="Are you scanning an online or offline Windows installation file? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "ScanFileFile"
 if /i "%OnlineOffline%"=="Offline" goto "ScanFileFile"
 echo Invalid syntax
@@ -903,7 +903,7 @@ goto "Start"
 :"9"
 echo.
 set OnlineOffline=
-set /p OnlineOffline="Are you repairing an online or offline Windows installation? (Online/Offline) "
+set /p OnlineOffline="Are you verifying an online or offline Windows installation file? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "VerifyFileFile"
 if /i "%OnlineOffline%"=="Offline" goto "VerifyFileFile"
 echo Invalid syntax
