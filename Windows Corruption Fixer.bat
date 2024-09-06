@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.0.12
+echo Version: 8.0.13
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -391,9 +391,9 @@ if /i "%IndexNumber%"=="No" goto "IndexOnline"
 goto "SureIndexOnline"
 
 :"Bit3Online"
-if /i "%Bit%"=="32" goto "32DISMInstallUpdateCheckOnline"
-if /i "%Bit%"=="64" goto "64DISMInstallUpdateCheckOnline"
-goto "DISMInstallUpdateCheckOnline"
+if /i "%Bit%"=="32" goto "32DISMUpdateCheckOnline"
+if /i "%Bit%"=="64" goto "64DISMUpdateCheckOnline"
+goto "DISMUpdateCheckOnline"
 
 :"DISMUpdateCheckOnlineNoImage"
 if /i "%Update%"=="Yes" goto "DISMNoUpdateOnlineNoImage"
