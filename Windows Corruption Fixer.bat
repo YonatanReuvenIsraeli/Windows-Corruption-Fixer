@@ -154,7 +154,6 @@ goto "4"
 
 :"UpdateOnline"
 echo.
-set Update=
 set /p Update="Do you want to use Windows Update? (Yes/No) "
 if /i "%Update%"=="Yes" goto "MediaOnline"
 if /i "%Update%"=="No" goto "MediaOnline"
@@ -221,7 +220,7 @@ echo "%DriveLetter%" does not exist. Please try again.
 goto "DriveLetterOnline"
 
 :"BitDetectionOnline"
-if exist "%DriveLetter%\sources" goto "ESDSWMWIM1Online"
+if exist "%DriveLetter%\sources" goto "ESDSWMWIMOnline"
 if exist "%DriveLetter%\x86\sources" goto "Bit1Online"
 if exist "%DriveLetter%\x64\sources" goto "Bit1Online"
 echo Invalid drive letter!
@@ -243,78 +242,42 @@ set /p SureBit="Are you sure you have a %Bit%-bit version of Windows? "
 if /i "%SureBit%"=="Yes" goto "Bit2Online"
 if /i "%SureBit%"=="No" goto "Bit1Online"
 echo Invalid syntax!
-goto "SureBitOnline"
+goto "SureBitOffline"
 
 :"Bit2Online"
-if /i "%Bit%"=="32" goto "32ESDSWMWIM1Online"
-if /i "%Bit%"=="64" goto "64ESDSWMWIM1Online"
+if /i "%Bit%"=="32" goto "32ESDSWMWIMOnline"
+if /i "%Bit%"=="64" goto "64ESDSWMWIMOnline"
 
-:"ESDSWMWIM1Online"
-if exist "%DriveLetter%\sources\install.esd" goto "DISMESD1Online"
-if exist "%DriveLetter%\sources\install.swm" goto "DISMSWM1Online"
-if exist "%DriveLetter%\sources\install.wim" goto "DISMWIM1Online"
+:"ESDSWMWIMOnline"
+if exist "%DriveLetter%\sources\install.esd" set Install=install.esd
+if exist "%DriveLetter%\sources\install.swm" set Install=install.swm
+if exist "%DriveLetter%\sources\install.wim" set Install=install.wim
+goto "DISMOOnline"
 
-:"32ESDSWMWIM1Online"
-if exist "%DriveLetter%\x86\sources\install.esd" goto "32DISMESD1Online"
-if exist "%DriveLetter%\x86\sources\install.swm" goto "32DISMSWM1Online"
-if exist "%DriveLetter%\x86\sources\install.wim" goto "32DISMWIM1Online"
+:"32ESDSWMWIMOnline"
+if exist "%DriveLetter%\x86\sources\install.esd" set Install=install.esd
+if exist "%DriveLetter%\x86\sources\install.swm" set Install=install.swm
+if exist "%DriveLetter%\x86\sources\install.wim" set Install=install.wim
+goto "32DISMOnline"
 
-:"64ESDSWMWIM1Online"
-if exist "%DriveLetter%\x64\sources\install.esd" goto "64DISMESD1Online"
-if exist "%DriveLetter%\x64\sources\install.swm" goto "64DISMSWM1Online"
-if exist "%DriveLetter%\x64\sources\install.wim" goto "64DISMWIM1Online"
+:"64ESDSWMWIMOnline"
+if exist "%DriveLetter%\x64\sources\install.esd" set Install=install.esd
+if exist "%DriveLetter%\x64\sources\install.swm" set Install=install.swm
+if exist "%DriveLetter%\x64\sources\install.wim" set Install=install.wim
+goto "64DISMOnline"
 
-:"DISMESD1Online"
-set install=install.esd
-DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.esd"
+:"DISMOnline"
+DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\%Install%"
+if not "%errorlevel%"=="0" goto "DriveLetterOnline"
+goto "Index:"32DISMOnline""
+
+:"32DISMOnline"
+DISM /Get-WimInfo /WimFile:"%DriveLetter%\x86\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOnline"
 goto "IndexOnline"
 
-:"DISMSWM1Online"
-set install=install.swm
-DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.swm"
-if not "%errorlevel%"=="0" goto "DriveLetterOnline"
-goto "IndexOnline"
-
-:"DISMWIM1Online"
-set install=install.wim
-DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.wim"
-if not "%errorlevel%"=="0" goto "DriveLetterOnline"
-goto "IndexOnline"
-
-:"32DISMESD1Online"
-set install=install.esd
-DISM /Get-WimInfo /WimFile:"%DriveLetter%\x86\sources\install.esd"
-if not "%errorlevel%"=="0" goto "DriveLetterOnline"
-goto "IndexOnline"
-
-:"32DISMSWM1Online"
-set install=install.swm
-DISM /Get-WimInfo /WimFile:"%DriveLetter%\x86\sources\install.swm"
-if not "%errorlevel%"=="0" goto "DriveLetterOnline"
-goto "IndexOnline"
-
-:"32DISMWIM1Online"
-set install=install.wim
-DISM /Get-WimInfo /WimFile:"%DriveLetter%\x86\sources\install.wim"
-if not "%errorlevel%"=="0" goto "DriveLetterOnline"
-goto "IndexOnline"
-
-:"64DISMESD1Online"
-set install=install.esd
-DISM /Get-WimInfo /WimFile:"%DriveLetter%\x64\sources\install.esd"
-if not "%errorlevel%"=="0" goto "DriveLetterOnline"
-goto "IndexOnline"
-
-:"64DISMSWM1Online"
-set install=install.swm
-DISM /Get-WimInfo /WimFile:"%DriveLetter%\x64\sources\install.swm"
-if not "%errorlevel%"=="0" goto "DriveLetterOnline"
-goto "IndexOnline"
-
-:"64DISMWIM1Online"
-set install=install.wim
-DISM /Get-WimInfo /WimFile:"%DriveLetter%\x64\sources\install.wim"
+:"64DISMOnline"
+DISM /Get-WimInfo /WimFile:"%DriveLetter%\x64\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOnline"
 goto "IndexOnline"
 
@@ -332,7 +295,7 @@ if /i "%Index%"=="7" goto "SureIndexOnline"
 if /i "%Index%"=="8" goto "SureIndexOnline"
 if /i "%Index%"=="9" goto "SureIndexOnline"
 if /i "%Index%"=="10" goto "SureIndexOnline"
-if /i "%Index%"=="11" goto "SureIndexOnline"
+if /i "%Index%"=="11" goto "SureIndexOnline
 echo Invalid syntax!
 goto "IndexOnline"
 
@@ -344,33 +307,12 @@ if /i "%IndexNumber%"=="Yes" goto "Bit3Online"
 if /i "%IndexNumber%"=="No" goto "IndexOnline"
 goto "SureIndexOnline"
 
-:"Bit3"
-if /i "%Bit%"=="32" goto "32ESDSWMWIM2Online"
-if /i "%Bit%"=="64" goto "64ESDSWMWIM2Online"
-goto "ESDSWMWIM2Online"
+:"Bit3Offline"
+if /i "%Bit%"=="32" goto "32DISMInstallUpdateCheckOnline"
+if /i "%Bit%"=="64" goto "64DISMInstallUpdateCheckOnline"
+goto "DISMInstallUpdateCheckOnline"
 
-:"ESDSWMWIM2Online"
-if exist "%DriveLetter%\sources\install.esd" goto "DISMESDUpdateCheckOnline"
-if exist "%DriveLetter%\sources\install.swm" goto "DISMSWMUpdateCheckOnline"
-if exist "%DriveLetter%\sources\install.wim" goto "DISMWIMUpdateCheckOnline"
-echo Invalid Drive Letter!
-goto "DriveLetterOnline"
-
-:"32ESDSWMWIM2Online"
-if exist "%DriveLetter%\x86\sources\install.esd" goto "32DISMESDUpdateCheckOnline"
-if exist "%DriveLetter%\x86\sources\install.swm" goto "32DISMSWMUpdateCheckOnline"
-if exist "%DriveLetter%\x86\sources\install.wim" goto "32DISMWIMUpdateCheckOnline"
-echo Invalid Drive Letter!
-goto "DriveLetterOnline"
-
-:"64ESDSWMWIM2Online"
-if exist "%DriveLetter%\x64\sources\install.esd" goto "64DISMESDUpdateCheckOnline"
-if exist "%DriveLetter%\x64\sources\install.swm" goto "64DISMSWMUpdateCheckOnline"
-if exist "%DriveLetter%\x64\sources\install.wim" goto "64DISMWIMUpdateCheckOnline"
-echo Invalid Drive Letter!
-goto "DriveLetterOnline"
-
-:"DISMUpdateCheckOnline"
+:"DISMUpdateCheckOffline"
 if /i "%Update%"=="Yes" goto "DISMNoUpdateOnline"
 if /i "%Update%"=="No" goto "DISMOnline"
 
@@ -382,112 +324,40 @@ goto "Start"
 DISM /Online /Cleanup-Image /RestoreHealth /LimitAccess
 goto "Start"
 
-:"DISMESDUpdateCheckOnline"
-if /i "%Update%"=="Yes" goto "DISMESDNoUpdateOnline"
-if /i "%Update%"=="No" goto "DISMESDOnline"
+:"DISMUpdateCheckOnline"
+if /i "%Update%"=="Yes" goto "DISMNoUpdateOnline"
+if /i "%Update%"=="No" goto "DISMOnline"
 
-:"DISMESDOnline"
-DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\install.esd":%Index%
+:"DISMOnline"
+DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\%Install%":%Index%
 goto "Start"
 
-:"DISMESDNoUpdateOnline"
-DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\install.esd":%Index% /LimitAccess
+:"DISMNoUpdateOnline"
+DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\%Install%":%Index% /LimitAccess
 goto "Start"
 
-:"DISMSWMUpdateCheckOnline"
-if /i "%Update%"=="Yes" goto "DISMSWMNoUpdateOnline"
-if /i "%Update%"=="No" goto "DISMSWMOnline"
+:"32DISMUpdateCheckOnline"
+if /i "%Update%"=="Yes" goto "32DISMNoUpdateOnline"
+if /i "%Update%"=="No" goto "32DISMOnline"
 
-:"DISMSWMOnline"
-DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\install.swm":%Index%
+:"32DISMOnline"
+DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\Sources\%Install%":%Index%
 goto "Start"
 
-:"DISMSWMNoUpdateOnline"
-DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\install.swm":%Index% /LimitAccess
+:"32DISMNoUpdateOffline"
+DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\Sources\%Install%":%Index% /LimitAccess
 goto "Start"
 
-:"DISMWIMUpdateCheckOnline"
-if /i "%Update%"=="Yes" goto "DISMWIMNoUpdateOnline"
-if /i "%Update%"=="No" goto "DISMWIMOnline"
+:"64DISMUpdateCheckOnline"
+if /i "%Update%"=="Yes" goto "64DISMNoUpdateOnline"
+if /i "%Update%"=="No" goto "64DISMOnline"
 
-:"DISMWIMOnline"
-DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\install.wim":%Index%
-goto "Start"
-
-:"DISMWIMNoUpdateOnline"
-DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\install.wim":%Index% /LimitAccess
-goto "Start"
-
-:"32DISMESDUpdateCheckOnline"
-if /i "%Update%"=="Yes" goto "32DISMESDNoUpdateOnline"
-if /i "%Update%"=="No" goto "32DISMESDOnline"
-
-:"32DISMESDOnline"
-DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\Sources\install.esd":%Index%
-goto "Start"
-
-:"32DISMNoUpdateOnline"
-DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\Sources\install.esd":%Index% /LimitAccess
-goto "Start"
-
-:"32DISMSWMUpdateCheckOnline"
-if /i "%Update%"=="Yes" goto "32DISMSWMNoUpdateOnline"
-if /i "%Update%"=="No" goto "32DISMSWMOnline"
-
-:"32DISMSWMOnline"
-DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\Sources\install.swm":%Index%
-goto "Start"
-
-:"32DISMSWMNoUpdateOnline"
-DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\Sources\install.swm":%Index% /LimitAccess
-goto "Start"
-
-:"32DISMWIMUpdateCheckOnline"
-if /i "%Update%"=="Yes" goto "32DISMWIMNoUpdateOnline"
-if /i "%Update%"=="No" goto "32DISMWIMOnline"
-
-:"32DISMWIMOnline"
-DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\Sources\install.wim":%Index%
-goto "Start"
-
-:"32DISMWIMNoUpdateOnline"
-DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\Sources\install.wim":%Index% /LimitAccess
-goto "Start"
-
-:"64DISMESDUpdateCheckOnline"
-if /i "%Update%"=="Yes" goto "64DISMESDNoUpdateOnline"
-if /i "%Update%"=="No" goto "64DISMESDOnline"
-
-:"64DISMESDOnline"
-DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\Sources\install.esd":%Index%
+:"64DISMOnline"
+DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\Sources\%Install%":%Index%
 goto "Start"
 
 :"64DISMNoUpdateOnline"
-DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\Sources\install.esd":%Index% /LimitAccess
-goto "Start"
-
-:"64DISMSWMUpdateCheckOnline"
-if /i "%Update%"=="Yes" goto "64DISMSWMNoUpdateOnline"
-if /i "%Update%"=="No" goto "64DISMSWMOnline"
-
-:"64DISMSWMOnline"
-DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\Sources\install.swm":%Index%
-goto "Start"
-
-:"64DISMNoUpdateOnline"
-DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\Sources\install.swm":%Index% /LimitAccess
-goto "Start"
-
-:"64DISMWIMUpdateCheckOnline"
-if /i "%Update%"=="Yes" goto "64DISMSWMNoUpdateOnline"
-if /i "%Update%"=="No" goto "64DISMSWMOnline"
-
-:"64DISMWIMOnline"
-DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\Sources\install.wim":%Index%
-goto "Start"
-
-:"64DISMNoUpdateOnline"
-DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\Sources\install.wim":%Index% /LimitAccess
+DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\Sources\%Install%":%Index% /LimitAccess
 goto "Start"
 
 :"UpdateOffline"
@@ -507,13 +377,54 @@ if /i "%Media%"=="No" goto "DISMUpdateCheckOffline"
 echo Invalid Sytax!
 goto "MediaOffline"
 
-:"OfflineInstallationRestore"
+:"InstallationRestore"
 echo.
-set OfflineInstallation=
-set /p OfflineInstallation="What is the full path to your offline Windows installation? "
-if exist "%OfflineInstallation%" goto "DriveLetterOffline"
-echo "%OfflineInstallation%" does not exist! Please try again.
-goto "OfflineInstallationRestore"
+set InstallationRestore=
+set /p InstallationRestore="What is the drive letter to your offline Windows installation? (A:Z:) "
+if /i "%InstallationRestore%"=="A:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="B:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="C:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="D:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="E:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="F:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="G:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="H:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="I:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="J:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="K:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="L:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="M:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="N:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="O:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="P:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="Q:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="R:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="S:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="T:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="U:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="V:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="W:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="X:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="Y:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="Z:" goto "SureInstallationRestore"
+goto "InstallationRestore"
+
+:"SureInstallationRestore"
+echo.
+set SureInstallationRestore=
+set /p SureInstallationRestore="Are you sure "%DriveLetter%" is the drive letter of your offline Winddows installation? (Yes/No) "
+if /i "%SureInstallationRestore%"=="Yes" goto "CheckExistInstallationRestore"
+if /i "%SureInstallationRestore%"=="No" goto "OfflineInstallationRestore"
+echo Invalid syntax!
+goto "SureInstallationRestore"
+
+:"CheckExistInstallationRestore"
+if not exist "%OfflineInstallation%" goto "NotExistRestore"
+goto "DriveLetterOffline"
+
+:"NotExistRestore"
+echo "%OfflineInstallation%" does not exist. Please try again.
+goto ""OfflineInstallationRestore"
 
 :"DriveLetterOffline"
 echo.
@@ -566,7 +477,7 @@ echo "%DriveLetter%" does not exist. Please try again.
 goto "DriveLetterOffline"
 
 :"BitDetectionOffline"
-if exist "%DriveLetter%\sources" goto "ESDSWMWIM1Offline"
+if exist "%DriveLetter%\sources" goto "ESDSWMWIMOffline"
 if exist "%DriveLetter%\x86\sources" goto "Bit1Offline"
 if exist "%DriveLetter%\x64\sources" goto "Bit1Offline"
 echo Invalid drive letter!
@@ -590,76 +501,40 @@ if /i "%SureBit%"=="No" goto "Bit1Offline"
 echo Invalid syntax!
 goto "SureBitOffline"
 
-:"Bit2"
-if /i "%Bit%"=="32" goto "32ESDSWMWIM1Offline"
-if /i "%Bit%"=="64" goto "64ESDSWMWIM1Offline"
+:"Bit2Offline"
+if /i "%Bit%"=="32" goto "32ESDSWMWIMOffline"
+if /i "%Bit%"=="64" goto "64ESDSWMWIMOffline"
 
-:"ESDSWMWIM1Offline"
-if exist "%DriveLetter%\sources\install.esd" goto "DISMESD1Offline"
-if exist "%DriveLetter%\sources\install.swm" goto "DISMSWM1Offline"
-if exist "%DriveLetter%\sources\install.wim" goto "DISMWIM1Offline"
+:"ESDSWMWIMOffline"
+if exist "%DriveLetter%\sources\install.esd" set Install=install.esd
+if exist "%DriveLetter%\sources\install.swm" set Install=install.swm
+if exist "%DriveLetter%\sources\install.wim" set Install=install.wim
+goto "DISMOffline"
 
-:"32ESDSWMWIM1Offline"
-if exist "%DriveLetter%\x86\sources\install.esd" goto "32DISMESD1Offline"
-if exist "%DriveLetter%\x86\sources\install.swm" goto "32DISMSWM1Offline"
-if exist "%DriveLetter%\x86\sources\install.wim" goto "32DISMWIM1Offline"
+:"32ESDSWMWIMOffline"
+if exist "%DriveLetter%\x86\sources\install.esd" set Install=install.esd
+if exist "%DriveLetter%\x86\sources\install.swm" set Install=install.swm
+if exist "%DriveLetter%\x86\sources\install.wim" set Install=install.wim
+goto "32DISMOffline"
 
-:"64ESDSWMWIM1Offline"
-if exist "%DriveLetter%\x64\sources\install.esd" goto "64DISMESD1Offline"
-if exist "%DriveLetter%\x64\sources\install.swm" goto "64DISMSWM1Offline"
-if exist "%DriveLetter%\x64\sources\install.wim" goto "64DISMWIM1Offline"
+:"64ESDSWMWIMOffline"
+if exist "%DriveLetter%\x64\sources\install.esd" set Install=install.esd
+if exist "%DriveLetter%\x64\sources\install.swm" set Install=install.swm
+if exist "%DriveLetter%\x64\sources\install.wim" set Install=install.wim
+goto "64DISMOffline"
 
-:"DISMESD1Offline"
-set install=install.esd
-DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.esd"
+:"DISMOffline"
+DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOffline"
 goto "IndexOffline"
 
-:"DISMSWM1Offline"
-set install=install.swm
-DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.swm"
+:"32DISMOffline"
+DISM /Get-WimInfo /WimFile:"%DriveLetter%\x86\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOffline"
 goto "IndexOffline"
 
-:"DISMWIM1Offline"
-set install=install.wim
-DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.wim"
-if not "%errorlevel%"=="0" goto "DriveLetterOffline"
-goto "IndexOffline"
-
-:"32DISMESD1Offline"
-set install=install.esd
-DISM /Get-WimInfo /WimFile:"%DriveLetter%\x86\sources\install.esd"
-if not "%errorlevel%"=="0" goto "DriveLetterOffline"
-goto "IndexOffline"
-
-:"32DISMSWM1Offline"
-set install=install.swm
-DISM /Get-WimInfo /WimFile:"%DriveLetter%\x86\sources\install.swm"
-if not "%errorlevel%"=="0" goto "DriveLetterOffline"
-goto "IndexOffline"
-
-:"32DISMWIM1Offline"
-set install=install.wim
-DISM /Get-WimInfo /WimFile:"%DriveLetter%\x86\sources\install.wim"
-if not "%errorlevel%"=="0" goto "DriveLetterOffline"
-goto "IndexOffline"
-
-:"64DISMESD1Offline"
-set install=install.esd
-DISM /Get-WimInfo /WimFile:"%DriveLetter%\x64\sources\install.esd"
-if not "%errorlevel%"=="0" goto "DriveLetterOffline"
-goto "IndexOffline"
-
-:"64DISMSWM1Offline"
-set install=install.swm
-DISM /Get-WimInfo /WimFile:"%DriveLetter%\x64\sources\install.swm"
-if not "%errorlevel%"=="0" goto "DriveLetterOffline"
-goto "IndexOffline"
-
-:"64DISMWIM1Offline"
-set install=install.wim
-DISM /Get-WimInfo /WimFile:"%DriveLetter%\x64\sources\install.wim"
+:"64DISMOffline"
+DISM /Get-WimInfo /WimFile:"%DriveLetter%\x64\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOffline"
 goto "IndexOffline"
 
@@ -690,30 +565,9 @@ if /i "%IndexNumber%"=="No" goto "IndexOffline"
 goto "SureIndexOffline"
 
 :"Bit3Offline"
-if /i "%Bit%"=="32" goto "32ESDSWMWIM2Offline"
-if /i "%Bit%"=="64" goto "64ESDSWMWIM2Offline"
-goto "ESDSWMWIM2Offline"
-
-:"ESDSWMWIM2Offline"
-if exist "%DriveLetter%\sources\install.esd" goto "DISMESDUpdateCheckOffline"
-if exist "%DriveLetter%\sources\install.swm" goto "DISMSWMUpdateCheckOffline"
-if exist "%DriveLetter%\sources\install.wim" goto "DISMWIMUpdateCheckOffline"
-echo Invalid Drive Letter!
-goto "DriveLetterOffline"
-
-:"32ESDSWMWIM2Offline"
-if exist "%DriveLetter%\x86\sources\install.esd" goto "32DISMESDUpdateCheckOffline"
-if exist "%DriveLetter%\x86\sources\install.swm" goto "32DISMSWMUpdateCheckOffline"
-if exist "%DriveLetter%\x86\sources\install.wim" goto "32DISMWIMUpdateCheckOffline"
-echo Invalid Drive Letter!
-goto "DriveLetterOffline"
-
-:"64ESDSWMWIM2Offline"
-if exist "%DriveLetter%\x64\sources\install.esd" goto "64DISMESDUpdateCheckOffline"
-if exist "%DriveLetter%\x64\sources\install.swm" goto "64DISMSWMUpdateCheckOffline"
-if exist "%DriveLetter%\x64\sources\install.wim" goto "64DISMWIMUpdateCheckOffline"
-echo Invalid Drive Letter!
-goto "DriveLetter"
+if /i "%Bit%"=="32" goto "32DISMInstallUpdateCheckOffline"
+if /i "%Bit%"=="64" goto "64DISMInstallUpdateCheckOffline"
+goto "DISMInstallUpdateCheckOffline"
 
 :"DISMUpdateCheckOffline"
 if /i "%Update%"=="Yes" goto "DISMNoUpdateOffline"
@@ -727,112 +581,40 @@ goto "Start"
 DISM /Image:"%OfflineInstallation%" /Cleanup-Image /RestoreHealth /LimitAccess
 goto "Start"
 
-:"DISMESDUpdateCheckOffline"
-if /i "%Update%"=="Yes" goto "DISMESDNoUpdateOffline"
-if /i "%Update%"=="No" goto "DISMESDOffline"
+:"DISMUpdateCheckOffline"
+if /i "%Update%"=="Yes" goto "DISMNoUpdateOffline"
+if /i "%Update%"=="No" goto "DISMOffline"
 
-:"DISMESDOffline"
-DISM /Image:"%OfflineInstallation%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\install.esd":%Index%
+:"DISMOffline"
+DISM /Image:"%OfflineInstallation%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\%Install%":%Index%
 goto "Start"
 
-:"DISMESDNoUpdateOffline"
-DISM /Image:"%OfflineInstallation%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\install.esd":%Index% /LimitAccess
+:"DISMNoUpdateOffline"
+DISM /Image:"%OfflineInstallation%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\%Install%":%Index% /LimitAccess
 goto "Start"
 
-:"DISMSWMUpdateCheckOffline"
-if /i "%Update%"=="Yes" goto "DISMSWMNoUpdateOffline"
-if /i "%Update%"=="No" goto "DISMSWMOffline"
+:"32DISMUpdateCheckOffline"
+if /i "%Update%"=="Yes" goto "32DISMNoUpdateOffline"
+if /i "%Update%"=="No" goto "32DISMOffline"
 
-:"DISMSWMOffline"
-DISM /Image:"%OfflineInstallation%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\install.swm":%Index%
-goto "Start"
-
-:"DISMSWMNoUpdateOffline"
-DISM /Image:"%OfflineInstallation%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\install.swm":%Index% /LimitAccess
-goto "Start"
-
-:"DISMWIMUpdateCheckOffline"
-if /i "%Update%"=="Yes" goto "DISMWIMNoUpdateOffline"
-if /i "%Update%"=="No" goto "DISMWIMOffline"
-
-:"DISMWIMOffline"
-DISM /Image:"%OfflineInstallation%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\install.wim":%Index%
-goto "Start"
-
-:"DISMWIMNoUpdateOffline"
-DISM /Image:"%OfflineInstallation%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\install.wim":%Index% /LimitAccess
-goto "Start"
-
-:"32DISMESDUpdateCheckOffline"
-if /i "%Update%"=="Yes" goto "32DISMESDNoUpdateOffline"
-if /i "%Update%"=="No" goto "32DISMESDOffline"
-
-:"32DISMESDOffline"
-DISM /Image:"%OfflineInstallation%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\Sources\install.esd":%Index%
+:"32DISMOffline"
+DISM /Image:"%OfflineInstallation%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\Sources\%Install%":%Index%
 goto "Start"
 
 :"32DISMNoUpdateOffline"
-DISM /Image:"%OfflineInstallation%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\Sources\install.esd":%Index% /LimitAccess
+DISM /Image:"%OfflineInstallation%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\Sources\%Install%":%Index% /LimitAccess
 goto "Start"
 
-:"32DISMSWMUpdateCheckOffline"
-if /i "%Update%"=="Yes" goto "32DISMSWMNoUpdateOffline"
-if /i "%Update%"=="No" goto "32DISMSWMOffline"
+:"64DISMUpdateCheckOffline"
+if /i "%Update%"=="Yes" goto "64DISMNoUpdateOffline"
+if /i "%Update%"=="No" goto "64DISMOffline"
 
-:"32DISMSWMOffline"
-DISM /Image:"%OfflineInstallation%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\Sources\install.swm":%Index%
-goto "Start"
-
-:"32DISMSWMNoUpdateOffline"
-DISM /Image:"%OfflineInstallation%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\Sources\install.swm":%Index% /LimitAccess
-goto "Start"
-
-:"32DISMWIMUpdateCheckOffline"
-if /i "%Update%"=="Yes" goto "32DISMWIMNoUpdateOffline"
-if /i "%Update%"=="No" goto "32DISMWIMOffline"
-
-:"32DISMWIMOffline"
-DISM /Image:"%OfflineInstallation%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\Sources\install.wim":%Index%
-goto "Start"
-
-:"32DISMWIMNoUpdateOffline"
-DISM /Image:"%OfflineInstallation%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\Sources\install.wim":%Index% /LimitAccess
-goto "Start"
-
-:"64DISMESDUpdateCheckOffline"
-if /i "%Update%"=="Yes" goto "64DISMESDNoUpdateOffline"
-if /i "%Update%"=="No" goto "64DISMESDOffline"
-
-:"64DISMESDOffline"
-DISM /Image:"%OfflineInstallation%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\Sources\install.esd":%Index%
+:"64DISMOffline"
+DISM /Image:"%OfflineInstallation%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\Sources\%Install%":%Index%
 goto "Start"
 
 :"64DISMNoUpdateOffline"
-DISM /Image:"%OfflineInstallation%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\Sources\install.esd":%Index% /LimitAccess
-goto "Start"
-
-:"64DISMSWMUpdateCheckOffline"
-if /i "%Update%"=="Yes" goto "64DISMSWMNoUpdateOffline"
-if /i "%Update%"=="No" goto "64DISMSWMOffline"
-
-:"64DISMSWMOffline"
-DISM /Image:"%OfflineInstallation%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\Sources\install.swm":%Index%
-goto "Start"
-
-:"64DISMNoUpdateOffline"
-DISM /Image:"%OfflineInstallation%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\Sources\install.swm":%Index% /LimitAccess
-goto "Start"
-
-:"64DISMWIMUpdateCheckOffline"
-if /i "%Update%"=="Yes" goto "64DISMSWMNoUpdateOffline"
-if /i "%Update%"=="No" goto "64DISMSWMOffline"
-
-:"64DISMWIMOffline"
-DISM /Image:"%OfflineInstallation%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\Sources\install.wim":%Index%
-goto "Start"
-
-:"64DISMNoUpdateOffline"
-DISM /Image:"%OfflineInstallation%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\Sources\install.wim":%Index% /LimitAccess
+DISM /Image:"%OfflineInstallation%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\Sources\%Install%":%Index% /LimitAccess
 goto "Start"
 
 :"5"
