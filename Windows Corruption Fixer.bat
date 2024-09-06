@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.0.9
+echo Version: 8.0.10
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -211,11 +211,11 @@ echo Invalid syntax!
 goto "SureInstallationScan"
 
 :"CheckExistInstallationScan"
-if not exist "%InstallationScan%" goto "NotExistScan"
+if not exist "%InstallationScan%\Windows" goto "NotExistScan"
 goto "ScanOffline"
 
 :"NotExistCheck"
-echo "%InstallationScan%" does not exist! Please try again.
+echo "%InstallationScan%" does not exist or is not an offline Windows installation! Please try again.
 goto "InstallationCScan"
 
 :"ScanOnline"
@@ -248,7 +248,7 @@ echo.
 set Media=
 set /p Media="Do you want to use a Windows Disk Image? (Yes/No) "
 if /i "%Media%"=="Yes" goto "DriveLetterOnline"
-if /i "%Media%"=="No" goto "DISMUpdateCheckOnline"
+if /i "%Media%"=="No" goto "DISMUpdateCheckOnlineNoImage"
 echo Invalid Sytax!
 goto "MediaOnline"
 
@@ -306,7 +306,7 @@ goto "DriveLetterOnline"
 if exist "%DriveLetter%\sources" goto "ESDSWMWIMOnline"
 if exist "%DriveLetter%\x86\sources" goto "Bit1Online"
 if exist "%DriveLetter%\x64\sources" goto "Bit1Online"
-echo Invalid drive letter!
+echo %DriveLetter% is not a Windows Disk Image!
 goto "DriveLetterOnline"
 
 :"Bit1Online"
@@ -325,7 +325,7 @@ set /p SureBit="Are you sure you have a %Bit%-bit version of Windows? "
 if /i "%SureBit%"=="Yes" goto "Bit2Online"
 if /i "%SureBit%"=="No" goto "Bit1Online"
 echo Invalid syntax!
-goto "SureBitOffline"
+goto "SureBitOnline"
 
 :"Bit2Online"
 if /i "%Bit%"=="32" goto "32ESDSWMWIMOnline"
@@ -390,20 +390,20 @@ if /i "%IndexNumber%"=="Yes" goto "Bit3Online"
 if /i "%IndexNumber%"=="No" goto "IndexOnline"
 goto "SureIndexOnline"
 
-:"Bit3Offline"
+:"Bit3Online"
 if /i "%Bit%"=="32" goto "32DISMInstallUpdateCheckOnline"
 if /i "%Bit%"=="64" goto "64DISMInstallUpdateCheckOnline"
 goto "DISMInstallUpdateCheckOnline"
 
-:"DISMUpdateCheckOffline"
-if /i "%Update%"=="Yes" goto "DISMNoUpdateOnline"
-if /i "%Update%"=="No" goto "DISMOnline"
+:"DISMUpdateCheckOnlineNoImage"
+if /i "%Update%"=="Yes" goto "DISMNoUpdateOnlineNoImage"
+if /i "%Update%"=="No" goto "DISMOnlineNoImage"
 
-:"DISMOnline"
+:"DISMOnlineNoImage"
 DISM /Online /Cleanup-Image /RestoreHealth
 goto "Start"
 
-:"DISMNoUpdateOnline"
+:"DISMNoUpdateOnlineNoImage"
 DISM /Online /Cleanup-Image /RestoreHealth /LimitAccess
 goto "Start"
 
@@ -427,7 +427,7 @@ if /i "%Update%"=="No" goto "32DISMOnline"
 DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\Sources\%Install%":%Index%
 goto "Start"
 
-:"32DISMNoUpdateOffline"
+:"32DISMNoUpdateOnline"
 DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\Sources\%Install%":%Index% /LimitAccess
 goto "Start"
 
@@ -456,7 +456,7 @@ echo.
 set Media=
 set /p Media="Do you want to use a Windows Disk Image? (Yes/No) "
 if /i "%Media%"=="Yes" goto "InstallationRestore"
-if /i "%Media%"=="No" goto "DISMUpdateCheckOffline"
+if /i "%Media%"=="No" goto "DISMUpdateCheckOfflineNoImage"
 echo Invalid Sytax!
 goto "MediaOffline"
 
@@ -503,11 +503,11 @@ echo Invalid syntax!
 goto "SureInstallationRestore"
 
 :"CheckExistInstallationRestore"
-if not exist "%InstallationRestore%" goto "NotExistRestore"
+if not exist "%InstallationRestore%\Windows" goto "NotExistRestore"
 goto "DriveLetterOffline"
 
 :"NotExistRestore"
-echo "%InstallationRestore%" does not exist! Please try again.
+echo "%InstallationRestore%" does not exist or is not an offline Windows installation! Please try again.
 goto "InstallationRestore"
 
 :"DriveLetterOffline"
@@ -564,7 +564,7 @@ goto "DriveLetterOffline"
 if exist "%DriveLetter%\sources" goto "ESDSWMWIMOffline"
 if exist "%DriveLetter%\x86\sources" goto "Bit1Offline"
 if exist "%DriveLetter%\x64\sources" goto "Bit1Offline"
-echo Invalid drive letter!
+echo %DriveLetter% is not a Windows Disk Image!
 goto "DriveLetterOffline"
 
 :"Bit1Offline"
@@ -652,6 +652,18 @@ goto "SureIndexOffline"
 if /i "%Bit%"=="32" goto "32DISMUpdateCheckOffline"
 if /i "%Bit%"=="64" goto "64DISMUpdateCheckOffline"
 goto "DISMUpdateCheckOffline"
+
+:"DISMUpdateCheckOfflineNoImage"
+if /i "%Update%"=="Yes" goto "DISMNoUpdateOfflineNoImage"
+if /i "%Update%"=="No" goto "DISMOfflineNoImage"
+
+:"DISMOfflineNoImage"
+DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth
+goto "Start"
+
+:"DISMNoUpdateOfflineNoImage"
+DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /LimitAccess
+goto "Start"
 
 :"DISMUpdateCheckOffline"
 if /i "%Update%"=="Yes" goto "DISMNoUpdateOffline"
