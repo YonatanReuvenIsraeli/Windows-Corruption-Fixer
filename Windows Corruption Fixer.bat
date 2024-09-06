@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.2.0
+echo Version: 8.3.0
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -748,11 +748,11 @@ echo Invalid syntax!
 goto :"ScanNowDriveLetter"
 
 :"CheckExistScanNowDriveLetter"
-if not exist "%ScanNowDriveLetter%" goto "ScanNowDriveLetterNotExist"
+if not exist "%ScanNowDriveLetter%\Windows" goto "ScanNowDriveLetterNotExist"
 goto "ScanNowLogAsk"
 
 :"ScanNowDriveLetterNotExist"
-echo "%ScanNowDriveLetter%" does not exist!
+echo "%ScanNowDriveLetter%" does not exist or is not an offline Windows installation!
 goto "ScanNowDriveLetter"
 
 :"ScanNowLogAsk"
@@ -782,11 +782,11 @@ sfc /scannow
 goto "Start
 
 :"ScanNowOffline"
-sfc /scannow /OFFBOOTDIR="%ScanNowDriveLetter%" /OFFWINDIR="%ScanNowDriveLetter%\Windows"
+sfc /scannow /offbotdir="%ScanNowDriveLetter%" /offwindir="%ScanNowDriveLetter%\Windows"
 goto "Start"
 
 :"ScanNowOfflineLog"
-sfc /scannow /OFFBOOTDIR="%ScanNowDriveLetter%" /OFFWINDIR="%ScanNowDriveLetter%\Windows" /OFFLOGFILE="%ScanNowLogLocation%.txt"
+sfc /scannow /offbootdir="%ScanNowDriveLetter%" /offwindir="%ScanNowDriveLetter%\Windows" /offlogfile="%ScanNowLogLocation%.txt"
 goto "Start"
 
 :"7"
@@ -832,11 +832,11 @@ echo Invalid syntax!
 goto :"VerifyOnlyDriveLetter"
 
 :"CheckExistVerifyOnlyDriveLetter"
-if not exist "%VerifyOnlyDriveLetter%" goto "VerifyOnlyDriveLetterNotExist"
+if not exist "%VerifyOnlyDriveLetter%\Windows" goto "VerifyOnlyDriveLetterNotExist"
 goto "VerifyOnlyLogAsk"
 
 :"VerifyOnlyDriveLetterNotExist"
-echo "%VerifyOnlyDriveLetterNotExist%" does not exist!
+echo "%VerifyOnlyDriveLetterNotExist%" does not exist or is not an offline Windows installation!
 goto "VerifyOnlyDriveLetter"
 
 :"VerifyOnlyLogAsk"
@@ -866,107 +866,107 @@ sfc /verifyonly
 goto "Start
 
 :"VerifyOnlyOffline"
-sfc /verifyonly /OFFBOOTDIR="%VerifyOnlyDriveLetter%" /OFFWINDIR="%VerifyOnlyDriveLetter%\Windows"
+sfc /verifyonly /offbootdir="%VerifyOnlyDriveLetter%" /offwindir="%VerifyOnlyDriveLetter%\Windows"
 goto "Start"
 
 :"VerifyOnlyOfflineLog"
-sfc /verifyonly /OFFBOOTDIR="%VerifyOnlyDriveLetter%" /OFFWINDIR="%VerifyOnlyDriveLetter%\Windows" /OFFLOGFILE="%VerifyOnlyLogLocation%.txt"
+sfc /verifyonly /offbootdir="%VerifyOnlyDriveLetter%" /offwindir="%VerifyOnlyDriveLetter%\Windows" /offlogfile="%VerifyOnlyLogLocation%.txt"
 goto "Start"
 
 :"8"
 echo.
-set DriveLetter=
-set /p DriveLetter="What is the drive letter of the Windows installation you are trying to scan file? (A:-Z:) "
-if /i "%DriveLetter%"=="A:" goto "CheckExistDriveLetterSFCScanFile"
-if /i "%DriveLetter%"=="B:" goto "CheckExistDriveLetterSFCScanFile"
-if /i "%DriveLetter%"=="C:" goto "CheckExistDriveLetterSFCScanFile"
-if /i "%DriveLetter%"=="D:" goto "CheckExistDriveLetterSFCScanFile"
-if /i "%DriveLetter%"=="E:" goto "CheckExistDriveLetterSFCScanFile"
-if /i "%DriveLetter%"=="F:" goto "CheckExistDriveLetterSFCScanFile"
-if /i "%DriveLetter%"=="G:" goto "CheckExistDriveLetterSFCScanFile"
-if /i "%DriveLetter%"=="H:" goto "CheckExistDriveLetterSFCScanFile"
-if /i "%DriveLetter%"=="I:" goto "CheckExistDriveLetterSFCScanFile"
-if /i "%DriveLetter%"=="J:" goto "CheckExistDriveLetterSFCScanFile"
-if /i "%DriveLetter%"=="K:" goto "CheckExistDriveLetterSFCScanFile"
-if /i "%DriveLetter%"=="L:" goto "CheckExistDriveLetterSFCScanFile"
-if /i "%DriveLetter%"=="M:" goto "CheckExistDriveLetterSFCScanFile"
-if /i "%DriveLetter%"=="N:" goto "CheckExistDriveLetterSFCScanFile"
-if /i "%DriveLetter%"=="O:" goto "CheckExistDriveLetterSFCScanFile"
-if /i "%DriveLetter%"=="P:" goto "CheckExistDriveLetterSFCScanFile"
-if /i "%DriveLetter%"=="Q:" goto "CheckExistDriveLetterSFCScanFile"
-if /i "%DriveLetter%"=="R:" goto "CheckExistDriveLetterSFCScanFile"
-if /i "%DriveLetter%"=="S:" goto "CheckExistDriveLetterSFCScanFile"
-if /i "%DriveLetter%"=="T:" goto "CheckExistDriveLetterSFCScanFile"
-if /i "%DriveLetter%"=="U:" goto "CheckExistDriveLetterSFCScanFile"
-if /i "%DriveLetter%"=="V:" goto "CheckExistDriveLetterSFCScanFile"
-if /i "%DriveLetter%"=="W:" goto "CheckExistDriveLetterSFCScanFile"
-if /i "%DriveLetter%"=="X:" goto "CheckExistDriveLetterSFCScanFile"
-if /i "%DriveLetter%"=="Y:" goto "CheckExistDriveLetterSFCScanFile"
-if /i "%DriveLetter%"=="Z:" goto "CheckExistDriveLetterSFCScanFile"
-echo Invalid syntax!
+set OnlineOffline=
+set /p OnlineOffline="Are you repairing an online or offline Windows installation? (Online/Offline) "
+if /i "%OnlineOffline%"=="Online" goto "ScanFileFile"
+if /i "%OnlineOffline%"=="Offline" goto "ScanFileFile"
+echo Invalid syntax
 goto "8"
 
-:"CheckExistDriveLetterSFCScanFile"
-if not exist "%DriveLetter%" goto "DriveLetterSFCScanFileNotExist"
-if /i not "%DriveLetter%"=="%SystemDrive%" goto "OfflineSFCScanFilePath"
-goto "SFCScanFilePath"
-
-:"SFCScanFilePath"
+:"ScanFileFile"
 echo.
-set SFCScanFile=
-set /p SFCScanFile="What is the full path to the file you want to scan? "
-if not exist "%SFCScanFile%" goto "SFCScanFileNotExist"
-goto "SFCScanFile"
+set File=
+set /p File="What is the file you are repairing? "
+if not exist "%File%" goto "ScanFileFileNotExist"
+if /i "%OnlineOffline%"=="Online" goto "ScanFileOnline"
+if /i "%OnlineOffline%"=="Offline" goto "ScanFileDriveLetter"
 
-:"SFCScanFileNotExist"
-echo "%SFCScanFile%" does not exist! Please try again.
-goto "SFCScanFilePath"
+:"ScanFileFileNotExist"
+echo "%File% does not exist! Please try again.
+goto "ScanFileFile"
 
-:SFCScanFile
-sfc /scanfile="%SFCScanFile%"
-goto "Start"
-
-:"DriveLetterSFCScanFileNotExist"
-echo "%DriveLetter%" does not exist! Please try again.
-goto "8"
-
-:"OfflineSFCScanFilePath"
+:"ScanFileDriveLetter"
 echo.
-set OfflineSFCScanFile=
-set /p OfflineSFCScanFile="What is the full path to the file you want to scan? "
-if not exist "%OfflineSFCScanFile%" goto "OfflineSFCScanFileNotExist"
-goto "OfflineSFCScanFileLog"
-
-:"OfflineSFCScanFileNotExist"
-echo "%OfflineSFCScanFile%" does not exist! Please try again.
-goto "OfflineSFCScanFilePath"
-
-:"OfflineSFCScanFileLog"
-echo.
-set OfflineSFCScanLog=
-set /p OfflineSFCScanLog="Do you want to set a custom log file location? (Yes/No) "
-if /i "%OfflineSFCScanLog%"=="Yes" goto "OfflineSFCScanLogLocation"
-if /i "%OfflineSFCScanLog%"=="No" goto "OfflineSFCScanFile"
+set ScanFileDriveLetter=
+set /p VerifyOnlyDriveLetter="What is the drive letter of the offline Windows installation? (A:-Z:) "
+if /i "%ScanFileDriveLetter%"=="A:" goto "CheckExistScanFileDriveLetter"
+if /i "%ScanFileDriveLetter%"=="B:" goto "CheckExistScanFileDriveLetter"
+if /i "%ScanFileDriveLetter%"=="C:" goto "CheckExistScanFileDriveLetter"
+if /i "%ScanFileDriveLetter%"=="D:" goto "CheckExistScanFileDriveLetter"
+if /i "%ScanFileDriveLetter%"=="E:" goto "CheckExistScanFileDriveLetter"
+if /i "%ScanFileDriveLetter%"=="F:" goto "CheckExistScanFileDriveLetter"
+if /i "%ScanFileDriveLetter%"=="G:" goto "CheckExistScanFileDriveLetter"
+if /i "%ScanFileDriveLetter%"=="H:" goto "CheckExistScanFileDriveLetter"
+if /i "%ScanFileDriveLetter%"=="I:" goto "CheckExistScanFileDriveLetter"
+if /i "%ScanFileDriveLetter%"=="J:" goto "CheckExistScanFileDriveLetter"
+if /i "%ScanFileDriveLetter%"=="K:" goto "CheckExistScanFileDriveLetter"
+if /i "%ScanFileDriveLetter%"=="L:" goto "CheckExistScanFileDriveLetter"
+if /i "%ScanFileDriveLetter%"=="M:" goto "CheckExistScanFileDriveLetter"
+if /i "%ScanFileDriveLetter%"=="N:" goto "CheckExistScanFileDriveLetter"
+if /i "%ScanFileDriveLetter%"=="O:" goto "CheckExistScanFileDriveLetter"
+if /i "%ScanFileDriveLetter%"=="P:" goto "CheckExistScanFileDriveLetter"
+if /i "%ScanFileDriveLetter%"=="Q:" goto "CheckExistScanFileDriveLetter"
+if /i "%ScanFileDriveLetter%"=="R:" goto "CheckExistScanFileDriveLetter"
+if /i "%ScanFileDriveLetter%"=="S:" goto "CheckExistScanFileDriveLetter"
+if /i "%ScanFileDriveLetter%"=="T:" goto "CheckExistScanFileDriveLetter"
+if /i "%ScanFileDriveLetter%"=="U:" goto "CheckExistScanFileDriveLetter"
+if /i "%ScanFileDriveLetter%"=="V:" goto "CheckExistScanFileDriveLetter"
+if /i "%ScanFileDriveLetter%"=="W:" goto "CheckExistScanFileDriveLetter"
+if /i "%ScanFileDriveLetter%"=="X:" goto "CheckExistScanFileDriveLetter"
+if /i "%ScanFileDriveLetter%"=="Y:" goto "CheckExistScanFileDriveLetter"
+if /i "%ScanFileDriveLetter%"=="Z:" goto "CheckExistScanFileDriveLetter"
 echo Invalid syntax!
-goto "OfflineSFCScanFileLog"
+goto :"ScanFileDriveLetter"
 
-:"OfflineSFCScanFile"
-sfc /scanfile="%OfflineSFCScanFile%" /offbootdir="%DriveLetter%" /offwindir="%DriveLetter%\Windows"
+:"CheckExistScanFileDriveLetter"
+if not exist "%ScanFileDriveLetter%\Windows" goto "ScanFileDriveLetterNotExist"
+goto "ScanFileLogAsk"
+
+:"ScanFileDriveLetterNotExist"
+echo "%ScanFileDriveLetterNotExist%" does not exist or is not an offline Windows installation!
+goto "ScanFileDriveLetter"
+
+:"ScanFileLogAsk"
+echo.
+set ScanFileNowLog=
+set /p ScanFileNowLog="Do you want to set a custom log file location? (Yes/No) "
+if /i "%ScanFileLog%"=="Yes" goto "ScanFileLogLocation"
+if /i "%ScanFileLog%"=="No" goto "ScanFileOffline"
+echo Invalid syntax!
+goto "ScanFileLogAsk"
+
+:"ScanFileLogLocation"
+echo.
+set ScanFileLogLocation=
+set /p ScanFileLogLocation="What is the full path without the file extention to the location you want to save the log file to? "
+if exist "%ScanFileLogLocation%" goto "ScanFileLogLocationNul"
+echo "%ScanFileLogLocation%" does not exist! Please try again.
+goto "ScanFileLogAsk"
+
+:"ScanFileLogLocationNul"
+if not exist "%ScanFileLogLocation%\nul" goto "ScanFileOfflineLog"
+echo "%ScanFileLogLocation%" need to be a file not folder! Please try again.
+goto "ScanFileLogAsk"
+
+"ScanFileOnline"
+sfc /scannfile="%File%"
+goto "Start
+
+:"ScanFileOffline"
+sfc /scannfile="%File%" /offbootdir="%ScanFileDriveLetter%" /offwindir="%ScanFileDriveLetter%\Windows"
 goto "Start"
 
-:"OfflineSFCScanLogLocation"
-echo.
-set OfflineSFCScanLogLocation=
-set /p OfflineSFCscanLogLocation="What is the full path to the location you want to save the log file to? "
-if not exist "%OfflineSFCScanLogLocation%\nul" goto "OfflineSFCScanLogLocationNotExist"
-goto "OfflineSFCScanLogSFCScanFile"
-
-:"OfflineSFCScanLogLocationNotExist"
-echo "%OfflineSScanLogLocation%" does not exist! Please try again.
-goto "OfflineSFCScanLogLocation"
-
-:"OfflineSFCScanLogSFCScanFile"
-sfc /scanfile="%OfflineSFCScanFile%" /offbootdir="%DriveLetter%" /offwindir="%DriveLetter%\Windows" /offlogfile="%OfflineSFCScanLogLocation%"
+:"ScanFileOfflineLog"
+sfc /scannfile="%File%" /offbootdir="%ScanFileDriveLetter%" /offwindir="%ScanFileDriveLetter%\Windows" /offlogfile="%ScanFileLogLocation%.txt"
 goto "Start"
 
 :"9"
