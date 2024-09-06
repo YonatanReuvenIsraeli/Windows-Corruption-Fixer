@@ -891,7 +891,7 @@ if /i "%OnlineOffline%"=="Online" goto "ScanFileOnline"
 if /i "%OnlineOffline%"=="Offline" goto "ScanFileDriveLetter"
 
 :"ScanFileFileNotExist"
-echo "%File% does not exist! Please try again.
+echo "%File%" does not exist! Please try again.
 goto "ScanFileFile"
 
 :"ScanFileDriveLetter"
