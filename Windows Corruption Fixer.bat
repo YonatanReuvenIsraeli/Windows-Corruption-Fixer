@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.0.0
+echo Version: 8.0.1
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -147,7 +147,7 @@ if not exist "%InstallationCheck%" goto "NotExistCheck"
 goto "CheckOffline"
 
 :"NotExistCheck"
-echo "%InstallationCheck%" does not exist. Please try again.
+echo "%InstallationCheck%" does not exist! Please try again.
 goto "InstallationCheck"
 
 :"CheckOnline"
@@ -213,7 +213,7 @@ if not exist "%InstallationScan%" goto "NotExistScan"
 goto "ScanOffline"
 
 :"NotExistCheck"
-echo "%InstallationScan%" does not exist. Please try again.
+echo "%InstallationScan%" does not exist! Please try again.
 goto "InstallationCScan"
 
 :"ScanOnline"
@@ -297,7 +297,7 @@ if not exist "%DriveLetter%" goto "NotExistOnline"
 goto "BitDetectionOnline"
 
 :"NotExistOnline"
-echo "%DriveLetter%" does not exist. Please try again.
+echo "%DriveLetter%" does not exist! Please try again.
 goto "DriveLetterOnline"
 
 :"BitDetectionOnline"
@@ -504,7 +504,7 @@ if not exist "%OfflineInstallation%" goto "NotExistRestore"
 goto "DriveLetterOffline"
 
 :"NotExistRestore"
-echo "%OfflineInstallation%" does not exist. Please try again.
+echo "%OfflineInstallation%" does not exist! Please try again.
 goto "InstallationRestore"
 
 :"DriveLetterOffline"
@@ -554,7 +554,7 @@ if not exist "%DriveLetter%" goto "NotExistOffline"
 goto "BitDetectionOffline"
 
 :"NotExistOffline"
-echo "%DriveLetter%" does not exist. Please try again.
+echo "%DriveLetter%" does not exist! Please try again.
 goto "DriveLetterOffline"
 
 :"BitDetectionOffline"
