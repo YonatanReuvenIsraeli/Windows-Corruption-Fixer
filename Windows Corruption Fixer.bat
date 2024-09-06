@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.4.8
+echo Version: 8.4.9
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -702,7 +702,16 @@ DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Driv
 goto "Start"
 
 :"5"
-"%SystemDrive%\Windows\Logs\DISM\dism.log"
+echo.
+set OnlineOffline=
+set /p OnlineOffline="You can only view logs of online Windows installation. Is this an online Windows installation? (Yes/No) "
+if /i "%OnlineOffline%"=="Yes" goto "DISMViewLogs"
+if /i "%OnlineOffline%"=="No" goto "Start"
+echo Invalid syntax!
+goto "5"
+
+:"DISMViewLogs"
+"%windir%\Logs\DISM\dism.log"
 goto "Start"
 
 :"6"
@@ -760,7 +769,7 @@ sfc /scannow
 goto "Start"
 
 :"ScanNowOffline"
-sfc /scannow /offbootdir="%ScanNowDriveLetter%" /offwindir="%ScanNowDriveLetter%\Windows" /offlogfile="%VerifyFileDriveLetter%\WindowsLogs\CBS\CBS.log"
+sfc /scannow /offbootdir="%ScanNowDriveLetter%" /offwindir="%ScanNowDriveLetter%\Windows"
 goto "Start"
 
 :"7"
@@ -818,7 +827,7 @@ sfc /verifyonly
 goto "Start"
 
 :"VerifyOnlyOffline"
-sfc /verifyonly /offbootdir="%VerifyOnlyDriveLetter%" /offwindir="%VerifyOnlyDriveLetter%\Windows" /offlogfile="%VerifyFileDriveLetter%\WindowsLogs\CBS\CBS.log"
+sfc /verifyonly /offbootdir="%VerifyOnlyDriveLetter%" /offwindir="%VerifyOnlyDriveLetter%\Windows"
 goto "Start"
 
 :"8"
@@ -888,7 +897,7 @@ sfc /scannfile="%File%"
 goto "Start"
 
 :"ScanFileOffline"
-sfc /scannfile="%File%" /offbootdir="%ScanFileDriveLetter%" /offwindir="%ScanFileDriveLetter%\Windows" /offlogfile="%VerifyFileDriveLetter%\WindowsLogs\CBS\CBS.log"
+sfc /scannfile="%File%" /offbootdir="%ScanFileDriveLetter%" /offwindir="%ScanFileDriveLetter%\Windows"
 goto "Start"
 
 :"9"
@@ -958,65 +967,20 @@ sfc /verifyfile="%File%"
 goto "Start"
 
 :"VerifyFileOffline"
-sfc /verifyfile="%File%" /offbootdir="%VerifyFileDriveLetter%" /offwindir="%VerifyFileDriveLetter%\Windows" /offlogfile="%VerifyFileDriveLetter%\WindowsLogs\CBS\CBS.log"
+sfc /verifyfile="%File%" /offbootdir="%VerifyFileDriveLetter%" /offwindir="%VerifyFileDriveLetter%\Windows"
 goto "Start"
 
 :"10"
 echo.
 set OnlineOffline=
-set /p OnlineOffline="Are you repairing an online or offline Windows installation? (Online/Offline) "
-if /i "%OnlineOffline%"=="Online" goto "ViewLogsOnline"
-if /i "%OnlineOffline%"=="Offline" goto "ViewLogsOfflineDriveLetter"
-echo Invalid syntax
+set /p OnlineOffline="You can only view logs of online Windows installation. Is this an online Windows installation? (Yes/No) "
+if /i "%OnlineOffline%"=="Yes" goto "SFCViewLogs"
+if /i "%OnlineOffline%"=="No" goto "Start"
+echo Invalid syntax!
 goto "10"
 
-:"ViewLogsOfflineDriveLetter"
-echo.
-set ViewLogsOfflineDriveLetter=
-set /p ViewLogsOfflineDriveLetter="What is the drive letter of the offline Windows installation? (A:-Z:) "
-if /i "%ViewLogsOfflineDriveLetter%"=="A:" goto "CheckExistViewLogsOfflineDriveLetter"
-if /i "%ViewLogsOfflineDriveLetter%"=="B:" goto "CheckExistViewLogsOfflineDriveLetter"
-if /i "%ViewLogsOfflineDriveLetter%"=="C:" goto "CheckExistViewLogsOfflineDriveLetter"
-if /i "%ViewLogsOfflineDriveLetter%"=="D:" goto "CheckExistViewLogsOfflineDriveLetter"
-if /i "%ViewLogsOfflineDriveLetter%"=="E:" goto "CheckExistViewLogsOfflineDriveLetter"
-if /i "%ViewLogsOfflineDriveLetter%"=="F:" goto "CheckExistViewLogsOfflineDriveLetter"
-if /i "%ViewLogsOfflineDriveLetter%"=="G:" goto "CheckExistViewLogsOfflineDriveLetter"
-if /i "%ViewLogsOfflineDriveLetter%"=="H:" goto "CheckExistViewLogsOfflineDriveLetter"
-if /i "%ViewLogsOfflineDriveLetter%"=="I:" goto "CheckExistViewLogsOfflineDriveLetter"
-if /i "%ViewLogsOfflineDriveLetter%"=="J:" goto "CheckExistViewLogsOfflineDriveLetter"
-if /i "%ViewLogsOfflineDriveLetter%"=="K:" goto "CheckExistViewLogsOfflineDriveLetter"
-if /i "%ViewLogsOfflineDriveLetter%"=="L:" goto "CheckExistViewLogsOfflineDriveLetter"
-if /i "%ViewLogsOfflineDriveLetter%"=="M:" goto "CheckExistViewLogsOfflineDriveLetter"
-if /i "%ViewLogsOfflineDriveLetter%"=="N:" goto "CheckExistViewLogsOfflineDriveLetter"
-if /i "%ViewLogsOfflineDriveLetter%"=="O:" goto "CheckExistViewLogsOfflineDriveLetter"
-if /i "%ViewLogsOfflineDriveLetter%"=="P:" goto "CheckExistViewLogsOfflineDriveLetter"
-if /i "%ViewLogsOfflineDriveLetter%"=="Q:" goto "CheckExistViewLogsOfflineDriveLetter"
-if /i "%ViewLogsOfflineDriveLetter%"=="R:" goto "CheckExistViewLogsOfflineDriveLetter"
-if /i "%ViewLogsOfflineDriveLetter%"=="S:" goto "CheckExistViewLogsOfflineDriveLetter"
-if /i "%ViewLogsOfflineDriveLetter%"=="T:" goto "CheckExistViewLogsOfflineDriveLetter"
-if /i "%ViewLogsOfflineDriveLetter%"=="U:" goto "CheckExistViewLogsOfflineDriveLetter"
-if /i "%ViewLogsOfflineDriveLetter%"=="V:" goto "CheckExistViewLogsOfflineDriveLetter"
-if /i "%ViewLogsOfflineDriveLetter%"=="W:" goto "CheckExistViewLogsOfflineDriveLetter"
-if /i "%ViewLogsOfflineDriveLetter%"=="X:" goto "CheckExistViewLogsOfflineDriveLetter"
-if /i "%ViewLogsOfflineDriveLetter%"=="Y:" goto "CheckExistViewLogsOfflineDriveLetter"
-if /i "%ViewLogsOfflineDriveLetter%"=="Z:" goto "CheckExistViewLogsOfflineDriveLetter"
-echo Invalid syntax!
-goto :"ViewLogsOfflineDriveLetter"
-
-:"CheckExistViewLogsOfflineDriveLetter"
-if not exist "%ViewLogsOfflineDriveLetter%\Windows\Logs\CBS\CBS.log" goto "ViewLogsOfflineDriveLetterNotExist"
-goto "VerifyFileOffline"
-
-:"ViewLogsOfflineDriveLetterNotExist"
-echo "%ViewLogsOfflineDriveLetter%" SFC log file does not exist! It may be a wrong drive letter! Please try again.
-goto "ViewLogsOfflineDriveLetter"
-
-:ViewLogsOnline
-"%SystemDrive%\Windows\Logs\CBS\CBS.log"
-goto "Start"
-
-:ViewLogsOffline
-"%ViewLogsOfflineDriveLetter%\Windows\Logs\CBS\CBS.log"
+:SFCLogsOnline
+"%windir%\Logs\CBS\CBS.log"
 goto "Start"
 
 :"Done"
