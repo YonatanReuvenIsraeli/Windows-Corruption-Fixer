@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 6.0.11
+echo Version: 6.0.12
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -218,10 +218,9 @@ if exist "%DriveLetter%\x64\sources\install.wim" goto "64DISMWIM1"
 set install=install.esd
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.esd"
 if not "%errorlevel%"=="0" goto "DriveLetter"
-goto "Start"
+goto "Index"
 
 :"DISMSWM1"
-goto "Start"
 set install=install.swm
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\install.swm"
 if not "%errorlevel%"=="0" goto "DriveLetter"
