@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.0.3
+echo Version: 8.0.4
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -333,7 +333,7 @@ if /i "%Bit%"=="64" goto "64ESDSWMWIMOnline"
 if exist "%DriveLetter%\sources\install.esd" set Install=install.esd
 if exist "%DriveLetter%\sources\install.swm" set Install=install.swm
 if exist "%DriveLetter%\sources\install.wim" set Install=install.wim
-goto "DISMOOnline"
+goto "DISMOnline"
 
 :"32ESDSWMWIMOnline"
 if exist "%DriveLetter%\x86\sources\install.esd" set Install=install.esd
