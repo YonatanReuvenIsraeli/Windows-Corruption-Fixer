@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 6.0.9
+echo Version: 6.0.10
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -151,7 +151,7 @@ if /i "%DriveLetter%"=="X:" goto "SureDriveLetterDISM"
 if /i "%DriveLetter%"=="Y:" goto "SureDriveLetterDISM"
 if /i "%DriveLetter%"=="Z:" goto "SureDriveLetterDISM"
 echo Invalid syntax!
-goto "DriveLetterDISM"
+goto "DriveLetter"
 
 :"SureDriveLetterDISM"
 echo.
@@ -160,7 +160,7 @@ set /p SureDriveLetter="Are you sure "%DriveLetter%" is the drive letter of your
 if /i "%SureDriveLetter%"=="Yes" goto "CheckExistDriveLetter"
 if /i "%SureDriveLetter%"=="No" goto "DriveLetter"
 echo Invalid syntax!
-goto "SureDriveLetter"
+goto "SureDriveLetterDISM"
 
 :"CheckExistDriveLetter"
 if not exist "%DriveLetter%" goto "NotExist"
