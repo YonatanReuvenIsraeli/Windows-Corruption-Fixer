@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.4.6
+echo Version: 8.4.7
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -755,7 +755,7 @@ goto "ScanNowOffline"
 echo "%ScanNowDriveLetter%" does not exist or is not an offline Windows installation!
 goto "ScanNowDriveLetter"
 
-"ScanNowOnline"
+:"ScanNowOnline"
 sfc /scannow
 goto "Start"
 
@@ -813,7 +813,7 @@ goto "VerifyOnlyOffline"
 echo "%VerifyOnlyDriveLetterNotExist%" does not exist or is not an offline Windows installation!
 goto "VerifyOnlyDriveLetter"
 
-"VerifyOnlyOnline"
+:"VerifyOnlyOnline"
 sfc /verifyonly
 goto "Start"
 
@@ -883,7 +883,7 @@ goto "ScanFileOffline"
 echo "%ScanFileDriveLetterNotExist%" does not exist or is not an offline Windows installation!
 goto "ScanFileDriveLetter"
 
-"ScanFileOnline"
+:"ScanFileOnline"
 sfc /scannfile="%File%"
 goto "Start"
 
@@ -953,7 +953,7 @@ goto "VerifyFileOffline"
 echo "%VerifyFileDriveLetterNotExist%" does not exist or is not an offline Windows installation!
 goto "VerifyFileDriveLetter"
 
-"VerifyFileOnline"
+:"VerifyFileOnline"
 sfc /verifyfile="%File%"
 goto "Start"
 
