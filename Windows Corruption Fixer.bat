@@ -97,17 +97,58 @@ echo.
 set OnlineOffline=
 set /p OnlineOffline="Are you repairing an online or offline Windows installation? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "CheckOnline"
-if /i "%OnlineOffline%"=="Offline" goto "OfflineInstallationCheck"
+if /i "%OnlineOffline%"=="Offline" goto "InstallationCheck"
 echo Invalid syntax
 goto "2"
 
-:"OfflineInstallationCheck"
+:"InstallationCheck"
 echo.
-set OfflineInstallation=
-set /p OfflineInstallation="What is the full path to your offline Windows installation? "
-if exist "%OfflineInstallation%" goto "CheckOffline"
-echo "%OfflineInstallation%" does not exist! Please try again.
-goto "OfflineInstallationCheck"
+set InstallationCheck=
+set /p InstallationCheck="What is the drive letter to your offline Windows installation? (A:-Z:) "
+if /i "%InstallationCheck%"=="A:" goto "SureInstallationCheck"
+if /i "%InstallationCheck%"=="B:" goto "SureInstallationCheck"
+if /i "%InstallationCheck%"=="C:" goto "SureInstallationCheck"
+if /i "%InstallationCheck%"=="D:" goto "SureInstallationCheck"
+if /i "%InstallationCheck%"=="E:" goto "SureInstallationCheck"
+if /i "%InstallationCheck%"=="F:" goto "SureInstallationCheck"
+if /i "%InstallationCheck%"=="G:" goto "SureInstallationCheck"
+if /i "%InstallationCheck%"=="H:" goto "SureInstallationCheck"
+if /i "%InstallationCheck%"=="I:" goto "SureInstallationCheck"
+if /i "%InstallationCheck%"=="J:" goto "SureInstallationCheck"
+if /i "%InstallationCheck%"=="K:" goto "SureInstallationCheck"
+if /i "%InstallationCheck%"=="L:" goto "SureInstallationCheck"
+if /i "%InstallationCheck%"=="M:" goto "SureInstallationCheck"
+if /i "%InstallationCheck%"=="N:" goto "SureInstallationCheck"
+if /i "%InstallationCheck%"=="O:" goto "SureInstallationCheck"
+if /i "%InstallationCheck%"=="P:" goto "SureInstallationCheck"
+if /i "%InstallationCheck%"=="Q:" goto "SureInstallationCheck"
+if /i "%InstallationCheck%"=="R:" goto "SureInstallationCheck"
+if /i "%InstallationCheck%"=="S:" goto "SureInstallationCheck"
+if /i "%InstallationCheck%"=="T:" goto "SureInstallationCheck"
+if /i "%InstallationCheck%"=="U:" goto "SureInstallationCheck"
+if /i "%InstallationCheck%"=="V:" goto "SureInstallationCheck"
+if /i "%InstallationCheck%"=="W:" goto "SureInstallationCheck"
+if /i "%InstallationCheck%"=="X:" goto "SureInstallationCheck"
+if /i "%InstallationCheck%"=="Y:" goto "SureInstallationCheck"
+if /i "%InstallationCheck%"=="Z:" goto "SureInstallationCheck"
+goto "InstallationCheck"
+
+:"SureInstallationCheck"
+echo.
+set SureInstallationCheck=
+set /p SureInstallationCheck="Are you sure "%DriveLetter%" is the drive letter of your offline Winddows installation? (Yes/No) "
+if /i "%SureInstallationCheck%"=="Yes" goto "CheckExistInstallationCheck"
+if /i "%SureInstallationCheck%"=="No" goto "InstallationCheck"
+echo Invalid syntax!
+goto "SureInstallationCheck"
+
+:"CheckExistInstallationCheck"
+if not exist "%InstallationCheck%" goto "NotExistRestore"
+goto "CheckOffline"
+
+:"NotExistCheck"
+echo "%InstallationCheck%" does not exist. Please try again.
+goto ""InstallationCheck"
 
 :"CheckOnline"
 DISM /Online /Cleanup-Image /CheckHealth
@@ -116,7 +157,6 @@ goto "Start"
 :"CheckOffline"
 DISM /Image:"" /Cleanup-Image /CheckHealth
 goto "Start"
-
 
 :"3"
 echo.
