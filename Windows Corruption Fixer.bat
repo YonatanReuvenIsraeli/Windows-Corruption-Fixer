@@ -863,7 +863,7 @@ goto "VerifyOnlyLogAsk"
 
 "VerifyOnlyOnline"
 sfc /verifyonly
-goto "Start
+goto "Start"
 
 :"VerifyOnlyOffline"
 sfc /verifyonly /offbootdir="%VerifyOnlyDriveLetter%" /offwindir="%VerifyOnlyDriveLetter%\Windows"
