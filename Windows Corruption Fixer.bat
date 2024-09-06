@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 7.0.3
+echo Version: 7.1.0
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -97,7 +97,28 @@ DISM /Online /Cleanup-Image /CheckHealth
 goto "Start"
 
 :"3"
+echo.
+set OnlineOffline=
+set /p OnlineOffline="Are you repairing an online or offline Windows installation? (Online/Offline) "
+if /i "%OnlineOffline%"=="Online" goto "ScanOnline"
+if /i "%OnlineOffline%"=="Offline" goto "OfflineInstallationCheck"
+echo Invalid syntax
+goto "3"
+
+:"OfflineInstallationCheck"
+echo.
+set OfflineInstallation=
+set /p OfflineInstallation="What is the full path to your offline Windows installation? "
+if exist "%OfflineInstallation%" goto "ScanOffline"
+echo "%OfflineInstallation%" does not exist! Please try again.
+goto "OfflineInstallationRestore"
+
+:"ScanOnline"
 DISM /Online /Cleanup-Image /ScanHealth
+goto "Start"
+
+:"ScanOffline"
+DISM /Image:"" /Cleanup-Image /ScanHealth
 goto "Start"
 
 :"4"
@@ -459,18 +480,18 @@ goto "UpdateOffline"
 echo.
 set Media=
 set /p Media="Do you want to use a Windows Disk Image? (Yes/No) "
-if /i "%Media%"=="Yes" goto "OfflineInstallation"
+if /i "%Media%"=="Yes" goto "OfflineInstallationRestore"
 if /i "%Media%"=="No" goto "DISMUpdateCheckOffline"
 echo Invalid Sytax!
 goto "MediaOffline"
 
-:"OfflineInstallation"
+:"OfflineInstallationRestore"
 echo.
 set OfflineInstallation=
 set /p OfflineInstallation="What is the full path to your offline Windows installation? "
 if exist "%OfflineInstallation%" goto "DriveLetterOffline"
 echo "%OfflineInstallation%" does not exist! Please try again.
-goto "OfflineInstallation"
+goto "OfflineInstallationRestore"
 
 :"DriveLetterOffline"
 echo.
