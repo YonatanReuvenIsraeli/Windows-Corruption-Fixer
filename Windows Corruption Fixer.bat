@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 7.0.0
+echo Version: 7.0.1
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -469,7 +469,6 @@ echo.
 set OfflineInstallation=
 set /p OfflineInstallation="What is the full path to your offline Windows installation? "
 if exist "%OfflineInstallation%" goto "DriveLetterOffline"
-
 echo "%OfflineInstallation%" does not exist! Please try again.
 goto "OfflineInstallation"
 
@@ -515,7 +514,7 @@ if /i "%SureDriveLetter%"=="No" goto "DriveLetterOffline"
 echo Invalid syntax!
 goto "SureDriveLetterDISMOffline"
 
-:"CheckExistDriveLetter"
+:"CheckExistDriveLetterOffline"
 if not exist "%DriveLetter%" goto "NotExistOffline"
 goto "BitDetectionOffline"
 
