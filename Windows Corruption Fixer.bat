@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.4.3
+echo Version: 8.4.4
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -767,7 +767,7 @@ goto "ScanNowLogAsk"
 :"ScanNowLogLocation"
 echo.
 set ScanNowLogLocation=
-set /p ScanNowLogLocation="What is the full path without the file extention to the location you want to save the log file to? "
+set /p ScanNowLogLocation="What is the full path without the file extention to the text file you want to save the logs to? "
 if exist "%ScanNowLogLocation%" goto "ScanNowLogLocationNul"
 echo "%ScanNowLogLocation%" does not exist! Please try again.
 goto "ScanNowLogAsk"
@@ -856,7 +856,7 @@ goto "VerifyOnlyLogAsk"
 :"VerifyOnlyLogLocation"
 echo.
 set VerifyOnlyLogLocation=
-set /p VerifyOnlyLogLocation="What is the full path without the file extention to the location you want to save the log file to? "
+set /p VerifyOnlyLogLocation="What is the full path without the file extention to the text file you want to save the logs to? "
 if exist "%VerifyOnlyLogLocation%" goto "VerifyOnlyLogLocationNul"
 echo "%VerifyOnlyLogLocation%" does not exist! Please try again.
 goto "VerifyOnlyLogAsk"
@@ -957,7 +957,7 @@ goto "ScanFileLogAsk"
 :"ScanFileLogLocation"
 echo.
 set ScanFileLogLocation=
-set /p ScanFileLogLocation="What is the full path without the file extention to the location you want to save the log file to? "
+set /p ScanFileLogLocation="What is the full path without the file extention to the text file you want to save the logs to? "
 if exist "%ScanFileLogLocation%" goto "ScanFileLogLocationNul"
 echo "%ScanFileLogLocation%" does not exist! Please try again.
 goto "ScanFileLogAsk"
@@ -1058,7 +1058,7 @@ goto "VerifyFileLogAsk"
 :"VerifyFileLogLocation"
 echo.
 set VerifyFileLogLocation=
-set /p VerifyFileLogLocation="What is the full path without the file extention to the location you want to save the log file to? "
+set /p VerifyFileLogLocation="What is the full path without the file extention to the text file you want to save the logs to? "
 if exist "%VerifyFileLogLocation%" goto "VerifyFileLogLocationNul"
 echo "%VerifyFileLogLocation%" does not exist! Please try again.
 goto "VerifyFileLogAsk"
