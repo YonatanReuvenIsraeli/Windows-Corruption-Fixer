@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 6.0.14
+echo Version: 6.0.15
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -102,6 +102,7 @@ goto "Start"
 
 :"4"
 echo.
+set Update=
 set /p Update="Do you want to use Windows Update? (Yes/No) "
 if /i "%Update%"=="Yes" goto "Media"
 if /i "%Update%"=="No" goto "Media"
