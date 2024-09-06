@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.4.2
+echo Version: 8.4.3
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -774,12 +774,12 @@ goto "ScanNowLogAsk"
 
 :"ScanNowLogLocationNul"
 if not exist "%ScanNowLogLocation%\nul" goto "ScanNowLogLocationTXT"
-echo "%ScanNowLogLocation%" need to be a text file not a folder! Please try again.
+echo "%ScanNowLogLocation%" needs to be a text file not a folder! Please try again.
 goto "ScanNowLogAsk"
 
 :"ScanNowLogLocationTXT"
 if exist "%ScanNowLogLocation%.txt" goto "ScanNowOfflineLog"
-echo "%ScanNowLogLocation%" need to be a text file! Please try again.
+echo "%ScanNowLogLocation%" needs to be a text file! Please try again.
 goto "ScanNowLogLocation"
 
 "ScanNowOnline"
@@ -863,12 +863,12 @@ goto "VerifyOnlyLogAsk"
 
 :"VerifyOnlyLogLocationNul"
 if not exist "%VerifyOnlyLogLocation%\nul" goto "VerifyOnlyLogLocationTXT"
-echo "%VerifyOnlyLogLocation%" need to be a text file not a folder! Please try again.
+echo "%VerifyOnlyLogLocation%" needs to be a text file not a folder! Please try again.
 goto "VerifyOnlyLogAsk"
 
 :"VerifyOnlyLogLocationTXT"
 if exist "%VerifyOnlyLogLocation%.txt" goto "VerifyOnlyOfflineLog"
-echo "%VerifyOnlyLogLocation%" need to be a text file! Please try again.
+echo "%VerifyOnlyLogLocation%" needs to be a text file! Please try again.
 goto "VerifyOnlyLogLocation"
 
 "VerifyOnlyOnline"
@@ -964,12 +964,12 @@ goto "ScanFileLogAsk"
 
 :"ScanFileLogLocationNul"
 if not exist "%ScanFileLogLocation%\nul" goto "ScanFileLogLocationTXT"
-echo "%ScanFileLogLocation%" need to be a text file not a folder! Please try again.
+echo "%ScanFileLogLocation%" needs to be a text file not a folder! Please try again.
 goto "ScanFileLogAsk"
 
 :"ScanFileLogLocationTXT"
 if exist "%ScanFileLogLocation%.txt" goto "ScanFileOfflineLog"
-echo "%ScanFileLogLocation%" need to be a text file! Please try again.
+echo "%ScanFileLogLocation%" needs to be a text file! Please try again.
 goto "ScanFileLogLocation"
 
 "ScanFileOnline"
@@ -1065,12 +1065,12 @@ goto "VerifyFileLogAsk"
 
 :"VerifyFileLogLocationNul"
 if not exist "%VerifyFileLogLocation%\nul" goto "VerifyFileLogLocationTXT"
-echo "%VerifyFileLogLocation%" need to be a text file not a folder! Please try again.
+echo "%VerifyFileLogLocation%" needs to be a text file not a folder! Please try again.
 goto "VerifyFileLogAsk"
 
 :"VerifyFileLogLocationTXT"
 if exist "%VerifyFileLogLocation%.txt" goto "VerifyFileOfflineLog"
-echo "%VerifyFileLogLocation%" need to be a text file! Please try again.
+echo "%VerifyFileLogLocation%" needs to be a text file! Please try again.
 goto "VerifyFileLogLocation"
 
 "VerifyFileOnline"
