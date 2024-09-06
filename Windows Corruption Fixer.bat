@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.0.11
+echo Version: 8.0.12
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -144,11 +144,11 @@ echo Invalid syntax!
 goto "SureInstallationCheck"
 
 :"CheckExistInstallationCheck"
-if not exist "%InstallationCheck%" goto "NotExistCheck"
+if not exist "%InstallationCheck%\Windows" goto "NotExistCheck"
 goto "CheckOffline"
 
 :"NotExistCheck"
-echo "%InstallationCheck%" does not exist! Please try again.
+echo "%InstallationCheck%" does not exist or is not an offline Windows installation! Please try again.
 goto "InstallationCheck"
 
 :"CheckOnline"
