@@ -987,7 +987,7 @@ if /i "%OnlineOffline%"=="Online" goto "VerifyFileOnline"
 if /i "%OnlineOffline%"=="Offline" goto "VerifyFileDriveLetter"
 
 :"VerifyFileFileNotExist"
-echo "%File% does not exist! Please try again.
+echo "%File%" does not exist! Please try again.
 goto "VerifyFileFile"
 
 :"VerifyFileDriveLetter"
