@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 7.1.0
+echo Version: 7.2.0
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -93,25 +93,47 @@ chkdsk "%DriveLetter%" /f /r
 goto "Start"
 
 :"2"
+echo.
+set OnlineOffline=
+set /p OnlineOffline="Are you repairing an online or offline Windows installation? (Online/Offline) "
+if /i "%OnlineOffline%"=="Online" goto "CheckOnline"
+if /i "%OnlineOffline%"=="Offline" goto "OfflineInstallationCheck"
+echo Invalid syntax
+goto "2"
+
+:"OfflineInstallationCheck"
+echo.
+set OfflineInstallation=
+set /p OfflineInstallation="What is the full path to your offline Windows installation? "
+if exist "%OfflineInstallation%" goto "CheckOffline"
+echo "%OfflineInstallation%" does not exist! Please try again.
+goto "OfflineInstallationCheck"
+
+:"CheckOnline"
 DISM /Online /Cleanup-Image /CheckHealth
 goto "Start"
+
+:"CheckOffline"
+DISM /Image:"" /Cleanup-Image /CheckHealth
+goto "Start"
+
 
 :"3"
 echo.
 set OnlineOffline=
 set /p OnlineOffline="Are you repairing an online or offline Windows installation? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "ScanOnline"
-if /i "%OnlineOffline%"=="Offline" goto "OfflineInstallationCheck"
+if /i "%OnlineOffline%"=="Offline" goto "OfflineInstallationScan"
 echo Invalid syntax
 goto "3"
 
-:"OfflineInstallationCheck"
+:"OfflineInstallationScan"
 echo.
 set OfflineInstallation=
 set /p OfflineInstallation="What is the full path to your offline Windows installation? "
 if exist "%OfflineInstallation%" goto "ScanOffline"
 echo "%OfflineInstallation%" does not exist! Please try again.
-goto "OfflineInstallationRestore"
+goto "OfflineInstallationScan"
 
 :"ScanOnline"
 DISM /Online /Cleanup-Image /ScanHealth
