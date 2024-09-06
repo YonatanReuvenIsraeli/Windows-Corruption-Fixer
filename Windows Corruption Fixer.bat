@@ -749,38 +749,11 @@ goto :"ScanNowDriveLetter"
 
 :"CheckExistScanNowDriveLetter"
 if not exist "%ScanNowDriveLetter%\Windows" goto "ScanNowDriveLetterNotExist"
-goto "ScanNowLogAsk"
+goto "ScanNowOffline"
 
 :"ScanNowDriveLetterNotExist"
 echo "%ScanNowDriveLetter%" does not exist or is not an offline Windows installation!
 goto "ScanNowDriveLetter"
-
-:"ScanNowLogAsk"
-echo.
-set SFCScanNowLog=
-set /p SFCScanNowLog="Do you want to set a custom log file location? (Yes/No) "
-if /i "%SFCScanNowLog%"=="Yes" goto "ScanNowLogLocation"
-if /i "%SFCScanNowLog%"=="No" goto "ScanNowOffline"
-echo Invalid syntax!
-goto "ScanNowLogAsk"
-
-:"ScanNowLogLocation"
-echo.
-set ScanNowLogLocation=
-set /p ScanNowLogLocation="What is the full path without the file extention to the text file you want to save the logs to? "
-if exist "%ScanNowLogLocation%" goto "ScanNowLogLocationNul"
-echo "%ScanNowLogLocation%" does not exist! Please try again.
-goto "ScanNowLogAsk"
-
-:"ScanNowLogLocationNul"
-if not exist "%ScanNowLogLocation%\nul" goto "ScanNowLogLocationTXT"
-echo "%ScanNowLogLocation%" needs to be a text file not a folder! Please try again.
-goto "ScanNowLogAsk"
-
-:"ScanNowLogLocationTXT"
-if exist "%ScanNowLogLocation%.txt" goto "ScanNowOfflineLog"
-echo "%ScanNowLogLocation%" needs to be a text file! Please try again.
-goto "ScanNowLogLocation"
 
 "ScanNowOnline"
 sfc /scannow
@@ -788,10 +761,6 @@ goto "Start"
 
 :"ScanNowOffline"
 sfc /scannow /offbotdir="%ScanNowDriveLetter%" /offwindir="%ScanNowDriveLetter%\Windows"
-goto "Start"
-
-:"ScanNowOfflineLog"
-sfc /scannow /offbootdir="%ScanNowDriveLetter%" /offwindir="%ScanNowDriveLetter%\Windows" /offlogfile="%ScanNowLogLocation%.txt"
 goto "Start"
 
 :"7"
@@ -838,38 +807,11 @@ goto :"VerifyOnlyDriveLetter"
 
 :"CheckExistVerifyOnlyDriveLetter"
 if not exist "%VerifyOnlyDriveLetter%\Windows" goto "VerifyOnlyDriveLetterNotExist"
-goto "VerifyOnlyLogAsk"
+goto "VerifyOnlyOffline"
 
 :"VerifyOnlyDriveLetterNotExist"
 echo "%VerifyOnlyDriveLetterNotExist%" does not exist or is not an offline Windows installation!
 goto "VerifyOnlyDriveLetter"
-
-:"VerifyOnlyLogAsk"
-echo.
-set VerifyOnlyNowLog=
-set /p VerifyOnlyNowLog="Do you want to set a custom log file location? (Yes/No) "
-if /i "%VerifyOnlyLog%"=="Yes" goto "VerifyOnlyLogLocation"
-if /i "%VerifyOnlyLog%"=="No" goto "VerifyOnlyOffline"
-echo Invalid syntax!
-goto "VerifyOnlyLogAsk"
-
-:"VerifyOnlyLogLocation"
-echo.
-set VerifyOnlyLogLocation=
-set /p VerifyOnlyLogLocation="What is the full path without the file extention to the text file you want to save the logs to? "
-if exist "%VerifyOnlyLogLocation%" goto "VerifyOnlyLogLocationNul"
-echo "%VerifyOnlyLogLocation%" does not exist! Please try again.
-goto "VerifyOnlyLogAsk"
-
-:"VerifyOnlyLogLocationNul"
-if not exist "%VerifyOnlyLogLocation%\nul" goto "VerifyOnlyLogLocationTXT"
-echo "%VerifyOnlyLogLocation%" needs to be a text file not a folder! Please try again.
-goto "VerifyOnlyLogAsk"
-
-:"VerifyOnlyLogLocationTXT"
-if exist "%VerifyOnlyLogLocation%.txt" goto "VerifyOnlyOfflineLog"
-echo "%VerifyOnlyLogLocation%" needs to be a text file! Please try again.
-goto "VerifyOnlyLogLocation"
 
 "VerifyOnlyOnline"
 sfc /verifyonly
@@ -877,10 +819,6 @@ goto "Start"
 
 :"VerifyOnlyOffline"
 sfc /verifyonly /offbootdir="%VerifyOnlyDriveLetter%" /offwindir="%VerifyOnlyDriveLetter%\Windows"
-goto "Start"
-
-:"VerifyOnlyOfflineLog"
-sfc /verifyonly /offbootdir="%VerifyOnlyDriveLetter%" /offwindir="%VerifyOnlyDriveLetter%\Windows" /offlogfile="%VerifyOnlyLogLocation%.txt"
 goto "Start"
 
 :"8"
@@ -939,38 +877,11 @@ goto :"ScanFileDriveLetter"
 
 :"CheckExistScanFileDriveLetter"
 if not exist "%ScanFileDriveLetter%\Windows" goto "ScanFileDriveLetterNotExist"
-goto "ScanFileLogAsk"
+goto "ScanFileOffline"
 
 :"ScanFileDriveLetterNotExist"
 echo "%ScanFileDriveLetterNotExist%" does not exist or is not an offline Windows installation!
 goto "ScanFileDriveLetter"
-
-:"ScanFileLogAsk"
-echo.
-set ScanFileNowLog=
-set /p ScanFileNowLog="Do you want to set a custom log file location? (Yes/No) "
-if /i "%ScanFileLog%"=="Yes" goto "ScanFileLogLocation"
-if /i "%ScanFileLog%"=="No" goto "ScanFileOffline"
-echo Invalid syntax!
-goto "ScanFileLogAsk"
-
-:"ScanFileLogLocation"
-echo.
-set ScanFileLogLocation=
-set /p ScanFileLogLocation="What is the full path without the file extention to the text file you want to save the logs to? "
-if exist "%ScanFileLogLocation%" goto "ScanFileLogLocationNul"
-echo "%ScanFileLogLocation%" does not exist! Please try again.
-goto "ScanFileLogAsk"
-
-:"ScanFileLogLocationNul"
-if not exist "%ScanFileLogLocation%\nul" goto "ScanFileLogLocationTXT"
-echo "%ScanFileLogLocation%" needs to be a text file not a folder! Please try again.
-goto "ScanFileLogAsk"
-
-:"ScanFileLogLocationTXT"
-if exist "%ScanFileLogLocation%.txt" goto "ScanFileOfflineLog"
-echo "%ScanFileLogLocation%" needs to be a text file! Please try again.
-goto "ScanFileLogLocation"
 
 "ScanFileOnline"
 sfc /scannfile="%File%"
@@ -978,10 +889,6 @@ goto "Start"
 
 :"ScanFileOffline"
 sfc /scannfile="%File%" /offbootdir="%ScanFileDriveLetter%" /offwindir="%ScanFileDriveLetter%\Windows"
-goto "Start"
-
-:"ScanFileOfflineLog"
-sfc /scannfile="%File%" /offbootdir="%ScanFileDriveLetter%" /offwindir="%ScanFileDriveLetter%\Windows" /offlogfile="%ScanFileLogLocation%.txt"
 goto "Start"
 
 :"9"
@@ -1040,38 +947,11 @@ goto :"VerifyFileDriveLetter"
 
 :"CheckExistVerifyFileDriveLetter"
 if not exist "%VerifyFileDriveLetter%\Windows" goto "VerifyFileDriveLetterNotExist"
-goto "VerifyFileLogAsk"
+goto "VerifyFileOffline"
 
 :"VerifyFileDriveLetterNotExist"
 echo "%VerifyFileDriveLetterNotExist%" does not exist or is not an offline Windows installation!
 goto "VerifyFileDriveLetter"
-
-:"VerifyFileLogAsk"
-echo.
-set VerifyFileNowLog=
-set /p VerifyFileNowLog="Do you want to set a custom log file location? (Yes/No) "
-if /i "%VerifyFileLog%"=="Yes" goto "VerifyFileLogLocation"
-if /i "%VerifyFileLog%"=="No" goto "VerifyFileOffline"
-echo Invalid syntax!
-goto "VerifyFileLogAsk"
-
-:"VerifyFileLogLocation"
-echo.
-set VerifyFileLogLocation=
-set /p VerifyFileLogLocation="What is the full path without the file extention to the text file you want to save the logs to? "
-if exist "%VerifyFileLogLocation%" goto "VerifyFileLogLocationNul"
-echo "%VerifyFileLogLocation%" does not exist! Please try again.
-goto "VerifyFileLogAsk"
-
-:"VerifyFileLogLocationNul"
-if not exist "%VerifyFileLogLocation%\nul" goto "VerifyFileLogLocationTXT"
-echo "%VerifyFileLogLocation%" needs to be a text file not a folder! Please try again.
-goto "VerifyFileLogAsk"
-
-:"VerifyFileLogLocationTXT"
-if exist "%VerifyFileLogLocation%.txt" goto "VerifyFileOfflineLog"
-echo "%VerifyFileLogLocation%" needs to be a text file! Please try again.
-goto "VerifyFileLogLocation"
 
 "VerifyFileOnline"
 sfc /verifyfile="%File%"
@@ -1079,10 +959,6 @@ goto "Start"
 
 :"VerifyFileOffline"
 sfc /verifyfile="%File%" /offbootdir="%VerifyFileDriveLetter%" /offwindir="%VerifyFileDriveLetter%\Windows"
-goto "Start"
-
-:"VerifyFileOfflineLog"
-sfc /verifyfile="%File%" /offbootdir="%VerifyFileDriveLetter%" /offwindir="%VerifyFileDriveLetter%\Windows" /offlogfile="%SVerifyFileLogLocation%.txt"
 goto "Start"
 
 :"10"
