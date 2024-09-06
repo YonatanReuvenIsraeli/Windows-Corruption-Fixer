@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.3.0
+echo Version: 8.4.0
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -971,99 +971,98 @@ goto "Start"
 
 :"9"
 echo.
-set DriveLetter=
-set /p DriveLetter="What is the drive letter of the Windows installation you are trying to verify file? (A:-Z:) "
-if /i "%DriveLetter%"=="A:" goto "CheckExistDriveLetterSFCVerifyFile"
-if /i "%DriveLetter%"=="B:" goto "CheckExistDriveLetterSFCVerifyFile"
-if /i "%DriveLetter%"=="C:" goto "CheckExistDriveLetterSFCVerifyFile"
-if /i "%DriveLetter%"=="D:" goto "CheckExistDriveLetterSFCVerifyFile"
-if /i "%DriveLetter%"=="E:" goto "CheckExistDriveLetterSFCVerifyFile"
-if /i "%DriveLetter%"=="F:" goto "CheckExistDriveLetterSFCVerifyFile"
-if /i "%DriveLetter%"=="G:" goto "CheckExistDriveLetterSFCVerifyFile"
-if /i "%DriveLetter%"=="H:" goto "CheckExistDriveLetterSFCVerifyFile"
-if /i "%DriveLetter%"=="I:" goto "CheckExistDriveLetterSFCVerifyFile"
-if /i "%DriveLetter%"=="J:" goto "CheckExistDriveLetterSFCVerifyFile"
-if /i "%DriveLetter%"=="K:" goto "CheckExistDriveLetterSFCVerifyFile"
-if /i "%DriveLetter%"=="L:" goto "CheckExistDriveLetterSFCVerifyFile"
-if /i "%DriveLetter%"=="M:" goto "CheckExistDriveLetterSFCVerifyFile"
-if /i "%DriveLetter%"=="N:" goto "CheckExistDriveLetterSFCVerifyFile"
-if /i "%DriveLetter%"=="O:" goto "CheckExistDriveLetterSFCVerifyFile"
-if /i "%DriveLetter%"=="P:" goto "CheckExistDriveLetterSFCVerifyFile"
-if /i "%DriveLetter%"=="Q:" goto "CheckExistDriveLetterSFCVerifyFile"
-if /i "%DriveLetter%"=="R:" goto "CheckExistDriveLetterSFCVerifyFile"
-if /i "%DriveLetter%"=="S:" goto "CheckExistDriveLetterSFCVerifyFile"
-if /i "%DriveLetter%"=="T:" goto "CheckExistDriveLetterSFCVerifyFile"
-if /i "%DriveLetter%"=="U:" goto "CheckExistDriveLetterSFCVerifyFile"
-if /i "%DriveLetter%"=="V:" goto "CheckExistDriveLetterSFCVerifyFile"
-if /i "%DriveLetter%"=="W:" goto "CheckExistDriveLetterSFCVerifyFile"
-if /i "%DriveLetter%"=="X:" goto "CheckExistDriveLetterSFCVerifyFile"
-if /i "%DriveLetter%"=="Y:" goto "CheckExistDriveLetterSFCVerifyFile"
-if /i "%DriveLetter%"=="Z:" goto "CheckExistDriveLetterSFCVerifyFile"
-echo Invalid syntax!
+set OnlineOffline=
+set /p OnlineOffline="Are you repairing an online or offline Windows installation? (Online/Offline) "
+if /i "%OnlineOffline%"=="Online" goto "VerifyFileFile"
+if /i "%OnlineOffline%"=="Offline" goto "VerifyFileFile"
+echo Invalid syntax
 goto "9"
 
-:"CheckExistDriveLetterSFCVerifyFile"
-if not exist "%DriveLetter%" goto "DriveLetterSFCVerifyFileNotExist"
-if /i not "%DriveLetter%"=="%SystemDrive%" goto "OfflineSFCVerifyFilePath"
-goto "SFCVerifyFilePath"
-
-:"SFCVerifyFilePath"
+:"VerifyFileFile"
 echo.
-set SFCVerifyFile=
-set /p SFCVerifyFile="What is the full path to the file you want to verify? "
-if not exist "%SFCVerifyFile%" goto "SFCVerifyFileNotExist"
-goto "SFCVerifyFile"
+set File=
+set /p File="What is the file you are repairing? "
+if not exist "%File%" goto "VerifyFileFileNotExist"
+if /i "%OnlineOffline%"=="Online" goto "VerifyFileOnline"
+if /i "%OnlineOffline%"=="Offline" goto "VerifyFileDriveLetter"
 
-:"SFCVerifyFileNotExist"
-echo "%SFCVerifyFile%" does not exist! Please try again.
-goto "SFCVerifyFilePath"
+:"VerifyFileFileNotExist"
+echo "%File% does not exist! Please try again.
+goto "VerifyFileFile"
 
-:"SFCVerifyFile"
-sfc /verifyfile="%SFCVerifyFile%"
-goto "Start"
-
-:"DriveLetterSFCVerifyFileNotExist"
+:"VerifyFileDriveLetter"
 echo.
-echo "%SFCVerifyFile%" does not exist! Please try again.
-goto "SFCVerifyFilePath"
-
-:"OfflineSFCVerifyFilePath"
-echo.
-set OfflineSFCVerifyFile=
-set /p OfflineSFCVerifyFile="What is the full path to the file you want to verify? "
-if not exist "%OfflineSFCVerifyFile%" goto "OfflineSFCVerifyFileNotExist"
-goto "OfflineSFCVerifyFileLog"
-
-:"OfflineSFCVerifyFileNotExist"
-echo "%OfflineSFCVerifyFile%" does not exist! Please try again.
-goto "OfflineSFCVerifyFilePath"
-
-:"OfflineSFCVerifyFileLog"
-echo.
-set OfflineSFCVerifyLog=
-set /p OfflineSFCVerifyLog="Do you want to set a custom log file location? (Yes/No) "
-if /i "%OfflineSFCVerifyLog%"=="Yes" goto "OfflineSFCVerifyLogLocation"
-if /i "%OfflineSFCVerifyLog%"=="No" goto "OfflineSFCVerifyFile"
+set VerifyFileDriveLetter=
+set /p VerifyOnlyDriveLetter="What is the drive letter of the offline Windows installation? (A:-Z:) "
+if /i "%VerifyFileDriveLetter%"=="A:" goto "CheckExistVerifyFileDriveLetter"
+if /i "%VerifyFileDriveLetter%"=="B:" goto "CheckExistVerifyFileDriveLetter"
+if /i "%VerifyFileDriveLetter%"=="C:" goto "CheckExistVerifyFileDriveLetter"
+if /i "%VerifyFileDriveLetter%"=="D:" goto "CheckExistVerifyFileDriveLetter"
+if /i "%VerifyFileDriveLetter%"=="E:" goto "CheckExistVerifyFileDriveLetter"
+if /i "%VerifyFileDriveLetter%"=="F:" goto "CheckExistVerifyFileDriveLetter"
+if /i "%VerifyFileDriveLetter%"=="G:" goto "CheckExistVerifyFileDriveLetter"
+if /i "%VerifyFileDriveLetter%"=="H:" goto "CheckExistVerifyFileDriveLetter"
+if /i "%VerifyFileDriveLetter%"=="I:" goto "CheckExistVerifyFileDriveLetter"
+if /i "%VerifyFileDriveLetter%"=="J:" goto "CheckExistVerifyFileDriveLetter"
+if /i "%VerifyFileDriveLetter%"=="K:" goto "CheckExistVerifyFileDriveLetter"
+if /i "%VerifyFileDriveLetter%"=="L:" goto "CheckExistVerifyFileDriveLetter"
+if /i "%VerifyFileDriveLetter%"=="M:" goto "CheckExistVerifyFileDriveLetter"
+if /i "%VerifyFileDriveLetter%"=="N:" goto "CheckExistVerifyFileDriveLetter"
+if /i "%VerifyFileDriveLetter%"=="O:" goto "CheckExistVerifyFileDriveLetter"
+if /i "%VerifyFileDriveLetter%"=="P:" goto "CheckExistVerifyFileDriveLetter"
+if /i "%VerifyFileDriveLetter%"=="Q:" goto "CheckExistVerifyFileDriveLetter"
+if /i "%VerifyFileDriveLetter%"=="R:" goto "CheckExistVerifyFileDriveLetter"
+if /i "%VerifyFileDriveLetter%"=="S:" goto "CheckExistVerifyFileDriveLetter"
+if /i "%VerifyFileDriveLetter%"=="T:" goto "CheckExistVerifyFileDriveLetter"
+if /i "%VerifyFileDriveLetter%"=="U:" goto "CheckExistVerifyFileDriveLetter"
+if /i "%VerifyFileDriveLetter%"=="V:" goto "CheckExistVerifyFileDriveLetter"
+if /i "%VerifyFileDriveLetter%"=="W:" goto "CheckExistVerifyFileDriveLetter"
+if /i "%VerifyFileDriveLetter%"=="X:" goto "CheckExistVerifyFileDriveLetter"
+if /i "%VerifyFileDriveLetter%"=="Y:" goto "CheckExistVerifyFileDriveLetter"
+if /i "%VerifyFileDriveLetter%"=="Z:" goto "CheckExistVerifyFileDriveLetter"
 echo Invalid syntax!
-goto "OfflineSFCVerifyFileLog"
+goto :"VerifyFileDriveLetter"
 
-:"OfflineSFCSVerifyFile"
-sfc /Verifyfile="%OfflineSFCVerifyFile%" /offbootdir="%DriveLetter%" /offwindir="%DriveLetter%\Windows"
+:"CheckExistVerifyFileDriveLetter"
+if not exist "%VerifyFileDriveLetter%\Windows" goto "VerifyFileDriveLetterNotExist"
+goto "VerifyFileLogAsk"
+
+:"VerifyFileDriveLetterNotExist"
+echo "%VerifyFileDriveLetterNotExist%" does not exist or is not an offline Windows installation!
+goto "VerifyFileDriveLetter"
+
+:"VerifyFileLogAsk"
+echo.
+set VerifyFileNowLog=
+set /p VerifyFileNowLog="Do you want to set a custom log file location? (Yes/No) "
+if /i "%VerifyFileLog%"=="Yes" goto "VerifyFileLogLocation"
+if /i "%VerifyFileLog%"=="No" goto "VerifyFileOffline"
+echo Invalid syntax!
+goto "VerifyFileLogAsk"
+
+:"VerifyFileLogLocation"
+echo.
+set VerifyFileLogLocation=
+set /p VerifyFileLogLocation="What is the full path without the file extention to the location you want to save the log file to? "
+if exist "%VerifyFileLogLocation%" goto "VerifyFileLogLocationNul"
+echo "%VerifyFileLogLocation%" does not exist! Please try again.
+goto "VerifyFileLogAsk"
+
+:"VerifyFileLogLocationNul"
+if not exist "%VerifyFileLogLocation%\nul" goto "VerifyFileOfflineLog"
+echo "%VerifyFileLogLocation%" need to be a file not folder! Please try again.
+goto "VerifyFileLogAsk"
+
+"VerifyFileOnline"
+sfc /verifyfile="%File%"
+goto "Start
+
+:"VerifyFileOffline"
+sfc /verifyfile="%File%" /offbootdir="%VerifyFileDriveLetter%" /offwindir="%VerifyFileDriveLetter%\Windows"
 goto "Start"
 
-:"OfflineSFCVerifyLogLocation"
-echo.
-set OfflineSFCVerifyLogLocation=
-set /p OfflineSFCVerifyLogLocation="What is the full path to the location you want to save the log file to? "
-if not exist "%OfflineSFCVerifyLogLocation%\nul" goto "OfflineSFCVerifyLogLocationNotExist"
-goto "OfflineSFCVerifyLogVerifyVerifyFile"
-
-:"OfflineSFCVerifyLogLocationNotExist"
-echo "%OfflineSFCSVerifyLogLocation%" does not exist! Please try again.
-goto "OfflineSFCVerifyLogLocation"
-
-:OfflineSFCVerifyLogVerifyVerifyFile
-sfc /verifyfile="%OfflineSFCVerifyFile%" /offbootdir="%DriveLetter%" /offwindir="%DriveLetter%\Windows" /offlogfile="%OfflineSFCVerifyLogLocation%"
+:"VerifyFileOfflineLog"
+sfc /verifyfile="%File%" /offbootdir="%VerifyFileDriveLetter%" /offwindir="%VerifyFileDriveLetter%\Windows" /offlogfile="%SVerifyFileLogLocation%.txt"
 goto "Start"
 
 :"10"
