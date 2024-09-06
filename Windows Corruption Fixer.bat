@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.0.8
+echo Version: 8.0.9
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -131,6 +131,7 @@ if /i "%InstallationCheck%"=="W:" goto "SureInstallationCheck"
 if /i "%InstallationCheck%"=="X:" goto "SureInstallationCheck"
 if /i "%InstallationCheck%"=="Y:" goto "SureInstallationCheck"
 if /i "%InstallationCheck%"=="Z:" goto "SureInstallationCheck"
+echo Invalid syntax!
 goto "InstallationCheck"
 
 :"SureInstallationCheck"
@@ -197,6 +198,7 @@ if /i "%InstallationScan%"=="W:" goto "SureInstallationScan"
 if /i "%InstallationScan%"=="X:" goto "SureInstallationScan"
 if /i "%InstallationScan%"=="Y:" goto "SureInstallationScan"
 if /i "%InstallationScan%"=="Z:" goto "SureInstallationScan"
+echo Invalid syntax!
 goto "InstallationScan"
 
 :"SureSureInstallationScan"
@@ -488,6 +490,7 @@ if /i "%InstallationRestore%"=="W:" goto "SureInstallationRestore"
 if /i "%InstallationRestore%"=="X:" goto "SureInstallationRestore"
 if /i "%InstallationRestore%"=="Y:" goto "SureInstallationRestore"
 if /i "%InstallationRestore%"=="Z:" goto "SureInstallationRestore"
+echo Invalid syntax!
 goto "InstallationRestore"
 
 :"SureInstallationRestore"
