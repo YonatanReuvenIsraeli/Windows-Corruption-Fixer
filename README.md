@@ -1,4 +1,4 @@
-# Windows Corruption Fixer v6.0.15
+# Windows Corruption Fixer v7.0.0
 Fixes corrupted Windows using CHKDSK, DISM and SFC commands.
 ## The following options are available
 **1.** Check Disk  
