@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.0.1
+echo Version: 8.0.2
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -376,7 +376,7 @@ if /i "%Index%"=="7" goto "SureIndexOnline"
 if /i "%Index%"=="8" goto "SureIndexOnline"
 if /i "%Index%"=="9" goto "SureIndexOnline"
 if /i "%Index%"=="10" goto "SureIndexOnline"
-if /i "%Index%"=="11" goto "SureIndexOnline
+if /i "%Index%"=="11" goto "SureIndexOnline"
 echo Invalid syntax!
 goto "IndexOnline"
 
