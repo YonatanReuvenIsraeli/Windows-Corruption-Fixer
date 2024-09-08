@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.4.13
+echo Version: 8.4.14
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -670,11 +670,11 @@ if /i "%Update%"=="Yes" goto "DISMNoUpdateOffline"
 if /i "%Update%"=="No" goto "DISMOffline"
 
 :"DISMOffline"
-DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth
+DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\sources\%Install%":%Index%
 goto "Start"
 
 :"DISMNoUpdateOffline"
-DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /LimitAccess
+DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\sources\%Install%":%Index% /LimitAccess
 goto "Start"
 
 :"32DISMUpdateCheckOffline"
@@ -682,11 +682,11 @@ if /i "%Update%"=="Yes" goto "32DISMNoUpdateOffline"
 if /i "%Update%"=="No" goto "32DISMOffline"
 
 :"32DISMOffline"
-DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\Sources\%Install%":%Index%
+DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\sources\%Install%":%Index%
 goto "Start"
 
 :"32DISMNoUpdateOffline"
-DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\Sources\%Install%":%Index% /LimitAccess
+DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\sources\%Install%":%Index% /LimitAccess
 goto "Start"
 
 :"64DISMUpdateCheckOffline"
@@ -694,11 +694,11 @@ if /i "%Update%"=="Yes" goto "64DISMNoUpdateOffline"
 if /i "%Update%"=="No" goto "64DISMOffline"
 
 :"64DISMOffline"
-DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\Sources\%Install%":%Index%
+DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\sources\%Install%":%Index%
 goto "Start"
 
 :"64DISMNoUpdateOffline"
-DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\Sources\%Install%":%Index% /LimitAccess
+DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\sources\%Install%":%Index% /LimitAccess
 goto "Start"
 
 :"5"
