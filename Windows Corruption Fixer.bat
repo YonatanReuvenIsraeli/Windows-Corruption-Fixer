@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.4.20
+echo Version: 8.4.21
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -204,7 +204,7 @@ goto "InstallationScan"
 :"SureInstallationScan"
 echo.
 set SureInstallationScan=
-set /p SureInstallationCheck="Are you sure "%InstallationCheck%" is the drive letter of your offline Windows installation? (Yes/No) "
+set /p SureInstallationScan="Are you sure "%InstallationScan%" is the drive letter of your offline Windows installation? (Yes/No) "
 if /i "%SureInstallationScan%"=="Yes" goto "CheckExistInstallationScan"
 if /i "%SureInstallationScan%"=="No" goto "InstallationScan"
 echo Invalid syntax!
