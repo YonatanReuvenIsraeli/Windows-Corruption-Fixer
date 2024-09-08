@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.4.28
+echo Version: 8.4.29
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -376,18 +376,27 @@ if exist "%DriveLetter%\x64\sources\install.wim" set Install=install.wim
 goto "64DISMOnline"
 
 :"DISMOnline"
+echo.
+echo Getting index details for Windows Disk Image "%DriveLetter%.
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOnline"
+echo Got index details for Windows Disk Image "%DriveLetter%.
 goto "IndexOnline"
 
 :"32DISMOnline"
+echo.
+echo Getting index details for Windows Disk Image "%DriveLetter%.
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x86\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOnline"
+echo Got index details for Windows Disk Image "%DriveLetter%.
 goto "IndexOnline"
 
 :"64DISMOnline"
+echo.
+echo Getting index details for Windows Disk Image "%DriveLetter%.
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x64\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOnline"
+echo Got index details for Windows Disk Image "%DriveLetter%.
 goto "IndexOnline"
 
 :"IndexOnline"
@@ -667,18 +676,27 @@ if exist "%DriveLetter%\x64\sources\install.wim" set Install=install.wim
 goto "64DISMOffline"
 
 :"DISMOffline"
+echo.
+echo Getting index details for Windows Disk Image "%DriveLetter%.
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOffline"
+echo Got index details for Windows Disk Image "%DriveLetter%.
 goto "IndexOffline"
 
 :"32DISMOffline"
+echo.
+echo Getting index details for Windows Disk Image "%DriveLetter%.
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x86\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOffline"
+echo Got index details for Windows Disk Image "%DriveLetter%.
 goto "IndexOffline"
 
 :"64DISMOffline"
+echo.
+echo Getting index details for Windows Disk Image "%DriveLetter%.
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x64\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOffline"
+echo Got index details for Windows Disk Image "%DriveLetter%.
 goto "IndexOffline"
 
 :"IndexOffline"
