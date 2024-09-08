@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.4.25
+echo Version: 8.4.26
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -160,12 +160,20 @@ echo "%InstallationCheck%" does not exist or is not an offline Windows installat
 goto "InstallationCheck"
 
 :"CheckOnline"
+echo.
+echo Checking Windows installation "%InstallationCheck%".
 DISM /Online /Cleanup-Image /CheckHealth
+if not "%errorlevel%"=="0" goto "InstallationCheck"
+echo Checked Windows installation "%InstallationCheck%".
 goto "Start"
 
 :"CheckOffline"
+echo.
+echo Checking Windows installation "%InstallationCheck%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationCheck%\Windows\Logs\DISM"
 DISM /Image:"%InstallationCheck%" /Cleanup-Image /CheckHealth /LogPath:"%InstallationCheck%"\Windows\Logs\DISM\dism.log
+if not "%errorlevel%"=="0" goto "InstallationCheck"
+echo Checked Windows installation "%InstallationCheck%".
 goto "Start"
 
 :"3"
@@ -228,12 +236,20 @@ echo "%InstallationScan%" does not exist or is not an offline Windows installati
 goto "InstallationCScan"
 
 :"ScanOnline"
+echo.
+echo Scanning Windows installation "%InstallationScan%".
 DISM /Online /Cleanup-Image /ScanHealth
+if not "%errorlevel%"=="0" goto "InstallationScan"
+echo Scanned Windows installation "%InstallationScan%".
 goto "Start"
 
 :"ScanOffline"
+echo.
+echo Scanning Windows installation "%InstallationScan%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationScan%\Windows\Logs\DISM"
 DISM /Image:"%InstallationScan%" /Cleanup-Image /ScanHealth /LogPath:"%InstallationScan%"\Windows\Logs\DISM\dism.log
+if not "%errorlevel%"=="0" goto "InstallationScan"
+echo Scanned Windows installation "%InstallationScan%".
 goto "Start"
 
 :"4"
@@ -410,13 +426,19 @@ if /i "%Update%"=="Yes" goto "DISMNoUpdateOnlineNoImage"
 if /i "%Update%"=="No" goto "DISMOnlineNoImage"
 
 :"DISMOnlineNoImage"
+echo.
+echo Restoring health on Windows installation "%InstallationRestore%".
 DISM /Online /Cleanup-Image /RestoreHealth
 if not "%errorlevel%"=="0" goto "UpdateOnline"
+echo Health restored on Windows installation "%InstallationRestore%".
 goto "Start"
 
 :"DISMNoUpdateOnlineNoImage"
+echo.
+echo Restoring health on Windows installation "%InstallationRestore%".
 DISM /Online /Cleanup-Image /RestoreHealth /LimitAccess
 if not "%errorlevel%"=="0" goto "UpdateOnline"
+echo Health restored on Windows installation "%InstallationRestore%".
 goto "Start"
 
 :"DISMUpdateCheckOnline"
@@ -424,13 +446,19 @@ if /i "%Update%"=="Yes" goto "DISMNoUpdateOnline"
 if /i "%Update%"=="No" goto "DISMOnline"
 
 :"DISMOnline"
+echo.
+echo Restoring health on Windows installation "%InstallationRestore%".
 DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\%Install%":%Index%
 if not "%errorlevel%"=="0" goto "UpdateOnline"
+echo Health restored on Windows installation "%InstallationRestore%".
 goto "Start"
 
 :"DISMNoUpdateOnline"
+echo.
+echo Restoring health on Windows installation "%InstallationRestore%".
 DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\%Install%":%Index% /LimitAccess
 if not "%errorlevel%"=="0" goto "UpdateOnline"
+echo Health restored on Windows installation "%InstallationRestore%".
 goto "Start"
 
 :"32DISMUpdateCheckOnline"
@@ -438,13 +466,19 @@ if /i "%Update%"=="Yes" goto "32DISMNoUpdateOnline"
 if /i "%Update%"=="No" goto "32DISMOnline"
 
 :"32DISMOnline"
+echo.
+echo Restoring health on Windows installation "%InstallationRestore%".
 DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\Sources\%Install%":%Index%
 if not "%errorlevel%"=="0" goto "UpdateOnline"
+echo Health restored on Windows installation "%InstallationRestore%".
 goto "Start"
 
 :"32DISMNoUpdateOnline"
+echo.
+echo Restoring health on Windows installation "%InstallationRestore%".
 DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\Sources\%Install%":%Index% /LimitAccess
 if not "%errorlevel%"=="0" goto "UpdateOnline"
+echo Health restored on Windows installation "%InstallationRestore%".
 goto "Start"
 
 :"64DISMUpdateCheckOnline"
@@ -452,13 +486,19 @@ if /i "%Update%"=="Yes" goto "64DISMNoUpdateOnline"
 if /i "%Update%"=="No" goto "64DISMOnline"
 
 :"64DISMOnline"
+echo.
+echo Restoring health on Windows installation "%InstallationRestore%".
 DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\Sources\%Install%":%Index%
 if not "%errorlevel%"=="0" goto "UpdateOnline"
+echo Health restored on Windows installation "%InstallationRestore%".
 goto "Start"
 
 :"64DISMNoUpdateOnline"
+echo.
+echo Restoring health on Windows installation "%InstallationRestore%".
 DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\Sources\%Install%":%Index% /LimitAccess
 if not "%errorlevel%"=="0" goto "UpdateOnline"
+echo Health restored on Windows installation "%InstallationRestore%".
 goto "Start"
 
 :"UpdateOffline"
@@ -677,15 +717,21 @@ if /i "%Update%"=="Yes" goto "DISMNoUpdateOfflineNoImage"
 if /i "%Update%"=="No" goto "DISMOfflineNoImage"
 
 :"DISMOfflineNoImage"
+echo.
+echo Restoring health on Windows installation "%InstallationRestore%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
 DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "UpdateOffline"
+echo Health restored on Windows installation "%InstallationRestore%".
 goto "Start"
 
 :"DISMNoUpdateOfflineNoImage"
+echo.
+echo Restoring health on Windows installation "%InstallationRestore%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
 DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "UpdateOffline"
+echo Health restored on Windows installation "%InstallationRestore%".
 goto "Start"
 
 :"DISMUpdateCheckOffline"
@@ -693,12 +739,17 @@ if /i "%Update%"=="Yes" goto "DISMNoUpdateOffline"
 if /i "%Update%"=="No" goto "DISMOffline"
 
 :"DISMOffline"
+echo.
+echo Restoring health on Windows installation "%InstallationRestore%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
 DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\sources\%Install%":%Index% /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "UpdateOffline"
+echo Health restored on Windows installation "%InstallationRestore%".
 goto "Start"
 
 :"DISMNoUpdateOffline"
+echo.
+echo Restoring health on Windows installation "%InstallationRestore%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
 DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\sources\%Install%":%Index% /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "UpdateOffline"
@@ -709,15 +760,21 @@ if /i "%Update%"=="Yes" goto "32DISMNoUpdateOffline"
 if /i "%Update%"=="No" goto "32DISMOffline"
 
 :"32DISMOffline"
+echo.
+echo Restoring health on Windows installation "%InstallationRestore%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
 DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\sources\%Install%":%Index% /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "UpdateOffline"
+echo Health restored on Windows installation "%InstallationRestore%".
 goto "Start"
 
 :"32DISMNoUpdateOffline"
+echo.
+echo Restoring health on Windows installation "%InstallationRestore%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
 DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\sources\%Install%":%Index% /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "UpdateOffline"
+echo Health restored on Windows installation "%InstallationRestore%".
 goto "Start"
 
 :"64DISMUpdateCheckOffline"
@@ -725,15 +782,21 @@ if /i "%Update%"=="Yes" goto "64DISMNoUpdateOffline"
 if /i "%Update%"=="No" goto "64DISMOffline"
 
 :"64DISMOffline"
+echo.
+echo Restoring health on Windows installation "%InstallationRestore%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
 DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\sources\%Install%":%Index% /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "UpdateOffline"
+echo Health restored on Windows installation "%InstallationRestore%".
 goto "Start"
 
 :"64DISMNoUpdateOffline"
+echo.
+echo Restoring health on Windows installation "%InstallationRestore%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
 DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\sources\%Install%":%Index% /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "UpdateOffline"
+echo Health restored on Windows installation "%InstallationRestore%".
 goto "Start"
 
 :"5"
