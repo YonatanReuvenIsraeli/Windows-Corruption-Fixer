@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.4.23
+echo Version: 8.4.24
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -409,10 +409,12 @@ if /i "%Update%"=="No" goto "DISMOnlineNoImage"
 
 :"DISMOnlineNoImage"
 DISM /Online /Cleanup-Image /RestoreHealth
+if not "%errorlevel%"=="0" goto "UpdateOnline"
 goto "Start"
 
 :"DISMNoUpdateOnlineNoImage"
 DISM /Online /Cleanup-Image /RestoreHealth /LimitAccess
+if not "%errorlevel%"=="0" goto "UpdateOnline"
 goto "Start"
 
 :"DISMUpdateCheckOnline"
@@ -421,10 +423,12 @@ if /i "%Update%"=="No" goto "DISMOnline"
 
 :"DISMOnline"
 DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\%Install%":%Index%
+if not "%errorlevel%"=="0" goto "UpdateOnline"
 goto "Start"
 
 :"DISMNoUpdateOnline"
 DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\%Install%":%Index% /LimitAccess
+if not "%errorlevel%"=="0" goto "UpdateOnline"
 goto "Start"
 
 :"32DISMUpdateCheckOnline"
@@ -433,10 +437,12 @@ if /i "%Update%"=="No" goto "32DISMOnline"
 
 :"32DISMOnline"
 DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\Sources\%Install%":%Index%
+if not "%errorlevel%"=="0" goto "UpdateOnline"
 goto "Start"
 
 :"32DISMNoUpdateOnline"
 DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\Sources\%Install%":%Index% /LimitAccess
+if not "%errorlevel%"=="0" goto "UpdateOnline"
 goto "Start"
 
 :"64DISMUpdateCheckOnline"
@@ -445,10 +451,12 @@ if /i "%Update%"=="No" goto "64DISMOnline"
 
 :"64DISMOnline"
 DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\Sources\%Install%":%Index%
+if not "%errorlevel%"=="0" goto "UpdateOnline"
 goto "Start"
 
 :"64DISMNoUpdateOnline"
 DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\Sources\%Install%":%Index% /LimitAccess
+if not "%errorlevel%"=="0" goto "UpdateOnline"
 goto "Start"
 
 :"UpdateOffline"
@@ -669,11 +677,13 @@ if /i "%Update%"=="No" goto "DISMOfflineNoImage"
 :"DISMOfflineNoImage"
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
 DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if not "%errorlevel%"=="0" goto "UpdateOffline"
 goto "Start"
 
 :"DISMNoUpdateOfflineNoImage"
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
 DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if not "%errorlevel%"=="0" goto "UpdateOffline"
 goto "Start"
 
 :"DISMUpdateCheckOffline"
@@ -683,11 +693,13 @@ if /i "%Update%"=="No" goto "DISMOffline"
 :"DISMOffline"
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
 DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\sources\%Install%":%Index% /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if not "%errorlevel%"=="0" goto "UpdateOffline"
 goto "Start"
 
 :"DISMNoUpdateOffline"
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
 DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\sources\%Install%":%Index% /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if not "%errorlevel%"=="0" goto "UpdateOffline"
 goto "Start"
 
 :"32DISMUpdateCheckOffline"
@@ -697,11 +709,13 @@ if /i "%Update%"=="No" goto "32DISMOffline"
 :"32DISMOffline"
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
 DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\sources\%Install%":%Index% /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if not "%errorlevel%"=="0" goto "UpdateOffline"
 goto "Start"
 
 :"32DISMNoUpdateOffline"
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
 DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\sources\%Install%":%Index% /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if not "%errorlevel%"=="0" goto "UpdateOffline"
 goto "Start"
 
 :"64DISMUpdateCheckOffline"
@@ -711,11 +725,13 @@ if /i "%Update%"=="No" goto "64DISMOffline"
 :"64DISMOffline"
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
 DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\sources\%Install%":%Index% /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if not "%errorlevel%"=="0" goto "UpdateOffline"
 goto "Start"
 
 :"64DISMNoUpdateOffline"
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
 DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\sources\%Install%":%Index% /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if not "%errorlevel%"=="0" goto "UpdateOffline"
 goto "Start"
 
 :"5"
@@ -830,11 +846,13 @@ goto "ScanNowDriveLetter"
 
 :"ScanNowOnline"
 sfc /scannow
+if not "%errorlevel%"=="0" goto "6" 
 goto "Start"
 
 :"ScanNowOffline"
 if not exist "%ScanNowDriveLetter%\Windows\Logs\CBS" md "%ScanNowDriveLetter%\Windows\Logs\CBS"
 sfc /scannow /offbootdir="%ScanNowDriveLetter%" /offwindir="%ScanNowDriveLetter%\Windows" /offlogfile="%ScanNowDriveLetter%\Windows\Logs\CBS\CBS.log"
+if not "%errorlevel%"=="0" goto "6" 
 goto "Start"
 
 :"7"
@@ -889,11 +907,13 @@ goto "VerifyOnlyDriveLetter"
 
 :"VerifyOnlyOnline"
 sfc /verifyonly
+if not "%errorlevel%"=="0" goto "7" 
 goto "Start"
 
 :"VerifyOnlyOffline"
 if not exist "%VerifyOnlyDriveLetter%\Windows\Logs\CBS" md "%VerifyOnlyDriveLetter%\Windows\Logs\CBS"
 sfc /verifyonly /offbootdir="%VerifyOnlyDriveLetter%" /offwindir="%VerifyOnlyDriveLetter%\Windows" /offlogfile="%VerifyOnlyDriveLetter%\Windows\Logs\CBS\CBS.log"
+if not "%errorlevel%"=="0" goto "7" 
 goto "Start"
 
 :"8"
@@ -960,11 +980,13 @@ goto "ScanFileDriveLetter"
 
 :"ScanFileOnline"
 sfc /scannfile="%File%"
+if not "%errorlevel%"=="0" goto "8" 
 goto "Start"
 
 :"ScanFileOffline"
 if not exist "%ScanFileDriveLetter%\Windows\Logs\CBS" md "%ScanFileDriveLetter%\Windows\Logs\CBS"
 sfc /scannfile="%File%" /offbootdir="%ScanFileDriveLetter%" /offwindir="%ScanFileDriveLetter%\Windows" /offlogfile="%ScanFileDriveLetter%\Windows\Logs\CBS\CBS.log"
+if not "%errorlevel%"=="0" goto "8" 
 goto "Start"
 
 :"9"
@@ -1031,11 +1053,13 @@ goto "VerifyFileDriveLetter"
 
 :"VerifyFileOnline"
 sfc /verifyfile="%File%"
+if not "%errorlevel%"=="0" goto "9" 
 goto "Start"
 
 :"VerifyFileOffline"
 if not exist "%VerifyFileDriveLetter%\Windows\Logs\CBS" md "%VerifyFileDriveLetter%\Windows\Logs\CBS"
 sfc /verifyfile="%File%" /offbootdir="%VerifyFileDriveLetter%" /offwindir="%VerifyFileDriveLetter%\Windows" /offlogfile="%VerifyFileDriveLetter%\Windows\Logs\CBS\CBS.log"
+if not "%errorlevel%"=="0" goto "9" 
 goto "Start"
 
 :"10"
