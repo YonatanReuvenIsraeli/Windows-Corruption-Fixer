@@ -1014,7 +1014,7 @@ goto :"SFCLogDriveLetter"
 
 :"CheckExistSFCLogDriveLetter"
 if not exist "%SFCLogDriveLetter%\Windows\Logs\CBS\CBS.log" goto "SFCOfflineLogNotExist"
-"%SFCLogDriveLetter%\Logs\CBS\CBS.log"
+"%SFCLogDriveLetter%\Windows\Logs\CBS\CBS.log"
 goto "Start"
 
 :"SFCOfflineLogNotExist"
