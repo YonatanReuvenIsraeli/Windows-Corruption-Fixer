@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.4.16
+echo Version: 8.4.17
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -456,7 +456,7 @@ echo.
 set Media=
 set /p Media="Do you want to use a Windows Disk Image? (Yes/No) "
 if /i "%Media%"=="Yes" goto "InstallationRestore"
-if /i "%Media%"=="No" goto "DISMUpdateCheckOfflineNoImage"
+if /i "%Media%"=="No" goto "InstallationRestore"
 echo Invalid Sytax!
 goto "MediaOffline"
 
@@ -504,7 +504,8 @@ goto "SureInstallationRestore"
 
 :"CheckExistInstallationRestore"
 if not exist "%InstallationRestore%\Windows" goto "NotExistRestore"
-goto "DriveLetterOffline"
+if /i "%Media%"=="Yes" goto "DriveLetterOffline"
+if /i "%Media%"=="No" goto "DISMUpdateCheckOfflineNoImage"
 
 :"NotExistRestore"
 echo "%InstallationRestore%" does not exist or is not an offline Windows installation! Please try again.
