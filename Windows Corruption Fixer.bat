@@ -769,6 +769,7 @@ sfc /scannow
 goto "Start"
 
 :"ScanNowOffline"
+if not exist "%ScanNowDriveLetter%\Windows\Logs\CBS" md "%ScanNowDriveLetter%\Windows\Logs\CBS"
 sfc /scannow /offbootdir="%ScanNowDriveLetter%" /offwindir="%ScanNowDriveLetter%\Windows" /offlogfile="%ScanNowDriveLetter%\Windows\Logs\CBS\CBS.log"
 goto "Start"
 
@@ -827,6 +828,7 @@ sfc /verifyonly
 goto "Start"
 
 :"VerifyOnlyOffline"
+if not exist "%VerifyOnlyDriveLetter%\Windows\Logs\CBS" md "%VerifyOnlyDriveLetter%\Windows\Logs\CBS"
 sfc /verifyonly /offbootdir="%VerifyOnlyDriveLetter%" /offwindir="%VerifyOnlyDriveLetter%\Windows" /offlogfile="%VerifyOnlyDriveLetter%\Windows\Logs\CBS\CBS.log"
 goto "Start"
 
@@ -854,7 +856,7 @@ goto "ScanFileFile"
 :"ScanFileDriveLetter"
 echo.
 set ScanFileDriveLetter=
-set /p VerifyOnlyDriveLetter="What is the drive letter of the offline Windows installation? (A:-Z:) "
+set /p ScanFileDriveLetter="What is the drive letter of the offline Windows installation? (A:-Z:) "
 if /i "%ScanFileDriveLetter%"=="A:" goto "CheckExistScanFileDriveLetter"
 if /i "%ScanFileDriveLetter%"=="B:" goto "CheckExistScanFileDriveLetter"
 if /i "%ScanFileDriveLetter%"=="C:" goto "CheckExistScanFileDriveLetter"
@@ -897,6 +899,7 @@ sfc /scannfile="%File%"
 goto "Start"
 
 :"ScanFileOffline"
+if not exist "%ScanFileDriveLetter%\Windows\Logs\CBS" md "%ScanFileDriveLetter%\Windows\Logs\CBS"
 sfc /scannfile="%File%" /offbootdir="%ScanFileDriveLetter%" /offwindir="%ScanFileDriveLetter%\Windows" /offlogfile="%ScanFileDriveLetter%\Windows\Logs\CBS\CBS.log"
 goto "Start"
 
@@ -924,7 +927,7 @@ goto "VerifyFileFile"
 :"VerifyFileDriveLetter"
 echo.
 set VerifyFileDriveLetter=
-set /p VerifyOnlyDriveLetter="What is the drive letter of the offline Windows installation? (A:-Z:) "
+set /p VerifyFileDriveLetter="What is the drive letter of the offline Windows installation? (A:-Z:) "
 if /i "%VerifyFileDriveLetter%"=="A:" goto "CheckExistVerifyFileDriveLetter"
 if /i "%VerifyFileDriveLetter%"=="B:" goto "CheckExistVerifyFileDriveLetter"
 if /i "%VerifyFileDriveLetter%"=="C:" goto "CheckExistVerifyFileDriveLetter"
@@ -967,6 +970,7 @@ sfc /verifyfile="%File%"
 goto "Start"
 
 :"VerifyFileOffline"
+if not exist "%VerifyFileDriveLetter%\Windows\Logs\CBS" md "%VerifyFileDriveLetter%\Windows\Logs\CBS"
 sfc /verifyfile="%File%" /offbootdir="%VerifyFileDriveLetter%" /offwindir="%VerifyFileDriveLetter%\Windows" /offlogfile="%VerifyFileDriveLetter%\Windows\Logs\CBS\CBS.log"
 goto "Start"
 
