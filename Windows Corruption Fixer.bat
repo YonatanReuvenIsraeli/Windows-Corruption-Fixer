@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.4.17
+echo Version: 8.4.18
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -659,12 +659,12 @@ if /i "%Update%"=="Yes" goto "DISMNoUpdateOfflineNoImage"
 if /i "%Update%"=="No" goto "DISMOfflineNoImage"
 
 :"DISMOfflineNoImage"
-if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%ScanFileDriveLetter%\Windows\Logs\DISM"
+if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
 DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 goto "Start"
 
 :"DISMNoUpdateOfflineNoImage"
-if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%ScanFileDriveLetter%\Windows\Logs\DISM"
+if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
 DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 goto "Start"
 
@@ -673,12 +673,12 @@ if /i "%Update%"=="Yes" goto "DISMNoUpdateOffline"
 if /i "%Update%"=="No" goto "DISMOffline"
 
 :"DISMOffline"
-if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%ScanFileDriveLetter%\Windows\Logs\DISM"
+if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
 DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\sources\%Install%":%Index% /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 goto "Start"
 
 :"DISMNoUpdateOffline"
-if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%ScanFileDriveLetter%\Windows\Logs\DISM"
+if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
 DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\sources\%Install%":%Index% /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 goto "Start"
 
@@ -687,12 +687,12 @@ if /i "%Update%"=="Yes" goto "32DISMNoUpdateOffline"
 if /i "%Update%"=="No" goto "32DISMOffline"
 
 :"32DISMOffline"
-if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%ScanFileDriveLetter%\Windows\Logs\DISM"
+if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
 DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\sources\%Install%":%Index% /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 goto "Start"
 
 :"32DISMNoUpdateOffline"
-if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%ScanFileDriveLetter%\Windows\Logs\DISM"
+if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
 DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\sources\%Install%":%Index% /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 goto "Start"
 
@@ -701,12 +701,12 @@ if /i "%Update%"=="Yes" goto "64DISMNoUpdateOffline"
 if /i "%Update%"=="No" goto "64DISMOffline"
 
 :"64DISMOffline"
-if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%ScanFileDriveLetter%\Windows\Logs\DISM"
+if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
 DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\sources\%Install%":%Index% /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 goto "Start"
 
 :"64DISMNoUpdateOffline"
-if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%ScanFileDriveLetter%\Windows\Logs\DISM"
+if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
 DISM /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\sources\%Install%":%Index% /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 goto "Start"
 
