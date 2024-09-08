@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.4.19
+echo Version: 8.4.20
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -201,7 +201,7 @@ if /i "%InstallationScan%"=="Z:" goto "SureInstallationScan"
 echo Invalid syntax!
 goto "InstallationScan"
 
-:"SureSureInstallationScan"
+:"SureInstallationScan"
 echo.
 set SureInstallationScan=
 set /p SureInstallationCheck="Are you sure "%InstallationCheck%" is the drive letter of your offline Windows installation? (Yes/No) "
