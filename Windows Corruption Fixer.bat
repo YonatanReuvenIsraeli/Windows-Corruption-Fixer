@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.4.18
+echo Version: 8.4.19
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -750,7 +750,7 @@ if /i "%DISMLogDriveLetter%"=="X:" goto "CheckExistDISMOfflineLog"
 if /i "%DISMLogDriveLetter%"=="Y:" goto "CheckExistDISMOfflineLog"
 if /i "%DISMLogDriveLetter%"=="Z:" goto "CheckExistDISMOfflineLog"
 echo Invalid syntax!
-goto :"DISMLogDriveLetter"
+goto "DISMLogDriveLetter"
 
 :"CheckExistDISMOnlineLog"
 if not exist "%windir%\Logs\DISM\dism.log" goto "DISMOnlineLogNotExist"
@@ -810,7 +810,7 @@ if /i "%ScanNowDriveLetter%"=="X:" goto "CheckExistScanNowDriveLetter"
 if /i "%ScanNowDriveLetter%"=="Y:" goto "CheckExistScanNowDriveLetter"
 if /i "%ScanNowDriveLetter%"=="Z:" goto "CheckExistScanNowDriveLetter"
 echo Invalid syntax!
-goto :"ScanNowDriveLetter"
+goto "ScanNowDriveLetter"
 
 :"CheckExistScanNowDriveLetter"
 if not exist "%ScanNowDriveLetter%\Windows" goto "ScanNowDriveLetterNotExist"
@@ -869,7 +869,7 @@ if /i "%VerifyOnlyDriveLetter%"=="X:" goto "CheckExistVerifyOnlyDriveLetter"
 if /i "%VerifyOnlyDriveLetter%"=="Y:" goto "CheckExistVerifyOnlyDriveLetter"
 if /i "%VerifyOnlyDriveLetter%"=="Z:" goto "CheckExistVerifyOnlyDriveLetter"
 echo Invalid syntax!
-goto :"VerifyOnlyDriveLetter"
+goto "VerifyOnlyDriveLetter"
 
 :"CheckExistVerifyOnlyDriveLetter"
 if not exist "%VerifyOnlyDriveLetter%\Windows" goto "VerifyOnlyDriveLetterNotExist"
@@ -940,7 +940,7 @@ if /i "%ScanFileDriveLetter%"=="X:" goto "CheckExistScanFileDriveLetter"
 if /i "%ScanFileDriveLetter%"=="Y:" goto "CheckExistScanFileDriveLetter"
 if /i "%ScanFileDriveLetter%"=="Z:" goto "CheckExistScanFileDriveLetter"
 echo Invalid syntax!
-goto :"ScanFileDriveLetter"
+goto "ScanFileDriveLetter"
 
 :"CheckExistScanFileDriveLetter"
 if not exist "%ScanFileDriveLetter%\Windows" goto "ScanFileDriveLetterNotExist"
@@ -1011,7 +1011,7 @@ if /i "%VerifyFileDriveLetter%"=="X:" goto "CheckExistVerifyFileDriveLetter"
 if /i "%VerifyFileDriveLetter%"=="Y:" goto "CheckExistVerifyFileDriveLetter"
 if /i "%VerifyFileDriveLetter%"=="Z:" goto "CheckExistVerifyFileDriveLetter"
 echo Invalid syntax!
-goto :"VerifyFileDriveLetter"
+goto "VerifyFileDriveLetter"
 
 :"CheckExistVerifyFileDriveLetter"
 if not exist "%VerifyFileDriveLetter%\Windows" goto "VerifyFileDriveLetterNotExist"
@@ -1070,7 +1070,7 @@ if /i "%SFCLogDriveLetter%"=="X:" goto "CheckExistSFCOfflineLog"
 if /i "%SFCLogDriveLetter%"=="Y:" goto "CheckExistSFCOfflineLog"
 if /i "%SFCLogDriveLetter%"=="Z:" goto "CheckExistSFCOfflineLog"
 echo Invalid syntax!
-goto :"SFCLogDriveLetter"
+goto "SFCLogDriveLetter"
 
 :"CheckExistSFCOnlineLog"
 if not exist "%windir%\Logs\CBS\CBS.log" goto "SFCOnlineLogNotExist"
