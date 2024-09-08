@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.4.26
+echo Version: 8.4.27
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -910,14 +910,20 @@ echo "%ScanNowDriveLetter%" does not exist or is not an offline Windows installa
 goto "ScanNowDriveLetter"
 
 :"ScanNowOnline"
+echo.
+echo Scanning Windows installation "%ScanNowDriveLetter%".
 sfc /scannow
-if not "%errorlevel%"=="0" goto "6" 
+if not "%errorlevel%"=="0" goto "6"
+echo Windows installation "%ScanNowDriveLetter%" scanned.
 goto "Start"
 
 :"ScanNowOffline"
+echo.
+echo Scanning Windows installation "%ScanNowDriveLetter%".
 if not exist "%ScanNowDriveLetter%\Windows\Logs\CBS" md "%ScanNowDriveLetter%\Windows\Logs\CBS"
 sfc /scannow /offbootdir="%ScanNowDriveLetter%" /offwindir="%ScanNowDriveLetter%\Windows" /offlogfile="%ScanNowDriveLetter%\Windows\Logs\CBS\CBS.log"
-if not "%errorlevel%"=="0" goto "6" 
+if not "%errorlevel%"=="0" goto "6"
+echo Windows installation "%ScanNowDriveLetter%" scanned.
 goto "Start"
 
 :"7"
@@ -971,14 +977,20 @@ echo "%VerifyOnlyDriveLetterNotExist%" does not exist or is not an offline Windo
 goto "VerifyOnlyDriveLetter"
 
 :"VerifyOnlyOnline"
+echo.
+echo Verifing Windows installtion "%VerifyOnlyDriveLetter%".
 sfc /verifyonly
-if not "%errorlevel%"=="0" goto "7" 
+if not "%errorlevel%"=="0" goto "7"
+echo Windows installation "%VerifyOnlyDriveLetter%" verified.
 goto "Start"
 
 :"VerifyOnlyOffline"
+echo.
+echo Verifing Windows installtion "%VerifyOnlyDriveLetter%".
 if not exist "%VerifyOnlyDriveLetter%\Windows\Logs\CBS" md "%VerifyOnlyDriveLetter%\Windows\Logs\CBS"
 sfc /verifyonly /offbootdir="%VerifyOnlyDriveLetter%" /offwindir="%VerifyOnlyDriveLetter%\Windows" /offlogfile="%VerifyOnlyDriveLetter%\Windows\Logs\CBS\CBS.log"
-if not "%errorlevel%"=="0" goto "7" 
+if not "%errorlevel%"=="0" goto "7"
+echo Windows installation "%VerifyOnlyDriveLetter%" verified.
 goto "Start"
 
 :"8"
@@ -1044,14 +1056,20 @@ echo "%ScanFileDriveLetterNotExist%" does not exist or is not an offline Windows
 goto "ScanFileDriveLetter"
 
 :"ScanFileOnline"
+echo.
+echo Scanning file "%File%".
 sfc /scannfile="%File%"
-if not "%errorlevel%"=="0" goto "8" 
+if not "%errorlevel%"=="0" goto "8"
+echo File "%File%" scanned.
 goto "Start"
 
 :"ScanFileOffline"
+echo.
+echo Scanning file "%File%".
 if not exist "%ScanFileDriveLetter%\Windows\Logs\CBS" md "%ScanFileDriveLetter%\Windows\Logs\CBS"
 sfc /scannfile="%File%" /offbootdir="%ScanFileDriveLetter%" /offwindir="%ScanFileDriveLetter%\Windows" /offlogfile="%ScanFileDriveLetter%\Windows\Logs\CBS\CBS.log"
-if not "%errorlevel%"=="0" goto "8" 
+if not "%errorlevel%"=="0" goto "8"
+echo File "%File%" scanned.
 goto "Start"
 
 :"9"
@@ -1117,14 +1135,20 @@ echo "%VerifyFileDriveLetterNotExist%" does not exist or is not an offline Windo
 goto "VerifyFileDriveLetter"
 
 :"VerifyFileOnline"
+echo.
+echo Verifying file "%File%".
 sfc /verifyfile="%File%"
-if not "%errorlevel%"=="0" goto "9" 
+if not "%errorlevel%"=="0" goto "9"
+echo File "%File%" verified.
 goto "Start"
 
 :"VerifyFileOffline"
+echo.
+echo Verifying file "%File%".
 if not exist "%VerifyFileDriveLetter%\Windows\Logs\CBS" md "%VerifyFileDriveLetter%\Windows\Logs\CBS"
 sfc /verifyfile="%File%" /offbootdir="%VerifyFileDriveLetter%" /offwindir="%VerifyFileDriveLetter%\Windows" /offlogfile="%VerifyFileDriveLetter%\Windows\Logs\CBS\CBS.log"
-if not "%errorlevel%"=="0" goto "9" 
+if not "%errorlevel%"=="0" goto "9"
+echo File "%File%" verified.
 goto "Start"
 
 :"10"
