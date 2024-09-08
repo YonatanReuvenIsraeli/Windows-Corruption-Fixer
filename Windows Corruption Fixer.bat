@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.4.22
+echo Version: 8.4.23
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -87,6 +87,14 @@ if /i "%SureDriveLetter%"=="Yes" goto "CHKDSK"
 if /i "%SureDriveLetter%"=="No" goto "DriveLetter"
 echo Invalid syntax!
 goto "SureDriveLetterCHKDSK"
+
+:CheckExistCHKDSK
+if not exist "%DriveLetter%" goto "DriveLetterNotExist"
+goto "CHKDSK"
+
+:"DriveLetterNotExist"
+echo "%DriveLetter%" does not exist! Please try again.
+goto "DriveLetter"
 
 :"CHKDSK"
 chkdsk "%DriveLetter%" /f /r
