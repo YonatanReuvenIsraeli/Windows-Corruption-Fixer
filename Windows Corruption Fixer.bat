@@ -769,7 +769,7 @@ sfc /scannow
 goto "Start"
 
 :"ScanNowOffline"
-sfc /scannow /offbootdir="%ScanNowDriveLetter%" /offwindir="%ScanNowDriveLetter%\Windows"
+sfc /scannow /offbootdir="%ScanNowDriveLetter%" /offwindir="%ScanNowDriveLetter%\Windows" /offlogfile="%VerifyFileDriveLetter%\Windows\Logs\CBS\CBS.log"
 goto "Start"
 
 :"7"
@@ -827,7 +827,7 @@ sfc /verifyonly
 goto "Start"
 
 :"VerifyOnlyOffline"
-sfc /verifyonly /offbootdir="%VerifyOnlyDriveLetter%" /offwindir="%VerifyOnlyDriveLetter%\Windows"
+sfc /verifyonly /offbootdir="%VerifyOnlyDriveLetter%" /offwindir="%VerifyOnlyDriveLetter%\Windows" /offlogfile="%VerifyFileDriveLetter%\Windows\Logs\CBS\CBS.log"
 goto "Start"
 
 :"8"
@@ -897,7 +897,7 @@ sfc /scannfile="%File%"
 goto "Start"
 
 :"ScanFileOffline"
-sfc /scannfile="%File%" /offbootdir="%ScanFileDriveLetter%" /offwindir="%ScanFileDriveLetter%\Windows"
+sfc /scannfile="%File%" /offbootdir="%ScanFileDriveLetter%" /offwindir="%ScanFileDriveLetter%\Windows" /offlogfile="%VerifyFileDriveLetter%\Windows\Logs\CBS\CBS.log"
 goto "Start"
 
 :"9"
@@ -967,17 +967,58 @@ sfc /verifyfile="%File%"
 goto "Start"
 
 :"VerifyFileOffline"
-sfc /verifyfile="%File%" /offbootdir="%VerifyFileDriveLetter%" /offwindir="%VerifyFileDriveLetter%\Windows"
+sfc /verifyfile="%File%" /offbootdir="%VerifyFileDriveLetter%" /offwindir="%VerifyFileDriveLetter%\Windows" /offlogfile="%VerifyFileDriveLetter%\Windows\Logs\CBS\CBS.log"
 goto "Start"
 
 :"10"
 echo.
 set OnlineOffline=
-set /p OnlineOffline="You can only view logs of online Windows installation. Is this an online Windows installation? (Yes/No) "
-if /i "%OnlineOffline%"=="Yes" goto "SFCViewLogs"
-if /i "%OnlineOffline%"=="No" goto "Start"
+set /p OnlineOffline="Are you viewings the logs of an online or offline WIndows installation? (Online/Offline) "
+if /i "%OnlineOffline%"=="Online" goto "SFCViewLogs"
+if /i "%OnlineOffline%"=="Offline" goto "SFCLogDriveLetter"
 echo Invalid syntax!
 goto "10"
+
+:"SFCLogDriveLetter"
+echo.
+set SFCLogDriveLetter=
+set /p SFCLogDriveLetter="What is the drive letter of the offline Windows installation? (A:-Z:) "
+if /i "%SFCLogDriveLetter%"=="A:" goto "CheckExistSFCLogDriveLetter"
+if /i "%SFCLogDriveLetter%"=="B:" goto "CheckExistSFCLogDriveLetter"
+if /i "%SFCLogDriveLetter%"=="C:" goto "CheckExistSFCLogDriveLetter"
+if /i "%SFCLogDriveLetter%"=="D:" goto "CheckExistSFCLogDriveLetter"
+if /i "%SFCLogDriveLetter%"=="E:" goto "CheckExistSFCLogDriveLetter"
+if /i "%SFCLogDriveLetter%"=="F:" goto "CheckExistSFCLogDriveLetter"
+if /i "%SFCLogDriveLetter%"=="G:" goto "CheckExistSFCLogDriveLetter"
+if /i "%SFCLogDriveLetter%"=="H:" goto "CheckExistSFCLogDriveLetter"
+if /i "%SFCLogDriveLetter%"=="I:" goto "CheckExistSFCLogDriveLetter"
+if /i "%SFCLogDriveLetter%"=="J:" goto "CheckExistSFCLogDriveLetter"
+if /i "%SFCLogDriveLetter%"=="K:" goto "CheckExistSFCLogDriveLetter"
+if /i "%SFCLogDriveLetter%"=="L:" goto "CheckExistSFCLogDriveLetter"
+if /i "%SFCLogDriveLetter%"=="M:" goto "CheckExistSFCLogDriveLetter"
+if /i "%SFCLogDriveLetter%"=="N:" goto "CheckExistSFCLogDriveLetter"
+if /i "%SFCLogDriveLetter%"=="O:" goto "CheckExistSFCLogDriveLetter"
+if /i "%SFCLogDriveLetter%"=="P:" goto "CheckExistSFCLogDriveLetter"
+if /i "%SFCLogDriveLetter%"=="Q:" goto "CheckExistSFCLogDriveLetter"
+if /i "%SFCLogDriveLetter%"=="R:" goto "CheckExistSFCLogDriveLetter"
+if /i "%SFCLogDriveLetter%"=="S:" goto "CheckExistSFCLogDriveLetter"
+if /i "%SFCLogDriveLetter%"=="T:" goto "CheckExistSFCLogDriveLetter"
+if /i "%SFCLogDriveLetter%"=="U:" goto "CheckExistSFCLogDriveLetter"
+if /i "%SFCLogDriveLetter%"=="V:" goto "CheckExistSFCLogDriveLetter"
+if /i "%SFCLogDriveLetter%"=="W:" goto "CheckExistSFCLogDriveLetter"
+if /i "%SFCLogDriveLetter%"=="X:" goto "CheckExistSFCLogDriveLetter"
+if /i "%SFCLogDriveLetter%"=="Y:" goto "CheckExistSFCLogDriveLetter"
+if /i "%SFCLogDriveLetter%"=="Z:" goto "CheckExistSFCLogDriveLetter"
+echo Invalid syntax!
+goto :"SFCLogDriveLetter"
+
+:"CheckExistSFCLogDriveLetter"
+if not exist "%LogDriveLetter%\Windows\Logs\CBS.log" goto "SFCOfflineLogNotExist"
+"%LogDriveLetter%\Logs\CBS\CBS.log"
+
+:"SFCOfflineLogNotExist"
+echo SFC log file ("%LogDriveLetter%\Windows\Logs\CBS.log") does not exist!
+goto "Start"
 
 :"SFCViewLogs"
 "%windir%\Logs\CBS\CBS.log"
