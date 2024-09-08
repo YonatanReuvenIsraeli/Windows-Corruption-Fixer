@@ -1013,11 +1013,11 @@ echo Invalid syntax!
 goto :"SFCLogDriveLetter"
 
 :"CheckExistSFCLogDriveLetter"
-if not exist "%LogDriveLetter%\Windows\Logs\CBS.log" goto "SFCOfflineLogNotExist"
+if not exist "%SFCLogDriveLetter%\Windows\Logs\CBS.log" goto "SFCOfflineLogNotExist"
 "%LogDriveLetter%\Logs\CBS\CBS.log"
 
 :"SFCOfflineLogNotExist"
-echo SFC log file ("%LogDriveLetter%\Windows\Logs\CBS.log") does not exist!
+echo SFC log file ("%SFCLogDriveLetter%\Windows\Logs\CBS.log") does not exist!
 goto "Start"
 
 :"SFCViewLogs"
