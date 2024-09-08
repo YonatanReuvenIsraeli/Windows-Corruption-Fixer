@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.4.12
+echo Version: 8.4.13
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -974,7 +974,7 @@ goto "Start"
 echo.
 set OnlineOffline=
 set /p OnlineOffline="Are you viewings the logs of an online or offline WIndows installation? (Online/Offline) "
-if /i "%OnlineOffline%"=="Online" goto "SFCViewLogs"
+if /i "%OnlineOffline%"=="Online" goto "CheckExistSFCOnlineLog"
 if /i "%OnlineOffline%"=="Offline" goto "SFCLogDriveLetter"
 echo Invalid syntax!
 goto "10"
@@ -983,46 +983,51 @@ goto "10"
 echo.
 set SFCLogDriveLetter=
 set /p SFCLogDriveLetter="What is the drive letter of the offline Windows installation? (A:-Z:) "
-if /i "%SFCLogDriveLetter%"=="A:" goto "CheckExistSFCLogDriveLetter"
-if /i "%SFCLogDriveLetter%"=="B:" goto "CheckExistSFCLogDriveLetter"
-if /i "%SFCLogDriveLetter%"=="C:" goto "CheckExistSFCLogDriveLetter"
-if /i "%SFCLogDriveLetter%"=="D:" goto "CheckExistSFCLogDriveLetter"
-if /i "%SFCLogDriveLetter%"=="E:" goto "CheckExistSFCLogDriveLetter"
-if /i "%SFCLogDriveLetter%"=="F:" goto "CheckExistSFCLogDriveLetter"
-if /i "%SFCLogDriveLetter%"=="G:" goto "CheckExistSFCLogDriveLetter"
-if /i "%SFCLogDriveLetter%"=="H:" goto "CheckExistSFCLogDriveLetter"
-if /i "%SFCLogDriveLetter%"=="I:" goto "CheckExistSFCLogDriveLetter"
-if /i "%SFCLogDriveLetter%"=="J:" goto "CheckExistSFCLogDriveLetter"
-if /i "%SFCLogDriveLetter%"=="K:" goto "CheckExistSFCLogDriveLetter"
-if /i "%SFCLogDriveLetter%"=="L:" goto "CheckExistSFCLogDriveLetter"
-if /i "%SFCLogDriveLetter%"=="M:" goto "CheckExistSFCLogDriveLetter"
-if /i "%SFCLogDriveLetter%"=="N:" goto "CheckExistSFCLogDriveLetter"
-if /i "%SFCLogDriveLetter%"=="O:" goto "CheckExistSFCLogDriveLetter"
-if /i "%SFCLogDriveLetter%"=="P:" goto "CheckExistSFCLogDriveLetter"
-if /i "%SFCLogDriveLetter%"=="Q:" goto "CheckExistSFCLogDriveLetter"
-if /i "%SFCLogDriveLetter%"=="R:" goto "CheckExistSFCLogDriveLetter"
-if /i "%SFCLogDriveLetter%"=="S:" goto "CheckExistSFCLogDriveLetter"
-if /i "%SFCLogDriveLetter%"=="T:" goto "CheckExistSFCLogDriveLetter"
-if /i "%SFCLogDriveLetter%"=="U:" goto "CheckExistSFCLogDriveLetter"
-if /i "%SFCLogDriveLetter%"=="V:" goto "CheckExistSFCLogDriveLetter"
-if /i "%SFCLogDriveLetter%"=="W:" goto "CheckExistSFCLogDriveLetter"
-if /i "%SFCLogDriveLetter%"=="X:" goto "CheckExistSFCLogDriveLetter"
-if /i "%SFCLogDriveLetter%"=="Y:" goto "CheckExistSFCLogDriveLetter"
-if /i "%SFCLogDriveLetter%"=="Z:" goto "CheckExistSFCLogDriveLetter"
+if /i "%SFCLogDriveLetter%"=="A:" goto "CheckExistSFCOfflineLog"
+if /i "%SFCLogDriveLetter%"=="B:" goto "CheckExistSFCOfflineLog"
+if /i "%SFCLogDriveLetter%"=="C:" goto "CheckExistSFCOfflineLog"
+if /i "%SFCLogDriveLetter%"=="D:" goto "CheckExistSFCOfflineLog"
+if /i "%SFCLogDriveLetter%"=="E:" goto "CheckExistSFCOfflineLog"
+if /i "%SFCLogDriveLetter%"=="F:" goto "CheckExistSFCOfflineLog"
+if /i "%SFCLogDriveLetter%"=="G:" goto "CheckExistSFCOfflineLog"
+if /i "%SFCLogDriveLetter%"=="H:" goto "CheckExistSFCOfflineLog"
+if /i "%SFCLogDriveLetter%"=="I:" goto "CheckExistSFCOfflineLog"
+if /i "%SFCLogDriveLetter%"=="J:" goto "CheckExistSFCOfflineLog"
+if /i "%SFCLogDriveLetter%"=="K:" goto "CheckExistSFCOfflineLog"
+if /i "%SFCLogDriveLetter%"=="L:" goto "CheckExistSFCOfflineLog"
+if /i "%SFCLogDriveLetter%"=="M:" goto "CheckExistSFCOfflineLog"
+if /i "%SFCLogDriveLetter%"=="N:" goto "CheckExistSFCOfflineLog"
+if /i "%SFCLogDriveLetter%"=="O:" goto "CheckExistSFCOfflineLog"
+if /i "%SFCLogDriveLetter%"=="P:" goto "CheckExistSFCOfflineLog"
+if /i "%SFCLogDriveLetter%"=="Q:" goto "CheckExistSFCOfflineLog"
+if /i "%SFCLogDriveLetter%"=="R:" goto "CheckExistSFCOfflineLog"
+if /i "%SFCLogDriveLetter%"=="S:" goto "CheckExistSFCOfflineLog"
+if /i "%SFCLogDriveLetter%"=="T:" goto "CheckExistSFCOfflineLog"
+if /i "%SFCLogDriveLetter%"=="U:" goto "CheckExistSFCOfflineLog"
+if /i "%SFCLogDriveLetter%"=="V:" goto "CheckExistSFCOfflineLog"
+if /i "%SFCLogDriveLetter%"=="W:" goto "CheckExistSFCOfflineLog"
+if /i "%SFCLogDriveLetter%"=="X:" goto "CheckExistSFCOfflineLog"
+if /i "%SFCLogDriveLetter%"=="Y:" goto "CheckExistSFCOfflineLog"
+if /i "%SFCLogDriveLetter%"=="Z:" goto "CheckExistSFCOfflineLog"
 echo Invalid syntax!
 goto :"SFCLogDriveLetter"
 
-:"CheckExistSFCLogDriveLetter"
+:"CheckExistSFCOnlineLog"
+if not exist "%windir%\Logs\CBS\CBS.log" goto "SFCOnlineLogNotExist"
+"%windir%\Logs\CBS\CBS.log"
+goto "Start"
+
+:"SFCOnlineLogNotExist"
+echo SFC log file ("%windir%\Logs\CBS\CBS.log") does not exist!
+goto "Start"
+
+:"CheckExistSFCOfflineLog"
 if not exist "%SFCLogDriveLetter%\Windows\Logs\CBS\CBS.log" goto "SFCOfflineLogNotExist"
 "%SFCLogDriveLetter%\Windows\Logs\CBS\CBS.log"
 goto "Start"
 
 :"SFCOfflineLogNotExist"
 echo SFC log file ("%SFCLogDriveLetter%\Windows\Logs\CBS\CBS.log") does not exist!
-goto "Start"
-
-:"SFCViewLogs"
-"%windir%\Logs\CBS\CBS.log"
 goto "Start"
 
 :"Done"
