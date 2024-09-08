@@ -1014,7 +1014,7 @@ goto :"SFCLogDriveLetter"
 
 :"CheckExistSFCLogDriveLetter"
 if not exist "%SFCLogDriveLetter%\Windows\Logs\CBS.log" goto "SFCOfflineLogNotExist"
-"%LogDriveLetter%\Logs\CBS\CBS.log"
+"%SFCLogDriveLetter%\Logs\CBS\CBS.log"
 
 :"SFCOfflineLogNotExist"
 echo SFC log file ("%SFCLogDriveLetter%\Windows\Logs\CBS.log") does not exist!
