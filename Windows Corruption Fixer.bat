@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.4.31
+echo Version: 8.4.32
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -862,6 +862,7 @@ goto "DISMLogDriveLetter"
 :"CheckExistDISMOnlineLog"
 if not exist "%windir%\Logs\DISM\dism.log" goto "DISMOnlineLogNotExist"
 notepad "%windir%\Logs\DISM\dism.log"
+if not "%errorlevel%"=="0" goto "ErrorDISMLog"
 goto "Start"
 
 :"DISMOnlineLogNotExist"
@@ -871,11 +872,16 @@ goto "Start"
 :"CheckExistDISMOfflineLog"
 if not exist "%DISMLogDriveLetter%\Windows\Logs\DISM\dism.log" goto "DISMOfflineLogNotExist"
 notepad "%DISMLogDriveLetter%\Windows\Logs\DISM\dism.log"
+if not "%errorlevel%"=="0" goto "ErrorDISMLog"
 goto "Start"
 
 :"DISMOfflineLogNotExist"
 echo DISM log file ("%DISMLogDriveLetter%\Windows\Logs\DISM\dism.log") does not exist!
 goto "Start"
+
+:"ErrorDISMLog"
+echo There has been an error! Please try again.
+goto "5"
 
 :"6"
 echo.
@@ -1214,6 +1220,7 @@ goto "SFCLogDriveLetter"
 :"CheckExistSFCOnlineLog"
 if not exist "%windir%\Logs\CBS\CBS.log" goto "SFCOnlineLogNotExist"
 notepad "%windir%\Logs\CBS\CBS.log"
+if not "%errorlevel%"=="0" goto "ErrorSFCLog"
 goto "Start"
 
 :"SFCOnlineLogNotExist"
@@ -1223,11 +1230,16 @@ goto "Start"
 :"CheckExistSFCOfflineLog"
 if not exist "%SFCLogDriveLetter%\Windows\Logs\CBS\CBS.log" goto "SFCOfflineLogNotExist"
 notepad "%SFCLogDriveLetter%\Windows\Logs\CBS\CBS.log"
+if not "%errorlevel%"=="0" goto "ErrorSFCLog"
 goto "Start"
 
 :"SFCOfflineLogNotExist"
 echo SFC log file ("%SFCLogDriveLetter%\Windows\Logs\CBS\CBS.log") does not exist!
 goto "Start"
+
+:"ErrorSFCLog"
+echo There has been an error! Please try again.
+goto "10"
 
 :"Done"
 endlocal
