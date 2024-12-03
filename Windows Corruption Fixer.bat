@@ -153,11 +153,16 @@ goto "SureInstallationCheck"
 
 :"CheckExistInstallationCheck"
 if not exist "%InstallationCheck%\Windows" goto "NotExistCheck"
+if "%InstallationCheck%"=="%SystemDrive%" goto "InstallationCheckIsOnline"
 goto "CheckOffline"
 
 :"NotExistCheck"
 echo "%InstallationCheck%" does not exist or is not an offline Windows installation! Please try again.
 goto "InstallationCheck"
+
+"InstallationCheckIsOnline"
+echo "%InstallationCheck%" is an online Windows installation!
+goto "2"
 
 :"CheckOnline"
 echo.
@@ -229,11 +234,16 @@ goto "SureInstallationScan"
 
 :"CheckExistInstallationScan"
 if not exist "%InstallationScan%\Windows" goto "NotExistScan"
+if "%InstallationScan%"=="%SystemDrive%" goto "InstallationScanIsOnline"
 goto "ScanOffline"
 
 :"NotExistCheck"
 echo "%InstallationScan%" does not exist or is not an offline Windows installation! Please try again.
 goto "InstallationCScan"
+
+"InstallationScanIsOnline"
+echo "%InstallationScan%" is an online Windows installation!
+goto "3"
 
 :"ScanOnline"
 echo.
@@ -696,12 +706,17 @@ goto "SureInstallationRestore"
 
 :"CheckExistInstallationRestore"
 if not exist "%InstallationRestore%\Windows" goto "NotExistRestore"
+if "%InstallationRestore%"=="%SystemDrive%" goto "InstallationRestoreIsOnline"
 if /i "%Media%"=="Yes" goto "DownloadOffline"
 if /i "%Media%"=="No" goto "DISMUpdateCheckOfflineNoImage"
 
 :"NotExistRestore"
 echo "%InstallationRestore%" does not exist or is not an offline Windows installation! Please try again.
 goto "InstallationRestore"
+
+"InstallationRestoreIsOnline"
+echo "%InstallationRestore%" is an online Windows installation!
+goto "4"
 
 :"DownloadOffline"
 echo.
