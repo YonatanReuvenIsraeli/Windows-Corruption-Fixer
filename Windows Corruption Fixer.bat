@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.4.35
+echo Version: 8.4.36
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -376,12 +376,39 @@ if exist "%DriveLetter%\x64\sources\install.wim" set Install=install.wim
 goto "64DISMOnline"
 
 :"DISMOnline"
+if exist "%cd%\Index.txt" goto "IndexExistOnline"
+DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\%Install%" | find /c /i "Index" > "%cd%\Index.txt"
+set /p IndexNumber=< "%cd%\Index.txt"
+del "%cd%\Index.txt" /f /q > nul 2>&1
 echo.
 echo Getting index details for Windows Disk Image "%DriveLetter%."
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOnline"
 echo Got index details for Windows Disk Image "%DriveLetter%."
-goto "IndexOnline"
+if "%Index%"=="True" goto "IndexDoneOnline"
+if "%IndexNumber%"=="3" goto "Index3Online"
+if "%IndexNumber%"=="7" goto "Index7Online"
+if "%IndexNumber%"=="11" goto "Index11Online"
+echo.
+echo Invalid Windows Disk Image!
+goto "DriveLetterOnline"
+
+:"IndexExistOnline"
+set Index=True
+echo.
+echo Please temporary rename to something else or temporary move to another location "%cd%\Index.txt" in order for this batch file to proceed. "%cd%\Index.txt" is not a system file. Press any key to continue when "%cd%\Index.txt" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
+pause > nul 2>&1
+goto "DISM1Online"
+
+:"IndexDoneOnline"
+echo.
+echo You can now rename or move back the file back to "%cd%\Index.txt".
+if "%IndexNumber%"=="3" goto "Index3Online"
+if "%IndexNumber%"=="7" goto "Index7Online"
+if "%IndexNumber%"=="11" goto "Index11Online"
+echo.
+echo Invalid Windows Disk Image!
+goto "DriveLetterOnline"
 
 :"32DISMOnline"
 echo.
@@ -389,7 +416,7 @@ echo Getting index details for Windows Disk Image "%DriveLetter%."
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x86\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOnline"
 echo Got index details for Windows Disk Image "%DriveLetter%."
-goto "IndexOnline"
+goto "IndexOnline7"
 
 :"64DISMOnline"
 echo.
@@ -397,33 +424,76 @@ echo Getting index details for Windows Disk Image "%DriveLetter%."
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x64\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOnline"
 echo Got index details for Windows Disk Image "%DriveLetter%."
-goto "IndexOnline"
+goto "IndexOnline7"
 
-:"IndexOnline"
+:"IndexOnline3"
 echo.
 set Index=
-set /p Index="Which one do you have on your PC? (1-7/11)? "
-if /i "%Index%"=="1" goto "SureIndexOnline"
-if /i "%Index%"=="2" goto "SureIndexOnline"
-if /i "%Index%"=="3" goto "SureIndexOnline"
-if /i "%Index%"=="4" goto "SureIndexOnline"
-if /i "%Index%"=="5" goto "SureIndexOnline"
-if /i "%Index%"=="6" goto "SureIndexOnline"
-if /i "%Index%"=="7" goto "SureIndexOnline"
-if /i "%Index%"=="8" goto "SureIndexOnline"
-if /i "%Index%"=="9" goto "SureIndexOnline"
-if /i "%Index%"=="10" goto "SureIndexOnline"
-if /i "%Index%"=="11" goto "SureIndexOnline"
+set /p Index="Which one do you have on your PC? (1-3)? "
+if /i "%Index%"=="1" goto "SureIndexOnline3"
+if /i "%Index%"=="2" goto "SureIndexOnline3"
+if /i "%Index%"=="3" goto "SureIndexOnline3"
 echo Invalid syntax!
-goto "IndexOnline"
+goto "IndexOnline3"
 
-:"SureIndexOnline"
+:"SureIndexOnline3"
 echo.
 set IndexNumber=
 set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
 if /i "%IndexNumber%"=="Yes" goto "Bit3Online"
-if /i "%IndexNumber%"=="No" goto "IndexOnline"
-goto "SureIndexOnline"
+if /i "%IndexNumber%"=="No" goto "IndexOnline3"
+echo Invalid syntax!
+goto "SureIndexOnline3"
+
+:"IndexOnline11"
+echo.
+set Index=
+set /p Index="Which one do you have on your PC? (1-7)? "
+if /i "%Index%"=="1" goto "SureIndexOnline7"
+if /i "%Index%"=="2" goto "SureIndexOnline7"
+if /i "%Index%"=="3" goto "SureIndexOnline7"
+if /i "%Index%"=="4" goto "SureIndexOnline7"
+if /i "%Index%"=="5" goto "SureIndexOnline7"
+if /i "%Index%"=="6" goto "SureIndexOnline7"
+if /i "%Index%"=="7" goto "SureIndexOnline7"
+echo Invalid syntax!
+goto "IndexOnline7"
+
+:"SureIndexOnline7"
+echo.
+set IndexNumber=
+set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
+if /i "%IndexNumber%"=="Yes" goto "Bit3Online"
+if /i "%IndexNumber%"=="No" goto "IndexOnline7"
+echo Invalid syntax!
+goto "SureIndexOnline7"
+
+:"IndexOnline11"
+echo.
+set Index=
+set /p Index="Which one do you have on your PC? (1-11)? "
+if /i "%Index%"=="1" goto "SureIndexOnline11"
+if /i "%Index%"=="2" goto "SureIndexOnline11"
+if /i "%Index%"=="3" goto "SureIndexOnline11"
+if /i "%Index%"=="4" goto "SureIndexOnline11"
+if /i "%Index%"=="5" goto "SureIndexOnline11"
+if /i "%Index%"=="6" goto "SureIndexOnline11"
+if /i "%Index%"=="7" goto "SureIndexOnline11"
+if /i "%Index%"=="8" goto "SureIndexOnline11"
+if /i "%Index%"=="9" goto "SureIndexOnline11"
+if /i "%Index%"=="10" goto "SureIndexOnline11"
+if /i "%Index%"=="11" goto "SureIndexOnline11"
+echo Invalid syntax!
+goto "IndexOnline11"
+
+:"SureIndexOnline11"
+echo.
+set IndexNumber=
+set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
+if /i "%IndexNumber%"=="Yes" goto "Bit3Online"
+if /i "%IndexNumber%"=="No" goto "IndexOnline11"
+echo Invalid syntax!
+goto "SureIndexOnline11"
 
 :"Bit3Online"
 if /i "%Bit%"=="32" goto "32DISMUpdateCheckOnline"
@@ -676,12 +746,39 @@ if exist "%DriveLetter%\x64\sources\install.wim" set Install=install.wim
 goto "64DISMOffline"
 
 :"DISMOffline"
+if exist "%cd%\Index.txt" goto "IndexExistOffline"
+DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\%Install%" | find /c /i "Index" > "%cd%\Index.txt"
+set /p IndexNumber=< "%cd%\Index.txt"
+del "%cd%\Index.txt" /f /q > nul 2>&1
 echo.
 echo Getting index details for Windows Disk Image "%DriveLetter%."
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOffline"
 echo Got index details for Windows Disk Image "%DriveLetter%."
-goto "IndexOffline"
+if "%Index%"=="True" goto "IndexDoneOffline"
+if "%IndexNumber%"=="3" goto "Index3Offline"
+if "%IndexNumber%"=="7" goto "Index7Offline"
+if "%IndexNumber%"=="11" goto "Index11Offline"
+echo.
+echo Invalid Windows Disk Image!
+goto "DriveLetterOffline"
+
+:"IndexExistOffline"
+set Index=True
+echo.
+echo Please temporary rename to something else or temporary move to another location "%cd%\Index.txt" in order for this batch file to proceed. "%cd%\Index.txt" is not a system file. Press any key to continue when "%cd%\Index.txt" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
+pause > nul 2>&1
+goto "DISM1Offline"
+
+:"IndexDoneOffline"
+echo.
+echo You can now rename or move back the file back to "%cd%\Index.txt".
+if "%IndexNumber%"=="3" goto "Index3Offline"
+if "%IndexNumber%"=="7" goto "Index7Offline"
+if "%IndexNumber%"=="11" goto "Index11Offline"
+echo.
+echo Invalid Windows Disk Image!
+goto "DriveLetterOffline"
 
 :"32DISMOffline"
 echo.
@@ -689,7 +786,7 @@ echo Getting index details for Windows Disk Image "%DriveLetter%."
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x86\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOffline"
 echo Got index details for Windows Disk Image "%DriveLetter%."
-goto "IndexOffline"
+goto "IndexOffline7"
 
 :"64DISMOffline"
 echo.
@@ -697,33 +794,76 @@ echo Getting index details for Windows Disk Image "%DriveLetter%."
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x64\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOffline"
 echo Got index details for Windows Disk Image "%DriveLetter%."
-goto "IndexOffline"
+goto "IndexOffline7"
 
-:"IndexOffline"
+:"IndexOffline3"
 echo.
 set Index=
-set /p Index="Which one do you have on your PC? (1-7/11)? "
-if /i "%Index%"=="1" goto "SureIndexOffline"
-if /i "%Index%"=="2" goto "SureIndexOffline"
-if /i "%Index%"=="3" goto "SureIndexOffline"
-if /i "%Index%"=="4" goto "SureIndexOffline"
-if /i "%Index%"=="5" goto "SureIndexOffline"
-if /i "%Index%"=="6" goto "SureIndexOffline"
-if /i "%Index%"=="7" goto "SureIndexOffline"
-if /i "%Index%"=="8" goto "SureIndexOffline"
-if /i "%Index%"=="9" goto "SureIndexOffline"
-if /i "%Index%"=="10" goto "SureIndexOffline"
-if /i "%Index%"=="11" goto "SureIndexOffline"
+set /p Index="Which one do you have on your PC? (1-3)? "
+if /i "%Index%"=="1" goto "SureIndexOffline3"
+if /i "%Index%"=="2" goto "SureIndexOffline3"
+if /i "%Index%"=="3" goto "SureIndexOffline3"
 echo Invalid syntax!
-goto "IndexOffline"
+goto "IndexOffline3"
 
-:"SureIndexOffline"
+:"SureIndexOffline3"
 echo.
 set IndexNumber=
 set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
 if /i "%IndexNumber%"=="Yes" goto "Bit3Offline"
-if /i "%IndexNumber%"=="No" goto "IndexOffline"
-goto "SureIndexOffline"
+if /i "%IndexNumber%"=="No" goto "IndexOffline3"
+echo Invalid syntax!
+goto "SureIndexOffline3"
+
+:"IndexOffline11"
+echo.
+set Index=
+set /p Index="Which one do you have on your PC? (1-7)? "
+if /i "%Index%"=="1" goto "SureIndexOffline7"
+if /i "%Index%"=="2" goto "SureIndexOffline7"
+if /i "%Index%"=="3" goto "SureIndexOffline7"
+if /i "%Index%"=="4" goto "SureIndexOffline7"
+if /i "%Index%"=="5" goto "SureIndexOffline7"
+if /i "%Index%"=="6" goto "SureIndexOffline7"
+if /i "%Index%"=="7" goto "SureIndexOffline7"
+echo Invalid syntax!
+goto "IndexOffline7"
+
+:"SureIndexOffline7"
+echo.
+set IndexNumber=
+set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
+if /i "%IndexNumber%"=="Yes" goto "Bit3Offline"
+if /i "%IndexNumber%"=="No" goto "IndexOffline7"
+echo Invalid syntax!
+goto "SureIndexOffline7"
+
+:"IndexOffline11"
+echo.
+set Index=
+set /p Index="Which one do you have on your PC? (1-11)? "
+if /i "%Index%"=="1" goto "SureIndexOffline11"
+if /i "%Index%"=="2" goto "SureIndexOffline11"
+if /i "%Index%"=="3" goto "SureIndexOffline11"
+if /i "%Index%"=="4" goto "SureIndexOffline11"
+if /i "%Index%"=="5" goto "SureIndexOffline11"
+if /i "%Index%"=="6" goto "SureIndexOffline11"
+if /i "%Index%"=="7" goto "SureIndexOffline11"
+if /i "%Index%"=="8" goto "SureIndexOffline11"
+if /i "%Index%"=="9" goto "SureIndexOffline11"
+if /i "%Index%"=="10" goto "SureIndexOffline11"
+if /i "%Index%"=="11" goto "SureIndexOffline11"
+echo Invalid syntax!
+goto "IndexOffline11"
+
+:"SureIndexOffline11"
+echo.
+set IndexNumber=
+set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
+if /i "%IndexNumber%"=="Yes" goto "Bit3Offline"
+if /i "%IndexNumber%"=="No" goto "IndexOffline11"
+echo Invalid syntax!
+goto "SureIndexOffline11"
 
 :"Bit3Offline"
 if /i "%Bit%"=="32" goto "32DISMUpdateCheckOffline"
