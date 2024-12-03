@@ -1259,6 +1259,7 @@ goto "VerifyOnlyDriveLetter"
 
 :"CheckExistVerifyOnlyDriveLetter"
 if not exist "%VerifyOnlyDriveLetter%\Windows" goto "VerifyOnlyDriveLetterNotExist"
+if "%VerifyOnlyDriveLetter%"=="%SystemDrive%" goto "VerifyOnlyDriveLetterIsOnline"
 goto "VerifyOnlyOffline"
 
 :"VerifyOnlyDriveLetterNotExist"
@@ -1338,11 +1339,16 @@ goto "ScanFileDriveLetter"
 
 :"CheckExistScanFileDriveLetter"
 if not exist "%ScanFileDriveLetter%\Windows" goto "ScanFileDriveLetterNotExist"
+if "%ScanFileDriveLetter%"=="%SystemDrive%" goto "ScanFileDriveLetterIsOnline"
 goto "ScanFileOffline"
 
 :"ScanFileDriveLetterNotExist"
 echo "%ScanFileDriveLetterNotExist%" does not exist or is not an offline Windows installation!
 goto "ScanFileDriveLetter"
+
+"ScanFileDriveLetterIsOnline"
+echo "%ScanFileDriveLetter%" is an online Windows installation!
+goto "8"
 
 :"ScanFileOnline"
 echo.
@@ -1417,11 +1423,16 @@ goto "VerifyFileDriveLetter"
 
 :"CheckExistVerifyFileDriveLetter"
 if not exist "%VerifyFileDriveLetter%\Windows" goto "VerifyFileDriveLetterNotExist"
+if "%VerifyFileDriveLetter%"=="%SystemDrive%" goto "VerifyFileDriveLetterIsOnline"
 goto "VerifyFileOffline"
 
 :"VerifyFileDriveLetterNotExist"
 echo "%VerifyFileDriveLetterNotExist%" does not exist or is not an offline Windows installation!
 goto "VerifyFileDriveLetter"
+
+"VerifyFileDriveLetterIsOnline"
+echo "%VerifyFileDriveLetter%" is an online Windows installation!
+goto "9"
 
 :"VerifyFileOnline"
 echo.
