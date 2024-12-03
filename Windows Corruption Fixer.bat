@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.4.36
+echo Version: 8.4.37
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -416,7 +416,7 @@ echo Getting index details for Windows Disk Image "%DriveLetter%."
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x86\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOnline"
 echo Got index details for Windows Disk Image "%DriveLetter%."
-goto "IndexOnline7"
+goto "Index7Online"
 
 :"64DISMOnline"
 echo.
@@ -424,76 +424,76 @@ echo Getting index details for Windows Disk Image "%DriveLetter%."
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x64\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOnline"
 echo Got index details for Windows Disk Image "%DriveLetter%."
-goto "IndexOnline7"
+goto "Index7Online"
 
-:"IndexOnline3"
+:"Index3Online"
 echo.
 set Index=
 set /p Index="Which one do you have on your PC? (1-3)? "
-if /i "%Index%"=="1" goto "SureIndexOnline3"
-if /i "%Index%"=="2" goto "SureIndexOnline3"
-if /i "%Index%"=="3" goto "SureIndexOnline3"
+if /i "%Index%"=="1" goto "SureIndex3Online"
+if /i "%Index%"=="2" goto "SureIndex3Online"
+if /i "%Index%"=="3" goto "SureIndex3Online"
 echo Invalid syntax!
-goto "IndexOnline3"
+goto "Index3Online"
 
-:"SureIndexOnline3"
+:"SureIndex3Online"
 echo.
 set IndexNumber=
 set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
 if /i "%IndexNumber%"=="Yes" goto "Bit3Online"
-if /i "%IndexNumber%"=="No" goto "IndexOnline3"
+if /i "%IndexNumber%"=="No" goto "Index3Online"
 echo Invalid syntax!
-goto "SureIndexOnline3"
+goto "SureIndex3Online"
 
-:"IndexOnline11"
+:"Index7Online"
 echo.
 set Index=
 set /p Index="Which one do you have on your PC? (1-7)? "
-if /i "%Index%"=="1" goto "SureIndexOnline7"
-if /i "%Index%"=="2" goto "SureIndexOnline7"
-if /i "%Index%"=="3" goto "SureIndexOnline7"
-if /i "%Index%"=="4" goto "SureIndexOnline7"
-if /i "%Index%"=="5" goto "SureIndexOnline7"
-if /i "%Index%"=="6" goto "SureIndexOnline7"
-if /i "%Index%"=="7" goto "SureIndexOnline7"
+if /i "%Index%"=="1" goto "SureIndex7Online"
+if /i "%Index%"=="2" goto "SureIndex7Online"
+if /i "%Index%"=="3" goto "SureIndex7Online"
+if /i "%Index%"=="4" goto "SureIndex7Online"
+if /i "%Index%"=="5" goto "SureIndex7Online"
+if /i "%Index%"=="6" goto "SureIndex7Online"
+if /i "%Index%"=="7" goto "SureIndex7Online"
 echo Invalid syntax!
-goto "IndexOnline7"
+goto "Index7Online"
 
-:"SureIndexOnline7"
+:"SureIndex7Online"
 echo.
 set IndexNumber=
 set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
 if /i "%IndexNumber%"=="Yes" goto "Bit3Online"
-if /i "%IndexNumber%"=="No" goto "IndexOnline7"
+if /i "%IndexNumber%"=="No" goto "Index7Online"
 echo Invalid syntax!
-goto "SureIndexOnline7"
+goto "SureIndex7Online"
 
-:"IndexOnline11"
+:"Index11Online"
 echo.
 set Index=
 set /p Index="Which one do you have on your PC? (1-11)? "
-if /i "%Index%"=="1" goto "SureIndexOnline11"
-if /i "%Index%"=="2" goto "SureIndexOnline11"
-if /i "%Index%"=="3" goto "SureIndexOnline11"
-if /i "%Index%"=="4" goto "SureIndexOnline11"
-if /i "%Index%"=="5" goto "SureIndexOnline11"
-if /i "%Index%"=="6" goto "SureIndexOnline11"
-if /i "%Index%"=="7" goto "SureIndexOnline11"
-if /i "%Index%"=="8" goto "SureIndexOnline11"
-if /i "%Index%"=="9" goto "SureIndexOnline11"
-if /i "%Index%"=="10" goto "SureIndexOnline11"
-if /i "%Index%"=="11" goto "SureIndexOnline11"
+if /i "%Index%"=="1" goto "SureIndex11Online"
+if /i "%Index%"=="2" goto "SureIndex11Online"
+if /i "%Index%"=="3" goto "SureIndex11Online"
+if /i "%Index%"=="4" goto "SureIndex11Online"
+if /i "%Index%"=="5" goto "SureIndex11Online"
+if /i "%Index%"=="6" goto "SureIndex11Online"
+if /i "%Index%"=="7" goto "SureIndex11Online"
+if /i "%Index%"=="8" goto "SureIndex11Online"
+if /i "%Index%"=="9" goto "SureIndex11Online"
+if /i "%Index%"=="10" goto "SureIndex11Online"
+if /i "%Index%"=="11" goto "SureIndex11Online"
 echo Invalid syntax!
-goto "IndexOnline11"
+goto "Index11Online"
 
-:"SureIndexOnline11"
+:"SureIndex11Online"
 echo.
 set IndexNumber=
 set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
 if /i "%IndexNumber%"=="Yes" goto "Bit3Online"
-if /i "%IndexNumber%"=="No" goto "IndexOnline11"
+if /i "%IndexNumber%"=="No" goto "Index11Online"
 echo Invalid syntax!
-goto "SureIndexOnline11"
+goto "SureIndex11Online"
 
 :"Bit3Online"
 if /i "%Bit%"=="32" goto "32DISMUpdateCheckOnline"
@@ -786,7 +786,7 @@ echo Getting index details for Windows Disk Image "%DriveLetter%."
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x86\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOffline"
 echo Got index details for Windows Disk Image "%DriveLetter%."
-goto "IndexOffline7"
+goto "Index7Offline"
 
 :"64DISMOffline"
 echo.
@@ -794,76 +794,76 @@ echo Getting index details for Windows Disk Image "%DriveLetter%."
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x64\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOffline"
 echo Got index details for Windows Disk Image "%DriveLetter%."
-goto "IndexOffline7"
+goto "Index7Offline"
 
-:"IndexOffline3"
+:"Index3Offline"
 echo.
 set Index=
 set /p Index="Which one do you have on your PC? (1-3)? "
-if /i "%Index%"=="1" goto "SureIndexOffline3"
-if /i "%Index%"=="2" goto "SureIndexOffline3"
-if /i "%Index%"=="3" goto "SureIndexOffline3"
+if /i "%Index%"=="1" goto "SureIndex3Offline"
+if /i "%Index%"=="2" goto "SureIndex3Offline"
+if /i "%Index%"=="3" goto "SureIndex3Offline"
 echo Invalid syntax!
-goto "IndexOffline3"
+goto "Index3Offline"
 
-:"SureIndexOffline3"
+:"SureIndex3Offline"
 echo.
 set IndexNumber=
 set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
 if /i "%IndexNumber%"=="Yes" goto "Bit3Offline"
-if /i "%IndexNumber%"=="No" goto "IndexOffline3"
+if /i "%IndexNumber%"=="No" goto "Index3Offline"
 echo Invalid syntax!
-goto "SureIndexOffline3"
+goto "SureIndex3Offline"
 
-:"IndexOffline11"
+:"Index7Offline"
 echo.
 set Index=
 set /p Index="Which one do you have on your PC? (1-7)? "
-if /i "%Index%"=="1" goto "SureIndexOffline7"
-if /i "%Index%"=="2" goto "SureIndexOffline7"
-if /i "%Index%"=="3" goto "SureIndexOffline7"
-if /i "%Index%"=="4" goto "SureIndexOffline7"
-if /i "%Index%"=="5" goto "SureIndexOffline7"
-if /i "%Index%"=="6" goto "SureIndexOffline7"
-if /i "%Index%"=="7" goto "SureIndexOffline7"
+if /i "%Index%"=="1" goto "SureIndex7Offline"
+if /i "%Index%"=="2" goto "SureIndex7Offline"
+if /i "%Index%"=="3" goto "SureIndex7Offline"
+if /i "%Index%"=="4" goto "SureIndex7Offline"
+if /i "%Index%"=="5" goto "SureIndex7Offline"
+if /i "%Index%"=="6" goto "SureIndex7Offline"
+if /i "%Index%"=="7" goto "SureIndex7Offline"
 echo Invalid syntax!
-goto "IndexOffline7"
+goto "Index7Offline"
 
-:"SureIndexOffline7"
+:"SureIndex7Offline"
 echo.
 set IndexNumber=
 set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
 if /i "%IndexNumber%"=="Yes" goto "Bit3Offline"
-if /i "%IndexNumber%"=="No" goto "IndexOffline7"
+if /i "%IndexNumber%"=="No" goto "Index7Offline"
 echo Invalid syntax!
-goto "SureIndexOffline7"
+goto "SureIndex7Offline"
 
-:"IndexOffline11"
+:"Index11Offline"
 echo.
 set Index=
 set /p Index="Which one do you have on your PC? (1-11)? "
-if /i "%Index%"=="1" goto "SureIndexOffline11"
-if /i "%Index%"=="2" goto "SureIndexOffline11"
-if /i "%Index%"=="3" goto "SureIndexOffline11"
-if /i "%Index%"=="4" goto "SureIndexOffline11"
-if /i "%Index%"=="5" goto "SureIndexOffline11"
-if /i "%Index%"=="6" goto "SureIndexOffline11"
-if /i "%Index%"=="7" goto "SureIndexOffline11"
-if /i "%Index%"=="8" goto "SureIndexOffline11"
-if /i "%Index%"=="9" goto "SureIndexOffline11"
-if /i "%Index%"=="10" goto "SureIndexOffline11"
-if /i "%Index%"=="11" goto "SureIndexOffline11"
+if /i "%Index%"=="1" goto "SureIndex11Offline"
+if /i "%Index%"=="2" goto "SureIndex11Offline"
+if /i "%Index%"=="3" goto "SureIndex11Offline"
+if /i "%Index%"=="4" goto "SureIndex11Offline"
+if /i "%Index%"=="5" goto "SureIndex11Offline"
+if /i "%Index%"=="6" goto "SureIndex11Offline"
+if /i "%Index%"=="7" goto "SureIndex11Offline"
+if /i "%Index%"=="8" goto "SureIndex11Offline"
+if /i "%Index%"=="9" goto "SureIndex11Offline"
+if /i "%Index%"=="10" goto "SureIndex11Offline"
+if /i "%Index%"=="11" goto "SureIndex11Offline"
 echo Invalid syntax!
-goto "IndexOffline11"
+goto "Index11Offline"
 
-:"SureIndexOffline11"
+:"SureIndex11Offline"
 echo.
 set IndexNumber=
 set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
 if /i "%IndexNumber%"=="Yes" goto "Bit3Offline"
-if /i "%IndexNumber%"=="No" goto "IndexOffline11"
+if /i "%IndexNumber%"=="No" goto "Index11Offline"
 echo Invalid syntax!
-goto "SureIndexOffline11"
+goto "SureIndex11Offline"
 
 :"Bit3Offline"
 if /i "%Bit%"=="32" goto "32DISMUpdateCheckOffline"
