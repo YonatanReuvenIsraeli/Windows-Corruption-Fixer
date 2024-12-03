@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.4.37
+echo Version: 8.5.0
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -273,10 +273,65 @@ goto "UpdateOnline"
 echo.
 set Media=
 set /p Media="Do you want to use a Windows Disk Image? (Yes/No) "
-if /i "%Media%"=="Yes" goto "DriveLetterOnline"
+if /i "%Media%"=="Yes" goto "DownloadOnline"
 if /i "%Media%"=="No" goto "DISMUpdateCheckOnlineNoImage"
 echo Invalid Sytax!
 goto "MediaOnline"
+
+:"DownloadOnline"
+echo.
+echo [1] Download Windows 10 22H2 x86/x64 Windows Disk Image.
+echo [2] Download Windows 11 24H2 x64 Windows Disk Image.
+echo [2] Download Windows 11 24H2 Arm64 Windows Disk Image.
+echo [4] Already have downloaded Windows 10 22H2 x86/x64 Windows Disk Image or Windows 11 24H2 x64/Arm64 Windows Disk Image.
+echo.
+set Windows=
+set /p Windows="What do you want to do? (1-4) "
+if /i "%Windows%"=="1" goto "10Online"
+if /i "%Windows%"=="2" goto "11x64Online"
+if /i "%Windows%"=="3" goto "11Arm64Online"
+if /i "%Windows%"=="4" goto "MountOnline"
+echo Invalid syntax!
+goto "DownloadOnline"
+
+:"10Online"
+echo.
+echo Download Windows 10 22H2 x86/x64 Disk Image from here. ^-^-^> https://www.microsoft.com/software-download/windows10
+echo Press any key to open the website.
+pause > nul 2>&1
+start https://www.microsoft.com/software-download/windows10
+echo.
+echo Press any key to continue once you have downloaded the Windows 10 22H2 x86/x64 Disk Image.
+pause > nul 2>&1
+goto "MountOnline"
+
+:"11x64Online"
+echo.
+echo Download Windows 11 24H2 x64 Disk Image from here. ^-^-^> https://www.microsoft.com/software-download/windows11
+echo Press any key to open the website.
+pause > nul 2>&1
+start https://www.microsoft.com/software-download/windows11
+echo.
+echo Press any key to continue once you have downloaded the Windows 11 24H2 x64 Disk Image.
+pause > nul 2>&1
+goto "MountOnline"
+
+:"11Arm64Online"
+echo.
+echo Download Windows 11 24H2 Arm64 Disk Image from here. ^-^-^> https://www.microsoft.com/en-us/software-download/windows11arm64
+echo Press any key to open the website.
+pause > nul 2>&1
+start https://www.microsoft.com/en-us/software-download/windows11arm64
+echo.
+echo Press any key to continue once you have downloaded the Windows 11 24H2 Arm64 Disk Image.
+pause > nul 2>&1
+goto "MountOnline"
+
+:"MountOnline"
+echo.
+echo Please mount your Windows Disk Image then press any key to continue.
+pause > nul 2>&1
+goto "DriveLetterOnline"
 
 :"DriveLetterOnline"
 echo.
@@ -641,12 +696,67 @@ goto "SureInstallationRestore"
 
 :"CheckExistInstallationRestore"
 if not exist "%InstallationRestore%\Windows" goto "NotExistRestore"
-if /i "%Media%"=="Yes" goto "DriveLetterOffline"
+if /i "%Media%"=="Yes" goto "DownloadOffline"
 if /i "%Media%"=="No" goto "DISMUpdateCheckOfflineNoImage"
 
 :"NotExistRestore"
 echo "%InstallationRestore%" does not exist or is not an offline Windows installation! Please try again.
 goto "InstallationRestore"
+
+:"DownloadOffline"
+echo.
+echo [1] Download Windows 10 22H2 x86/x64 Windows Disk Image.
+echo [2] Download Windows 11 24H2 x64 Windows Disk Image.
+echo [2] Download Windows 11 24H2 Arm64 Windows Disk Image.
+echo [4] Already have downloaded Windows 10 22H2 x86/x64 Windows Disk Image or Windows 11 24H2 x64/Arm64 Windows Disk Image.
+echo.
+set Windows=
+set /p Windows="What do you want to do? (1-4) "
+if /i "%Windows%"=="1" goto "10Offline"
+if /i "%Windows%"=="2" goto "11x64Offline"
+if /i "%Windows%"=="3" goto "11Arm64Offline"
+if /i "%Windows%"=="4" goto "MountOffline"
+echo Invalid syntax!
+goto "DownloadOffline"
+
+:"10Offline"
+echo.
+echo Download Windows 10 22H2 x86/x64 Disk Image from here. ^-^-^> https://www.microsoft.com/software-download/windows10
+echo Press any key to open the website.
+pause > nul 2>&1
+start https://www.microsoft.com/software-download/windows10
+echo.
+echo Press any key to continue once you have downloaded the Windows 10 22H2 x86/x64 Disk Image.
+pause > nul 2>&1
+goto "MountOffline"
+
+:"11x64Offline"
+echo.
+echo Download Windows 11 24H2 x64 Disk Image from here. ^-^-^> https://www.microsoft.com/software-download/windows11
+echo Press any key to open the website.
+pause > nul 2>&1
+start https://www.microsoft.com/software-download/windows11
+echo.
+echo Press any key to continue once you have downloaded the Windows 11 24H2 x64 Disk Image.
+pause > nul 2>&1
+goto "MountOffline"
+
+:"11Arm64Offline"
+echo.
+echo Download Windows 11 24H2 Arm64 Disk Image from here. ^-^-^> https://www.microsoft.com/en-us/software-download/windows11arm64
+echo Press any key to open the website.
+pause > nul 2>&1
+start https://www.microsoft.com/en-us/software-download/windows11arm64
+echo.
+echo Press any key to continue once you have downloaded the Windows 11 24H2 Arm64 Disk Image.
+pause > nul 2>&1
+goto "MountOffline"
+
+:"MountOffline"
+echo.
+echo Please mount your Windows Disk Image then press any key to continue.
+pause > nul 2>&1
+goto "DriveLetterOffline"
 
 :"DriveLetterOffline"
 echo.
