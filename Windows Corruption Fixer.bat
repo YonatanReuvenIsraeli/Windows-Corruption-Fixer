@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.4.34
+echo Version: 8.4.35
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -935,7 +935,7 @@ goto "ScanNowDriveLetter"
 
 :"ScanNowOnline"
 echo.
-echo Scanning Windows installation "%ScanNowDriveLetter%".
+echo Scanning Windows installation "%SystemDrive%".
 sfc /scannow
 if not "%errorlevel%"=="0" goto "6"
 echo Windows installation "%ScanNowDriveLetter%" scanned.
@@ -1002,7 +1002,7 @@ goto "VerifyOnlyDriveLetter"
 
 :"VerifyOnlyOnline"
 echo.
-echo Verifing Windows installtion "%VerifyOnlyDriveLetter%".
+echo Verifing Windows installtion "%SystemDrive%".
 sfc /verifyonly
 if not "%errorlevel%"=="0" goto "7"
 echo Windows installation "%VerifyOnlyDriveLetter%" verified.
