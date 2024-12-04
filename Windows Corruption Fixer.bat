@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.5.2
+echo Version: 8.5.3
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -446,10 +446,10 @@ DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\%Install%" | find /c /i "Index
 set /p IndexNumber=< "%cd%\Index.txt"
 del "%cd%\Index.txt" /f /q > nul 2>&1
 echo.
-echo Getting index details for Windows Disk Image "%DriveLetter%."
+echo Getting index details for Windows Disk Image "%DriveLetter%".
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOnline"
-echo Got index details for Windows Disk Image "%DriveLetter%."
+echo Got index details for Windows Disk Image "%DriveLetter%".
 if "%Index%"=="True" goto "IndexDoneOnline"
 if "%IndexNumber%"=="3" goto "Index3Online"
 if "%IndexNumber%"=="7" goto "Index7Online"
@@ -477,18 +477,18 @@ goto "DriveLetterOnline"
 
 :"32DISMOnline"
 echo.
-echo Getting index details for Windows Disk Image "%DriveLetter%."
+echo Getting index details for Windows Disk Image "%DriveLetter%".
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x86\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOnline"
-echo Got index details for Windows Disk Image "%DriveLetter%."
+echo Got index details for Windows Disk Image "%DriveLetter%".
 goto "Index7Online"
 
 :"64DISMOnline"
 echo.
-echo Getting index details for Windows Disk Image "%DriveLetter%."
+echo Getting index details for Windows Disk Image "%DriveLetter%".
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x64\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOnline"
-echo Got index details for Windows Disk Image "%DriveLetter%."
+echo Got index details for Windows Disk Image "%DriveLetter%".
 goto "Index7Online"
 
 :"Index3Online"
@@ -876,10 +876,10 @@ DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\%Install%" | find /c /i "Index
 set /p IndexNumber=< "%cd%\Index.txt"
 del "%cd%\Index.txt" /f /q > nul 2>&1
 echo.
-echo Getting index details for Windows Disk Image "%DriveLetter%."
+echo Getting index details for Windows Disk Image "%DriveLetter%".
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOffline"
-echo Got index details for Windows Disk Image "%DriveLetter%."
+echo Got index details for Windows Disk Image "%DriveLetter%".
 if "%Index%"=="True" goto "IndexDoneOffline"
 if "%IndexNumber%"=="3" goto "Index3Offline"
 if "%IndexNumber%"=="7" goto "Index7Offline"
@@ -907,18 +907,18 @@ goto "DriveLetterOffline"
 
 :"32DISMOffline"
 echo.
-echo Getting index details for Windows Disk Image "%DriveLetter%."
+echo Getting index details for Windows Disk Image "%DriveLetter%".
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x86\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOffline"
-echo Got index details for Windows Disk Image "%DriveLetter%."
+echo Got index details for Windows Disk Image "%DriveLetter%".
 goto "Index7Offline"
 
 :"64DISMOffline"
 echo.
-echo Getting index details for Windows Disk Image "%DriveLetter%."
+echo Getting index details for Windows Disk Image "%DriveLetter%".
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\x64\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOffline"
-echo Got index details for Windows Disk Image "%DriveLetter%."
+echo Got index details for Windows Disk Image "%DriveLetter%".
 goto "Index7Offline"
 
 :"Index3Offline"
