@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.5.3
+echo Version: 8.5.4
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -292,7 +292,7 @@ goto "MediaOnline"
 echo.
 echo [1] Download Windows 10 22H2 x86/x64 Windows Disk Image.
 echo [2] Download Windows 11 24H2 x64 Windows Disk Image.
-echo [2] Download Windows 11 24H2 Arm64 Windows Disk Image.
+echo [3] Download Windows 11 24H2 Arm64 Windows Disk Image.
 echo [4] Already have downloaded Windows 10 22H2 x86/x64 Windows Disk Image or Windows 11 24H2 x64/Arm64 Windows Disk Image.
 echo.
 set Windows=
@@ -722,7 +722,7 @@ goto "4"
 echo.
 echo [1] Download Windows 10 22H2 x86/x64 Windows Disk Image.
 echo [2] Download Windows 11 24H2 x64 Windows Disk Image.
-echo [2] Download Windows 11 24H2 Arm64 Windows Disk Image.
+echo [3] Download Windows 11 24H2 Arm64 Windows Disk Image.
 echo [4] Already have downloaded Windows 10 22H2 x86/x64 Windows Disk Image or Windows 11 24H2 x64/Arm64 Windows Disk Image.
 echo.
 set Windows=
