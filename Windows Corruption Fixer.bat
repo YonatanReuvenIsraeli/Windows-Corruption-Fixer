@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.5.4
+echo Version: 8.5.5
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -328,10 +328,10 @@ goto "MountOnline"
 
 :"11Arm64Online"
 echo.
-echo Download Windows 11 24H2 Arm64 Disk Image from here. ^-^-^> https://www.microsoft.com/en-us/software-download/windows11arm64
+echo Download Windows 11 24H2 Arm64 Disk Image from here. ^-^-^> https://www.microsoft.com/software-download/windows11arm64
 echo Press any key to open the website.
 pause > nul 2>&1
-start https://www.microsoft.com/en-us/software-download/windows11arm64
+start https://www.microsoft.com/software-download/windows11arm64
 echo.
 echo Press any key to continue once you have downloaded the Windows 11 24H2 Arm64 Disk Image.
 pause > nul 2>&1
