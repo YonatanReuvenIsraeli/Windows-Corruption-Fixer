@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.5.5
+echo Version: 8.5.6
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -295,14 +295,32 @@ echo [2] Download Windows 11 24H2 x64 Windows Disk Image.
 echo [3] Download Windows 11 24H2 Arm64 Windows Disk Image.
 echo [4] Already have downloaded Windows 10 22H2 x86/x64 Windows Disk Image or Windows 11 24H2 x64/Arm64 Windows Disk Image.
 echo.
-set Windows=
-set /p Windows="What do you want to do? (1-4) "
-if /i "%Windows%"=="1" goto "10Online"
-if /i "%Windows%"=="2" goto "11x64Online"
-if /i "%Windows%"=="3" goto "11Arm64Online"
-if /i "%Windows%"=="4" goto "MountOnline"
+set Download=
+set /p Download="What do you want to do? (1-4) "
+if /i "%Download%"=="1" goto "SureDownloadOnline"
+if /i "%Download%"=="2" goto "SureDownloadOnline"
+if /i "%Download%"=="3" goto "SureDownloadOnline"
+if /i "%Download%"=="4" goto "SureDownloadOnline"
 echo Invalid syntax!
 goto "DownloadOnline"
+
+:"SureDownloadOnline"
+echo.
+set SureDownload=
+if /i "%Download%"=="1" set /p SureDownload="Are you sure you want to download Windows 10 22H2 x86/x64 Windows Disk Image? (Yes/No) "
+if /i "%Download%"=="2" set /p SureDownload="Are you sure you want to download Windows 11 24H2 x64 Windows Disk Image? (Yes/No) "
+if /i "%Download%"=="3" set /p SureDownload="Are you sure you want to download Windows 11 24H2 Arm64 Windows Disk Image? (Yes/No) "
+if /i "%Download%"=="4" set /p SureDownload="Are you sure you have downloaded Windows 10 22H2 x86/x64 Windows Disk Image or Windows 11 24H2 x64/Arm64 Windows Disk Image? (Yes/No) "
+if /i "%SureDownload%"=="Yes" goto "DownloadGoOnline"
+if /i "%SureDownload%"=="No" goto "DownloadOnline"
+echo Invalid syntax!
+goto "SureDownloadOnline"
+
+:"DownloadGoOnline"
+if /i "%Download%"=="1" goto "10Online"
+if /i "%Download%"=="2" goto "11x64Online"
+if /i "%Download%"=="3" goto "11Arm64Online"
+if /i "%Download%"=="4" goto "MountOnline"
 
 :"10Online"
 echo.
@@ -725,14 +743,32 @@ echo [2] Download Windows 11 24H2 x64 Windows Disk Image.
 echo [3] Download Windows 11 24H2 Arm64 Windows Disk Image.
 echo [4] Already have downloaded Windows 10 22H2 x86/x64 Windows Disk Image or Windows 11 24H2 x64/Arm64 Windows Disk Image.
 echo.
-set Windows=
-set /p Windows="What do you want to do? (1-4) "
-if /i "%Windows%"=="1" goto "10Offline"
-if /i "%Windows%"=="2" goto "11x64Offline"
-if /i "%Windows%"=="3" goto "11Arm64Offline"
-if /i "%Windows%"=="4" goto "MountOffline"
+set Download=
+set /p Download="What do you want to do? (1-4) "
+if /i "%Download%"=="1" goto "SureDownloadOffline"
+if /i "%Download%"=="2" goto "SureDownloadOffline"
+if /i "%Download%"=="3" goto "SureDownloadOffline"
+if /i "%Download%"=="4" goto "SureDownloadOffline"
 echo Invalid syntax!
 goto "DownloadOffline"
+
+:"SureDownloadOffline"
+echo.
+set SureDownload=
+if /i "%Download%"=="1" set /p SureDownload="Are you sure you want to download Windows 10 22H2 x86/x64 Windows Disk Image? (Yes/No) "
+if /i "%Download%"=="2" set /p SureDownload="Are you sure you want to download Windows 11 24H2 x64 Windows Disk Image? (Yes/No) "
+if /i "%Download%"=="3" set /p SureDownload="Are you sure you want to download Windows 11 24H2 Arm64 Windows Disk Image? (Yes/No) "
+if /i "%Download%"=="4" set /p SureDownload="Are you sure you have downloaded Windows 10 22H2 x86/x64 Windows Disk Image or Windows 11 24H2 x64/Arm64 Windows Disk Image? (Yes/No) "
+if /i "%SureDownload%"=="Yes" goto "DownloadGoOffline"
+if /i "%SureDownload%"=="No" goto "DownloadOffline"
+echo Invalid syntax!
+goto "SureDownloadOffline"
+
+:"DownloadGoOffline"
+if /i "%Download%"=="1" goto "10Offline"
+if /i "%Download%"=="2" goto "11x64Offline"
+if /i "%Download%"=="3" goto "11Arm64Offline"
+if /i "%Download%"=="4" goto "MountOffline"
 
 :"10Offline"
 echo.
