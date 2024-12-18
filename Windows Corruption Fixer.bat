@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.5.6
+echo Version: 8.5.7
 echo Developer: @YonatanReuvenIsraeli
 echo Website: https://www.yonatanreuvenisraeli.dev
 echo License: GNU General Public License v3.0
@@ -166,10 +166,10 @@ goto "2"
 
 :"CheckOnline"
 echo.
-echo Checking health.
+echo Checking health on Windows installation "%SystemDrive%".
 DISM /Online /Cleanup-Image /CheckHealth
 if not "%errorlevel%"=="0" goto "InstallationCheck"
-echo Checked health.
+echo Checked health on Windows installation "%SystemDrive%".
 goto "Start"
 
 :"CheckOffline"
@@ -247,10 +247,10 @@ goto "3"
 
 :"ScanOnline"
 echo.
-echo Scanning health.
+echo Scanning health on Windows installation "%SystemDrive%".
 DISM /Online /Cleanup-Image /ScanHealth
 if not "%errorlevel%"=="0" goto "InstallationScan"
-echo Scanned health
+echo Scanned health on Windows installation "%SystemDrive%".
 goto "Start"
 
 :"ScanOffline"
@@ -589,18 +589,18 @@ if /i "%Update%"=="No" goto "DISMOnlineNoImage"
 
 :"DISMOnlineNoImage"
 echo.
-echo Restoring health.
+echo Restoring health on Windows installation "%SystemDrive%".
 DISM /Online /Cleanup-Image /RestoreHealth
 if not "%errorlevel%"=="0" goto "UpdateOnline"
-echo Health restored.
+echo Health restored on Windows installation "%SystemDrive%".
 goto "Start"
 
 :"DISMNoUpdateOnlineNoImage"
 echo.
-echo Restoring health.
+echo Restoring health on Windows installation "%SystemDrive%".
 DISM /Online /Cleanup-Image /RestoreHealth /LimitAccess
 if not "%errorlevel%"=="0" goto "UpdateOnline"
-echo Health restored.
+echo Health restored on Windows installation "%SystemDrive%".
 goto "Start"
 
 :"DISMUpdateCheckOnline"
@@ -609,18 +609,18 @@ if /i "%Update%"=="No" goto "DISMOnline"
 
 :"DISMOnline"
 echo.
-echo Restoring health.
+echo Restoring health on Windows installation "%SystemDrive%".
 DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\%Install%":%Index%
 if not "%errorlevel%"=="0" goto "UpdateOnline"
-echo Health restored.
+echo Health restored on Windows installation "%SystemDrive%".
 goto "Start"
 
 :"DISMNoUpdateOnline"
 echo.
-echo Restoring health.
+echo Restoring health on Windows installation "%SystemDrive%".
 DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\Sources\%Install%":%Index% /LimitAccess
 if not "%errorlevel%"=="0" goto "UpdateOnline"
-echo Health restored.
+echo Health restored on Windows installation "%SystemDrive%".
 goto "Start"
 
 :"32DISMUpdateCheckOnline"
@@ -629,18 +629,18 @@ if /i "%Update%"=="No" goto "32DISMOnline"
 
 :"32DISMOnline"
 echo.
-echo Restoring health.
+echo Restoring health on Windows installation "%SystemDrive%".
 DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\Sources\%Install%":%Index%
 if not "%errorlevel%"=="0" goto "UpdateOnline"
-echo Health restored.
+echo Health restored on Windows installation "%SystemDrive%".
 goto "Start"
 
 :"32DISMNoUpdateOnline"
 echo.
-echo Restoring health.
+echo Restoring health on Windows installation "%SystemDrive%".
 DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\Sources\%Install%":%Index% /LimitAccess
 if not "%errorlevel%"=="0" goto "UpdateOnline"
-echo Health restored.
+echo Health restored on Windows installation "%SystemDrive%".
 goto "Start"
 
 :"64DISMUpdateCheckOnline"
@@ -649,18 +649,18 @@ if /i "%Update%"=="No" goto "64DISMOnline"
 
 :"64DISMOnline"
 echo.
-echo Restoring health.
+echo Restoring health on Windows installation "%SystemDrive%".
 DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\Sources\%Install%":%Index%
 if not "%errorlevel%"=="0" goto "UpdateOnline"
-echo Health restored.
+echo Health restored on Windows installation "%SystemDrive%".
 goto "Start"
 
 :"64DISMNoUpdateOnline"
 echo.
-echo Restoring health.
+echo Restoring health on Windows installation "%SystemDrive%".
 DISM /Online /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\Sources\%Install%":%Index% /LimitAccess
 if not "%errorlevel%"=="0" goto "UpdateOnline"
-echo Health restored.
+echo Health restored on Windows installation "%SystemDrive%".
 goto "Start"
 
 :"UpdateOffline"
@@ -1244,7 +1244,7 @@ echo.
 echo Scanning Windows installation "%SystemDrive%".
 sfc /scannow
 if not "%errorlevel%"=="0" goto "6"
-echo Windows installation "%ScanNowDriveLetter%" scanned.
+echo Windows installation "%SystemDrive%" scanned.
 goto "Start"
 
 :"ScanNowOffline"
@@ -1316,7 +1316,7 @@ echo.
 echo Verifing Windows installtion "%SystemDrive%".
 sfc /verifyonly
 if not "%errorlevel%"=="0" goto "7"
-echo Windows installation "%VerifyOnlyDriveLetter%" verified.
+echo Windows installation "%SystemDrive%" verified.
 goto "Start"
 
 :"VerifyOnlyOffline"
