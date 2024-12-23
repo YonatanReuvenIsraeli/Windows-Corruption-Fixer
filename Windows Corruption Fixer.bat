@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.5.8
+echo Version: 8.5.9
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -416,7 +416,7 @@ goto "DriveLetterOnline"
 if exist "%DriveLetter%\sources" goto "ESDSWMWIMOnline"
 if exist "%DriveLetter%\x86\sources" goto "Bit1Online"
 if exist "%DriveLetter%\x64\sources" goto "Bit1Online"
-echo %DriveLetter% is not a Windows Disk Image!
+echo "%DriveLetter%" is not a Windows Disk Image!
 goto "DriveLetterOnline"
 
 :"Bit1Online"
@@ -864,7 +864,7 @@ goto "DriveLetterOffline"
 if exist "%DriveLetter%\sources" goto "ESDSWMWIMOffline"
 if exist "%DriveLetter%\x86\sources" goto "Bit1Offline"
 if exist "%DriveLetter%\x64\sources" goto "Bit1Offline"
-echo %DriveLetter% is not a Windows Disk Image!
+echo "%DriveLetter%" is not a Windows Disk Image!
 goto "DriveLetterOffline"
 
 :"Bit1Offline"
@@ -1228,17 +1228,22 @@ echo Invalid syntax!
 goto "ScanNowDriveLetter"
 
 :"CheckExistScanNowDriveLetter"
-if not exist "%ScanNowDriveLetter%\Windows" goto "ScanNowDriveLetterNotExist"
+if not exist "%ScanNowDriveLetter%" goto "ScanNowDriveLetterNotExist"
 if "%ScanNowDriveLetter%"=="%SystemDrive%" goto "ScanNowDriveLetterIsOnline"
+if not exist "%ScanNowDriveLetter%\Windows" goto "ScanNowDriveLetterNotWindows"
 goto "ScanNowOffline"
 
 :"ScanNowDriveLetterNotExist"
-echo "%ScanNowDriveLetter%" does not exist or is not an offline Windows installation!
+echo "%ScanNowDriveLetter%" does not exist.
 goto "ScanNowDriveLetter"
 
 :"ScanNowDriveLetterIsOnline"
 echo "%ScanNowDriveLetter%" is an online Windows installation!
 goto "6"
+
+:"ScanNowDriveLetterNotWindows"
+echo "%ScanNowDriveLetter%" is not an offline WIndows installation!
+goto "ScanNowDriveLetter"
 
 :"ScanNowOnline"
 echo.
@@ -1300,17 +1305,22 @@ echo Invalid syntax!
 goto "VerifyOnlyDriveLetter"
 
 :"CheckExistVerifyOnlyDriveLetter"
-if not exist "%VerifyOnlyDriveLetter%\Windows" goto "VerifyOnlyDriveLetterNotExist"
+if not exist "%VerifyOnlyDriveLetter%" goto "VerifyOnlyDriveLetterNotExist"
 if "%VerifyOnlyDriveLetter%"=="%SystemDrive%" goto "VerifyOnlyDriveLetterIsOnline"
+if not exist "%VerifyOnlyDriveLetter%\Windows" goto "VerfiyOnlyDriveLetterNotWindows"
 goto "VerifyOnlyOffline"
 
 :"VerifyOnlyDriveLetterNotExist"
-echo "%VerifyOnlyDriveLetterNotExist%" does not exist or is not an offline Windows installation!
+echo "%VerifyOnlyDriveLetterNotExist%" does not exist!
 goto "VerifyOnlyDriveLetter"
 
 :"VerifyOnlyDriveLetterIsOnline"
 echo "%VerifyOnlyDriveLetter%" is an online Windows installation!
 goto "7"
+
+:"VerfiyOnlyDriveLetterNotWindows"
+echo "%VerifyOnlyDriveLetter%" is not an offline WIndows installation!
+goto "VerifyOnlyDriveLetter"
 
 :"VerifyOnlyOnline"
 echo.
@@ -1384,17 +1394,22 @@ echo Invalid syntax!
 goto "ScanFileDriveLetter"
 
 :"CheckExistScanFileDriveLetter"
-if not exist "%ScanFileDriveLetter%\Windows" goto "ScanFileDriveLetterNotExist"
+if not exist "%ScanFileDriveLetter%" goto "ScanFileDriveLetterNotExist"
 if "%ScanFileDriveLetter%"=="%SystemDrive%" goto "ScanFileDriveLetterIsOnline"
+if not exist "%ScanFileDriveLetter%\Windows" goto "ScanFileDriveLetterNotWindows"
 goto "ScanFileOffline"
 
 :"ScanFileDriveLetterNotExist"
-echo "%ScanFileDriveLetterNotExist%" does not exist or is not an offline Windows installation!
+echo "%ScanFileDriveLetterNotExist%" does not exist!
 goto "ScanFileDriveLetter"
 
 :"ScanFileDriveLetterIsOnline"
 echo "%ScanFileDriveLetter%" is an online Windows installation!
 goto "8"
+
+:"ScanFileDriveLetterNotWindows"
+echo "%ScanFileDriveLetter%" is not an offline WIndows installation!
+goto "ScanFileDriveLetter"
 
 :"ScanFileOnline"
 echo.
@@ -1468,17 +1483,22 @@ echo Invalid syntax!
 goto "VerifyFileDriveLetter"
 
 :"CheckExistVerifyFileDriveLetter"
-if not exist "%VerifyFileDriveLetter%\Windows" goto "VerifyFileDriveLetterNotExist"
+if not exist "%VerifyFileDriveLetter%" goto "VerifyFileDriveLetterNotExist"
 if "%VerifyFileDriveLetter%"=="%SystemDrive%" goto "VerifyFileDriveLetterIsOnline"
+if not exist "%VerifyFileDriveLetter%\Windows" goto "VerifyFileDriveLetterNotWindows"
 goto "VerifyFileOffline"
 
 :"VerifyFileDriveLetterNotExist"
-echo "%VerifyFileDriveLetterNotExist%" does not exist or is not an offline Windows installation!
+echo "%VerifyFileDriveLetterNotExist%" does not exist!
 goto "VerifyFileDriveLetter"
 
 :"VerifyFileDriveLetterIsOnline"
 echo "%VerifyFileDriveLetter%" is an online Windows installation!
 goto "9"
+
+:"VerifyFileDriveLetterNotWindows"
+echo "%VerifyFileDriveLetter%" is not an offline WIndows installation!
+goto "VerifyFileDriveLetter"
 
 :"VerifyFileOnline"
 echo.
