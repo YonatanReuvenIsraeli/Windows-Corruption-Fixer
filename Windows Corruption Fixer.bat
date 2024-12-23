@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.5.10
+echo Version: 8.5.11
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -970,10 +970,10 @@ goto "Index3Offline"
 
 :"SureIndex3Offline"
 echo.
-set IndexNumber=
-set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
-if /i "%IndexNumber%"=="Yes" goto "Bit3Offline"
-if /i "%IndexNumber%"=="No" goto "Index3Offline"
+set SureIndex=
+set /p SureIndex="Are you sure you want Index %Index%? (Yes/No) "
+if /i "%SureIndex%"=="Yes" goto "Bit3Offline"
+if /i "%SureIndex%"=="No" goto "Index3Offline"
 echo Invalid syntax!
 goto "SureIndex3Offline"
 
@@ -993,10 +993,10 @@ goto "Index7Offline"
 
 :"SureIndex7Offline"
 echo.
-set IndexNumber=
-set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
-if /i "%IndexNumber%"=="Yes" goto "Bit3Offline"
-if /i "%IndexNumber%"=="No" goto "Index7Offline"
+set SureIndex=
+set /p SureIndex="Are you sure you want Index %Index%? (Yes/No) "
+if /i "%SureIndex%"=="Yes" goto "Bit3Offline"
+if /i "%SureIndex%"=="No" goto "Index7Offline"
 echo Invalid syntax!
 goto "SureIndex7Offline"
 
@@ -1020,10 +1020,10 @@ goto "Index11Offline"
 
 :"SureIndex11Offline"
 echo.
-set IndexNumber=
-set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
-if /i "%IndexNumber%"=="Yes" goto "Bit3Offline"
-if /i "%IndexNumber%"=="No" goto "Index11Offline"
+set SureIndex=
+set /p SureIndex="Are you sure you want Index %Index%? (Yes/No) "
+if /i "%SureIndex%"=="Yes" goto "Bit3Offline"
+if /i "%SureIndex%"=="No" goto "Index11Offline"
 echo Invalid syntax!
 goto "SureIndex11Offline"
 
