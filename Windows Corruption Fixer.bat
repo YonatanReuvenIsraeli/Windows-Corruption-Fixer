@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.5.9
+echo Version: 8.5.10
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -461,11 +461,11 @@ goto "64DISMOnline"
 
 :"DISMOnline"
 if exist "%cd%\Index.txt" goto "IndexExistOnline"
+echo.
+echo Getting index details for Windows Disk Image "%DriveLetter%".
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\%Install%" | find /c /i "Index" > "%cd%\Index.txt"
 set /p IndexNumber=< "%cd%\Index.txt"
 del "%cd%\Index.txt" /f /q > nul 2>&1
-echo.
-echo Getting index details for Windows Disk Image "%DriveLetter%".
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOnline"
 echo Got index details for Windows Disk Image "%DriveLetter%".
@@ -482,7 +482,7 @@ set Index=True
 echo.
 echo Please temporary rename to something else or temporary move to another location "%cd%\Index.txt" in order for this batch file to proceed. "%cd%\Index.txt" is not a system file. Press any key to continue when "%cd%\Index.txt" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
 pause > nul 2>&1
-goto "DISM1Online"
+goto "DISMOnline"
 
 :"IndexDoneOnline"
 echo.
@@ -909,11 +909,11 @@ goto "64DISMOffline"
 
 :"DISMOffline"
 if exist "%cd%\Index.txt" goto "IndexExistOffline"
+echo.
+echo Getting index details for Windows Disk Image "%DriveLetter%".
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\%Install%" | find /c /i "Index" > "%cd%\Index.txt"
 set /p IndexNumber=< "%cd%\Index.txt"
 del "%cd%\Index.txt" /f /q > nul 2>&1
-echo.
-echo Getting index details for Windows Disk Image "%DriveLetter%".
 DISM /Get-WimInfo /WimFile:"%DriveLetter%\sources\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetterOffline"
 echo Got index details for Windows Disk Image "%DriveLetter%".
@@ -930,7 +930,7 @@ set Index=True
 echo.
 echo Please temporary rename to something else or temporary move to another location "%cd%\Index.txt" in order for this batch file to proceed. "%cd%\Index.txt" is not a system file. Press any key to continue when "%cd%\Index.txt" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
 pause > nul 2>&1
-goto "DISM1Offline"
+goto "DISMOffline"
 
 :"IndexDoneOffline"
 echo.
