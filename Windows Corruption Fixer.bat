@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.6.0
+echo Version: 8.6.1
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -19,7 +19,7 @@ goto "Done"
 
 :"Start"
 echo.
-echo [1] Check Disk.
+echo [1] Check Disk
 echo [2] View Check Disk Logs
 echo [3] DISM Check Health
 echo [4] DISM Scan Health
