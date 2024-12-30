@@ -1,8 +1,8 @@
 # Windows Corruption Fixer v8.6.1
 Fixes corrupted Windows using CHKDSK, DISM and SFC commands.
 ## The following options are available
-**1.** Check Disk 
-**2** View Check Disk Logs
+**1.** Check Disk  
+**2** View Check Disk Logs  
 **3.** DISM Check Health  
 **4.** DISM Scan Health  
 **5.** DISM Restore Health  
