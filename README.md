@@ -2,7 +2,7 @@
 Fixes corrupted Windows using CHKDSK, DISM and SFC commands.
 ## The following options are available
 **1.** CHKDSK.  
-**2** View CHKDSK logs.  
+**2.** View CHKDSK logs.  
 **3.** DISM check health.  
 **4.** DISM scan health.  
 **5.** DISM restore health.  
