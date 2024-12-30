@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.5.11
+echo Version: 8.6.0
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -19,20 +19,21 @@ goto "Done"
 
 :"Start"
 echo.
-echo [1] Check Disk
-echo [2] DISM Check Health
-echo [3] DISM Scan Health
-echo [4] DISM Restore Health
-echo [5] View DISM Logs
-echo [6] SFC Scan Now
-echo [7] SFC Verify Only
-echo [8] SFC Scan File
-echo [9] SFC Verify File
-echo [10] View SFC Logs
-echo [11] Close
+echo [1] Check Disk.
+echo [2] View Check Disk Logs
+echo [3] DISM Check Health
+echo [4] DISM Scan Health
+echo [5] DISM Restore Health
+echo [6] View DISM Logs
+echo [7] SFC Scan Now
+echo [8] SFC Verify Only
+echo [9] SFC Scan File
+echo [10] SFC Verify File
+echo [11] View SFC Logs
+echo [12] Close
 echo.
 set Input=
-set /p Input="Which one do you want to do? (1-11) "
+set /p Input="Which one do you want to do? (1-12) "
 if /i "%Input%"=="1" goto "1"
 if /i "%Input%"=="2" goto "2"
 if /i "%Input%"=="3" goto "3"
@@ -43,7 +44,8 @@ if /i "%Input%"=="7" goto "7"
 if /i "%Input%"=="8" goto "8"
 if /i "%Input%"=="9" goto "9"
 if /i "%Input%"=="10" goto "10"
-if /i "%Input%"=="11" goto "Done"
+if /i "%Input%"=="11" goto "11"
+if /i "%Input%"=="12" goto "Done"
 echo Invalid syntax
 goto "Start"
 
@@ -103,12 +105,51 @@ goto "Start"
 
 :"2"
 echo.
+set Recent=
+set /p Recent="How many of the most recent CHKDSK logs to you want to view? (1-?/All) "
+if /i "%Recent%"=="All" goto "SureRecentAll"
+goto "SureRecent"
+
+:"SureRecentAll"
+echo.
+set SureRecent=
+set /p SureRecent="Are you sure you want to view all CHKDSK logs? (Yes/No) "
+if /i "%SureRecent%"=="Yes" goto "wevtutilAll"
+if /i "%SureRecent%"=="No" goto "2"
+echo Invalid syntax!
+goto "SureRecentAll"
+
+:"SureRecent"
+echo.
+set SureRecent=
+set /p SureRecent="Are you sure you want to view the %Recent% most recent CHKDSK logs? (Yes/No) "
+if /i "%SureRecent%"=="Yes" goto "wevtutilMost"
+if /i "%SureRecent%"=="No" goto "2"
+echo Invalid syntax!
+goto "SureRecent"
+
+:"wevtutilAll"
+wevtutil qe Application "/q:*[System[Provider[@Name='chkdsk'] or Provider[@Name='wininit']]]" /f:text
+if not "%errorlevel%"=="0" goto "wevtutilError"
+goto "Start"
+
+:"wevtutilMost"
+wevtutil qe Application "/q:*[System[Provider[@Name='chkdsk'] or Provider[@Name='wininit']]]" /f:text /c:%Recent%
+if not "%errorlevel%"=="0" goto "wevtutilError"
+goto "Start"
+
+:"wevtutilError"
+echo There has been an error! You can try again.
+goto "2"
+
+:"3"
+echo.
 set OnlineOffline=
 set /p OnlineOffline="Are you repairing an online or offline Windows installation? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "CheckOnline"
 if /i "%OnlineOffline%"=="Offline" goto "InstallationCheck"
 echo Invalid syntax
-goto "2"
+goto "3"
 
 :"InstallationCheck"
 echo.
@@ -163,7 +204,7 @@ goto "InstallationCheck"
 
 "InstallationCheckIsOnline"
 echo "%InstallationCheck%" is an online Windows installation!
-goto "2"
+goto "3"
 
 :"CheckOnline"
 echo.
@@ -182,14 +223,14 @@ if not "%errorlevel%"=="0" goto "InstallationCheck"
 echo Checked health on Windows installation "%InstallationCheck%".
 goto "Start"
 
-:"3"
+:"4"
 echo.
 set OnlineOffline=
 set /p OnlineOffline="Are you repairing an online or offline Windows installation? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "ScanOnline"
 if /i "%OnlineOffline%"=="Offline" goto "InstallationScan"
 echo Invalid syntax
-goto "3"
+goto "4"
 
 :"InstallationScan"
 echo.
@@ -244,7 +285,7 @@ goto "InstallationCScan"
 
 "InstallationScanIsOnline"
 echo "%InstallationScan%" is an online Windows installation!
-goto "3"
+goto "4"
 
 :"ScanOnline"
 echo.
@@ -263,14 +304,14 @@ if not "%errorlevel%"=="0" goto "InstallationScan"
 echo Scanned health on Windows installation "%InstallationScan%".
 goto "Start"
 
-:"4"
+:"5"
 echo.
 set OnlineOffline=
 set /p OnlineOffline="Are you repairing an online or offline Windows installation? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "UpdateOnline"
 if /i "%OnlineOffline%"=="Offline" goto "UpdateOffline"
 echo Invalid syntax
-goto "4"
+goto "5"
 
 :"UpdateOnline"
 echo.
@@ -735,7 +776,7 @@ goto "InstallationRestore"
 
 "InstallationRestoreIsOnline"
 echo "%InstallationRestore%" is an online Windows installation!
-goto "4"
+goto "5"
 
 :"DownloadOffline"
 echo.
@@ -1119,14 +1160,14 @@ if not "%errorlevel%"=="0" goto "UpdateOffline"
 echo Health restored on Windows installation "%InstallationRestore%".
 goto "Start"
 
-:"5"
+:"6"
 echo.
 set OnlineOffline=
 set /p OnlineOffline="Are you viewings the logs of an online or offline WIndows installation? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "CheckExistDISMOnlineLog"
 if /i "%OnlineOffline%"=="Offline" goto "DISMLogDriveLetter"
 echo Invalid syntax!
-goto "10"
+goto "6"
 
 :"DISMLogDriveLetter"
 echo.
@@ -1183,16 +1224,16 @@ goto "Start"
 
 :"ErrorDISMLog"
 echo There has been an error! Please try again.
-goto "5"
+goto "6"
 
-:"6"
+:"7"
 echo.
 set OnlineOffline=
 set /p OnlineOffline="Are you scanning an online or offline Windows installation? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "ScanNowOnline"
 if /i "%OnlineOffline%"=="Offline" goto "ScanNowDriveLetter"
 echo Invalid syntax
-goto "6"
+goto "7"
 
 :"ScanNowDriveLetter"
 echo.
@@ -1239,7 +1280,7 @@ goto "ScanNowDriveLetter"
 
 :"ScanNowDriveLetterIsOnline"
 echo "%ScanNowDriveLetter%" is an online Windows installation!
-goto "6"
+goto "7"
 
 :"ScanNowDriveLetterNotWindows"
 echo "%ScanNowDriveLetter%" is not an offline WIndows installation!
@@ -1249,7 +1290,7 @@ goto "ScanNowDriveLetter"
 echo.
 echo Scanning Windows installation "%SystemDrive%".
 sfc /scannow
-if not "%errorlevel%"=="0" goto "6"
+if not "%errorlevel%"=="0" goto "7"
 echo Windows installation "%SystemDrive%" scanned.
 goto "Start"
 
@@ -1258,18 +1299,18 @@ echo.
 echo Scanning Windows installation "%ScanNowDriveLetter%".
 if not exist "%ScanNowDriveLetter%\Windows\Logs\CBS" md "%ScanNowDriveLetter%\Windows\Logs\CBS"
 sfc /scannow /offbootdir="%ScanNowDriveLetter%" /offwindir="%ScanNowDriveLetter%\Windows" /offlogfile="%ScanNowDriveLetter%\Windows\Logs\CBS\CBS.log"
-if not "%errorlevel%"=="0" goto "6"
+if not "%errorlevel%"=="0" goto "7"
 echo Windows installation "%ScanNowDriveLetter%" scanned.
 goto "Start"
 
-:"7"
+:"8"
 echo.
 set OnlineOffline=
 set /p OnlineOffline="Are you verifying an online or offline Windows installation? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "VerifyOnlyOnline"
 if /i "%OnlineOffline%"=="Offline" goto "VerifyOnlyDriveLetter"
 echo Invalid syntax
-goto "7"
+goto "8"
 
 :"VerifyOnlyDriveLetter"
 echo.
@@ -1316,7 +1357,7 @@ goto "VerifyOnlyDriveLetter"
 
 :"VerifyOnlyDriveLetterIsOnline"
 echo "%VerifyOnlyDriveLetter%" is an online Windows installation!
-goto "7"
+goto "8"
 
 :"VerfiyOnlyDriveLetterNotWindows"
 echo "%VerifyOnlyDriveLetter%" is not an offline WIndows installation!
@@ -1326,7 +1367,7 @@ goto "VerifyOnlyDriveLetter"
 echo.
 echo Verifing Windows installtion "%SystemDrive%".
 sfc /verifyonly
-if not "%errorlevel%"=="0" goto "7"
+if not "%errorlevel%"=="0" goto "8"
 echo Windows installation "%SystemDrive%" verified.
 goto "Start"
 
@@ -1335,18 +1376,18 @@ echo.
 echo Verifing Windows installtion "%VerifyOnlyDriveLetter%".
 if not exist "%VerifyOnlyDriveLetter%\Windows\Logs\CBS" md "%VerifyOnlyDriveLetter%\Windows\Logs\CBS"
 sfc /verifyonly /offbootdir="%VerifyOnlyDriveLetter%" /offwindir="%VerifyOnlyDriveLetter%\Windows" /offlogfile="%VerifyOnlyDriveLetter%\Windows\Logs\CBS\CBS.log"
-if not "%errorlevel%"=="0" goto "7"
+if not "%errorlevel%"=="0" goto "8"
 echo Windows installation "%VerifyOnlyDriveLetter%" verified.
 goto "Start"
 
-:"8"
+:"9"
 echo.
 set OnlineOffline=
 set /p OnlineOffline="Are you scanning an online or offline Windows installation file? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "ScanFileFile"
 if /i "%OnlineOffline%"=="Offline" goto "ScanFileFile"
 echo Invalid syntax
-goto "8"
+goto "9"
 
 :"ScanFileFile"
 echo.
@@ -1405,7 +1446,7 @@ goto "ScanFileDriveLetter"
 
 :"ScanFileDriveLetterIsOnline"
 echo "%ScanFileDriveLetter%" is an online Windows installation!
-goto "8"
+goto "9"
 
 :"ScanFileDriveLetterNotWindows"
 echo "%ScanFileDriveLetter%" is not an offline WIndows installation!
@@ -1415,7 +1456,7 @@ goto "ScanFileDriveLetter"
 echo.
 echo Scanning file "%File%".
 sfc /scannfile="%File%"
-if not "%errorlevel%"=="0" goto "8"
+if not "%errorlevel%"=="0" goto "9"
 echo File "%File%" scanned.
 goto "Start"
 
@@ -1424,18 +1465,18 @@ echo.
 echo Scanning file "%File%".
 if not exist "%ScanFileDriveLetter%\Windows\Logs\CBS" md "%ScanFileDriveLetter%\Windows\Logs\CBS"
 sfc /scannfile="%File%" /offbootdir="%ScanFileDriveLetter%" /offwindir="%ScanFileDriveLetter%\Windows" /offlogfile="%ScanFileDriveLetter%\Windows\Logs\CBS\CBS.log"
-if not "%errorlevel%"=="0" goto "8"
+if not "%errorlevel%"=="0" goto "9"
 echo File "%File%" scanned.
 goto "Start"
 
-:"9"
+:"10"
 echo.
 set OnlineOffline=
 set /p OnlineOffline="Are you verifying an online or offline Windows installation file? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "VerifyFileFile"
 if /i "%OnlineOffline%"=="Offline" goto "VerifyFileFile"
 echo Invalid syntax
-goto "9"
+goto "10"
 
 :"VerifyFileFile"
 echo.
@@ -1494,7 +1535,7 @@ goto "VerifyFileDriveLetter"
 
 :"VerifyFileDriveLetterIsOnline"
 echo "%VerifyFileDriveLetter%" is an online Windows installation!
-goto "9"
+goto "10"
 
 :"VerifyFileDriveLetterNotWindows"
 echo "%VerifyFileDriveLetter%" is not an offline WIndows installation!
@@ -1504,7 +1545,7 @@ goto "VerifyFileDriveLetter"
 echo.
 echo Verifying file "%File%".
 sfc /verifyfile="%File%"
-if not "%errorlevel%"=="0" goto "9"
+if not "%errorlevel%"=="0" goto "10"
 echo File "%File%" verified.
 goto "Start"
 
@@ -1513,18 +1554,18 @@ echo.
 echo Verifying file "%File%".
 if not exist "%VerifyFileDriveLetter%\Windows\Logs\CBS" md "%VerifyFileDriveLetter%\Windows\Logs\CBS"
 sfc /verifyfile="%File%" /offbootdir="%VerifyFileDriveLetter%" /offwindir="%VerifyFileDriveLetter%\Windows" /offlogfile="%VerifyFileDriveLetter%\Windows\Logs\CBS\CBS.log"
-if not "%errorlevel%"=="0" goto "9"
+if not "%errorlevel%"=="0" goto "10"
 echo File "%File%" verified.
 goto "Start"
 
-:"10"
+:"11"
 echo.
 set OnlineOffline=
 set /p OnlineOffline="Are you viewings the logs of an online or offline WIndows installation? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "CheckExistSFCOnlineLog"
 if /i "%OnlineOffline%"=="Offline" goto "SFCLogDriveLetter"
 echo Invalid syntax!
-goto "10"
+goto "11"
 
 :"SFCLogDriveLetter"
 echo.
@@ -1581,7 +1622,7 @@ goto "Start"
 
 :"ErrorSFCLog"
 echo There has been an error! Please try again.
-goto "10"
+goto "11"
 
 :"Done"
 endlocal
