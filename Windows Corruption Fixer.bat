@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.6.1
+echo Version: 8.6.2
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -19,18 +19,18 @@ goto "Done"
 
 :"Start"
 echo.
-echo [1] Check Disk
-echo [2] View Check Disk Logs
-echo [3] DISM Check Health
-echo [4] DISM Scan Health
-echo [5] DISM Restore Health
-echo [6] View DISM Logs
-echo [7] SFC Scan Now
-echo [8] SFC Verify Only
-echo [9] SFC Scan File
-echo [10] SFC Verify File
-echo [11] View SFC Logs
-echo [12] Close
+echo [1] CHKDSK.
+echo [2] View CHKDSK logs.
+echo [3] DISM check health.
+echo [4] DISM scan health.
+echo [5] DISM restore health.
+echo [6] View DISM logs.
+echo [7] SFC scan now.
+echo [8] SFC verify only.
+echo [9] SFC scan file.
+echo [10] SFC verify file.
+echo [11] View SFC logs.
+echo [12] Close.
 echo.
 set Input=
 set /p Input="Which one do you want to do? (1-12) "
@@ -52,7 +52,7 @@ goto "Start"
 :"1"
 echo.
 set DriveLetter=
-set /p DriveLetter="Which drive do you want to run Check Disk on? (A:-Z:) "
+set /p DriveLetter="Which drive do you want to run CHKDSK on? (A:-Z:) "
 if /i "%DriveLetter%"=="A:" goto "SureDriveLetterCHKDSK"
 if /i "%DriveLetter%"=="B:" goto "SureDriveLetterCHKDSK"
 if /i "%DriveLetter%"=="C:" goto "SureDriveLetterCHKDSK"
@@ -85,7 +85,7 @@ goto "1"
 :"SureDriveLetterCHKDSK"
 echo.
 set SureDriveLetter=
-set /p SureDriveLetter="Are you sure %DriveLetter% is the drive letter that you want to run Check Disk on? (Yes/No) "
+set /p SureDriveLetter="Are you sure %DriveLetter% is the drive letter that you want to run CHKDSK on? (Yes/No) "
 if /i "%SureDriveLetter%"=="Yes" goto "CHKDSK"
 if /i "%SureDriveLetter%"=="No" goto "DriveLetter"
 echo Invalid syntax!
@@ -145,7 +145,7 @@ goto "2"
 :"3"
 echo.
 set OnlineOffline=
-set /p OnlineOffline="Are you repairing an online or offline Windows installation? (Online/Offline) "
+set /p OnlineOffline="Are you checking an online or offline Windows installation? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "CheckOnline"
 if /i "%OnlineOffline%"=="Offline" goto "InstallationCheck"
 echo Invalid syntax
@@ -226,7 +226,7 @@ goto "Start"
 :"4"
 echo.
 set OnlineOffline=
-set /p OnlineOffline="Are you repairing an online or offline Windows installation? (Online/Offline) "
+set /p OnlineOffline="Are you scanning an online or offline Windows installation? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "ScanOnline"
 if /i "%OnlineOffline%"=="Offline" goto "InstallationScan"
 echo Invalid syntax
@@ -307,7 +307,7 @@ goto "Start"
 :"5"
 echo.
 set OnlineOffline=
-set /p OnlineOffline="Are you repairing an online or offline Windows installation? (Online/Offline) "
+set /p OnlineOffline="Are you restoring an online or offline Windows installation? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "UpdateOnline"
 if /i "%OnlineOffline%"=="Offline" goto "UpdateOffline"
 echo Invalid syntax
