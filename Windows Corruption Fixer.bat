@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.6.5
+echo Version: 8.7.0
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -308,29 +308,85 @@ goto "Start"
 echo.
 set OnlineOffline=
 set /p OnlineOffline="Are you restoring an online or offline Windows installation? (Online/Offline) "
-if /i "%OnlineOffline%"=="Online" goto "UpdateOnline"
-if /i "%OnlineOffline%"=="Offline" goto "UpdateOffline"
+if /i "%OnlineOffline%"=="Online" goto "Update"
+if /i "%OnlineOffline%"=="Offline" goto "InstallationRestore"
 echo Invalid syntax!
 goto "5"
 
-:"UpdateOnline"
+:"InstallationRestore"
+echo.
+set InstallationRestore=
+set /p InstallationRestore="What is the drive letter to your offline Windows installation? (A:-Z:) "
+if /i "%InstallationRestore%"=="A:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="B:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="C:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="D:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="E:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="F:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="G:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="H:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="I:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="J:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="K:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="L:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="M:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="N:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="O:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="P:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="Q:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="R:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="S:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="T:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="U:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="V:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="W:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="X:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="Y:" goto "SureInstallationRestore"
+if /i "%InstallationRestore%"=="Z:" goto "SureInstallationRestore"
+echo Invalid syntax!
+goto "InstallationRestore"
+
+:"SureInstallationRestore"
+echo.
+set SureInstallationRestore=
+set /p SureInstallationRestore="Are you sure "%InstallationRestore%" is the drive letter of your offline Windows installation? (Yes/No) "
+if /i "%SureInstallationRestore%"=="Yes" goto "CheckExistInstallationRestore"
+if /i "%SureInstallationRestore%"=="No" goto "InstallationRestore"
+echo Invalid syntax!
+goto "SureInstallationRestore"
+
+:"CheckExistInstallationRestore"
+if not exist "%InstallationRestore%\Windows" goto "NotExistRestore"
+if "%InstallationRestore%"=="%SystemDrive%" goto "InstallationRestoreIsOnline"
+goto "Update"
+
+:"NotExistRestore"
+echo "%InstallationRestore%" does not exist or is not an offline Windows installation! Please try again.
+goto "InstallationRestore"
+
+:"InstallationRestoreIsOnline"
+echo "%InstallationRestore%" is an online Windows installation!
+goto "5"
+
+:"Update"
 echo.
 set /p Update="Do you want to use Windows Update? (Yes/No) "
-if /i "%Update%"=="Yes" goto "MediaOnline"
-if /i "%Update%"=="No" goto "MediaOnline"
+if /i "%Update%"=="Yes" goto "Media"
+if /i "%Update%"=="No" goto "Media"
 echo Invalid sytax!
-goto "UpdateOnline"
+goto "Update"
 
-:"MediaOnline"
+:"Media"
 echo.
 set Media=
 set /p Media="Do you want to use a Windows Disk Image? (Yes/No) "
-if /i "%Media%"=="Yes" goto "DownloadOnline"
-if /i "%Media%"=="No" goto "DISMUpdateCheckOnlineNoImage"
+if /i "%Media%"=="Yes" goto "Download"
+if /i "%OnlineOffline%"=="Online" if /i "%Media%"=="No" goto "DISMUpdateCheckOnlineNoImage"
+if /i "%OnlineOffline%"=="Offline" if /i "%Media%"=="No" goto "DISMUpdateCheckOfflineNoImage"
 echo Invalid sytax!
-goto "MediaOnline"
+goto "Media"
 
-:"DownloadOnline"
+:"Download"
 echo.
 echo [1] Download Windows 10 22H2 x86/x64 Windows Disk Image.
 echo [2] Download Windows 11 24H2 x64 Windows Disk Image.
@@ -339,32 +395,32 @@ echo [4] Already have downloaded Windows 10 22H2 x86/x64 Windows Disk Image or W
 echo.
 set Download=
 set /p Download="What do you want to do? (1-4) "
-if /i "%Download%"=="1" goto "SureDownloadOnline"
-if /i "%Download%"=="2" goto "SureDownloadOnline"
-if /i "%Download%"=="3" goto "SureDownloadOnline"
-if /i "%Download%"=="4" goto "SureDownloadOnline"
+if /i "%Download%"=="1" goto "SureDownload"
+if /i "%Download%"=="2" goto "SureDownload"
+if /i "%Download%"=="3" goto "SureDownload"
+if /i "%Download%"=="4" goto "SureDownload"
 echo Invalid syntax!
-goto "DownloadOnline"
+goto "Download"
 
-:"SureDownloadOnline"
+:"SureDownload"
 echo.
 set SureDownload=
 if /i "%Download%"=="1" set /p SureDownload="Are you sure you want to download Windows 10 22H2 x86/x64 Windows Disk Image? (Yes/No) "
 if /i "%Download%"=="2" set /p SureDownload="Are you sure you want to download Windows 11 24H2 x64 Windows Disk Image? (Yes/No) "
 if /i "%Download%"=="3" set /p SureDownload="Are you sure you want to download Windows 11 24H2 Arm64 Windows Disk Image? (Yes/No) "
 if /i "%Download%"=="4" set /p SureDownload="Are you sure you have downloaded Windows 10 22H2 x86/x64 Windows Disk Image or Windows 11 24H2 x64/Arm64 Windows Disk Image? (Yes/No) "
-if /i "%SureDownload%"=="Yes" goto "DownloadGoOnline"
-if /i "%SureDownload%"=="No" goto "DownloadOnline"
+if /i "%SureDownload%"=="Yes" goto "DownloadGo"
+if /i "%SureDownload%"=="No" goto "Download"
 echo Invalid syntax!
-goto "SureDownloadOnline"
+goto "SureDownload"
 
-:"DownloadGoOnline"
-if /i "%Download%"=="1" goto "10Online"
-if /i "%Download%"=="2" goto "11x64Online"
-if /i "%Download%"=="3" goto "11Arm64Online"
-if /i "%Download%"=="4" goto "MountOnline"
+:"DownloadGo"
+if /i "%Download%"=="1" goto "10"
+if /i "%Download%"=="2" goto "11x64"
+if /i "%Download%"=="3" goto "11Arm64"
+if /i "%Download%"=="4" goto "Mount"
 
-:"10Online"
+:"10"
 echo.
 echo Download Windows 10 22H2 x86/x64 Disk Image from here. ^-^-^> https://www.microsoft.com/software-download/windows10
 echo Press any key to open the website.
@@ -373,9 +429,9 @@ start https://www.microsoft.com/software-download/windows10
 echo.
 echo Press any key to continue once you have downloaded the Windows 10 22H2 x86/x64 Disk Image.
 pause > nul 2>&1
-goto "MountOnline"
+goto "Mount"
 
-:"11x64Online"
+:"11x64"
 echo.
 echo Download Windows 11 24H2 x64 Disk Image from here. ^-^-^> https://www.microsoft.com/software-download/windows11
 echo Press any key to open the website.
@@ -384,9 +440,9 @@ start https://www.microsoft.com/software-download/windows11
 echo.
 echo Press any key to continue once you have downloaded the Windows 11 24H2 x64 Disk Image.
 pause > nul 2>&1
-goto "MountOnline"
+goto "Mount"
 
-:"11Arm64Online"
+:"11Arm64"
 echo.
 echo Download Windows 11 24H2 Arm64 Disk Image from here. ^-^-^> https://www.microsoft.com/software-download/windows11arm64
 echo Press any key to open the website.
@@ -395,234 +451,237 @@ start https://www.microsoft.com/software-download/windows11arm64
 echo.
 echo Press any key to continue once you have downloaded the Windows 11 24H2 Arm64 Disk Image.
 pause > nul 2>&1
-goto "MountOnline"
+goto "Mount"
 
-:"MountOnline"
+:"Mount"
 echo.
 echo Please mount your Windows Disk Image then press any key to continue.
 pause > nul 2>&1
-goto "DriveLetterOnline"
+goto "DriveLetter"
 
-:"DriveLetterOnline"
+:"DriveLetter"
 echo.
 set DriveLetter=
 set /p DriveLetter="What is your drive letter of your Windows Disk Image? (A:-Z:) "
-if /i "%DriveLetter%"=="A:" goto "SureDriveLetterDISMOnline"
-if /i "%DriveLetter%"=="B:" goto "SureDriveLetterDISMOnline"
-if /i "%DriveLetter%"=="C:" goto "SureDriveLetterDISMOnline"
-if /i "%DriveLetter%"=="D:" goto "SureDriveLetterDISMOnline"
-if /i "%DriveLetter%"=="E:" goto "SureDriveLetterDISMOnline"
-if /i "%DriveLetter%"=="F:" goto "SureDriveLetterDISMOnline"
-if /i "%DriveLetter%"=="G:" goto "SureDriveLetterDISMOnline"
-if /i "%DriveLetter%"=="H:" goto "SureDriveLetterDISMOnline"
-if /i "%DriveLetter%"=="I:" goto "SureDriveLetterDISMOnline"
-if /i "%DriveLetter%"=="J:" goto "SureDriveLetterDISMOnline"
-if /i "%DriveLetter%"=="K:" goto "SureDriveLetterDISMOnline"
-if /i "%DriveLetter%"=="L:" goto "SureDriveLetterDISMOnline"
-if /i "%DriveLetter%"=="M:" goto "SureDriveLetterDISMOnline"
-if /i "%DriveLetter%"=="N:" goto "SureDriveLetterDISMOnline"
-if /i "%DriveLetter%"=="O:" goto "SureDriveLetterDISMOnline"
-if /i "%DriveLetter%"=="P:" goto "SureDriveLetterDISMOnline"
-if /i "%DriveLetter%"=="Q:" goto "SureDriveLetterDISMOnline"
-if /i "%DriveLetter%"=="R:" goto "SureDriveLetterDISMOnline"
-if /i "%DriveLetter%"=="S:" goto "SureDriveLetterDISMOnline"
-if /i "%DriveLetter%"=="T:" goto "SureDriveLetterDISMOnline"
-if /i "%DriveLetter%"=="U:" goto "SureDriveLetterDISMOnline"
-if /i "%DriveLetter%"=="V:" goto "SureDriveLetterDISMOnline"
-if /i "%DriveLetter%"=="W:" goto "SureDriveLetterDISMOnline"
-if /i "%DriveLetter%"=="X:" goto "SureDriveLetterDISMOnline"
-if /i "%DriveLetter%"=="Y:" goto "SureDriveLetterDISMOnline"
-if /i "%DriveLetter%"=="Z:" goto "SureDriveLetterDISMOnline"
+if /i "%DriveLetter%"=="A:" goto "SureDriveLetterDISM"
+if /i "%DriveLetter%"=="B:" goto "SureDriveLetterDISM"
+if /i "%DriveLetter%"=="C:" goto "SureDriveLetterDISM"
+if /i "%DriveLetter%"=="D:" goto "SureDriveLetterDISM"
+if /i "%DriveLetter%"=="E:" goto "SureDriveLetterDISM"
+if /i "%DriveLetter%"=="F:" goto "SureDriveLetterDISM"
+if /i "%DriveLetter%"=="G:" goto "SureDriveLetterDISM"
+if /i "%DriveLetter%"=="H:" goto "SureDriveLetterDISM"
+if /i "%DriveLetter%"=="I:" goto "SureDriveLetterDISM"
+if /i "%DriveLetter%"=="J:" goto "SureDriveLetterDISM"
+if /i "%DriveLetter%"=="K:" goto "SureDriveLetterDISM"
+if /i "%DriveLetter%"=="L:" goto "SureDriveLetterDISM"
+if /i "%DriveLetter%"=="M:" goto "SureDriveLetterDISM"
+if /i "%DriveLetter%"=="N:" goto "SureDriveLetterDISM"
+if /i "%DriveLetter%"=="O:" goto "SureDriveLetterDISM"
+if /i "%DriveLetter%"=="P:" goto "SureDriveLetterDISM"
+if /i "%DriveLetter%"=="Q:" goto "SureDriveLetterDISM"
+if /i "%DriveLetter%"=="R:" goto "SureDriveLetterDISM"
+if /i "%DriveLetter%"=="S:" goto "SureDriveLetterDISM"
+if /i "%DriveLetter%"=="T:" goto "SureDriveLetterDISM"
+if /i "%DriveLetter%"=="U:" goto "SureDriveLetterDISM"
+if /i "%DriveLetter%"=="V:" goto "SureDriveLetterDISM"
+if /i "%DriveLetter%"=="W:" goto "SureDriveLetterDISM"
+if /i "%DriveLetter%"=="X:" goto "SureDriveLetterDISM"
+if /i "%DriveLetter%"=="Y:" goto "SureDriveLetterDISM"
+if /i "%DriveLetter%"=="Z:" goto "SureDriveLetterDISM"
 echo Invalid syntax!
-goto "DriveLetterOnline"
+goto "DriveLetter"
 
-:"SureDriveLetterDISMOnline"
+:"SureDriveLetterDISM"
 echo.
 set SureDriveLetter=
 set /p SureDriveLetter="Are you sure "%DriveLetter%" is the drive letter of your Windows Disk Image? (Yes/No) "
-if /i "%SureDriveLetter%"=="Yes" goto "CheckExistDriveLetterOnline"
-if /i "%SureDriveLetter%"=="No" goto "DriveLetterOnline"
+if /i "%SureDriveLetter%"=="Yes" goto "CheckExistDriveLetter"
+if /i "%SureDriveLetter%"=="No" goto "DriveLetter"
 echo Invalid syntax!
-goto "SureDriveLetterDISMOnline"
+goto "SureDriveLetterDISM"
 
-:"CheckExistDriveLetterOnline"
-if not exist "%DriveLetter%" goto "NotExistOnline"
-goto "BitDetectionOnline"
+:"CheckExistDriveLetter"
+if not exist "%DriveLetter%" goto "NotExist"
+goto "BitDetection"
 
-:"NotExistOnline"
+:"NotExist"
 echo "%DriveLetter%" does not exist! Please try again.
-goto "DriveLetterOnline"
+goto "DriveLetter"
 
-:"BitDetectionOnline"
-if exist "%DriveLetter%\sources" goto "ESDSWMWIMOnline"
-if exist "%DriveLetter%\x86\sources" goto "Bit1Online"
-if exist "%DriveLetter%\x64\sources" goto "Bit1Online"
+:"BitDetection"
+if exist "%DriveLetter%\sources" goto "ESDSWMWIM"
+if exist "%DriveLetter%\x86\sources" goto "Bit1"
+if exist "%DriveLetter%\x64\sources" goto "Bit1"
 echo "%DriveLetter%" is not a Windows Disk Image!
-goto "DriveLetterOnline"
+goto "DriveLetter"
 
-:"Bit1Online"
+:"Bit1"
 echo.
 set Bit=
 set /p Bit="Do you have a 32-bit or 64-bit version of Windows? (32/64) "
-if /i "%Bit%"=="32" goto "SureBitOnline"
-if /i "%Bit%"=="64" goto "SureBitOnline"
+if /i "%Bit%"=="32" goto "SureBit"
+if /i "%Bit%"=="64" goto "SureBit"
 echo Invalid syntax!
-goto "Bit1Online"
+goto "Bit1"
 
-:"SureBitOnline"
+:"SureBit"
 echo.
 set SureBit=
 set /p SureBit="Are you sure you have a %Bit%-bit version of Windows? "
-if /i "%SureBit%"=="Yes" goto "Bit2Online"
-if /i "%SureBit%"=="No" goto "Bit1Online"
+if /i "%SureBit%"=="Yes" goto "Bit2"
+if /i "%SureBit%"=="No" goto "Bit1"
 echo Invalid syntax!
-goto "SureBitOnline"
+goto "SureBit"
 
-:"Bit2Online"
-if /i "%Bit%"=="32" goto "32ESDSWMWIMOnline"
-if /i "%Bit%"=="64" goto "64ESDSWMWIMOnline"
+:"Bit2"
+if /i "%Bit%"=="32" goto "32ESDSWMWIM"
+if /i "%Bit%"=="64" goto "64ESDSWMWIM"
 
-:"ESDSWMWIMOnline"
+:"ESDSWMWIM"
 if exist "%DriveLetter%\sources\install.esd" set Install=install.esd
 if exist "%DriveLetter%\sources\install.swm" set Install=install.swm
 if exist "%DriveLetter%\sources\install.wim" set Install=install.wim
-goto "IndexSetOnline"
+goto "IndexSet"
 
-:"32ESDSWMWIMOnline"
+:"32ESDSWMWIM"
 if exist "%DriveLetter%\x86\sources\install.esd" set Install=install.esd
 if exist "%DriveLetter%\x86\sources\install.swm" set Install=install.swm
 if exist "%DriveLetter%\x86\sources\install.wim" set Install=install.wim
-goto "32DISMOnline"
+goto "32DISM"
 
-:"64ESDSWMWIMOnline"
+:"64ESDSWMWIM"
 if exist "%DriveLetter%\x64\sources\install.esd" set Install=install.esd
 if exist "%DriveLetter%\x64\sources\install.swm" set Install=install.swm
 if exist "%DriveLetter%\x64\sources\install.wim" set Install=install.wim
-goto "64DISMOnline"
+goto "64DISM"
 
-:"IndexSetOnline"
+:"IndexSet"
 set Index=
-goto "DISMOnline"
+goto "DISM"
 
-:"DISMOnline"
-if exist "%cd%\Index.txt" goto "IndexExistOnline"
+:"DISM"
+if exist "%cd%\Index.txt" goto "IndexExist"
 echo.
 echo Getting index details for Windows Disk Image "%DriveLetter%".
 "%windir%\System32\Dism.exe" /Get-WimInfo /WimFile:"%DriveLetter%\sources\%Install%" | find /c /i "Index" > "%cd%\Index.txt"
 set /p IndexNumber=< "%cd%\Index.txt"
 del "%cd%\Index.txt" /f /q > nul 2>&1
 "%windir%\System32\Dism.exe" /Get-WimInfo /WimFile:"%DriveLetter%\sources\%Install%"
-if not "%errorlevel%"=="0" goto "DriveLetterOnline"
+if not "%errorlevel%"=="0" goto "DriveLetter"
 echo Got index details for Windows Disk Image "%DriveLetter%".
-if "%Index%"=="True" goto "IndexDoneOnline"
-if "%IndexNumber%"=="3" goto "Index3Online"
-if "%IndexNumber%"=="7" goto "Index7Online"
-if "%IndexNumber%"=="11" goto "Index11Online"
+if "%Index%"=="True" goto "IndexDone"
+if "%IndexNumber%"=="3" goto "Index3"
+if "%IndexNumber%"=="7" goto "Index7"
+if "%IndexNumber%"=="11" goto "Index11"
 echo.
 echo Invalid Windows Disk Image!
-goto "DriveLetterOnline"
+goto "DriveLetter"
 
-:"IndexExistOnline"
+:"IndexExist"
 set Index=True
 echo.
 echo Please temporary rename to something else or temporary move to another location "%cd%\Index.txt" in order for this batch file to proceed. "%cd%\Index.txt" is not a system file. Press any key to continue when "%cd%\Index.txt" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
 pause > nul 2>&1
-goto "DISMOnline"
+goto "DISM"
 
-:"IndexDoneOnline"
+:"IndexDone"
 echo.
 echo You can now rename or move back the file back to "%cd%\Index.txt".
-if "%IndexNumber%"=="3" goto "Index3Online"
-if "%IndexNumber%"=="7" goto "Index7Online"
-if "%IndexNumber%"=="11" goto "Index11Online"
+if "%IndexNumber%"=="3" goto "Index3"
+if "%IndexNumber%"=="7" goto "Index7"
+if "%IndexNumber%"=="11" goto "Index11"
 echo.
 echo Invalid Windows Disk Image!
-goto "DriveLetterOnline"
+goto "DriveLetter"
 
-:"32DISMOnline"
+:"32DISM"
 echo.
 echo Getting index details for Windows Disk Image "%DriveLetter%".
 "%windir%\System32\Dism.exe" /Get-WimInfo /WimFile:"%DriveLetter%\x86\sources\%Install%"
-if not "%errorlevel%"=="0" goto "DriveLetterOnline"
+if not "%errorlevel%"=="0" goto "DriveLetter"
 echo Got index details for Windows Disk Image "%DriveLetter%".
-goto "Index7Online"
+goto "Index7"
 
-:"64DISMOnline"
+:"64DISM"
 echo.
 echo Getting index details for Windows Disk Image "%DriveLetter%".
 "%windir%\System32\Dism.exe" /Get-WimInfo /WimFile:"%DriveLetter%\x64\sources\%Install%"
-if not "%errorlevel%"=="0" goto "DriveLetterOnline"
+if not "%errorlevel%"=="0" goto "DriveLetter"
 echo Got index details for Windows Disk Image "%DriveLetter%".
-goto "Index7Online"
+goto "Index7"
 
-:"Index3Online"
+:"Index3"
 echo.
 set Index=
 set /p Index="Which one do you have on your PC? (1-3)? "
-if /i "%Index%"=="1" goto "SureIndex3Online"
-if /i "%Index%"=="2" goto "SureIndex3Online"
-if /i "%Index%"=="3" goto "SureIndex3Online"
+if /i "%Index%"=="1" goto "SureIndex3"
+if /i "%Index%"=="2" goto "SureIndex3"
+if /i "%Index%"=="3" goto "SureIndex3"
 echo Invalid syntax!
-goto "Index3Online"
+goto "Index3"
 
-:"SureIndex3Online"
+:"SureIndex3"
 echo.
 set IndexNumber=
 set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
-if /i "%IndexNumber%"=="Yes" goto "Bit3Online"
-if /i "%IndexNumber%"=="No" goto "Index3Online"
+if /i "%OnlineOffline%"=="Online" if /i "%IndexNumber%"=="Yes" goto "Bit3Online"
+if /i "%OnlineOffline%"=="Offline" if /i "%IndexNumber%"=="Yes" goto "Bit3Offline"
+if /i "%IndexNumber%"=="No" goto "Index3"
 echo Invalid syntax!
-goto "SureIndex3Online"
+goto "SureIndex3"
 
-:"Index7Online"
+:"Index7"
 echo.
 set Index=
 set /p Index="Which one do you have on your PC? (1-7)? "
-if /i "%Index%"=="1" goto "SureIndex7Online"
-if /i "%Index%"=="2" goto "SureIndex7Online"
-if /i "%Index%"=="3" goto "SureIndex7Online"
-if /i "%Index%"=="4" goto "SureIndex7Online"
-if /i "%Index%"=="5" goto "SureIndex7Online"
-if /i "%Index%"=="6" goto "SureIndex7Online"
-if /i "%Index%"=="7" goto "SureIndex7Online"
+if /i "%Index%"=="1" goto "SureIndex7"
+if /i "%Index%"=="2" goto "SureIndex7"
+if /i "%Index%"=="3" goto "SureIndex7"
+if /i "%Index%"=="4" goto "SureIndex7"
+if /i "%Index%"=="5" goto "SureIndex7"
+if /i "%Index%"=="6" goto "SureIndex7"
+if /i "%Index%"=="7" goto "SureIndex7"
 echo Invalid syntax!
-goto "Index7Online"
+goto "Index7"
 
-:"SureIndex7Online"
+:"SureIndex7"
 echo.
 set IndexNumber=
 set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
-if /i "%IndexNumber%"=="Yes" goto "Bit3Online"
-if /i "%IndexNumber%"=="No" goto "Index7Online"
+if /i "%OnlineOffline%"=="Online" if /i "%IndexNumber%"=="Yes" goto "Bit3Online"
+if /i "%OnlineOffline%"=="Offline" if /i "%IndexNumber%"=="Yes" goto "Bit3Offline"
+if /i "%IndexNumber%"=="No" goto "Index7"
 echo Invalid syntax!
-goto "SureIndex7Online"
+goto "SureIndex7"
 
-:"Index11Online"
+:"Index11"
 echo.
 set Index=
 set /p Index="Which one do you have on your PC? (1-11)? "
-if /i "%Index%"=="1" goto "SureIndex11Online"
-if /i "%Index%"=="2" goto "SureIndex11Online"
-if /i "%Index%"=="3" goto "SureIndex11Online"
-if /i "%Index%"=="4" goto "SureIndex11Online"
-if /i "%Index%"=="5" goto "SureIndex11Online"
-if /i "%Index%"=="6" goto "SureIndex11Online"
-if /i "%Index%"=="7" goto "SureIndex11Online"
-if /i "%Index%"=="8" goto "SureIndex11Online"
-if /i "%Index%"=="9" goto "SureIndex11Online"
-if /i "%Index%"=="10" goto "SureIndex11Online"
-if /i "%Index%"=="11" goto "SureIndex11Online"
+if /i "%Index%"=="1" goto "SureIndex11"
+if /i "%Index%"=="2" goto "SureIndex11"
+if /i "%Index%"=="3" goto "SureIndex11"
+if /i "%Index%"=="4" goto "SureIndex11"
+if /i "%Index%"=="5" goto "SureIndex11"
+if /i "%Index%"=="6" goto "SureIndex11"
+if /i "%Index%"=="7" goto "SureIndex11"
+if /i "%Index%"=="8" goto "SureIndex11"
+if /i "%Index%"=="9" goto "SureIndex11"
+if /i "%Index%"=="10" goto "SureIndex11"
+if /i "%Index%"=="11" goto "SureIndex11"
 echo Invalid syntax!
-goto "Index11Online"
+goto "Index11"
 
-:"SureIndex11Online"
+:"SureIndex11"
 echo.
 set IndexNumber=
 set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
-if /i "%IndexNumber%"=="Yes" goto "Bit3Online"
-if /i "%IndexNumber%"=="No" goto "Index11Online"
+if /i "%OnlineOffline%"=="Online" if /i "%IndexNumber%"=="Yes" goto "Bit3Online"
+if /i "%OnlineOffline%"=="Offline" if /i "%IndexNumber%"=="Yes" goto "Bit3Offline"
+if /i "%IndexNumber%"=="No" goto "Index11"
 echo Invalid syntax!
-goto "SureIndex11Online"
+goto "SureIndex11"
 
 :"Bit3Online"
 if /i "%Bit%"=="32" goto "32DISMUpdateCheckOnline"
@@ -708,373 +767,6 @@ echo Restoring health on Windows installation "%SystemDrive%".
 if not "%errorlevel%"=="0" goto "UpdateOnline"
 echo Health restored on Windows installation "%SystemDrive%".
 goto "Start"
-
-:"UpdateOffline"
-echo.
-set /p Update="Do you want to use Windows Update? (Yes/No) "
-if /i "%Update%"=="Yes" goto "MediaOffline"
-if /i "%Update%"=="No" goto "MediaOffline"
-echo Invalid sytax!
-goto "UpdateOffline"
-
-:"MediaOffline"
-echo.
-set Media=
-set /p Media="Do you want to use a Windows Disk Image? (Yes/No) "
-if /i "%Media%"=="Yes" goto "InstallationRestore"
-if /i "%Media%"=="No" goto "InstallationRestore"
-echo Invalid sytax!
-goto "MediaOffline"
-
-:"InstallationRestore"
-echo.
-set InstallationRestore=
-set /p InstallationRestore="What is the drive letter to your offline Windows installation? (A:-Z:) "
-if /i "%InstallationRestore%"=="A:" goto "SureInstallationRestore"
-if /i "%InstallationRestore%"=="B:" goto "SureInstallationRestore"
-if /i "%InstallationRestore%"=="C:" goto "SureInstallationRestore"
-if /i "%InstallationRestore%"=="D:" goto "SureInstallationRestore"
-if /i "%InstallationRestore%"=="E:" goto "SureInstallationRestore"
-if /i "%InstallationRestore%"=="F:" goto "SureInstallationRestore"
-if /i "%InstallationRestore%"=="G:" goto "SureInstallationRestore"
-if /i "%InstallationRestore%"=="H:" goto "SureInstallationRestore"
-if /i "%InstallationRestore%"=="I:" goto "SureInstallationRestore"
-if /i "%InstallationRestore%"=="J:" goto "SureInstallationRestore"
-if /i "%InstallationRestore%"=="K:" goto "SureInstallationRestore"
-if /i "%InstallationRestore%"=="L:" goto "SureInstallationRestore"
-if /i "%InstallationRestore%"=="M:" goto "SureInstallationRestore"
-if /i "%InstallationRestore%"=="N:" goto "SureInstallationRestore"
-if /i "%InstallationRestore%"=="O:" goto "SureInstallationRestore"
-if /i "%InstallationRestore%"=="P:" goto "SureInstallationRestore"
-if /i "%InstallationRestore%"=="Q:" goto "SureInstallationRestore"
-if /i "%InstallationRestore%"=="R:" goto "SureInstallationRestore"
-if /i "%InstallationRestore%"=="S:" goto "SureInstallationRestore"
-if /i "%InstallationRestore%"=="T:" goto "SureInstallationRestore"
-if /i "%InstallationRestore%"=="U:" goto "SureInstallationRestore"
-if /i "%InstallationRestore%"=="V:" goto "SureInstallationRestore"
-if /i "%InstallationRestore%"=="W:" goto "SureInstallationRestore"
-if /i "%InstallationRestore%"=="X:" goto "SureInstallationRestore"
-if /i "%InstallationRestore%"=="Y:" goto "SureInstallationRestore"
-if /i "%InstallationRestore%"=="Z:" goto "SureInstallationRestore"
-echo Invalid syntax!
-goto "InstallationRestore"
-
-:"SureInstallationRestore"
-echo.
-set SureInstallationRestore=
-set /p SureInstallationRestore="Are you sure "%InstallationRestore%" is the drive letter of your offline Windows installation? (Yes/No) "
-if /i "%SureInstallationRestore%"=="Yes" goto "CheckExistInstallationRestore"
-if /i "%SureInstallationRestore%"=="No" goto "InstallationRestore"
-echo Invalid syntax!
-goto "SureInstallationRestore"
-
-:"CheckExistInstallationRestore"
-if not exist "%InstallationRestore%\Windows" goto "NotExistRestore"
-if "%InstallationRestore%"=="%SystemDrive%" goto "InstallationRestoreIsOnline"
-if /i "%Media%"=="Yes" goto "DownloadOffline"
-if /i "%Media%"=="No" goto "DISMUpdateCheckOfflineNoImage"
-
-:"NotExistRestore"
-echo "%InstallationRestore%" does not exist or is not an offline Windows installation! Please try again.
-goto "InstallationRestore"
-
-"InstallationRestoreIsOnline"
-echo "%InstallationRestore%" is an online Windows installation!
-goto "5"
-
-:"DownloadOffline"
-echo.
-echo [1] Download Windows 10 22H2 x86/x64 Windows Disk Image.
-echo [2] Download Windows 11 24H2 x64 Windows Disk Image.
-echo [3] Download Windows 11 24H2 Arm64 Windows Disk Image.
-echo [4] Already have downloaded Windows 10 22H2 x86/x64 Windows Disk Image or Windows 11 24H2 x64/Arm64 Windows Disk Image.
-echo.
-set Download=
-set /p Download="What do you want to do? (1-4) "
-if /i "%Download%"=="1" goto "SureDownloadOffline"
-if /i "%Download%"=="2" goto "SureDownloadOffline"
-if /i "%Download%"=="3" goto "SureDownloadOffline"
-if /i "%Download%"=="4" goto "SureDownloadOffline"
-echo Invalid syntax!
-goto "DownloadOffline"
-
-:"SureDownloadOffline"
-echo.
-set SureDownload=
-if /i "%Download%"=="1" set /p SureDownload="Are you sure you want to download Windows 10 22H2 x86/x64 Windows Disk Image? (Yes/No) "
-if /i "%Download%"=="2" set /p SureDownload="Are you sure you want to download Windows 11 24H2 x64 Windows Disk Image? (Yes/No) "
-if /i "%Download%"=="3" set /p SureDownload="Are you sure you want to download Windows 11 24H2 Arm64 Windows Disk Image? (Yes/No) "
-if /i "%Download%"=="4" set /p SureDownload="Are you sure you have downloaded Windows 10 22H2 x86/x64 Windows Disk Image or Windows 11 24H2 x64/Arm64 Windows Disk Image? (Yes/No) "
-if /i "%SureDownload%"=="Yes" goto "DownloadGoOffline"
-if /i "%SureDownload%"=="No" goto "DownloadOffline"
-echo Invalid syntax!
-goto "SureDownloadOffline"
-
-:"DownloadGoOffline"
-if /i "%Download%"=="1" goto "10Offline"
-if /i "%Download%"=="2" goto "11x64Offline"
-if /i "%Download%"=="3" goto "11Arm64Offline"
-if /i "%Download%"=="4" goto "MountOffline"
-
-:"10Offline"
-echo.
-echo Download Windows 10 22H2 x86/x64 Disk Image from here. ^-^-^> https://www.microsoft.com/software-download/windows10
-echo Press any key to open the website.
-pause > nul 2>&1
-start https://www.microsoft.com/software-download/windows10
-echo.
-echo Press any key to continue once you have downloaded the Windows 10 22H2 x86/x64 Disk Image.
-pause > nul 2>&1
-goto "MountOffline"
-
-:"11x64Offline"
-echo.
-echo Download Windows 11 24H2 x64 Disk Image from here. ^-^-^> https://www.microsoft.com/software-download/windows11
-echo Press any key to open the website.
-pause > nul 2>&1
-start https://www.microsoft.com/software-download/windows11
-echo.
-echo Press any key to continue once you have downloaded the Windows 11 24H2 x64 Disk Image.
-pause > nul 2>&1
-goto "MountOffline"
-
-:"11Arm64Offline"
-echo.
-echo Download Windows 11 24H2 Arm64 Disk Image from here. ^-^-^> https://www.microsoft.com/en-us/software-download/windows11arm64
-echo Press any key to open the website.
-pause > nul 2>&1
-start https://www.microsoft.com/en-us/software-download/windows11arm64
-echo.
-echo Press any key to continue once you have downloaded the Windows 11 24H2 Arm64 Disk Image.
-pause > nul 2>&1
-goto "MountOffline"
-
-:"MountOffline"
-echo.
-echo Please mount your Windows Disk Image then press any key to continue.
-pause > nul 2>&1
-goto "DriveLetterOffline"
-
-:"DriveLetterOffline"
-echo.
-set DriveLetter=
-set /p DriveLetter="What is your drive letter of your Windows Disk Image? (A:-Z:) "
-if /i "%DriveLetter%"=="A:" goto "SureDriveLetterDISMOffline"
-if /i "%DriveLetter%"=="B:" goto "SureDriveLetterDISMOffline"
-if /i "%DriveLetter%"=="C:" goto "SureDriveLetterDISMOffline"
-if /i "%DriveLetter%"=="D:" goto "SureDriveLetterDISMOffline"
-if /i "%DriveLetter%"=="E:" goto "SureDriveLetterDISMOffline"
-if /i "%DriveLetter%"=="F:" goto "SureDriveLetterDISMOffline"
-if /i "%DriveLetter%"=="G:" goto "SureDriveLetterDISMOffline"
-if /i "%DriveLetter%"=="H:" goto "SureDriveLetterDISMOffline"
-if /i "%DriveLetter%"=="I:" goto "SureDriveLetterDISMOffline"
-if /i "%DriveLetter%"=="J:" goto "SureDriveLetterDISMOffline"
-if /i "%DriveLetter%"=="K:" goto "SureDriveLetterDISMOffline"
-if /i "%DriveLetter%"=="L:" goto "SureDriveLetterDISMOffline"
-if /i "%DriveLetter%"=="M:" goto "SureDriveLetterDISMOffline"
-if /i "%DriveLetter%"=="N:" goto "SureDriveLetterDISMOffline"
-if /i "%DriveLetter%"=="O:" goto "SureDriveLetterDISMOffline"
-if /i "%DriveLetter%"=="P:" goto "SureDriveLetterDISMOffline"
-if /i "%DriveLetter%"=="Q:" goto "SureDriveLetterDISMOffline"
-if /i "%DriveLetter%"=="R:" goto "SureDriveLetterDISMOffline"
-if /i "%DriveLetter%"=="S:" goto "SureDriveLetterDISMOffline"
-if /i "%DriveLetter%"=="T:" goto "SureDriveLetterDISMOffline"
-if /i "%DriveLetter%"=="U:" goto "SureDriveLetterDISMOffline"
-if /i "%DriveLetter%"=="V:" goto "SureDriveLetterDISMOffline"
-if /i "%DriveLetter%"=="W:" goto "SureDriveLetterDISMOffline"
-if /i "%DriveLetter%"=="X:" goto "SureDriveLetterDISMOffline"
-if /i "%DriveLetter%"=="Y:" goto "SureDriveLetterDISMOffline"
-if /i "%DriveLetter%"=="Z:" goto "SureDriveLetterDISMOffline"
-echo Invalid syntax!
-goto "DriveLetterOffline"
-
-:"SureDriveLetterDISMOffline"
-echo.
-set SureDriveLetter=
-set /p SureDriveLetter="Are you sure "%DriveLetter%" is the drive letter of your Windows Disk Image? (Yes/No) "
-if /i "%SureDriveLetter%"=="Yes" goto "CheckExistDriveLetterOffline"
-if /i "%SureDriveLetter%"=="No" goto "DriveLetterOffline"
-echo Invalid syntax!
-goto "SureDriveLetterDISMOffline"
-
-:"CheckExistDriveLetterOffline"
-if not exist "%DriveLetter%" goto "NotExistOffline"
-goto "BitDetectionOffline"
-
-:"NotExistOffline"
-echo "%DriveLetter%" does not exist! Please try again.
-goto "DriveLetterOffline"
-
-:"BitDetectionOffline"
-if exist "%DriveLetter%\sources" goto "ESDSWMWIMOffline"
-if exist "%DriveLetter%\x86\sources" goto "Bit1Offline"
-if exist "%DriveLetter%\x64\sources" goto "Bit1Offline"
-echo "%DriveLetter%" is not a Windows Disk Image!
-goto "DriveLetterOffline"
-
-:"Bit1Offline"
-echo.
-set Bit=
-set /p Bit="Do you have a 32-bit or 64-bit version of Windows? (32/64) "
-if /i "%Bit%"=="32" goto "SureBitOffline"
-if /i "%Bit%"=="64" goto "SureBitOffline"
-echo Invalid syntax!
-goto "Bit1Offline"
-
-:"SureBitOffline"
-echo.
-set SureBit=
-set /p SureBit="Are you sure you have a %Bit%-bit version of Windows? "
-if /i "%SureBit%"=="Yes" goto "Bit2Offline"
-if /i "%SureBit%"=="No" goto "Bit1Offline"
-echo Invalid syntax!
-goto "SureBitOffline"
-
-:"Bit2Offline"
-if /i "%Bit%"=="32" goto "32ESDSWMWIMOffline"
-if /i "%Bit%"=="64" goto "64ESDSWMWIMOffline"
-
-:"ESDSWMWIMOffline"
-if exist "%DriveLetter%\sources\install.esd" set Install=install.esd
-if exist "%DriveLetter%\sources\install.swm" set Install=install.swm
-if exist "%DriveLetter%\sources\install.wim" set Install=install.wim
-goto "IndexSetOffline"
-
-:"32ESDSWMWIMOffline"
-if exist "%DriveLetter%\x86\sources\install.esd" set Install=install.esd
-if exist "%DriveLetter%\x86\sources\install.swm" set Install=install.swm
-if exist "%DriveLetter%\x86\sources\install.wim" set Install=install.wim
-goto "32DISMOffline"
-
-:"64ESDSWMWIMOffline"
-if exist "%DriveLetter%\x64\sources\install.esd" set Install=install.esd
-if exist "%DriveLetter%\x64\sources\install.swm" set Install=install.swm
-if exist "%DriveLetter%\x64\sources\install.wim" set Install=install.wim
-goto "64DISMOffline"
-
-:"IndexSetOffline"
-set Index=
-goto "DISMOffline"
-
-:"DISMOffline"
-if exist "%cd%\Index.txt" goto "IndexExistOffline"
-echo.
-echo Getting index details for Windows Disk Image "%DriveLetter%".
-"%windir%\System32\Dism.exe" /Get-WimInfo /WimFile:"%DriveLetter%\sources\%Install%" | find /c /i "Index" > "%cd%\Index.txt"
-set /p IndexNumber=< "%cd%\Index.txt"
-del "%cd%\Index.txt" /f /q > nul 2>&1
-"%windir%\System32\Dism.exe" /Get-WimInfo /WimFile:"%DriveLetter%\sources\%Install%"
-if not "%errorlevel%"=="0" goto "DriveLetterOffline"
-echo Got index details for Windows Disk Image "%DriveLetter%".
-if "%Index%"=="True" goto "IndexDoneOffline"
-if "%IndexNumber%"=="3" goto "Index3Offline"
-if "%IndexNumber%"=="7" goto "Index7Offline"
-if "%IndexNumber%"=="11" goto "Index11Offline"
-echo.
-echo Invalid Windows Disk Image!
-goto "DriveLetterOffline"
-
-:"IndexExistOffline"
-set Index=True
-echo.
-echo Please temporary rename to something else or temporary move to another location "%cd%\Index.txt" in order for this batch file to proceed. "%cd%\Index.txt" is not a system file. Press any key to continue when "%cd%\Index.txt" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
-pause > nul 2>&1
-goto "DISMOffline"
-
-:"IndexDoneOffline"
-echo.
-echo You can now rename or move back the file back to "%cd%\Index.txt".
-if "%IndexNumber%"=="3" goto "Index3Offline"
-if "%IndexNumber%"=="7" goto "Index7Offline"
-if "%IndexNumber%"=="11" goto "Index11Offline"
-echo.
-echo Invalid Windows Disk Image!
-goto "DriveLetterOffline"
-
-:"32DISMOffline"
-echo.
-echo Getting index details for Windows Disk Image "%DriveLetter%".
-"%windir%\System32\Dism.exe" /Get-WimInfo /WimFile:"%DriveLetter%\x86\sources\%Install%"
-if not "%errorlevel%"=="0" goto "DriveLetterOffline"
-echo Got index details for Windows Disk Image "%DriveLetter%".
-goto "Index7Offline"
-
-:"64DISMOffline"
-echo.
-echo Getting index details for Windows Disk Image "%DriveLetter%".
-"%windir%\System32\Dism.exe" /Get-WimInfo /WimFile:"%DriveLetter%\x64\sources\%Install%"
-if not "%errorlevel%"=="0" goto "DriveLetterOffline"
-echo Got index details for Windows Disk Image "%DriveLetter%".
-goto "Index7Offline"
-
-:"Index3Offline"
-echo.
-set Index=
-set /p Index="Which one do you have on your PC? (1-3)? "
-if /i "%Index%"=="1" goto "SureIndex3Offline"
-if /i "%Index%"=="2" goto "SureIndex3Offline"
-if /i "%Index%"=="3" goto "SureIndex3Offline"
-echo Invalid syntax!
-goto "Index3Offline"
-
-:"SureIndex3Offline"
-echo.
-set SureIndex=
-set /p SureIndex="Are you sure you want Index %Index%? (Yes/No) "
-if /i "%SureIndex%"=="Yes" goto "Bit3Offline"
-if /i "%SureIndex%"=="No" goto "Index3Offline"
-echo Invalid syntax!
-goto "SureIndex3Offline"
-
-:"Index7Offline"
-echo.
-set Index=
-set /p Index="Which one do you have on your PC? (1-7)? "
-if /i "%Index%"=="1" goto "SureIndex7Offline"
-if /i "%Index%"=="2" goto "SureIndex7Offline"
-if /i "%Index%"=="3" goto "SureIndex7Offline"
-if /i "%Index%"=="4" goto "SureIndex7Offline"
-if /i "%Index%"=="5" goto "SureIndex7Offline"
-if /i "%Index%"=="6" goto "SureIndex7Offline"
-if /i "%Index%"=="7" goto "SureIndex7Offline"
-echo Invalid syntax!
-goto "Index7Offline"
-
-:"SureIndex7Offline"
-echo.
-set SureIndex=
-set /p SureIndex="Are you sure you want Index %Index%? (Yes/No) "
-if /i "%SureIndex%"=="Yes" goto "Bit3Offline"
-if /i "%SureIndex%"=="No" goto "Index7Offline"
-echo Invalid syntax!
-goto "SureIndex7Offline"
-
-:"Index11Offline"
-echo.
-set Index=
-set /p Index="Which one do you have on your PC? (1-11)? "
-if /i "%Index%"=="1" goto "SureIndex11Offline"
-if /i "%Index%"=="2" goto "SureIndex11Offline"
-if /i "%Index%"=="3" goto "SureIndex11Offline"
-if /i "%Index%"=="4" goto "SureIndex11Offline"
-if /i "%Index%"=="5" goto "SureIndex11Offline"
-if /i "%Index%"=="6" goto "SureIndex11Offline"
-if /i "%Index%"=="7" goto "SureIndex11Offline"
-if /i "%Index%"=="8" goto "SureIndex11Offline"
-if /i "%Index%"=="9" goto "SureIndex11Offline"
-if /i "%Index%"=="10" goto "SureIndex11Offline"
-if /i "%Index%"=="11" goto "SureIndex11Offline"
-echo Invalid syntax!
-goto "Index11Offline"
-
-:"SureIndex11Offline"
-echo.
-set SureIndex=
-set /p SureIndex="Are you sure you want Index %Index%? (Yes/No) "
-if /i "%SureIndex%"=="Yes" goto "Bit3Offline"
-if /i "%SureIndex%"=="No" goto "Index11Offline"
-echo Invalid syntax!
-goto "SureIndex11Offline"
 
 :"Bit3Offline"
 if /i "%Bit%"=="32" goto "32DISMUpdateCheckOffline"
