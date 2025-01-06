@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.6.4
+echo Version: 8.6.5
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -486,7 +486,7 @@ if /i "%Bit%"=="64" goto "64ESDSWMWIMOnline"
 if exist "%DriveLetter%\sources\install.esd" set Install=install.esd
 if exist "%DriveLetter%\sources\install.swm" set Install=install.swm
 if exist "%DriveLetter%\sources\install.wim" set Install=install.wim
-goto "DISMOnline"
+goto "IndexSetOnline"
 
 :"32ESDSWMWIMOnline"
 if exist "%DriveLetter%\x86\sources\install.esd" set Install=install.esd
@@ -499,6 +499,10 @@ if exist "%DriveLetter%\x64\sources\install.esd" set Install=install.esd
 if exist "%DriveLetter%\x64\sources\install.swm" set Install=install.swm
 if exist "%DriveLetter%\x64\sources\install.wim" set Install=install.wim
 goto "64DISMOnline"
+
+:"IndexSetOnline"
+set Index=
+goto "DISMOnline"
 
 :"DISMOnline"
 if exist "%cd%\Index.txt" goto "IndexExistOnline"
@@ -934,7 +938,7 @@ if /i "%Bit%"=="64" goto "64ESDSWMWIMOffline"
 if exist "%DriveLetter%\sources\install.esd" set Install=install.esd
 if exist "%DriveLetter%\sources\install.swm" set Install=install.swm
 if exist "%DriveLetter%\sources\install.wim" set Install=install.wim
-goto "DISMOffline"
+goto "IndexSetOffline"
 
 :"32ESDSWMWIMOffline"
 if exist "%DriveLetter%\x86\sources\install.esd" set Install=install.esd
@@ -947,6 +951,10 @@ if exist "%DriveLetter%\x64\sources\install.esd" set Install=install.esd
 if exist "%DriveLetter%\x64\sources\install.swm" set Install=install.swm
 if exist "%DriveLetter%\x64\sources\install.wim" set Install=install.wim
 goto "64DISMOffline"
+
+:"IndexSetOffline"
+set Index=
+goto "DISMOffline"
 
 :"DISMOffline"
 if exist "%cd%\Index.txt" goto "IndexExistOffline"
