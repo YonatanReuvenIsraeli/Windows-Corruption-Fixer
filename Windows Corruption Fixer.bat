@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.7.0
+echo Version: 8.7.1
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -202,7 +202,7 @@ goto "CheckOffline"
 echo "%InstallationCheck%" does not exist or is not an offline Windows installation! Please try again.
 goto "InstallationCheck"
 
-"InstallationCheckIsOnline"
+:"InstallationCheckIsOnline"
 echo "%InstallationCheck%" is an online Windows installation!
 goto "3"
 
@@ -283,7 +283,7 @@ goto "ScanOffline"
 echo "%InstallationScan%" does not exist or is not an offline Windows installation! Please try again.
 goto "InstallationCScan"
 
-"InstallationScanIsOnline"
+:"InstallationScanIsOnline"
 echo "%InstallationScan%" is an online Windows installation!
 goto "4"
 
