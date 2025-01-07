@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 8.7.1
+echo Version: 8.7.2
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -217,7 +217,7 @@ goto "Start"
 :"CheckOffline"
 echo.
 echo Checking health on Windows installation "%InstallationCheck%".
-if not exist "%InstallationCheck%\Windows\Logs\DISM" md "%InstallationCheck%\Windows\Logs\DISM"
+if not exist "%InstallationCheck%\Windows\Logs\DISM" md "%InstallationCheck%\Windows\Logs\DISM" > nul 2>&1
 "%windir%\System32\Dism.exe" /Image:"%InstallationCheck%" /Cleanup-Image /CheckHealth /LogPath:"%InstallationCheck%"\Windows\Logs\DISM\dism.log
 if not "%errorlevel%"=="0" goto "InstallationCheck"
 echo Checked health on Windows installation "%InstallationCheck%".
@@ -298,7 +298,7 @@ goto "Start"
 :"ScanOffline"
 echo.
 echo Scanning health on Windows installation "%InstallationScan%".
-if not exist "%InstallationScane%\Windows\Logs\DISM" md "%InstallationScan%\Windows\Logs\DISM"
+if not exist "%InstallationScane%\Windows\Logs\DISM" md "%InstallationScan%\Windows\Logs\DISM" > nul 2>&1
 "%windir%\System32\Dism.exe" /Image:"%InstallationScan%" /Cleanup-Image /ScanHealth /LogPath:"%InstallationScan%"\Windows\Logs\DISM\dism.log
 if not "%errorlevel%"=="0" goto "InstallationScan"
 echo Scanned health on Windows installation "%InstallationScan%".
@@ -780,7 +780,7 @@ if /i "%Update%"=="No" goto "DISMOfflineNoImage"
 :"DISMOfflineNoImage"
 echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
-if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
+if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
 "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "UpdateOffline"
 echo Health restored on Windows installation "%InstallationRestore%".
@@ -789,7 +789,7 @@ goto "Start"
 :"DISMNoUpdateOfflineNoImage"
 echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
-if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
+if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
 "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "UpdateOffline"
 echo Health restored on Windows installation "%InstallationRestore%".
@@ -802,7 +802,7 @@ if /i "%Update%"=="No" goto "DISMOffline"
 :"DISMOffline"
 echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
-if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
+if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
 "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\sources\%Install%":%Index% /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "UpdateOffline"
 echo Health restored on Windows installation "%InstallationRestore%".
@@ -811,7 +811,7 @@ goto "Start"
 :"DISMNoUpdateOffline"
 echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
-if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
+if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
 "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\sources\%Install%":%Index% /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "UpdateOffline"
 goto "Start"
@@ -823,7 +823,7 @@ if /i "%Update%"=="No" goto "32DISMOffline"
 :"32DISMOffline"
 echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
-if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
+if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
 "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\sources\%Install%":%Index% /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "UpdateOffline"
 echo Health restored on Windows installation "%InstallationRestore%".
@@ -832,7 +832,7 @@ goto "Start"
 :"32DISMNoUpdateOffline"
 echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
-if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
+if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
 "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x86\sources\%Install%":%Index% /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "UpdateOffline"
 echo Health restored on Windows installation "%InstallationRestore%".
@@ -845,7 +845,7 @@ if /i "%Update%"=="No" goto "64DISMOffline"
 :"64DISMOffline"
 echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
-if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
+if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
 "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\sources\%Install%":%Index% /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "UpdateOffline"
 echo Health restored on Windows installation "%InstallationRestore%".
@@ -854,7 +854,7 @@ goto "Start"
 :"64DISMNoUpdateOffline"
 echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
-if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM"
+if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
 "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%DriveLetter%:\x64\sources\%Install%":%Index% /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "UpdateOffline"
 echo Health restored on Windows installation "%InstallationRestore%".
@@ -997,7 +997,7 @@ goto "Start"
 :"ScanNowOffline"
 echo.
 echo Scanning Windows installation "%ScanNowDriveLetter%".
-if not exist "%ScanNowDriveLetter%\Windows\Logs\CBS" md "%ScanNowDriveLetter%\Windows\Logs\CBS"
+if not exist "%ScanNowDriveLetter%\Windows\Logs\CBS" md "%ScanNowDriveLetter%\Windows\Logs\CBS" > nul 2>&1
 "%windir%\System32\sfc.exe" /scannow /offbootdir="%ScanNowDriveLetter%" /offwindir="%ScanNowDriveLetter%\Windows" /offlogfile="%ScanNowDriveLetter%\Windows\Logs\CBS\CBS.log"
 if not "%errorlevel%"=="0" goto "7"
 echo Windows installation "%ScanNowDriveLetter%" scanned.
@@ -1074,7 +1074,7 @@ goto "Start"
 :"VerifyOnlyOffline"
 echo.
 echo Verifing Windows installtion "%VerifyOnlyDriveLetter%".
-if not exist "%VerifyOnlyDriveLetter%\Windows\Logs\CBS" md "%VerifyOnlyDriveLetter%\Windows\Logs\CBS"
+if not exist "%VerifyOnlyDriveLetter%\Windows\Logs\CBS" md "%VerifyOnlyDriveLetter%\Windows\Logs\CBS" > nul 2>&1
 "%windir%\System32\sfc.exe" /verifyonly /offbootdir="%VerifyOnlyDriveLetter%" /offwindir="%VerifyOnlyDriveLetter%\Windows" /offlogfile="%VerifyOnlyDriveLetter%\Windows\Logs\CBS\CBS.log"
 if not "%errorlevel%"=="0" goto "8"
 echo Windows installation "%VerifyOnlyDriveLetter%" verified.
@@ -1163,7 +1163,7 @@ goto "Start"
 :"ScanFileOffline"
 echo.
 echo Scanning file "%File%".
-if not exist "%ScanFileDriveLetter%\Windows\Logs\CBS" md "%ScanFileDriveLetter%\Windows\Logs\CBS"
+if not exist "%ScanFileDriveLetter%\Windows\Logs\CBS" md "%ScanFileDriveLetter%\Windows\Logs\CBS" > nul 2>&1
 "%windir%\System32\sfc.exe" /scannfile="%File%" /offbootdir="%ScanFileDriveLetter%" /offwindir="%ScanFileDriveLetter%\Windows" /offlogfile="%ScanFileDriveLetter%\Windows\Logs\CBS\CBS.log"
 if not "%errorlevel%"=="0" goto "9"
 echo File "%File%" scanned.
@@ -1252,7 +1252,7 @@ goto "Start"
 :"VerifyFileOffline"
 echo.
 echo Verifying file "%File%".
-if not exist "%VerifyFileDriveLetter%\Windows\Logs\CBS" md "%VerifyFileDriveLetter%\Windows\Logs\CBS"
+if not exist "%VerifyFileDriveLetter%\Windows\Logs\CBS" md "%VerifyFileDriveLetter%\Windows\Logs\CBS" > nul 2>&1
 "%windir%\System32\sfc.exe" /verifyfile="%File%" /offbootdir="%VerifyFileDriveLetter%" /offwindir="%VerifyFileDriveLetter%\Windows" /offlogfile="%VerifyFileDriveLetter%\Windows\Logs\CBS\CBS.log"
 if not "%errorlevel%"=="0" goto "10"
 echo File "%File%" verified.
