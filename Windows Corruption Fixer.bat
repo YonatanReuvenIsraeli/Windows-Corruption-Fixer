@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 10.0.3
+echo Version: 10.0.4
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -715,33 +715,33 @@ goto "Mount"
 :"Mount"
 if exist "%SystemDrive%\Mount" goto "MountExist"
 echo.
-echo Mounting Windows image.
+echo Mounting Windows image to "%SystemDrive%\Mount".
 if not exist "%SystemDrive%\Mount" md "%SystemDrive%\Mount" > nul 2>&1
 "%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%DriveLetter%\sources\%Install%" /Index:%Index% /MountDir:"%SystemDrive%\Mount" /ReadOnly
 if not "%errorlevel%"=="0" goto "MountError"
-echo Windows image mounted.
+echo Windows image mounted to "%SystemDrive%\Mount".
 if /i "%OnlineOffline%"=="Online" goto "DISMUpdateCheckOnlineMountedWindowsimage"
 if /i "%OnlineOffline%"=="Offline" goto "DISMUpdateCheckOfflineMountedWindowsimage"
 
 :"32Mount"
 if exist "%SystemDrive%\Mount" goto "MountExist"
 echo.
-echo Mounting Windows image.
+echo Mounting Windows image to "%SystemDrive%\Mount".
 if not exist "%SystemDrive%\Mount" md "%SystemDrive%\Mount" > nul 2>&1
 "%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%DriveLetter%\x32\sources\%Install%" /Index:%Index% /MountDir:"%SystemDrive%\Mount" /ReadOnly
 if not "%errorlevel%"=="0" goto "MountError"
-echo Windows image mounted.
+echo Windows image mounted to "%SystemDrive%\Mount".
 if /i "%OnlineOffline%"=="Online" goto "32DISMUpdateCheckOnlineMountedWindowsimage"
 if /i "%OnlineOffline%"=="Offline" goto "32DISMUpdateCheckOfflineMountedWindowsimage"
 
 :"64Mount"
 if exist "%SystemDrive%\Mount" goto "MountExist"
 echo.
-echo Mounting Windows image.
+echo Mounting Windows image to "%SystemDrive%\Mount".
 if not exist "%SystemDrive%\Mount" md "%SystemDrive%\Mount" > nul 2>&1
 "%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%DriveLetter%\x64\sources\%Install%" /Index:%Index% /MountDir:"%SystemDrive%\Mount" /ReadOnly
 if not "%errorlevel%"=="0" goto "MountError"
-echo Windows image mounted.
+echo Windows image mounted to "%SystemDrive%\Mount".
 if /i "%OnlineOffline%"=="Online" goto "64DISMUpdateCheckOnlineMountedWindowsimage"
 if /i "%OnlineOffline%"=="Offline" goto "64DISMUpdateCheckOfflineMountedWindowsimage"
 
@@ -754,11 +754,11 @@ goto "Bit3MountedWindowsimage"
 
 :"MountError"
 echo.
-echo Unmounting Windows image.
+echo Unmounting Windows image from "%SystemDrive%\Mount".
 "%windir%\System32\Dism.exe" /Unmount-Image /MountDir:"%SystemDrive%\Mount" /Discard
 if not "%errorlevel%"=="0" goto "MountErrorError"
 rd "%SystemDrive%\Mount" /s /q > nul 2>&1
-echo Windows image unmounted.
+echo Windows image unmounted from "%SystemDrive%\Mount".
 if /i "%Mount%"=="True" goto "MountDone"
 goto "Update"
 
@@ -1208,11 +1208,11 @@ goto "Start"
 
 :"Unmount"
 echo.
-echo Unmounting Windows image.
+echo Unmounting Windows image from "%SystemDrive%\Mount".
 "%windir%\System32\Dism.exe" /Unmount-Image /MountDir:"%SystemDrive%\Mount" /Discard
 if not "%errorlevel%"=="0" goto "UnmountError"
 rd "%SystemDrive%\Mount" /s /q > nul 2>&1
-echo Windows image unmounted.
+echo Windows image unmounted from "%SystemDrive%\Mount".
 if /i "%Mount%"=="True" goto "MountDone"
 goto "Start"
 
