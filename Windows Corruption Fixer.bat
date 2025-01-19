@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 11.0.1
+echo Version: 11.1.0
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -196,17 +196,22 @@ echo Invalid syntax!
 goto "SureInstallationCheck"
 
 :"CheckExistInstallationCheck"
-if not exist "%InstallationCheck%\Windows" goto "NotExistInstallationCheck"
+if not exist "%InstallationCheck%" goto "NotExistInstallationCheck"
 if "%InstallationCheck%"=="%SystemDrive%" goto "InstallationCheckIsOnline"
+if not exist "%InstallationCheck%\Windows" goto "InstallationCheckNotWindows"
 goto "CheckOffline"
 
 :"NotExistInstallationCheck"
-echo "%InstallationCheck%" does not exist or is not an offline Windows installation! Please try again.
+echo "%InstallationCheck%" does not exist!
 goto "InstallationCheck"
 
 :"InstallationCheckIsOnline"
 echo "%InstallationCheck%" is an online Windows installation!
 goto "3"
+
+:"InstallationCheckNotWindows"
+echo "%InstallationCheck%" is not an offline WIndows installation!
+goto "InstallationCheck"
 
 :"CheckOnline"
 echo.
@@ -277,17 +282,22 @@ echo Invalid syntax!
 goto "SureInstallationScan"
 
 :"CheckExistInstallationScan"
-if not exist "%InstallationScan%\Windows" goto "NotExistInstallationScan"
+if not exist "%InstallationScan%" goto "NotExistInstallationScan"
 if "%InstallationScan%"=="%SystemDrive%" goto "InstallationScanIsOnline"
+if not exist "%InstallationScan%\Windows" goto "InstallationScanNotWindows"
 goto "ScanOffline"
 
 :"NotExistInstallationCheck"
-echo "%InstallationScan%" does not exist or is not an offline Windows installation! Please try again.
+echo "%InstallationScan%" does not exist!
 goto "InstallationCScan"
 
 :"InstallationScanIsOnline"
 echo "%InstallationScan%" is an online Windows installation!
 goto "4"
+
+:"InstallationScanNotWindows"
+echo "%InstallationScan%" is not an offline WIndows installation!
+goto "InstallationScan"
 
 :"ScanOnline"
 echo.
@@ -358,17 +368,22 @@ echo Invalid syntax!
 goto "SureInstallationRestore"
 
 :"CheckExistInstallationRestore"
-if not exist "%InstallationRestore%\Windows" goto "NotExistInstallationRestore"
+if not exist "%InstallationRestore%" goto "NotExistInstallationRestore"
 if "%InstallationRestore%"=="%SystemDrive%" goto "InstallationRestoreIsOnline"
+if not exist "%InstallationRestore%\Windows" goto "InstallationRestoreNotWindows"
 goto "Update"
 
 :"NotExistInstallationRestore"
-echo "%InstallationRestore%" does not exist or is not an offline Windows installation! Please try again.
+echo "%InstallationRestore%" does not exist!
 goto "InstallationRestore"
 
 :"InstallationRestoreIsOnline"
 echo "%InstallationRestore%" is an online Windows installation!
 goto "5"
+
+:"InstallationRestoreNotWindows"
+echo "%InstallationRestore%" is not an offline WIndows installation!
+goto "InstallationRestore"
 
 :"Update"
 echo.
@@ -918,6 +933,15 @@ goto "Start"
 
 :"6"
 echo.
+set OnlineOffline=
+set /p OnlineOffline="Are you reverting an online or offline Windows installation? (Online/Offline) "
+if /i "%OnlineOffline%"=="Online" goto "RevertOnline"
+if /i "%OnlineOffline%"=="Offline" goto "InstallationRevert"
+echo Invalid syntax!
+goto "6"
+
+:"InstallationRevert"
+echo.
 set InstallationRevert=
 set /p InstallationRevert="What is the drive letter to your offline Windows installation? (A:-Z:) "
 if /i "%InstallationRevert%"=="A:" goto "SureInstallationRevert"
@@ -947,31 +971,44 @@ if /i "%InstallationRevert%"=="X:" goto "SureInstallationRevert"
 if /i "%InstallationRevert%"=="Y:" goto "SureInstallationRevert"
 if /i "%InstallationRevert%"=="Z:" goto "SureInstallationRevert"
 echo Invalid syntax!
-goto "6"
+goto "InstallationRevert"
 
 :"SureInstallationRevert"
 echo.
 set SureInstallationRevert=
 set /p SureInstallationRevert="Are you sure "%InstallationRevert%" is the drive letter of your offline Windows installation? (Yes/No) "
 if /i "%SureInstallationRevert%"=="Yes" goto "CheckExistInstallationRevert"
-if /i "%SureInstallationRevert%"=="No" goto "6"
+if /i "%SureInstallationRevert%"=="No" goto "InstallationRevert"
 echo Invalid syntax!
 goto "SureInstallationRevert"
 
 :"CheckExistInstallationRevert"
-if not exist "%InstallationRevert%\Windows" goto "NotExistInstallationRevert"
+if not exist "%InstallationRevert%" goto "NotExistInstallationRevert"
 if "%InstallationRevert%"=="%SystemDrive%" goto "InstallationRevertIsOnline"
-goto "Revert"
+if not exist "%InstallationRevert%\Windows" goto "InstallationRevertNotWindows"
+goto "RevertOffline"
 
 :"NotExistInstallationRevert"
-echo "%InstallationRevert%" does not exist or is not an offline Windows installation! Please try again.
-goto "6"
+echo "%InstallationRevert%" does not exist!
+goto "InstallationRevert"
 
 :"InstallationRevertIsOnline"
 echo "%InstallationRevert%" is an online Windows installation!
 goto "6"
 
-:"Revert"
+:"InstallationRevertNotWindows"
+echo "%InstallationRevert%" is not an offline WIndows installation!
+goto "InstallationRevert"
+
+:"RevertOnline"
+echo.
+echo Reverting pending actions on Windows installation "%SystemDrive%".
+"%windir%\System32\Dism.exe" /Online /Cleanup-Image /RevertPendingActions
+if not "%errorlevel%"=="0" goto "6"
+echo Reverted pending actions on Windows installation "%SystemDrive%".
+goto "Start"
+
+:"RevertOffline"
 echo.
 echo Reverting pending actions on Windows installation "%InstallationRevert%".
 if not exist "%InstallationRevert%\Windows\Logs\DISM" md "%InstallationRevert%\Windows\Logs\DISM" > nul 2>&1
