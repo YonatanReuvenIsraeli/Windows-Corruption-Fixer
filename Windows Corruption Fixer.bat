@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 10.0.6
+echo Version: 10.0.7
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -720,11 +720,11 @@ if exist "%SystemDrive%\Mount" goto "MountExist"
 echo.
 echo Mounting Windows image to "%SystemDrive%\Mount".
 md "%SystemDrive%\Mount" > nul 2>&1
-"%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%DriveLetter%\x32\sources\%Install%" /Index:%Index% /MountDir:"%SystemDrive%\Mount" /ReadOnly
+"%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%DriveLetter%\x86\sources\%Install%" /Index:%Index% /MountDir:"%SystemDrive%\Mount" /ReadOnly
 if not "%errorlevel%"=="0" goto "MountError"
 echo Windows image mounted to "%SystemDrive%\Mount".
-if /i "%OnlineOffline%"=="Online" goto "32DISMUpdateCheckOnlineMountedWindowsimage"
-if /i "%OnlineOffline%"=="Offline" goto "32DISMUpdateCheckOfflineMountedWindowsimage"
+if /i "%OnlineOffline%"=="Online" goto "DISMUpdateCheckOnlineMountedWindowsimage"
+if /i "%OnlineOffline%"=="Offline" goto "DISMUpdateCheckOfflineMountedWindowsimage"
 
 :"64Mount"
 if exist "%SystemDrive%\Mount" goto "MountExist"
@@ -734,8 +734,8 @@ md "%SystemDrive%\Mount" > nul 2>&1
 "%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%DriveLetter%\x64\sources\%Install%" /Index:%Index% /MountDir:"%SystemDrive%\Mount" /ReadOnly
 if not "%errorlevel%"=="0" goto "MountError"
 echo Windows image mounted to "%SystemDrive%\Mount".
-if /i "%OnlineOffline%"=="Online" goto "64DISMUpdateCheckOnlineMountedWindowsimage"
-if /i "%OnlineOffline%"=="Offline" goto "64DISMUpdateCheckOfflineMountedWindowsimage"
+if /i "%OnlineOffline%"=="Online" goto "DISMUpdateCheckOnlineMountedWindowsimage"
+if /i "%OnlineOffline%"=="Offline" goto "DISMUpdateCheckOfflineMountedWindowsimage"
 
 :"MountExist"
 set Mount=True
@@ -814,46 +814,6 @@ echo Health restored on Windows installation "%SystemDrive%".
 goto "Unmount"
 
 :"DISMNoUpdateOnlineMountedWindowsimage"
-echo.
-echo Restoring health on Windows installation "%SystemDrive%".
-"%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows" /LimitAccess
-if not "%errorlevel%"=="0" goto "Update"
-echo Health restored on Windows installation "%SystemDrive%".
-goto "Unmount"
-
-:"32DISMUpdateCheckOnlineMountedWindowsimage"
-if /i "%Update%"=="Yes" goto "32DISMOnlineMountedWindowsimage"
-if /i "%Update%"=="No" goto "32DISMNoUpdateOnlineMountedWindowsimage"
-
-:"32DISMOnlineMountedWindowsimage"
-echo.
-echo Restoring health on Windows installation "%SystemDrive%".
-"%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows"
-if not "%errorlevel%"=="0" goto "Update"
-echo Health restored on Windows installation "%SystemDrive%".
-goto "Unmount"
-
-:"32DISMNoUpdateOnlineMountedWindowsimage"
-echo.
-echo Restoring health on Windows installation "%SystemDrive%".
-"%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows" /LimitAccess
-if not "%errorlevel%"=="0" goto "Update"
-echo Health restored on Windows installation "%SystemDrive%".
-goto "Unmount"
-
-:"64DISMUpdateCheckOnlineMountedWindowsimage"
-if /i "%Update%"=="Yes" goto "64DISMOnlineMountedWindowsimage"
-if /i "%Update%"=="No" goto "64DISMNoUpdateOnlineMountedWindowsimage"
-
-:"64DISMOnlineMountedWindowsimage"
-echo.
-echo Restoring health on Windows installation "%SystemDrive%".
-"%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows"
-if not "%errorlevel%"=="0" goto "Update"
-echo Health restored on Windows installation "%SystemDrive%".
-goto "Unmount"
-
-:"64DISMNoUpdateOnlineMountedWindowsimage"
 echo.
 echo Restoring health on Windows installation "%SystemDrive%".
 "%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows" /LimitAccess
@@ -1022,50 +982,6 @@ echo Restoring health on Windows installation "%InstallationRestore%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
 "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows" /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "UpdateOffline"
-goto "Unmount"
-
-:"32DISMUpdateCheckOfflineMountedWindowsimage"
-if /i "%Update%"=="Yes" goto "32DISMOfflineMountedWindowsimage"
-if /i "%Update%"=="No" goto "32DISMNoUpdateOfflineMountedWindowsimage"
-
-:"32DISMOfflineMountedWindowsimage"
-echo.
-echo Restoring health on Windows installation "%InstallationRestore%".
-if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
-"%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
-if not "%errorlevel%"=="0" goto "UpdateOffline"
-echo Health restored on Windows installation "%InstallationRestore%".
-goto "Unmount"
-
-:"32DISMNoUpdateOfflineMountedWindowsimage"
-echo.
-echo Restoring health on Windows installation "%InstallationRestore%".
-if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
-"%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows" /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
-if not "%errorlevel%"=="0" goto "UpdateOffline"
-echo Health restored on Windows installation "%InstallationRestore%".
-goto "Unmount"
-
-:"64DISMUpdateCheckOfflineMountedWindowsimage"
-if /i "%Update%"=="Yes" goto "64DISMOfflineMountedWindowsimage"
-if /i "%Update%"=="No" goto "64DISMNoUpdateOfflineMountedWindowsimage"
-
-:"64DISMOfflineMountedWindowsimage"
-echo.
-echo Restoring health on Windows installation "%InstallationRestore%".
-if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
-"%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
-if not "%errorlevel%"=="0" goto "UpdateOffline"
-echo Health restored on Windows installation "%InstallationRestore%".
-goto "Unmount"
-
-:"64DISMNoUpdateOfflineMountedWindowsimage"
-echo.
-echo Restoring health on Windows installation "%InstallationRestore%".
-if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
-"%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows" /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
-if not "%errorlevel%"=="0" goto "UpdateOffline"
-echo Health restored on Windows installation "%InstallationRestore%".
 goto "Unmount"
 
 :"DISMUpdateCheckOfflineWindowsimage"
