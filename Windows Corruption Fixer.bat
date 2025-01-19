@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 11.1.2
+echo Version: 11.1.3
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -32,6 +32,7 @@ echo [10] SFC scan file.
 echo [11] SFC verify file.
 echo [12] View SFC logs.
 echo [13] Close.
+echo [14] Reboot.
 echo.
 set Input=
 set /p Input="Which one do you want to do? (1-13) "
@@ -47,7 +48,8 @@ if /i "%Input%"=="9" goto "9"
 if /i "%Input%"=="10" goto "10"
 if /i "%Input%"=="11" goto "11"
 if /i "%Input%"=="12" goto "12"
-if /i "%Input%"=="13" goto "Done"
+if /i "%Input%"=="13" goto "Exit"
+if /i "%Input%"=="14" goto "Reboot"
 echo Invalid syntax!
 goto "Start"
 
@@ -1517,6 +1519,11 @@ goto "Start"
 echo There has been an error! Please try again.
 goto "12"
 
-:"Done"
+:"Exit"
 endlocal
+exit
+
+:"Reboot"
+endlocal
+shutdown /r /t 00
 exit
