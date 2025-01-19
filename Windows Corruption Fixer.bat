@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 10.0.2
+echo Version: 10.0.3
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -647,12 +647,11 @@ goto "Index3"
 
 :"SureIndex3"
 echo.
-set IndexNumber=
-set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
-if /i "%MountedWindowsimageWindowsimageSxS%"=="Mounted Windows image" if /i "%IndexNumber%"=="Yes" goto "MountCheck"
-if /i "%OnlineOffline%"=="Online" if /i "%MountedWindowsimageWindowsimageSxS%"=="Windows image" if /i "%IndexNumber%"=="Yes" goto "Bit3OnlineWindowsimage"
-if /i "%OnlineOffline%"=="Offline" if /i "%MountedWindowsimageWindowsimageSxS%"=="Windows image" if /i "%IndexNumber%"=="Yes" goto "Bit3OfflineWindowsimage"
-if /i "%IndexNumber%"=="No" goto "Index3"
+set SureIndex=
+set /p SureIndex="Are you sure you want Index %Index%? (Yes/No) "
+if /i "%MountedWindowsimageWindowsimageSxS%"=="Mounted Windows image" if /i "%SureIndex%"=="Yes" goto "Bit3MountedWindowsimage"
+if /i "%MountedWindowsimageWindowsimageSxS%"=="Windows image" if /i "%SureIndex%"=="Yes" goto "Bit3Windowsimage"
+if /i "%SureIndex%"=="No" goto "Index3"
 echo Invalid syntax!
 goto "SureIndex3"
 
@@ -672,12 +671,11 @@ goto "Index7"
 
 :"SureIndex7"
 echo.
-set IndexNumber=
-set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
-if /i "%MountedWindowsimageWindowsimageSxS%"=="Mounted Windows image" if /i "%IndexNumber%"=="Yes" goto "MountCheck"
-if /i "%OnlineOffline%"=="Online" if /i "%MountedWindowsimageWindowsimageSxS%"=="Windows image" if /i "%IndexNumber%"=="Yes" goto "Bit3OnlineWindowsimage"
-if /i "%OnlineOffline%"=="Offline" if /i "%MountedWindowsimageWindowsimageSxS%"=="Windows image" if /i "%IndexNumber%"=="Yes" goto "Bit3OfflineWindowsimage"
-if /i "%IndexNumber%"=="No" goto "Index7"
+set SureIndex=
+set /p SureIndex="Are you sure you want Index %Index%? (Yes/No) "
+if /i "%MountedWindowsimageWindowsimageSxS%"=="Mounted Windows image" if /i "%SureIndex%"=="Yes" goto "Bit3MountedWindowsimage"
+if /i "%MountedWindowsimageWindowsimageSxS%"=="Windows image" if /i "%SureIndex%"=="Yes" goto "Bit3Windowsimage"
+if /i "%SureIndex%"=="No" goto "Index7"
 echo Invalid syntax!
 goto "SureIndex7"
 
@@ -701,56 +699,95 @@ goto "Index11"
 
 :"SureIndex11"
 echo.
-set IndexNumber=
-set /p IndexNumber="Are you sure you want Index %Index%? (Yes/No) "
-if /i "%MountedWindowsimageWindowsimageSxS%"=="Mounted Windows image" if /i "%IndexNumber%"=="Yes" goto "MountCheck"
-if /i "%OnlineOffline%"=="Online" if /i "%MountedWindowsimageWindowsimageSxS%"=="Windows image" if /i "%IndexNumber%"=="Yes" goto "Bit3OnlineWindowsimage"
-if /i "%OnlineOffline%"=="Offline" if /i "%MountedWindowsimageWindowsimageSxS%"=="Windows image" if /i "%IndexNumber%"=="Yes" goto "Bit3OfflineWindowsimage"
-if /i "%IndexNumber%"=="No" goto "Index11"
+set SureIndex=
+set /p SureIndex="Are you sure you want Index %Index%? (Yes/No) "
+if /i "%MountedWindowsimageWindowsimageSxS%"=="Mounted Windows image" if /i "%SureIndex%"=="Yes" goto "Bit3MountedWindowsimage"
+if /i "%MountedWindowsimageWindowsimageSxS%"=="Windows image" if /i "%SureIndex%"=="Yes" goto "Bit3Windowsimage"
+if /i "%SureIndex%"=="No" goto "Index11"
 echo Invalid syntax!
 goto "SureIndex11"
 
-:"MountCheck"
+:"Bit3MountedWindowsimage"
+if /i "%Bit%"=="32" goto "32Mount"
+if /i "%Bit%"=="64" goto "64Mount"
+goto "Mount"
+
+:"Mount"
 if exist "%SystemDrive%\Mount" goto "MountExist"
-if /i "%OnlineOffline%"=="Online" goto "Bit3OnlineMountedWindowsimage"
-if /i "%OnlineOffline%"=="Offline" goto "Bit3OfflineMountedWindowsimage"
+echo.
+echo Mounting Windows image.
+if not exist "%SystemDrive%\Mount" md "%SystemDrive%\Mount" > nul 2>&1
+"%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%DriveLetter%\sources\%Install%" /Index:%Index% /MountDir:"%SystemDrive%\Mount" /ReadOnly
+if not "%errorlevel%"=="0" goto "MountError"
+echo Windows image mounted.
+if /i "%OnlineOffline%"=="Online" goto "DISMUpdateCheckOnlineMountedWindowsimage"
+if /i "%OnlineOffline%"=="Offline" goto "DISMUpdateCheckOfflineMountedWindowsimage"
+
+:"32Mount"
+if exist "%SystemDrive%\Mount" goto "MountExist"
+echo.
+echo Mounting Windows image.
+if not exist "%SystemDrive%\Mount" md "%SystemDrive%\Mount" > nul 2>&1
+"%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%DriveLetter%\x32\sources\%Install%" /Index:%Index% /MountDir:"%SystemDrive%\Mount" /ReadOnly
+if not "%errorlevel%"=="0" goto "MountError"
+echo Windows image mounted.
+if /i "%OnlineOffline%"=="Online" goto "32DISMUpdateCheckOnlineMountedWindowsimage"
+if /i "%OnlineOffline%"=="Offline" goto "32DISMUpdateCheckOfflineMountedWindowsimage"
+
+:"64Mount"
+if exist "%SystemDrive%\Mount" goto "MountExist"
+echo.
+echo Mounting Windows image.
+if not exist "%SystemDrive%\Mount" md "%SystemDrive%\Mount" > nul 2>&1
+"%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%DriveLetter%\x64\sources\%Install%" /Index:%Index% /MountDir:"%SystemDrive%\Mount" /ReadOnly
+if not "%errorlevel%"=="0" goto "MountError"
+echo Windows image mounted.
+if /i "%OnlineOffline%"=="Online" goto "64DISMUpdateCheckOnlineMountedWindowsimage"
+if /i "%OnlineOffline%"=="Offline" goto "64DISMUpdateCheckOfflineMountedWindowsimage"
 
 :"MountExist"
 set Mount=True
 echo.
 echo Please temporary rename to something else or temporary move to another location "%SystemDrive%\Mount" in order for this batch file to proceed. "%SystemDrive%\Mount" is not a system file. Press any key to continue when "%SystemDrive%\Mount" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
 pause > nul 2>&1
-goto "MountCheck"
+goto "Bit3MountedWindowsimage"
 
-:"Bit3OnlineMountedWindowsimage"
-if /i "%Bit%"=="32" goto "32DISMUpdateCheckOnlineMountedWindowsimage"
-if /i "%Bit%"=="64" goto "64DISMUpdateCheckOnlineMountedWindowsimage"
-goto "DISMUpdateCheckOnlineMountedWindowsimage"
+:"MountError"
+echo.
+echo Unmounting Windows image.
+"%windir%\System32\Dism.exe" /Unmount-Image /MountDir:"%SystemDrive%\Mount" /Discard
+if not "%errorlevel%"=="0" goto "MountErrorError"
+rd "%SystemDrive%\Mount" /s /q > nul 2>&1
+echo Windows image unmounted.
+if /i "%Mount%"=="True" goto "MountDone"
+goto "Update"
 
-:"Bit3OnlineWindowsimage"
-if /i "%Bit%"=="32" goto "32DISMUpdateCheckOnlineWindowsimage"
-if /i "%Bit%"=="64" goto "64DISMUpdateCheckOnlineWindowsimage"
-goto "DISMUpdateCheckOnlineWindowsimage"
+:"MountErrorError"
+echo There has been an error an all images need to be unmounted! Make sure to save all changes you have made to your mounted images before pressing any key to unmount all images. Press any key to unmount all images when you are ready to unmount all images.
+pause > nul 2>&1
+echo.
+echo Cleaning up mounted images.
+"%windir%\System32\Dism.exe" /Cleanup-Mountpoints
+rd "%SystemDrive%\Mount" /s /q > nul 2>&1
+echo Mounted images cleaned up.
+if /i "%Mount%"=="True" goto "MountDone"
+goto "Update"
 
-:"Bit3OnlineSxS"
-if /i "%Bit%"=="32" goto "32DISMUpdateCheckOnlineSxS"
-if /i "%Bit%"=="64" goto "64DISMUpdateCheckOnlineSxS"
-goto "DISMUpdateCheckOnlineSxS"
+:"Bit3Windowsimage"
+if /i "%OnlineOffline%"=="Online" if /i "%Bit%"=="32" goto "32DISMUpdateCheckOnlineWindowsimage"
+if /i "%OnlineOffline%"=="Online" if /i "%Bit%"=="64" goto "64DISMUpdateCheckOnlineWindowsimage"
+if /i "%OnlineOffline%"=="Online" goto "DISMUpdateCheckOnlineWindowsimage"
+if /i "%OnlineOffline%"=="Offline" if /i "%Bit%"=="32" goto "32DISMUpdateCheckOfflineWindowsimage"
+if /i "%OnlineOffline%"=="Offline" if /i "%Bit%"=="64" goto "64DISMUpdateCheckOfflineWindowsimage"
+if /i "%OnlineOffline%"=="Offline" goto "DISMUpdateCheckOfflineWindowsimage"
 
-:"Bit3OfflineMountedWindowsimage"
-if /i "%Bit%"=="32" goto "32DISMUpdateCheckOfflineMountedWindowsimage"
-if /i "%Bit%"=="64" goto "64DISMUpdateCheckOfflineMountedWindowsimage"
-goto "DISMUpdateCheckOfflineMountedWindowsimage"
-
-:"Bit3OfflineWindowsimage"
-if /i "%Bit%"=="32" goto "32DISMUpdateCheckOfflineWindowsimage"
-if /i "%Bit%"=="64" goto "64DISMUpdateCheckOfflineWindowsimage"
-goto "DISMUpdateCheckOfflineWindowsimage"
-
-:"Bit3OfflineSxS"
-if /i "%Bit%"=="32" goto "32DISMUpdateCheckOfflineSxS"
-if /i "%Bit%"=="64" goto "64DISMUpdateCheckOfflineSxS"
-goto "DISMUpdateCheckOfflineSxS"
+:"Bit3SxS"
+if /i "%OnlineOffline%"=="Online" if /i "%Bit%"=="32" goto "32DISMUpdateCheckOnlineSxS"
+if /i "%OnlineOffline%"=="Online" if /i "%Bit%"=="64" goto "64DISMUpdateCheckOnlineSxS"
+if /i "%OnlineOffline%"=="Online" goto "DISMUpdateCheckOnlineSxS"
+if /i "%OnlineOffline%"=="Offline" if /i "%Bit%"=="32" goto "32DISMUpdateCheckOfflineSxS"
+if /i "%OnlineOffline%"=="Offline" if /i "%Bit%"=="64" goto "64DISMUpdateCheckOfflineSxS"
+if /i "%OnlineOffline%"=="Offline" goto "DISMUpdateCheckOfflineSxS"
 
 :"DISMUpdateCheckOnlineNoImage"
 if /i "%Update%"=="Yes" goto "DISMOnlineNoImage""
@@ -773,12 +810,6 @@ echo Health restored on Windows installation "%SystemDrive%".
 goto "Start"
 
 :"DISMUpdateCheckOnlineMountedWindowsimage"
-echo.
-echo Mounting Windows image.
-if not exist "%SystemDrive%\Mount" md "%SystemDrive%\Mount" > nul 2>&1
-"%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%DriveLetter%\sources\%Install%" /Index:%Index% /MountDir:"%SystemDrive%\Mount" /ReadOnly
-if not "%errorlevel%"=="0" goto "MountError"
-echo Windows image mounted.
 if /i "%Update%"=="Yes" goto "DISMOnlineMountedWindowsimage"
 if /i "%Update%"=="No" goto "DISMNoUpdateOnlineMountedWindowsimage"
 
@@ -799,12 +830,6 @@ echo Health restored on Windows installation "%SystemDrive%".
 goto "Unmount"
 
 :"32DISMUpdateCheckOnlineMountedWindowsimage"
-echo.
-echo Mounting Windows image.
-if not exist "%SystemDrive%\Mount" md "%SystemDrive%\Mount" > nul 2>&1
-"%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%DriveLetter%\x86\sources\%Install%" /Index:%Index% /MountDir:"%SystemDrive%\Mount" /ReadOnly
-if not "%errorlevel%"=="0" goto "MountError"
-echo Windows image mounted.
 if /i "%Update%"=="Yes" goto "32DISMOnlineMountedWindowsimage"
 if /i "%Update%"=="No" goto "32DISMNoUpdateOnlineMountedWindowsimage"
 
@@ -825,12 +850,6 @@ echo Health restored on Windows installation "%SystemDrive%".
 goto "Unmount"
 
 :"64DISMUpdateCheckOnlineMountedWindowsimage"
-echo.
-echo Mounting Windows image.
-if not exist "%SystemDrive%\Mount" md "%SystemDrive%\Mount" > nul 2>&1
-"%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%DriveLetter%\x64\sources\%Install%" /Index:%Index% /MountDir:"%SystemDrive%\Mount" /ReadOnly
-if not "%errorlevel%"=="0" goto "MountError"
-echo Windows image mounted.
 if /i "%Update%"=="Yes" goto "64DISMOnlineMountedWindowsimage"
 if /i "%Update%"=="No" goto "64DISMNoUpdateOnlineMountedWindowsimage"
 
@@ -993,12 +1012,6 @@ echo Health restored on Windows installation "%InstallationRestore%".
 goto "Start"
 
 :"DISMUpdateCheckOfflineMountedWindowsimage"
-echo.
-echo Mounting Windows image.
-if not exist "%SystemDrive%\Mount" md "%SystemDrive%\Mount" > nul 2>&1
-"%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%DriveLetter%\sources\%Install%" /Index:%Index% /MountDir:"%SystemDrive%\Mount" /ReadOnly
-if not "%errorlevel%"=="0" goto "MountError"
-echo Windows image mounted.
 if /i "%Update%"=="Yes" goto "DISMOfflineMountedWindowsimage"
 if /i "%Update%"=="No" goto "DISMNoUpdateOfflineMountedWindowsimage"
 
@@ -1020,12 +1033,6 @@ if not "%errorlevel%"=="0" goto "UpdateOffline"
 goto "Unmount"
 
 :"32DISMUpdateCheckOfflineMountedWindowsimage"
-echo.
-echo Mounting Windows image.
-if not exist "%SystemDrive%\Mount" md "%SystemDrive%\Mount" > nul 2>&1
-"%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%DriveLetter%\x86\sources\%Install%" /Index:%Index% /MountDir:"%SystemDrive%\Mount" /ReadOnly
-if not "%errorlevel%"=="0" goto "MountError"
-echo Windows image mounted.
 if /i "%Update%"=="Yes" goto "32DISMOfflineMountedWindowsimage"
 if /i "%Update%"=="No" goto "32DISMNoUpdateOfflineMountedWindowsimage"
 
@@ -1048,12 +1055,6 @@ echo Health restored on Windows installation "%InstallationRestore%".
 goto "Unmount"
 
 :"64DISMUpdateCheckOfflineMountedWindowsimage"
-echo.
-echo Mounting Windows image.
-if not exist "%SystemDrive%\Mount" md "%SystemDrive%\Mount" > nul 2>&1
-"%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%DriveLetter%\x64\sources\%Install%" /Index:%Index% /MountDir:"%SystemDrive%\Mount" /ReadOnly
-if not "%errorlevel%"=="0" goto "MountError"
-echo Windows image mounted.
 if /i "%Update%"=="Yes" goto "64DISMOfflineMountedWindowsimage"
 if /i "%Update%"=="No" goto "64DISMNoUpdateOfflineMountedWindowsimage"
 
@@ -1204,27 +1205,6 @@ if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%
 if not "%errorlevel%"=="0" goto "UpdateOffline"
 echo Health restored on Windows installation "%InstallationRestore%".
 goto "Start"
-
-:"MountError"
-echo.
-echo Unmounting Windows image.
-"%windir%\System32\Dism.exe" /Unmount-Image /MountDir:"%SystemDrive%\Mount" /Discard
-if not "%errorlevel%"=="0" goto "MountErrorError"
-rd "%SystemDrive%\Mount" /s /q > nul 2>&1
-echo Windows image unmounted.
-if /i "%Mount%"=="True" goto "MountDone"
-goto "Update"
-
-:"MountErrorError"
-echo There has been an error an all images need to be unmounted! Make sure to save all changes you have made to your mounted images before pressing any key to unmount all images. Press any key to unmount all images when you are ready to unmount all images.
-pause > nul 2>&1
-echo.
-echo Cleaning up mounted images.
-"%windir%\System32\Dism.exe" /Cleanup-Mountpoints
-rd "%SystemDrive%\Mount" /s /q > nul 2>&1
-echo Mounted images cleaned up.
-if /i "%Mount%"=="True" goto "MountDone"
-goto "Update"
 
 :"Unmount"
 echo.
