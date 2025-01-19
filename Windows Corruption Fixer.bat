@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 11.0.0
+echo Version: 11.0.1
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -958,7 +958,7 @@ if /i "%SureInstallationRevert%"=="No" goto "6"
 echo Invalid syntax!
 goto "SureInstallationRevert"
 
-:"CheckExistInstallationRestore"
+:"CheckExistInstallationRevert"
 if not exist "%InstallationRevert%\Windows" goto "NotExistInstallationRevert"
 if "%InstallationRevert%"=="%SystemDrive%" goto "InstallationRevertIsOnline"
 goto "Revert"
