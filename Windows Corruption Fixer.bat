@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 10.1.1
+echo Version: 11.0.0
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -24,16 +24,17 @@ echo [2] View CHKDSK logs.
 echo [3] DISM check health.
 echo [4] DISM scan health.
 echo [5] DISM restore health.
-echo [6] View DISM logs.
-echo [7] SFC scan now.
-echo [8] SFC verify only.
-echo [9] SFC scan file.
-echo [10] SFC verify file.
-echo [11] View SFC logs.
-echo [12] Close.
+echo [6] DISM revert pending actions.
+echo [7] View DISM logs.
+echo [8] SFC scan now.
+echo [9] SFC verify only.
+echo [10] SFC scan file.
+echo [11] SFC verify file.
+echo [12] View SFC logs.
+echo [13] Close.
 echo.
 set Input=
-set /p Input="Which one do you want to do? (1-12) "
+set /p Input="Which one do you want to do? (1-13) "
 if /i "%Input%"=="1" goto "1"
 if /i "%Input%"=="2" goto "2"
 if /i "%Input%"=="3" goto "3"
@@ -45,7 +46,8 @@ if /i "%Input%"=="8" goto "8"
 if /i "%Input%"=="9" goto "9"
 if /i "%Input%"=="10" goto "10"
 if /i "%Input%"=="11" goto "11"
-if /i "%Input%"=="12" goto "Done"
+if /i "%Input%"=="12" goto "12"
+if /i "%Input%"=="13" goto "Done"
 echo Invalid syntax!
 goto "Start"
 
@@ -194,11 +196,11 @@ echo Invalid syntax!
 goto "SureInstallationCheck"
 
 :"CheckExistInstallationCheck"
-if not exist "%InstallationCheck%\Windows" goto "NotExistCheck"
+if not exist "%InstallationCheck%\Windows" goto "NotExistInstallationCheck"
 if "%InstallationCheck%"=="%SystemDrive%" goto "InstallationCheckIsOnline"
 goto "CheckOffline"
 
-:"NotExistCheck"
+:"NotExistInstallationCheck"
 echo "%InstallationCheck%" does not exist or is not an offline Windows installation! Please try again.
 goto "InstallationCheck"
 
@@ -275,11 +277,11 @@ echo Invalid syntax!
 goto "SureInstallationScan"
 
 :"CheckExistInstallationScan"
-if not exist "%InstallationScan%\Windows" goto "NotExistScan"
+if not exist "%InstallationScan%\Windows" goto "NotExistInstallationScan"
 if "%InstallationScan%"=="%SystemDrive%" goto "InstallationScanIsOnline"
 goto "ScanOffline"
 
-:"NotExistCheck"
+:"NotExistInstallationCheck"
 echo "%InstallationScan%" does not exist or is not an offline Windows installation! Please try again.
 goto "InstallationCScan"
 
@@ -356,11 +358,11 @@ echo Invalid syntax!
 goto "SureInstallationRestore"
 
 :"CheckExistInstallationRestore"
-if not exist "%InstallationRestore%\Windows" goto "NotExistRestore"
+if not exist "%InstallationRestore%\Windows" goto "NotExistInstallationRestore"
 if "%InstallationRestore%"=="%SystemDrive%" goto "InstallationRestoreIsOnline"
 goto "Update"
 
-:"NotExistRestore"
+:"NotExistInstallationRestore"
 echo "%InstallationRestore%" does not exist or is not an offline Windows installation! Please try again.
 goto "InstallationRestore"
 
@@ -811,7 +813,7 @@ echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
 "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
-if not "%errorlevel%"=="0" goto "UpdateOffline"
+if not "%errorlevel%"=="0" goto "Update"
 echo Health restored on Windows installation "%InstallationRestore%".
 goto "Start"
 
@@ -820,7 +822,7 @@ echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
 "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
-if not "%errorlevel%"=="0" goto "UpdateOffline"
+if not "%errorlevel%"=="0" goto "Update"
 echo Health restored on Windows installation "%InstallationRestore%".
 goto "Start"
 
@@ -833,7 +835,7 @@ echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
 "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
-if not "%errorlevel%"=="0" goto "UpdateOffline"
+if not "%errorlevel%"=="0" goto "Update"
 echo Health restored on Windows installation "%InstallationRestore%".
 goto "Unmount"
 
@@ -842,7 +844,7 @@ echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
 "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows" /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
-if not "%errorlevel%"=="0" goto "UpdateOffline"
+if not "%errorlevel%"=="0" goto "Update"
 goto "Unmount"
 
 :"DISMUpdateCheckOfflineWindowsimage"
@@ -854,7 +856,7 @@ echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
 "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Sources%\%Install%":%Index% /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
-if not "%errorlevel%"=="0" goto "UpdateOffline"
+if not "%errorlevel%"=="0" goto "Update"
 echo Health restored on Windows installation "%InstallationRestore%".
 goto "Start"
 
@@ -863,7 +865,7 @@ echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
 "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Sources%\%Install%":%Index% /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
-if not "%errorlevel%"=="0" goto "UpdateOffline"
+if not "%errorlevel%"=="0" goto "Update"
 goto "Start"
 
 :"DISMUpdateCheckOfflineSxS"
@@ -875,7 +877,7 @@ echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
 "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Sources%\sxs" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
-if not "%errorlevel%"=="0" goto "UpdateOffline"
+if not "%errorlevel%"=="0" goto "Update"
 echo Health restored on Windows installation "%InstallationRestore%".
 goto "Start"
 
@@ -884,7 +886,7 @@ echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
 "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Sources%\sxs" /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
-if not "%errorlevel%"=="0" goto "UpdateOffline"
+if not "%errorlevel%"=="0" goto "Update"
 goto "Start"
 
 :"Unmount"
@@ -916,12 +918,76 @@ goto "Start"
 
 :"6"
 echo.
-set OnlineOffline=
-set /p OnlineOffline="Are you viewings the logs of an online or offline Windows installation? (Online/Offline) "
-if /i "%OnlineOffline%"=="Online" goto "CheckExistDISMOnlineLog"
-if /i "%OnlineOffline%"=="Offline" goto "DISMLogDriveLetter"
+set InstallationRevert=
+set /p InstallationRevert="What is the drive letter to your offline Windows installation? (A:-Z:) "
+if /i "%InstallationRevert%"=="A:" goto "SureInstallationRevert"
+if /i "%InstallationRevert%"=="B:" goto "SureInstallationRevert"
+if /i "%InstallationRevert%"=="C:" goto "SureInstallationRevert"
+if /i "%InstallationRevert%"=="D:" goto "SureInstallationRevert"
+if /i "%InstallationRevert%"=="E:" goto "SureInstallationRevert"
+if /i "%InstallationRevert%"=="F:" goto "SureInstallationRevert"
+if /i "%InstallationRevert%"=="G:" goto "SureInstallationRevert"
+if /i "%InstallationRevert%"=="H:" goto "SureInstallationRevert"
+if /i "%InstallationRevert%"=="I:" goto "SureInstallationRevert"
+if /i "%InstallationRevert%"=="J:" goto "SureInstallationRevert"
+if /i "%InstallationRevert%"=="K:" goto "SureInstallationRevert"
+if /i "%InstallationRevert%"=="L:" goto "SureInstallationRevert"
+if /i "%InstallationRevert%"=="M:" goto "SureInstallationRevert"
+if /i "%InstallationRevert%"=="N:" goto "SureInstallationRevert"
+if /i "%InstallationRevert%"=="O:" goto "SureInstallationRevert"
+if /i "%InstallationRevert%"=="P:" goto "SureInstallationRevert"
+if /i "%InstallationRevert%"=="Q:" goto "SureInstallationRevert"
+if /i "%InstallationRevert%"=="R:" goto "SureInstallationRevert"
+if /i "%InstallationRevert%"=="S:" goto "SureInstallationRevert"
+if /i "%InstallationRevert%"=="T:" goto "SureInstallationRevert"
+if /i "%InstallationRevert%"=="U:" goto "SureInstallationRevert"
+if /i "%InstallationRevert%"=="V:" goto "SureInstallationRevert"
+if /i "%InstallationRevert%"=="W:" goto "SureInstallationRevert"
+if /i "%InstallationRevert%"=="X:" goto "SureInstallationRevert"
+if /i "%InstallationRevert%"=="Y:" goto "SureInstallationRevert"
+if /i "%InstallationRevert%"=="Z:" goto "SureInstallationRevert"
 echo Invalid syntax!
 goto "6"
+
+:"SureInstallationRevert"
+echo.
+set SureInstallationRevert=
+set /p SureInstallationRevert="Are you sure "%InstallationRevert%" is the drive letter of your offline Windows installation? (Yes/No) "
+if /i "%SureInstallationRevert%"=="Yes" goto "CheckExistInstallationRevert"
+if /i "%SureInstallationRevert%"=="No" goto "6"
+echo Invalid syntax!
+goto "SureInstallationRevert"
+
+:"CheckExistInstallationRestore"
+if not exist "%InstallationRevert%\Windows" goto "NotExistInstallationRevert"
+if "%InstallationRevert%"=="%SystemDrive%" goto "InstallationRevertIsOnline"
+goto "Revert"
+
+:"NotExistInstallationRevert"
+echo "%InstallationRevert%" does not exist or is not an offline Windows installation! Please try again.
+goto "6"
+
+:"InstallationRevertIsOnline"
+echo "%InstallationRevert%" is an online Windows installation!
+goto "6"
+
+:"Revert"
+echo.
+echo Reverting pending actions on Windows installation "%InstallationRevert%".
+if not exist "%InstallationRevert%\Windows\Logs\DISM" md "%InstallationRevert%\Windows\Logs\DISM" > nul 2>&1
+"%windir%\System32\Dism.exe" /Image:"%InstallationRevert%" /Cleanup-Image /RevertPendingActions /LogPath:"%InstallationRevert%\Windows\Logs\DISM\dism.log"
+if not "%errorlevel%"=="0" goto "6"
+echo Reverted pending actions on Windows installation "%InstallationRevert%".
+goto "Start"
+
+:"7"
+echo.
+set OnlineOffline=
+set /p OnlineOffline="Are you viewings the logs of an online or offline Windows installation? (Online/Offline) "
+if /i "%OnlineOffline%"=="Online" goto "DISMOnlineLog"
+if /i "%OnlineOffline%"=="Offline" goto "DISMLogDriveLetter"
+echo Invalid syntax!
+goto "7"
 
 :"DISMLogDriveLetter"
 echo.
@@ -956,7 +1022,25 @@ if /i "%DISMLogDriveLetter%"=="Z:" goto "CheckExistDISMOfflineLog"
 echo Invalid syntax!
 goto "DISMLogDriveLetter"
 
-:"CheckExistDISMOnlineLog"
+:"CheckExistDISMOfflineLog"
+if not exist "%DISMLogDriveLetter%" goto "DISMLogDriveLetterNotExist"
+if "%DISMLogDriveLetter%"=="%SystemDrive%" goto "DISMLogDriveLetterIsOnline"
+if not exist "%DISMLogDriveLetter%\Windows" goto "DISMLogDriveLetterNotWindows"
+goto "DISMOfflineLog"
+
+:"DISMLogDriveLetterNotExist"
+echo "%DISMLogDriveLetter%" does not exist!
+goto "DISMLogDriveLetter"
+
+:"DISMLogDriveLetterIsOnline"
+echo "%DISMLogDriveLetter%" is an online Windows installation!
+goto "7"
+
+:"DISMLogDriveLetterNotWindows"
+echo "%DISMLogDriveLetter%" is not an offline WIndows installation!
+goto "DISMLogDriveLetter"
+
+:"DISMOnlineLog"
 if not exist "%windir%\Logs\DISM\dism.log" goto "DISMOnlineLogNotExist"
 "%windir%\notepad.exe" "%windir%\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "ErrorDISMLog"
@@ -966,7 +1050,7 @@ goto "Start"
 echo DISM log file ("%windir%\Logs\DISM\dism.log") does not exist!
 goto "Start"
 
-:"CheckExistDISMOfflineLog"
+:"DISMOfflineLog"
 if not exist "%DISMLogDriveLetter%\Windows\Logs\DISM\dism.log" goto "DISMOfflineLogNotExist"
 "%windir%\notepad.exe" "%DISMLogDriveLetter%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "ErrorDISMLog"
@@ -978,16 +1062,16 @@ goto "Start"
 
 :"ErrorDISMLog"
 echo There has been an error! Please try again.
-goto "6"
+goto "7"
 
-:"7"
+:"8"
 echo.
 set OnlineOffline=
 set /p OnlineOffline="Are you scanning an online or offline Windows installation? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "ScanNowOnline"
 if /i "%OnlineOffline%"=="Offline" goto "ScanNowDriveLetter"
 echo Invalid syntax!
-goto "7"
+goto "8"
 
 :"ScanNowDriveLetter"
 echo.
@@ -1034,7 +1118,7 @@ goto "ScanNowDriveLetter"
 
 :"ScanNowDriveLetterIsOnline"
 echo "%ScanNowDriveLetter%" is an online Windows installation!
-goto "7"
+goto "8"
 
 :"ScanNowDriveLetterNotWindows"
 echo "%ScanNowDriveLetter%" is not an offline WIndows installation!
@@ -1044,7 +1128,7 @@ goto "ScanNowDriveLetter"
 echo.
 echo Scanning Windows installation "%SystemDrive%".
 "%windir%\System32\sfc.exe" /scannow
-if not "%errorlevel%"=="0" goto "7"
+if not "%errorlevel%"=="0" goto "8"
 echo Windows installation "%SystemDrive%" scanned.
 goto "Start"
 
@@ -1053,18 +1137,18 @@ echo.
 echo Scanning Windows installation "%ScanNowDriveLetter%".
 if not exist "%ScanNowDriveLetter%\Windows\Logs\CBS" md "%ScanNowDriveLetter%\Windows\Logs\CBS" > nul 2>&1
 "%windir%\System32\sfc.exe" /scannow /offbootdir="%ScanNowDriveLetter%" /offwindir="%ScanNowDriveLetter%\Windows" /offlogfile="%ScanNowDriveLetter%\Windows\Logs\CBS\CBS.log"
-if not "%errorlevel%"=="0" goto "7"
+if not "%errorlevel%"=="0" goto "8"
 echo Windows installation "%ScanNowDriveLetter%" scanned.
 goto "Start"
 
-:"8"
+:"9"
 echo.
 set OnlineOffline=
 set /p OnlineOffline="Are you verifying an online or offline Windows installation? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "VerifyOnlyOnline"
 if /i "%OnlineOffline%"=="Offline" goto "VerifyOnlyDriveLetter"
 echo Invalid syntax!
-goto "8"
+goto "9"
 
 :"VerifyOnlyDriveLetter"
 echo.
@@ -1111,7 +1195,7 @@ goto "VerifyOnlyDriveLetter"
 
 :"VerifyOnlyDriveLetterIsOnline"
 echo "%VerifyOnlyDriveLetter%" is an online Windows installation!
-goto "8"
+goto "9"
 
 :"VerfiyOnlyDriveLetterNotWindows"
 echo "%VerifyOnlyDriveLetter%" is not an offline WIndows installation!
@@ -1121,7 +1205,7 @@ goto "VerifyOnlyDriveLetter"
 echo.
 echo Verifing Windows installtion "%SystemDrive%".
 "%windir%\System32\sfc.exe" /verifyonly
-if not "%errorlevel%"=="0" goto "8"
+if not "%errorlevel%"=="0" goto "9"
 echo Windows installation "%SystemDrive%" verified.
 goto "Start"
 
@@ -1130,18 +1214,18 @@ echo.
 echo Verifing Windows installtion "%VerifyOnlyDriveLetter%".
 if not exist "%VerifyOnlyDriveLetter%\Windows\Logs\CBS" md "%VerifyOnlyDriveLetter%\Windows\Logs\CBS" > nul 2>&1
 "%windir%\System32\sfc.exe" /verifyonly /offbootdir="%VerifyOnlyDriveLetter%" /offwindir="%VerifyOnlyDriveLetter%\Windows" /offlogfile="%VerifyOnlyDriveLetter%\Windows\Logs\CBS\CBS.log"
-if not "%errorlevel%"=="0" goto "8"
+if not "%errorlevel%"=="0" goto "9"
 echo Windows installation "%VerifyOnlyDriveLetter%" verified.
 goto "Start"
 
-:"9"
+:"10"
 echo.
 set OnlineOffline=
 set /p OnlineOffline="Are you scanning an online or offline Windows installation file? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "ScanFileFile"
 if /i "%OnlineOffline%"=="Offline" goto "ScanFileFile"
 echo Invalid syntax!
-goto "9"
+goto "10"
 
 :"ScanFileFile"
 echo.
@@ -1200,7 +1284,7 @@ goto "ScanFileDriveLetter"
 
 :"ScanFileDriveLetterIsOnline"
 echo "%ScanFileDriveLetter%" is an online Windows installation!
-goto "9"
+goto "10"
 
 :"ScanFileDriveLetterNotWindows"
 echo "%ScanFileDriveLetter%" is not an offline WIndows installation!
@@ -1210,7 +1294,7 @@ goto "ScanFileDriveLetter"
 echo.
 echo Scanning file "%File%".
 "%windir%\System32\sfc.exe" /scannfile="%File%"
-if not "%errorlevel%"=="0" goto "9"
+if not "%errorlevel%"=="0" goto "10"
 echo File "%File%" scanned.
 goto "Start"
 
@@ -1219,18 +1303,18 @@ echo.
 echo Scanning file "%File%".
 if not exist "%ScanFileDriveLetter%\Windows\Logs\CBS" md "%ScanFileDriveLetter%\Windows\Logs\CBS" > nul 2>&1
 "%windir%\System32\sfc.exe" /scannfile="%File%" /offbootdir="%ScanFileDriveLetter%" /offwindir="%ScanFileDriveLetter%\Windows" /offlogfile="%ScanFileDriveLetter%\Windows\Logs\CBS\CBS.log"
-if not "%errorlevel%"=="0" goto "9"
+if not "%errorlevel%"=="0" goto "10"
 echo File "%File%" scanned.
 goto "Start"
 
-:"10"
+:"11"
 echo.
 set OnlineOffline=
 set /p OnlineOffline="Are you verifying an online or offline Windows installation file? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "VerifyFileFile"
 if /i "%OnlineOffline%"=="Offline" goto "VerifyFileFile"
 echo Invalid syntax!
-goto "10"
+goto "11"
 
 :"VerifyFileFile"
 echo.
@@ -1289,7 +1373,7 @@ goto "VerifyFileDriveLetter"
 
 :"VerifyFileDriveLetterIsOnline"
 echo "%VerifyFileDriveLetter%" is an online Windows installation!
-goto "10"
+goto "11"
 
 :"VerifyFileDriveLetterNotWindows"
 echo "%VerifyFileDriveLetter%" is not an offline WIndows installation!
@@ -1299,7 +1383,7 @@ goto "VerifyFileDriveLetter"
 echo.
 echo Verifying file "%File%".
 "%windir%\System32\sfc.exe" /verifyfile="%File%"
-if not "%errorlevel%"=="0" goto "10"
+if not "%errorlevel%"=="0" goto "11"
 echo File "%File%" verified.
 goto "Start"
 
@@ -1308,18 +1392,18 @@ echo.
 echo Verifying file "%File%".
 if not exist "%VerifyFileDriveLetter%\Windows\Logs\CBS" md "%VerifyFileDriveLetter%\Windows\Logs\CBS" > nul 2>&1
 "%windir%\System32\sfc.exe" /verifyfile="%File%" /offbootdir="%VerifyFileDriveLetter%" /offwindir="%VerifyFileDriveLetter%\Windows" /offlogfile="%VerifyFileDriveLetter%\Windows\Logs\CBS\CBS.log"
-if not "%errorlevel%"=="0" goto "10"
+if not "%errorlevel%"=="0" goto "11"
 echo File "%File%" verified.
 goto "Start"
 
-:"11"
+:"12"
 echo.
 set OnlineOffline=
 set /p OnlineOffline="Are you viewings the logs of an online or offline Windows installation? (Online/Offline) "
-if /i "%OnlineOffline%"=="Online" goto "CheckExistSFCOnlineLog"
+if /i "%OnlineOffline%"=="Online" goto "SFCOnlineLog"
 if /i "%OnlineOffline%"=="Offline" goto "SFCLogDriveLetter"
 echo Invalid syntax!
-goto "11"
+goto "12"
 
 :"SFCLogDriveLetter"
 echo.
@@ -1354,7 +1438,25 @@ if /i "%SFCLogDriveLetter%"=="Z:" goto "CheckExistSFCOfflineLog"
 echo Invalid syntax!
 goto "SFCLogDriveLetter"
 
-:"CheckExistSFCOnlineLog"
+:"CheckExistSFCOfflineLog"
+if not exist "%SFCLogDriveLetter%" goto "SFCLogDriveLetterNotExist"
+if "%SFCLogDriveLetter%"=="%SystemDrive%" goto "SFCLogDriveLetterIsOnline"
+if not exist "%SFCLogDriveLetter%\Windows" goto "SFCLogDriveLetterNotWindows"
+goto "SFCOfflineLog"
+
+:"SFCLogDriveLetterNotExist"
+echo "%SFCLogDriveLetter%" does not exist!
+goto "SFCLogDriveLetter"
+
+:"SFCLogDriveLetterIsOnline"
+echo "%SFCLogDriveLetter%" is an online Windows installation!
+goto "12"
+
+:"SFCLogDriveLetterNotWindows"
+echo "%SFCLogDriveLetter%" is not an offline WIndows installation!
+goto "SFCLogDriveLetter"
+
+:"SFCOnlineLog"
 if not exist "%windir%\Logs\CBS\CBS.log" goto "SFCOnlineLogNotExist"
 "%windir%\notepad.exe" "%windir%\Logs\CBS\CBS.log"
 if not "%errorlevel%"=="0" goto "ErrorSFCLog"
@@ -1364,7 +1466,7 @@ goto "Start"
 echo SFC log file ("%windir%\Logs\CBS\CBS.log") does not exist!
 goto "Start"
 
-:"CheckExistSFCOfflineLog"
+:"SFCOfflineLog"
 if not exist "%SFCLogDriveLetter%\Windows\Logs\CBS\CBS.log" goto "SFCOfflineLogNotExist"
 "%windir%\notepad.exe" "%SFCLogDriveLetter%\Windows\Logs\CBS\CBS.log"
 if not "%errorlevel%"=="0" goto "ErrorSFCLog"
@@ -1376,7 +1478,7 @@ goto "Start"
 
 :"ErrorSFCLog"
 echo There has been an error! Please try again.
-goto "11"
+goto "12"
 
 :"Done"
 endlocal
