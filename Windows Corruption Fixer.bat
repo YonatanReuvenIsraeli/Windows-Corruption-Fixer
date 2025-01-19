@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 10.0.5
+echo Version: 10.0.6
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -522,15 +522,10 @@ goto "DriveLetter"
 
 :"BitDetection"
 if /i "%MountedWindowsimageWindowsimageSxS%"=="Mounted Windows image" if exist "%DriveLetter%\sources" goto "ESDSWMWIM"
-if /i "%MountedWindowsimageWindowsimageSxS%"=="Mounted Windows image" if exist "%DriveLetter%\x86\sources" goto "Bit1"
-if /i "%MountedWindowsimageWindowsimageSxS%"=="Mounted Windows image" if exist "%DriveLetter%\x64\sources" goto "Bit1"
 if /i "%MountedWindowsimageWindowsimageSxS%"=="Windows image" if exist "%DriveLetter%\sources" goto "ESDSWMWIM"
-if /i "%MountedWindowsimageWindowsimageSxS%"=="Windows image" if exist "%DriveLetter%\x86\sources" goto "Bit1"
-if /i "%MountedWindowsimageWindowsimageSxS%"=="Windows image" if exist "%DriveLetter%\x64\sources" goto "Bit1"
-if /i "%OnlineOffline%"=="Online" if /i "%MountedWindowsimageWindowsimageSxS%"=="SxS" if exist "%DriveLetter%\sources" goto "Bit3OnlineSxS"
-if /i "%OnlineOffline%"=="Offline" if /i "%MountedWindowsimageWindowsimageSxS%"=="SxS" if exist "%DriveLetter%\sources" goto "Bit3OfflineSxS"
-if /i "%MountedWindowsimageWindowsimageSxS%"=="SxS" if exist "%DriveLetter%\x86\sources" goto "Bit1"
-if /i "%MountedWindowsimageWindowsimageSxS%"=="SxS" if exist "%DriveLetter%\x64\sources" goto "Bit1"
+if /i "%MountedWindowsimageWindowsimageSxS%"=="SxS" if exist "%DriveLetter%\sources" goto "Bit3SxS"
+if exist "%DriveLetter%\x86\sources" goto "Bit1"
+if exist "%DriveLetter%\x64\sources" goto "Bit1"
 echo "%DriveLetter%" is not a Windows Disk Image!
 goto "DriveLetter"
 
@@ -557,10 +552,7 @@ if /i "%MountedWindowsimageWindowsimageSxS%"=="Mounted Windows image" if /i "%Bi
 if /i "%MountedWindowsimageWindowsimageSxS%"=="Mounted Windows image" if /i "%Bit%"=="64" goto "64ESDSWMWIM"
 if /i "%MountedWindowsimageWindowsimageSxS%"=="Windows image" if /i "%Bit%"=="32" goto "32ESDSWMWIM"
 if /i "%MountedWindowsimageWindowsimageSxS%"=="Windows image" if /i "%Bit%"=="64" goto "64ESDSWMWIM"
-if /i "%OnlineOffline%"=="Online" if /i "%MountedWindowsimageWindowsimageSxS%"=="SxS" if /i "%Bit%"=="32" goto "32Bit3OnlineSxS"
-if /i "%OnlineOffline%"=="Online" if /i "%MountedWindowsimageWindowsimageSxS%"=="SxS" if /i "%Bit%"=="64" goto "64Bit3OnlineSxS"
-if /i "%OnlineOffline%"=="Offline" if /i "%MountedWindowsimageWindowsimageSxS%"=="SxS" if /i "%Bit%"=="32" goto "32Bit3OffineSxS"
-if /i "%OnlineOffline%"=="Offline" if /i "%MountedWindowsimageWindowsimageSxS%"=="SxS" if /i "%Bit%"=="64" goto "64Bit3OfflineSxS"
+if /i "%MountedWindowsimageWindowsimageSxS%"=="SxS" goto "Bit3SxS"
 
 :"ESDSWMWIM"
 if exist "%DriveLetter%\sources\install.esd" set Install=install.esd
