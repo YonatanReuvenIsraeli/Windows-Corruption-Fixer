@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 10.1.0
+echo Version: 10.1.1
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -521,14 +521,17 @@ echo "%DriveLetter%" does not exist! Please try again.
 goto "DriveLetter"
 
 :"BitDetection"
-if exist "%DriveLetter%\sources" set Source=%DriveLetter%\sources
-if /i "%MountedWindowsimageWindowsimageSxS%"=="Mounted Windows image" if exist "%DriveLetter%\sources" goto "ESDSWMWIM"
-if /i "%MountedWindowsimageWindowsimageSxS%"=="Windows image" if exist "%DriveLetter%\sources" goto "ESDSWMWIM"
-if /i "%MountedWindowsimageWindowsimageSxS%"=="SxS" if exist "%DriveLetter%\sources" goto "SxS"
+if exist "%DriveLetter%\sources" goto "Sources"
 if exist "%DriveLetter%\x86\sources" goto "Bit"
 if exist "%DriveLetter%\x64\sources" goto "Bit"
 echo "%DriveLetter%" is not a Windows Disk Image!
 goto "DriveLetter"
+
+:"Sources"
+set Sources=%DriveLetter%\sources
+if /i "%MountedWindowsimageWindowsimageSxS%"=="Mounted Windows image" goto "ESDSWMWIM"
+if /i "%MountedWindowsimageWindowsimageSxS%"=="Windows image" goto "ESDSWMWIM"
+if /i "%MountedWindowsimageWindowsimageSxS%"=="SxS" goto "SxS"
 
 :"Bit"
 echo.
@@ -549,16 +552,16 @@ echo Invalid syntax!
 goto "SureBit"
 
 :"BitSources"
-if /i "%Bit%"=="32" set Source=%DriveLetter%\x86\sources
-if /i "%Bit%"=="64" set Source=%DriveLetter%\x64\sources
+if /i "%Bit%"=="32" set Sources=%DriveLetter%\x86\sources
+if /i "%Bit%"=="64" set Sources=%DriveLetter%\x64\sources
 if /i "%MountedWindowsimageWindowsimageSxS%"=="Mounted Windows image" goto "ESDSWMWIM"
 if /i "%MountedWindowsimageWindowsimageSxS%"=="Windows image" goto "ESDSWMWIM"
 if /i "%MountedWindowsimageWindowsimageSxS%"=="SxS" goto "SxS"
 
 :"ESDSWMWIM"
-if exist "%Source%\install.esd" set Install=install.esd
-if exist "%Source%\install.swm" set Install=install.swm
-if exist "%Source%\install.wim" set Install=install.wim
+if exist "%Sources%\install.esd" set Install=install.esd
+if exist "%Sources%\install.swm" set Install=install.swm
+if exist "%Sources%\install.wim" set Install=install.wim
 goto "IndexSet"
 
 :"IndexSet"
@@ -569,10 +572,10 @@ goto "DISM"
 if exist "Index.txt" goto "IndexExist"
 echo.
 echo Getting index details for Windows Disk Image "%DriveLetter%".
-"%windir%\System32\Dism.exe" /Get-ImageInfo /ImageFile:"%Source%\%Install%" | find /c /i "Index" > "Index.txt"
+"%windir%\System32\Dism.exe" /Get-ImageInfo /ImageFile:"%Sources%\%Install%" | find /c /i "Index" > "Index.txt"
 set /p IndexNumber=< "Index.txt"
 del "Index.txt" /f /q > nul 2>&1
-"%windir%\System32\Dism.exe" /Get-ImageInfo /ImageFile:"%Source%\%Install%"
+"%windir%\System32\Dism.exe" /Get-ImageInfo /ImageFile:"%Sources%\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetter"
 echo Got index details for Windows Disk Image "%DriveLetter%".
 if "%Index%"=="True" goto "IndexDone"
@@ -677,7 +680,7 @@ if exist "%SystemDrive%\Mount" goto "MountExist"
 echo.
 echo Mounting Windows image to "%SystemDrive%\Mount".
 md "%SystemDrive%\Mount" > nul 2>&1
-"%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%Source%\%Install%" /Index:%Index% /MountDir:"%SystemDrive%\Mount" /ReadOnly
+"%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%Sources%\%Install%" /Index:%Index% /MountDir:"%SystemDrive%\Mount" /ReadOnly
 if not "%errorlevel%"=="0" goto "MountError"
 echo Windows image mounted to "%SystemDrive%\Mount".
 if /i "%OnlineOffline%"=="Online" goto "DISMUpdateCheckOnlineMountedWindowsimage"
@@ -766,7 +769,7 @@ if /i "%Update%"=="No" goto "DISMNoUpdateOnlineWindowsimage"
 :"DISMOnlineWindowsimage"
 echo.
 echo Restoring health on Windows installation "%SystemDrive%".
-"%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%Source%\%Install%":%Index%
+"%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%Sources%\%Install%":%Index%
 if not "%errorlevel%"=="0" goto "Update"
 echo Health restored on Windows installation "%SystemDrive%".
 goto "Start"
@@ -774,7 +777,7 @@ goto "Start"
 :"DISMNoUpdateOnlineWindowsimage"
 echo.
 echo Restoring health on Windows installation "%SystemDrive%".
-"%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%Source%\%Install%":%Index% /LimitAccess
+"%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%Sources%\%Install%":%Index% /LimitAccess
 if not "%errorlevel%"=="0" goto "Update"
 echo Health restored on Windows installation "%SystemDrive%".
 goto "Start"
@@ -786,7 +789,7 @@ if /i "%Update%"=="No" goto "DISMNoUpdateOnlineSxS"
 :"DISMOnlineSxS"
 echo.
 echo Restoring health on Windows installation "%SystemDrive%".
-"%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%Source%\sxs"
+"%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%Sources%\sxs"
 if not "%errorlevel%"=="0" goto "Update"
 echo Health restored on Windows installation "%SystemDrive%".
 goto "Start"
@@ -794,7 +797,7 @@ goto "Start"
 :"DISMNoUpdateOnlineSxS"
 echo.
 echo Restoring health on Windows installation "%SystemDrive%".
-"%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%Source%\sxs" /LimitAccess
+"%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%Sources%\sxs" /LimitAccess
 if not "%errorlevel%"=="0" goto "Update"
 echo Health restored on Windows installation "%SystemDrive%".
 goto "Start"
@@ -850,7 +853,7 @@ if /i "%Update%"=="No" goto "DISMNoUpdateOfflineWindowsimage"
 echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
-"%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Source%\%Install%":%Index% /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+"%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Sources%\%Install%":%Index% /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "UpdateOffline"
 echo Health restored on Windows installation "%InstallationRestore%".
 goto "Start"
@@ -859,7 +862,7 @@ goto "Start"
 echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
-"%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Source%\%Install%":%Index% /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+"%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Sources%\%Install%":%Index% /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "UpdateOffline"
 goto "Start"
 
@@ -871,7 +874,7 @@ if /i "%Update%"=="No" goto "DISMNoUpdateOfflineSxS"
 echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
-"%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Source%\sxs" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+"%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Sources%\sxs" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "UpdateOffline"
 echo Health restored on Windows installation "%InstallationRestore%".
 goto "Start"
@@ -880,7 +883,7 @@ goto "Start"
 echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
-"%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Source%\sxs" /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+"%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Sources%\sxs" /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "UpdateOffline"
 goto "Start"
 
