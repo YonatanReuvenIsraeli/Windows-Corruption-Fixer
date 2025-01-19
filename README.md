@@ -1,4 +1,4 @@
-# Windows Corruption Fixer v8.7.6
+# Windows Corruption Fixer v9.0.0
 Fixes corrupted Windows using CHKDSK, DISM and SFC commands.
 ## The following options are available
 **1.** CHKDSK.  
