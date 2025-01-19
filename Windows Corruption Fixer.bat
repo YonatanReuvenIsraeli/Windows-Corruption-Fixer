@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 9.0.0
+echo Version: 9.0.1
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -521,10 +521,12 @@ goto "DriveLetter"
 
 :"BitDetection"
 if /i "%WindowsimageSxS%"=="Windows image" if exist "%DriveLetter%\sources" goto "ESDSWMWIM"
+if /i "%WindowsimageSxS%"=="Windows image" if exist "%DriveLetter%\x86\sources" goto "Bit1"
+if /i "%WindowsimageSxS%"=="Windows image" if exist "%DriveLetter%\x64\sources" goto "Bit1"
 if /i "%OnlineOffline%"=="Online" if /i "%WindowsimageSxS%"=="SxS" if exist "%DriveLetter%\sources" goto "Bit3OnlineSxS"
 if /i "%OnlineOffline%"=="Offline" if /i "%WindowsimageSxS%"=="SxS" if exist "%DriveLetter%\sources" goto "Bit3OfflineSxS"
-if exist "%DriveLetter%\x86\sources" goto "Bit1"
-if exist "%DriveLetter%\x64\sources" goto "Bit1"
+if /i "%WindowsimageSxS%"=="SxS" if exist "%DriveLetter%\x86\sources" goto "Bit1"
+if /i "%WindowsimageSxS%"=="SxS" if exist "%DriveLetter%\x64\sources" goto "Bit1"
 echo "%DriveLetter%" is not a Windows Disk Image!
 goto "DriveLetter"
 
