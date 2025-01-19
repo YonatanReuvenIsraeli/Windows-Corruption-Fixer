@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 11.1.1
+echo Version: 11.1.2
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -397,7 +397,7 @@ goto "Update"
 :"Media"
 echo.
 set Media=
-set /p Media="Do you want to use a Windows Disk Image/Windows installtion media? (Yes/No) "
+set /p Media="Do you want to use a Windows Disk Image/Windows installation media? (Yes/No) "
 if /i "%Media%"=="Yes" goto "MountedWindowsimageWindowsimageSxS"
 if /i "%OnlineOffline%"=="Online" if /i "%Media%"=="No" goto "DISMUpdateCheckOnlineNoImage"
 if /i "%OnlineOffline%"=="Offline" if /i "%Media%"=="No" goto "DISMUpdateCheckOfflineNoImage"
@@ -416,10 +416,10 @@ goto "MountedWindowsimageWindowsimageSxS"
 
 :"Download"
 echo.
-echo [1] Download Windows 10 22H2 x86/x64 Windows Disk Image/Windows installtion media.
-echo [2] Download Windows 11 24H2 x64 Windows Disk Image/Windows installtion media.
-echo [3] Download Windows 11 24H2 Arm64 Windows Disk Image/Windows installtion media.
-echo [4] Already have downloaded Windows 10 22H2 x86/x64 Windows Disk Image/Windows installtion media or Windows 11 24H2 x64/Arm64 Windows Disk Image/Windows installtion media.
+echo [1] Download Windows 10 22H2 x86/x64 Windows Disk Image/Windows installation media.
+echo [2] Download Windows 11 24H2 x64 Windows Disk Image/Windows installation media.
+echo [3] Download Windows 11 24H2 Arm64 Windows Disk Image/Windows installation media.
+echo [4] Already have downloaded Windows 10 22H2 x86/x64 Windows Disk Image/Windows installation media or Windows 11 24H2 x64/Arm64 Windows Disk Image/Windows installation media.
 echo.
 set Download=
 set /p Download="What do you want to do? (1-4) "
@@ -433,10 +433,10 @@ goto "Download"
 :"SureDownload"
 echo.
 set SureDownload=
-if /i "%Download%"=="1" set /p SureDownload="Are you sure you want to download Windows 10 22H2 x86/x64 Windows Disk Image/Windows installtion media? (Yes/No) "
-if /i "%Download%"=="2" set /p SureDownload="Are you sure you want to download Windows 11 24H2 x64 Windows Disk Image/Windows installtion media? (Yes/No) "
-if /i "%Download%"=="3" set /p SureDownload="Are you sure you want to download Windows 11 24H2 Arm64 Windows Disk Image/Windows installtion media? (Yes/No) "
-if /i "%Download%"=="4" set /p SureDownload="Are you sure you have downloaded Windows 10 22H2 x86/x64 Windows Disk Image/Windows installtion media or Windows 11 24H2 x64/Arm64 Windows Disk Image/Windows installtion media? (Yes/No) "
+if /i "%Download%"=="1" set /p SureDownload="Are you sure you want to download Windows 10 22H2 x86/x64 Windows Disk Image/Windows installation media? (Yes/No) "
+if /i "%Download%"=="2" set /p SureDownload="Are you sure you want to download Windows 11 24H2 x64 Windows Disk Image/Windows installation media? (Yes/No) "
+if /i "%Download%"=="3" set /p SureDownload="Are you sure you want to download Windows 11 24H2 Arm64 Windows Disk Image/Windows installation media? (Yes/No) "
+if /i "%Download%"=="4" set /p SureDownload="Are you sure you have downloaded Windows 10 22H2 x86/x64 Windows Disk Image/Windows installation media or Windows 11 24H2 x64/Arm64 Windows Disk Image/Windows installation media? (Yes/No) "
 if /i "%SureDownload%"=="Yes" goto "DownloadGo"
 if /i "%SureDownload%"=="No" goto "Download"
 echo Invalid syntax!
@@ -483,14 +483,14 @@ goto "Mount"
 
 :"Mount"
 echo.
-echo Please mount your Windows Disk Image/Windows installtion media then press any key to continue.
+echo Please mount your Windows Disk Image/Windows installation media then press any key to continue.
 pause > nul 2>&1
 goto "DriveLetter"
 
 :"DriveLetter"
 echo.
 set DriveLetter=
-set /p DriveLetter="What is your drive letter of your Windows Disk Image/Windows installtion media? (A:-Z:) "
+set /p DriveLetter="What is your drive letter of your Windows Disk Image/Windows installation media? (A:-Z:) "
 if /i "%DriveLetter%"=="A:" goto "SureDriveLetterDISM"
 if /i "%DriveLetter%"=="B:" goto "SureDriveLetterDISM"
 if /i "%DriveLetter%"=="C:" goto "SureDriveLetterDISM"
@@ -523,7 +523,7 @@ goto "DriveLetter"
 :"SureDriveLetterDISM"
 echo.
 set SureDriveLetter=
-set /p SureDriveLetter="Are you sure "%DriveLetter%" is the drive letter of your Windows Disk Image/Windows installtion media? (Yes/No) "
+set /p SureDriveLetter="Are you sure "%DriveLetter%" is the drive letter of your Windows Disk Image/Windows installation media? (Yes/No) "
 if /i "%SureDriveLetter%"=="Yes" goto "CheckExistDriveLetter"
 if /i "%SureDriveLetter%"=="No" goto "DriveLetter"
 echo Invalid syntax!
@@ -541,7 +541,7 @@ goto "DriveLetter"
 if exist "%DriveLetter%\sources" goto "Sources"
 if exist "%DriveLetter%\x86\sources" goto "Bit"
 if exist "%DriveLetter%\x64\sources" goto "Bit"
-echo "%DriveLetter%" is not a Windows Disk Image/Windows installtion media!
+echo "%DriveLetter%" is not a Windows Disk Image/Windows installation media!
 goto "DriveLetter"
 
 :"Sources"
@@ -588,19 +588,19 @@ goto "DISM"
 :"DISM"
 if exist "Index.txt" goto "IndexExist"
 echo.
-echo Getting index details for Windows Disk Image/Windows installtion media "%DriveLetter%".
+echo Getting index details for Windows Disk Image/Windows installation media "%DriveLetter%".
 "%windir%\System32\Dism.exe" /Get-ImageInfo /ImageFile:"%Sources%\%Install%" | find /c /i "Index" > "Index.txt"
 set /p IndexNumber=< "Index.txt"
 del "Index.txt" /f /q > nul 2>&1
 "%windir%\System32\Dism.exe" /Get-ImageInfo /ImageFile:"%Sources%\%Install%"
 if not "%errorlevel%"=="0" goto "DriveLetter"
-echo Got index details for Windows Disk Image/Windows installtion media "%DriveLetter%".
+echo Got index details for Windows Disk Image/Windows installation media "%DriveLetter%".
 if "%Index%"=="True" goto "IndexDone"
 if "%IndexNumber%"=="3" goto "Index3"
 if "%IndexNumber%"=="7" goto "Index7"
 if "%IndexNumber%"=="11" goto "Index11"
 echo.
-echo Invalid Windows Disk Image/Windows installtion media!
+echo Invalid Windows Disk Image/Windows installation media!
 goto "DriveLetter"
 
 :"IndexExist"
@@ -617,7 +617,7 @@ if "%IndexNumber%"=="3" goto "Index3"
 if "%IndexNumber%"=="7" goto "Index7"
 if "%IndexNumber%"=="11" goto "Index11"
 echo.
-echo Invalid Windows Disk Image/Windows installtion media!
+echo Invalid Windows Disk Image/Windows installation media!
 goto "DriveLetter"
 
 :"Index3"
@@ -1240,7 +1240,7 @@ goto "VerifyOnlyDriveLetter"
 
 :"VerifyOnlyOnline"
 echo.
-echo Verifing Windows installtion "%SystemDrive%".
+echo Verifing Windows installation "%SystemDrive%".
 "%windir%\System32\sfc.exe" /verifyonly
 if not "%errorlevel%"=="0" goto "9"
 echo Windows installation "%SystemDrive%" verified.
@@ -1248,7 +1248,7 @@ goto "Start"
 
 :"VerifyOnlyOffline"
 echo.
-echo Verifing Windows installtion "%VerifyOnlyDriveLetter%".
+echo Verifing Windows installation "%VerifyOnlyDriveLetter%".
 if not exist "%VerifyOnlyDriveLetter%\Windows\Logs\CBS" md "%VerifyOnlyDriveLetter%\Windows\Logs\CBS" > nul 2>&1
 "%windir%\System32\sfc.exe" /verifyonly /offbootdir="%VerifyOnlyDriveLetter%" /offwindir="%VerifyOnlyDriveLetter%\Windows" /offlogfile="%VerifyOnlyDriveLetter%\Windows\Logs\CBS\CBS.log"
 if not "%errorlevel%"=="0" goto "9"
