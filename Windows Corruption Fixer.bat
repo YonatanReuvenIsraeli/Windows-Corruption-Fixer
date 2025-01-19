@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 10.0.0
+echo Version: 10.0.1
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -1212,6 +1212,7 @@ echo Unmounting Windows image.
 if not "%errorlevel%"=="0" goto "MountErrorError"
 rd "%SystemDrive%\Mount" /s /q > nul 2>&1
 echo Windows image unmounted.
+if /i "%Mount%"=="True" goto "MountDone"
 goto "Update"
 
 :"MountErrorError"
@@ -1222,6 +1223,7 @@ echo Cleaning up mounted images.
 "%windir%\System32\Dism.exe" /Cleanup-Mountpoints
 rd "%SystemDrive%\Mount" /s /q > nul 2>&1
 echo Mounted images cleaned up.
+if /i "%Mount%"=="True" goto "MountDone"
 goto "Update"
 
 :"Unmount"
@@ -1231,6 +1233,7 @@ echo Unmounting Windows image.
 if not "%errorlevel%"=="0" goto "UnmountError"
 rd "%SystemDrive%\Mount" /s /q > nul 2>&1
 echo Windows image unmounted.
+if /i "%Mount%"=="True" goto "MountDone"
 goto "Start"
 
 :"UnmountError"
@@ -1241,6 +1244,13 @@ echo Cleaning up mounted images.
 "%windir%\System32\Dism.exe" /Cleanup-Mountpoints
 rd "%SystemDrive%\Mount" /s /q > nul 2>&1
 echo Mounted images cleaned up.
+if /i "%Mount%"=="True" goto "MountDone"
+goto "Start"
+
+:"MountDone"
+echo.
+echo You can now rename or move back the file back to "%SystemDrive%\Mount". Press any key to continue.
+pause > nul 2>&1
 goto "Start"
 
 :"6"
