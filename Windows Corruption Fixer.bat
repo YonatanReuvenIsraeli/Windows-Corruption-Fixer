@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 10.0.4
+echo Version: 10.0.5
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -716,7 +716,7 @@ goto "Mount"
 if exist "%SystemDrive%\Mount" goto "MountExist"
 echo.
 echo Mounting Windows image to "%SystemDrive%\Mount".
-if not exist "%SystemDrive%\Mount" md "%SystemDrive%\Mount" > nul 2>&1
+md "%SystemDrive%\Mount" > nul 2>&1
 "%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%DriveLetter%\sources\%Install%" /Index:%Index% /MountDir:"%SystemDrive%\Mount" /ReadOnly
 if not "%errorlevel%"=="0" goto "MountError"
 echo Windows image mounted to "%SystemDrive%\Mount".
@@ -727,7 +727,7 @@ if /i "%OnlineOffline%"=="Offline" goto "DISMUpdateCheckOfflineMountedWindowsima
 if exist "%SystemDrive%\Mount" goto "MountExist"
 echo.
 echo Mounting Windows image to "%SystemDrive%\Mount".
-if not exist "%SystemDrive%\Mount" md "%SystemDrive%\Mount" > nul 2>&1
+md "%SystemDrive%\Mount" > nul 2>&1
 "%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%DriveLetter%\x32\sources\%Install%" /Index:%Index% /MountDir:"%SystemDrive%\Mount" /ReadOnly
 if not "%errorlevel%"=="0" goto "MountError"
 echo Windows image mounted to "%SystemDrive%\Mount".
@@ -738,7 +738,7 @@ if /i "%OnlineOffline%"=="Offline" goto "32DISMUpdateCheckOfflineMountedWindowsi
 if exist "%SystemDrive%\Mount" goto "MountExist"
 echo.
 echo Mounting Windows image to "%SystemDrive%\Mount".
-if not exist "%SystemDrive%\Mount" md "%SystemDrive%\Mount" > nul 2>&1
+md "%SystemDrive%\Mount" > nul 2>&1
 "%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%DriveLetter%\x64\sources\%Install%" /Index:%Index% /MountDir:"%SystemDrive%\Mount" /ReadOnly
 if not "%errorlevel%"=="0" goto "MountError"
 echo Windows image mounted to "%SystemDrive%\Mount".
