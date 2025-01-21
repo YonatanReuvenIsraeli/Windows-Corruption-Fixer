@@ -102,6 +102,7 @@ echo "%DriveLetter%" does not exist! Please try again.
 goto "DriveLetter"
 
 :"CHKDSK"
+echo.
 "%windir%\System32\chkdsk.exe" "%DriveLetter%" /f /r
 goto "Start"
 
