@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 11.1.4
+echo Version: 11.1.5
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -132,11 +132,13 @@ echo Invalid syntax!
 goto "SureRecent"
 
 :"wevtutilAll"
+echo.
 "%windir%\System32\wevtutil.exe" qe Application "/q:*[System[Provider[@Name='chkdsk'] or Provider[@Name='wininit']]]" /f:text
 if not "%errorlevel%"=="0" goto "wevtutilError"
 goto "Start"
 
 :"wevtutilMost"
+echo.
 "%windir%\System32\wevtutil.exe" qe Application "/q:*[System[Provider[@Name='chkdsk'] or Provider[@Name='wininit']]]" /f:text /c:%Recent%
 if not "%errorlevel%"=="0" goto "wevtutilError"
 goto "Start"
