@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 11.1.2
+echo Version: 11.1.3
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -87,7 +87,7 @@ goto "1"
 :"SureDriveLetterCHKDSK"
 echo.
 set SureDriveLetter=
-set /p SureDriveLetter="Are you sure %DriveLetter% is the drive letter that you want to run CHKDSK on? (Yes/No) "
+set /p SureDriveLetter="Are you sure "%DriveLetter%" is the drive letter that you want to run CHKDSK on? (Yes/No) "
 if /i "%SureDriveLetter%"=="Yes" goto "CHKDSK"
 if /i "%SureDriveLetter%"=="No" goto "DriveLetter"
 echo Invalid syntax!
