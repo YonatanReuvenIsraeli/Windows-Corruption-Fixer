@@ -2,7 +2,7 @@
 setlocal
 title Windows Corruption Fixer
 echo Program Name: Windows Corruption Fixer
-echo Version: 11.1.5
+echo Version: 11.1.6
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -213,7 +213,7 @@ echo "%InstallationCheck%" is an online Windows installation!
 goto "3"
 
 :"InstallationCheckNotWindows"
-echo "%InstallationCheck%" is not an offline WIndows installation!
+echo "%InstallationCheck%" is not an offline Windows installation!
 goto "InstallationCheck"
 
 :"CheckOnline"
@@ -292,14 +292,14 @@ goto "ScanOffline"
 
 :"NotExistInstallationCheck"
 echo "%InstallationScan%" does not exist!
-goto "InstallationCScan"
+goto "InstallationScan"
 
 :"InstallationScanIsOnline"
 echo "%InstallationScan%" is an online Windows installation!
 goto "4"
 
 :"InstallationScanNotWindows"
-echo "%InstallationScan%" is not an offline WIndows installation!
+echo "%InstallationScan%" is not an offline Windows installation!
 goto "InstallationScan"
 
 :"ScanOnline"
@@ -385,7 +385,7 @@ echo "%InstallationRestore%" is an online Windows installation!
 goto "5"
 
 :"InstallationRestoreNotWindows"
-echo "%InstallationRestore%" is not an offline WIndows installation!
+echo "%InstallationRestore%" is not an offline Windows installation!
 goto "InstallationRestore"
 
 :"Update"
@@ -394,7 +394,7 @@ set Update=
 set /p Update="Do you want to use Windows Update? (Yes/No) "
 if /i "%Update%"=="Yes" goto "Media"
 if /i "%Update%"=="No" goto "Media"
-echo Invalid sytax!
+echo Invalid syntax!
 goto "Update"
 
 :"Media"
@@ -404,7 +404,7 @@ set /p Media="Do you want to use a Windows Disk Image/Windows installation media
 if /i "%Media%"=="Yes" goto "MountedWindowsimageWindowsimageSxS"
 if /i "%OnlineOffline%"=="Online" if /i "%Media%"=="No" goto "DISMUpdateCheckOnlineNoImage"
 if /i "%OnlineOffline%"=="Offline" if /i "%Media%"=="No" goto "DISMUpdateCheckOfflineNoImage"
-echo Invalid sytax!
+echo Invalid syntax!
 goto "Media"
 
 :"MountedWindowsimageWindowsimageSxS"
@@ -414,7 +414,7 @@ set /p MountedWindowsimageWindowsimageSxS="Do you want to use a mounted Windows 
 if /i "%MountedWindowsimageWindowsimageSxS%"=="Mounted Windows image" goto "Download"
 if /i "%MountedWindowsimageWindowsimageSxS%"=="Windows image" goto "Download"
 if /i "%MountedWindowsimageWindowsimageSxS%"=="SxS" goto "Download"
-echo Invalid sytax!
+echo Invalid syntax!
 goto "MountedWindowsimageWindowsimageSxS"
 
 :"Download"
@@ -1000,7 +1000,7 @@ echo "%InstallationRevert%" is an online Windows installation!
 goto "6"
 
 :"InstallationRevertNotWindows"
-echo "%InstallationRevert%" is not an offline WIndows installation!
+echo "%InstallationRevert%" is not an offline Windows installation!
 goto "InstallationRevert"
 
 :"RevertOnline"
@@ -1077,7 +1077,7 @@ echo "%DISMLogDriveLetter%" is an online Windows installation!
 goto "7"
 
 :"DISMLogDriveLetterNotWindows"
-echo "%DISMLogDriveLetter%" is not an offline WIndows installation!
+echo "%DISMLogDriveLetter%" is not an offline Windows installation!
 goto "DISMLogDriveLetter"
 
 :"DISMOnlineLog"
@@ -1161,7 +1161,7 @@ echo "%ScanNowDriveLetter%" is an online Windows installation!
 goto "8"
 
 :"ScanNowDriveLetterNotWindows"
-echo "%ScanNowDriveLetter%" is not an offline WIndows installation!
+echo "%ScanNowDriveLetter%" is not an offline Windows installation!
 goto "ScanNowDriveLetter"
 
 :"ScanNowOnline"
@@ -1238,7 +1238,7 @@ echo "%VerifyOnlyDriveLetter%" is an online Windows installation!
 goto "9"
 
 :"VerfiyOnlyDriveLetterNotWindows"
-echo "%VerifyOnlyDriveLetter%" is not an offline WIndows installation!
+echo "%VerifyOnlyDriveLetter%" is not an offline Windows installation!
 goto "VerifyOnlyDriveLetter"
 
 :"VerifyOnlyOnline"
@@ -1327,7 +1327,7 @@ echo "%ScanFileDriveLetter%" is an online Windows installation!
 goto "10"
 
 :"ScanFileDriveLetterNotWindows"
-echo "%ScanFileDriveLetter%" is not an offline WIndows installation!
+echo "%ScanFileDriveLetter%" is not an offline Windows installation!
 goto "ScanFileDriveLetter"
 
 :"ScanFileOnline"
@@ -1416,7 +1416,7 @@ echo "%VerifyFileDriveLetter%" is an online Windows installation!
 goto "11"
 
 :"VerifyFileDriveLetterNotWindows"
-echo "%VerifyFileDriveLetter%" is not an offline WIndows installation!
+echo "%VerifyFileDriveLetter%" is not an offline Windows installation!
 goto "VerifyFileDriveLetter"
 
 :"VerifyFileOnline"
@@ -1493,7 +1493,7 @@ echo "%SFCLogDriveLetter%" is an online Windows installation!
 goto "12"
 
 :"SFCLogDriveLetterNotWindows"
-echo "%SFCLogDriveLetter%" is not an offline WIndows installation!
+echo "%SFCLogDriveLetter%" is not an offline Windows installation!
 goto "SFCLogDriveLetter"
 
 :"SFCOnlineLog"
