@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 12.0.2
+echo Version: 12.0.3
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -802,7 +802,7 @@ if /i "%OnlineOffline%"=="Online" goto "DISMUpdateCheckOnlineSxS"
 if /i "%OnlineOffline%"=="Offline" goto "DISMUpdateCheckOfflineSxS"
 
 :"DISMUpdateCheckOnlineNoImage"
-if /i "%Update%"=="Yes" goto "DISMOnlineNoImage""
+if /i "%Update%"=="Yes" goto "DISMOnlineNoImage"
 if /i "%Update%"=="No" goto "DISMNoUpdateOnlineNoImage"
 
 :"DISMOnlineNoImage"
