@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 12.0.1
+echo Version: 12.0.2
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -20,7 +20,7 @@ goto "Done"
 :"Start"
 echo.
 echo [1] CHKDSK check.
-ech0 [2] CHKDSK check and fix.
+echo [2] CHKDSK check and fix.
 echo [3] View CHKDSK logs.
 echo [4] DISM check health.
 echo [5] DISM scan health.
