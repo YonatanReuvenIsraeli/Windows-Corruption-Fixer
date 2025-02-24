@@ -1,16 +1,17 @@
-# Windows Corruption Fixer v11.1.10
+# Windows Corruption Fixer v12.0.0
 Fixes corrupted Windows.
 
 ## The following options are available:
-**1.** CHKDSK.  
-**2.** View CHKDSK logs.  
-**3.** DISM check health.  
-**4.** DISM scan health.  
-**5.** DISM restore health.  
-**6.** DISM revert pending actions.  
-**7.** View DISM logs.  
-**8.** SFC scan now.  
-**9.** SFC verify only.  
-**10.** SFC scan file.  
-**11.** SFC verify file.  
-**12.** View SFC logs.
+**1.** CHKDSK check.  
+**2.** CHKDSK check and fix.  
+**3.** View CHKDSK logs.  
+**4.** DISM check health.  
+**5.** DISM scan health.  
+**6.** DISM restore health.  
+**7.** DISM revert pending actions.  
+**8.** View DISM logs.  
+**9.** SFC scan now.  
+**10.** SFC verify only.  
+**11.** SFC scan file.  
+**12.** SFC verify file.  
+**13.** View SFC logs.
