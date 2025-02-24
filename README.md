@@ -1,4 +1,4 @@
-# Windows Corruption Fixer v12.0.0
+# Windows Corruption Fixer v12.0.1
 Fixes corrupted Windows.
 
 ## The following options are available:
