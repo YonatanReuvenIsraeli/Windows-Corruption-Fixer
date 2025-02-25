@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 13.1.2
+echo Version: 13.1.3
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -765,6 +765,10 @@ echo.
 set MountPath=
 set /p MountPath="What is the path you want to mount the Windows image in? The the Windows image will be mounted in a folder called "Mount" in the folder you choose. "
 if not exist "%MountPath%" goto "MountPathNotExist"
+goto "MountSet"
+
+:"MountSet"
+set Mount=
 goto "Mount"
 
 :"Mount"
