@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 13.1.5
+echo Version: 13.1.6
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -767,6 +767,10 @@ set /p MountPath="What is the path you want to mount the Windows image in? The t
 if not exist "%MountPath%" goto "MountPathNotExist"
 goto "MountSet"
 
+:"MountPathNotExist"
+echo "%MountPath%" does not exist! Please try again.
+goto "MountPath"
+
 :"MountSet"
 set Mount=
 goto "Mount"
@@ -783,10 +787,6 @@ if /i "%OnlineOffline%"=="Online" if /i "%MountedWindowsimageMountedSxSWindowsim
 if /i "%OnlineOffline%"=="Online" if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" goto "DISMOnlineMountedSxS"
 if /i "%OnlineOffline%"=="Offline" if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" goto "DISMOfflineMountedWindowsimage"
 if /i "%OnlineOffline%"=="Offline" if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" goto "DISMOfflineMountedSxS"
-
-:"MountPathNotExist"
-echo "%MountPath%" does not exist! Please try again.
-goto "MountPath"
 
 :"MountExist"
 set Mount=True
