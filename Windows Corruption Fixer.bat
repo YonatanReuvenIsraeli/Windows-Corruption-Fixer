@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 13.0.0
+echo Version: 13.1.0
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -699,8 +699,8 @@ goto "Index3"
 echo.
 set SureIndex=
 set /p SureIndex="Are you sure you want Index %Index%? (Yes/No) "
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" if /i "%SureIndex%"=="Yes" goto "Mount"
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" if /i "%SureIndex%"=="Yes" goto "Mount"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" if /i "%SureIndex%"=="Yes" goto "MountPath"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" if /i "%SureIndex%"=="Yes" goto "MountPath"
 if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Windows image" if /i "%SureIndex%"=="Yes" goto "Windowsimage"
 if /i "%SureIndex%"=="No" goto "Index3"
 echo Invalid syntax!
@@ -724,8 +724,8 @@ goto "Index7"
 echo.
 set SureIndex=
 set /p SureIndex="Are you sure you want Index %Index%? (Yes/No) "
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" if /i "%SureIndex%"=="Yes" goto "Mount"
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" if /i "%SureIndex%"=="Yes" goto "Mount"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" if /i "%SureIndex%"=="Yes" goto "MountPath"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" if /i "%SureIndex%"=="Yes" goto "MountPath"
 if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Windows image" if /i "%SureIndex%"=="Yes" goto "Windowsimage"
 if /i "%SureIndex%"=="No" goto "Index7"
 echo Invalid syntax!
@@ -753,41 +753,52 @@ goto "Index11"
 echo.
 set SureIndex=
 set /p SureIndex="Are you sure you want Index %Index%? (Yes/No) "
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" if /i "%SureIndex%"=="Yes" goto "Mount"
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" if /i "%SureIndex%"=="Yes" goto "Mount"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" if /i "%SureIndex%"=="Yes" goto "MountPath"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" if /i "%SureIndex%"=="Yes" goto "MountPath"
 if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Windows image" if /i "%SureIndex%"=="Yes" goto "Windowsimage"
 if /i "%SureIndex%"=="No" goto "Index11"
 echo Invalid syntax!
 goto "SureIndex11"
 
-:"Mount"
-if exist "%SystemDrive%\Mount" goto "MountExist"
+:"MountPath"
 echo.
-echo Mounting Windows image to "%SystemDrive%\Mount".
-md "%SystemDrive%\Mount" > nul 2>&1
-"%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%Sources%\%Install%" /Index:%Index% /MountDir:"%SystemDrive%\Mount" /ReadOnly
+set MountPath=
+set /p MountPath="What is the path you want to mount the Windows image in? The the Windows image will be mounted in a folder called "Mount" in the folder you choose. "
+if not exist "%MountPath%" goto "MountPathNotExist"
+goto "Mount"
+
+:"Mount"
+if exist "%MountPath%\Mount" goto "MountExist"
+echo.
+echo Mounting Windows image to "%MountPath%\Mount".
+md "%MountPath%\Mount" > nul 2>&1
+"%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%Sources%\%Install%" /Index:%Index% /MountDir:"%MountPath%\Mount" /ReadOnly
 if not "%errorlevel%"=="0" goto "MountError"
-echo Windows image mounted to "%SystemDrive%\Mount".
+echo Windows image mounted to "%MountPath%\Mount".
 if /i "%OnlineOffline%"=="Online" if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" goto "DISMOnlineMountedWindowsimage"
 if /i "%OnlineOffline%"=="Online" if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" goto "DISMOnlineMountedSxS"
 if /i "%OnlineOffline%"=="Offline" if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" goto "DISMOfflineMountedWindowsimage"
 if /i "%OnlineOffline%"=="Offline" if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" goto "DISMOfflineMountedSxS"
 
+:"MountPathNotExist"
+echo "%MountPath%" does not exist! Please try again.
+goto "MountPath"
+
 :"MountExist"
-set Mount=True  `
+set Mount=True
 echo.
-echo Please temporarily rename to something else or temporarily move to another location "%SystemDrive%\Mount" in order for this batch file to proceed. "%SystemDrive%\Mount" is not a system file. Press any key to continue when "%SystemDrive%\Mount" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
+echo Please temporarily rename to something else or temporarily move to another location "%MountPath%\Mount" in order for this batch file to proceed. "%MountPath%\Mount" is not a system file. Press any key to continue when "%MountPath%\Mount" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
 pause > nul 2>&1
 goto "Mount"
 
 :"MountError"
 echo.
-echo Unmounting Windows image from "%SystemDrive%\Mount".
-"%windir%\System32\Dism.exe" /Unmount-Image /MountDir:"%SystemDrive%\Mount" /Discard
+echo Unmounting Windows image from "%MountPath%\Mount".
+"%windir%\System32\Dism.exe" /Unmount-Image /MountDir:"%MountPath%\Mount" /Discard
 if not "%errorlevel%"=="0" goto "MountErrorError"
-rd "%SystemDrive%\Mount" /s /q > nul 2>&1
-echo Windows image unmounted from "%SystemDrive%\Mount".
-if /i "%Mount%"=="True" goto "MountDone"
+rd "%MountPath%\Mount" /s /q > nul 2>&1
+echo Windows image unmounted from "%MountPath%\Mount".
+if /i "%MountPath%"=="True" goto "MountDone"
 goto "Update"
 
 :"MountErrorError"
@@ -796,9 +807,9 @@ pause > nul 2>&1
 echo.
 echo Cleaning up mounted images.
 "%windir%\System32\Dism.exe" /Cleanup-Mountpoints
-rd "%SystemDrive%\Mount" /s /q > nul 2>&1
+rd "%MountPath%\Mount" /s /q > nul 2>&1
 echo Mounted images cleaned up.
-if /i "%Mount%"=="True" goto "MountDone"
+if /i "%MountPath%"=="True" goto "MountDone"
 goto "Update"
 
 :"Windowsimage"
@@ -821,8 +832,8 @@ goto "Start"
 :"DISMOnlineMountedWindowsimage"
 echo.
 echo Restoring health on Windows installation "%SystemDrive%".
-if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows"
-if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows" /LimitAccess
+if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%MountPath%\Mount\Windows"
+if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%MountPath%\Mount\Windows" /LimitAccess
 if not "%errorlevel%"=="0" goto "Update"
 echo Health restored on Windows installation "%SystemDrive%".
 goto "Unmount"
@@ -830,8 +841,8 @@ goto "Unmount"
 :"DISMOnlineMountedSxS"
 echo.
 echo Restoring health on Windows installation "%SystemDrive%".
-if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows\WinSxS"
-if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows\WinSxS" /LimitAccess
+if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%MountPath%\Mount\Windows\WinSxS"
+if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%MountPath%\Mount\Windows\WinSxS" /LimitAccess
 if not "%errorlevel%"=="0" goto "Update"
 echo Health restored on Windows installation "%SystemDrive%".
 goto "Unmount"
@@ -868,8 +879,8 @@ goto "Start"
 echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
-if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
-if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows" /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%MountPath%\Mount\Windows" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%MountPath%\Mount\Windows" /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "Update"
 echo Health restored on Windows installation "%InstallationRestore%".
 goto "Unmount"
@@ -878,8 +889,8 @@ goto "Unmount"
 echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
-if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows\WinSxS" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
-if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows\WinSxS" /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%MountPath%\Mount\Windows\WinSxS" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%MountPath%\Mount\Windows\WinSxS" /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "Update"
 echo Health restored on Windows installation "%InstallationRestore%".
 goto "Unmount"
@@ -906,12 +917,12 @@ goto "Start"
 
 :"Unmount"
 echo.
-echo Unmounting Windows image from "%SystemDrive%\Mount".
-"%windir%\System32\Dism.exe" /Unmount-Image /MountDir:"%SystemDrive%\Mount" /Discard
+echo Unmounting Windows image from "%MountPath%\Mount".
+"%windir%\System32\Dism.exe" /Unmount-Image /MountDir:"%MountPath%\Mount" /Discard
 if not "%errorlevel%"=="0" goto "UnmountError"
-rd "%SystemDrive%\Mount" /s /q > nul 2>&1
-echo Windows image unmounted from "%SystemDrive%\Mount".
-if /i "%Mount%"=="True" goto "MountDone"
+rd "%MountPath%\Mount" /s /q > nul 2>&1
+echo Windows image unmounted from "%MountPath%\Mount".
+if /i "%MountPath%"=="True" goto "MountDone"
 goto "Start"
 
 :"UnmountError"
@@ -920,14 +931,14 @@ pause > nul 2>&1
 echo.
 echo Cleaning up mounted images.
 "%windir%\System32\Dism.exe" /Cleanup-Mountpoints
-rd "%SystemDrive%\Mount" /s /q > nul 2>&1
+rd "%MountPath%\Mount" /s /q > nul 2>&1
 echo Mounted images cleaned up.
-if /i "%Mount%"=="True" goto "MountDone"
+if /i "%MountPath%"=="True" goto "MountDone"
 goto "Start"
 
 :"MountDone"
 echo.
-echo You can now rename or move back the file back to "%SystemDrive%\Mount". Press any key to continue.
+echo You can now rename or move back the file back to "%MountPath%\Mount". Press any key to continue.
 pause > nul 2>&1
 goto "Start"
 
