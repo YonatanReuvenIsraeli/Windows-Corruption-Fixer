@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 13.1.1
+echo Version: 13.1.2
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -802,7 +802,7 @@ if /i "%MountPath%"=="True" goto "MountDone"
 goto "Update"
 
 :"MountErrorError"
-echo There has been an error an all images need to be unmounted! Make sure to save all changes you have made to your mounted images before pressing any key to unmount all images. Press any key to unmount all images when you are ready to unmount all images.
+echo There has been an error and all images need to be unmounted! Make sure to save all changes you have made to your mounted images before pressing any key to unmount all images. Press any key to unmount all images when you are ready to unmount all images.
 pause > nul 2>&1
 echo.
 echo Cleaning up mounted images.
@@ -926,7 +926,7 @@ if /i "%MountPath%"=="True" goto "MountDone"
 goto "Start"
 
 :"UnmountError"
-echo There has been an error an all images need to be unmounted! Make sure to save all changes you have made to your mounted images before pressing any key to unmount all images. Press any key to unmount all images when you are ready to unmount all images.
+echo There has been an error and all images need to be unmounted! Make sure to save all changes you have made to your mounted images before pressing any key to unmount all images. Press any key to unmount all images when you are ready to unmount all images.
 pause > nul 2>&1
 echo.
 echo Cleaning up mounted images.
