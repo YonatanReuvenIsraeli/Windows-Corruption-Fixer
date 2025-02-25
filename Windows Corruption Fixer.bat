@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 12.0.3
+echo Version: 13.0.0
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -58,53 +58,53 @@ echo.
 set DriveLetter=
 set /p DriveLetter="Which drive do you want to run CHKDSK check on? (A:-Z:) "
 if /i "%DriveLetter%"=="" set DriveLetter=%SystemDrive%
-if /i "%DriveLetter%"=="A:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="B:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="C:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="D:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="E:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="F:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="G:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="H:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="I:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="J:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="K:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="L:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="M:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="N:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="O:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="P:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="Q:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="R:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="S:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="T:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="U:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="V:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="W:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="X:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="Y:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="Z:" goto "SureDriveLetterCHKDSK"
+if /i "%DriveLetter%"=="A:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%DriveLetter%"=="B:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%DriveLetter%"=="C:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%DriveLetter%"=="D:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%DriveLetter%"=="E:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%DriveLetter%"=="F:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%DriveLetter%"=="G:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%DriveLetter%"=="H:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%DriveLetter%"=="I:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%DriveLetter%"=="J:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%DriveLetter%"=="K:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%DriveLetter%"=="L:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%DriveLetter%"=="M:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%DriveLetter%"=="N:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%DriveLetter%"=="O:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%DriveLetter%"=="P:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%DriveLetter%"=="Q:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%DriveLetter%"=="R:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%DriveLetter%"=="S:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%DriveLetter%"=="T:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%DriveLetter%"=="U:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%DriveLetter%"=="V:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%DriveLetter%"=="W:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%DriveLetter%"=="X:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%DriveLetter%"=="Y:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%DriveLetter%"=="Z:" goto "SureDriveLetterCHKDSKCheck"
 echo Invalid syntax!
 goto "1"
 
-:"SureDriveLetterCHKDSK"
+:"SureDriveLetterCHKDSKCheck"
 echo.
 set SureDriveLetter=
 set /p SureDriveLetter="Are you sure "%DriveLetter%" is the drive letter that you want to run CHKDSK check on? (Yes/No) "
-if /i "%SureDriveLetter%"=="Yes" goto "CHKDSK"
-if /i "%SureDriveLetter%"=="No" goto "DriveLetter"
+if /i "%SureDriveLetter%"=="Yes" goto "DriveLetterNotExistCHKDSKCheck"
+if /i "%SureDriveLetter%"=="No" goto "1"
 echo Invalid syntax!
-goto "SureDriveLetterCHKDSK"
+goto "SureDriveLetterCHKDSKCheck"
 
 :CheckExistCHKDSK
-if not exist "%DriveLetter%" goto "DriveLetterNotExist"
-goto "CHKDSK"
+if not exist "%DriveLetter%" goto "DriveLetterNotExistCHKDSKCheck"
+goto "CHKDSKCheck"
 
-:"DriveLetterNotExist"
+:"DriveLetterNotExistCHKDSKCheck"
 echo "%DriveLetter%" does not exist! Please try again.
-goto "DriveLetter"
+goto "1"
 
-:"CHKDSK"
+:"CHKDSKCheck"
 echo.
 "%windir%\System32\chkdsk.exe" "%DriveLetter%"
 goto "Start"
@@ -114,53 +114,53 @@ echo.
 set DriveLetter=
 set /p DriveLetter="Which drive do you want to run CHKDSK check and fix on? (A:-Z:) "
 if /i "%DriveLetter%"=="" set DriveLetter=%SystemDrive%
-if /i "%DriveLetter%"=="A:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="B:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="C:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="D:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="E:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="F:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="G:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="H:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="I:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="J:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="K:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="L:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="M:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="N:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="O:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="P:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="Q:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="R:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="S:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="T:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="U:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="V:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="W:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="X:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="Y:" goto "SureDriveLetterCHKDSK"
-if /i "%DriveLetter%"=="Z:" goto "SureDriveLetterCHKDSK"
+if /i "%DriveLetter%"=="A:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%DriveLetter%"=="B:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%DriveLetter%"=="C:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%DriveLetter%"=="D:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%DriveLetter%"=="E:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%DriveLetter%"=="F:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%DriveLetter%"=="G:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%DriveLetter%"=="H:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%DriveLetter%"=="I:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%DriveLetter%"=="J:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%DriveLetter%"=="K:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%DriveLetter%"=="L:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%DriveLetter%"=="M:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%DriveLetter%"=="N:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%DriveLetter%"=="O:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%DriveLetter%"=="P:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%DriveLetter%"=="Q:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%DriveLetter%"=="R:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%DriveLetter%"=="S:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%DriveLetter%"=="T:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%DriveLetter%"=="U:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%DriveLetter%"=="V:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%DriveLetter%"=="W:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%DriveLetter%"=="X:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%DriveLetter%"=="Y:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%DriveLetter%"=="Z:" goto "SureDriveLetterCHKDSKCheckFix"
 echo Invalid syntax!
 goto "2"
 
-:"SureDriveLetterCHKDSK"
+:"SureDriveLetterCHKDSKCheckFix"
 echo.
 set SureDriveLetter=
 set /p SureDriveLetter="Are you sure "%DriveLetter%" is the drive letter that you want to run CHKDSK check and fix on? (Yes/No) "
-if /i "%SureDriveLetter%"=="Yes" goto "CHKDSK"
-if /i "%SureDriveLetter%"=="No" goto "DriveLetter"
+if /i "%SureDriveLetter%"=="Yes" goto "CheckExistCHKDSKCheckFix"
+if /i "%SureDriveLetter%"=="No" goto "2"
 echo Invalid syntax!
-goto "SureDriveLetterCHKDSK"
+goto "SureDriveLetterCHKDSKCheckFix"
 
-:CheckExistCHKDSK
-if not exist "%DriveLetter%" goto "DriveLetterNotExist"
-goto "CHKDSK"
+:"CheckExistCHKDSKCheckFix"
+if not exist "%DriveLetter%" goto "DriveLetterNotExistCHKDSKCheckFix"
+goto "CHKDSKCheckFix"
 
-:"DriveLetterNotExist"
+:"DriveLetterNotExistCHKDSKCheckFix"
 echo "%DriveLetter%" does not exist! Please try again.
-goto "DriveLetter"
+goto "2"
 
-:"CHKDSK"
+:"CHKDSKCheckFix"
 echo.
 "%windir%\System32\chkdsk.exe" "%DriveLetter%" /r
 goto "Start"
@@ -460,21 +460,22 @@ goto "Update"
 echo.
 set Media=
 set /p Media="Do you want to use a Windows Disk Image/Windows installation media? (Yes/No) "
-if /i "%Media%"=="Yes" goto "MountedWindowsimageWindowsimageSxS"
-if /i "%OnlineOffline%"=="Online" if /i "%Media%"=="No" goto "DISMUpdateCheckOnlineNoImage"
-if /i "%OnlineOffline%"=="Offline" if /i "%Media%"=="No" goto "DISMUpdateCheckOfflineNoImage"
+if /i "%Media%"=="Yes" goto "MountedWindowsimageMountedSxSWindowsimageSxS"
+if /i "%OnlineOffline%"=="Online" if /i "%Media%"=="No" goto "DISMOnlineNoImage"
+if /i "%OnlineOffline%"=="Offline" if /i "%Media%"=="No" goto "DISMOfflineNoImage"
 echo Invalid syntax!
 goto "Media"
 
-:"MountedWindowsimageWindowsimageSxS"
+:"MountedWindowsimageMountedSxSWindowsimageSxS"
 echo.
-set MountedWindowsimageWindowsimageSxS=
-set /p MountedWindowsimageWindowsimageSxS="Do you want to use a mounted Windows image, Windows image or side by side (SxS) folder? (Mounted Windows image/Windows image/SxS) "
-if /i "%MountedWindowsimageWindowsimageSxS%"=="Mounted Windows image" goto "Download"
-if /i "%MountedWindowsimageWindowsimageSxS%"=="Windows image" goto "Download"
-if /i "%MountedWindowsimageWindowsimageSxS%"=="SxS" goto "Download"
+set MountedWindowsimageMountedSxSWindowsimageSxS=
+set /p MountedWindowsimageMountedSxSWindowsimageSxS="Do you want to use a mounted Windows image, mounted side by side (SxS) folder, Windows image or side by side (SxS) folder? (Mounted Windows image/Mounted SxS/Windows image/SxS) "
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" goto "Download"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" goto "Download"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Windows image" goto "Download"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="SxS" goto "Download"
 echo Invalid syntax!
-goto "MountedWindowsimageWindowsimageSxS"
+goto "MountedWindowsimageMountedSxSWindowsimageSxS"
 
 :"Download"
 echo.
@@ -508,7 +509,7 @@ goto "SureDownload"
 if /i "%Download%"=="1" goto "10"
 if /i "%Download%"=="2" goto "11x64"
 if /i "%Download%"=="3" goto "11Arm64"
-if /i "%Download%"=="4" goto "Mount"
+if /i "%Download%"=="4" goto "MountDiskImageinstallationmedia"
 
 :"10"
 echo.
@@ -519,7 +520,7 @@ start https://www.microsoft.com/software-download/windows10
 echo.
 echo Press any key to continue once you have downloaded the Windows 10 22H2 x86/x64 Disk Image.
 pause > nul 2>&1
-goto "Mount"
+goto "MountDiskImageinstallationmedia"
 
 :"11x64"
 echo.
@@ -530,7 +531,7 @@ start https://www.microsoft.com/software-download/windows11
 echo.
 echo Press any key to continue once you have downloaded the Windows 11 24H2 x64 Disk Image.
 pause > nul 2>&1
-goto "Mount"
+goto "MountDiskImageinstallationmedia"
 
 :"11Arm64"
 echo.
@@ -541,9 +542,9 @@ start https://www.microsoft.com/software-download/windows11arm64
 echo.
 echo Press any key to continue once you have downloaded the Windows 11 24H2 Arm64 Disk Image.
 pause > nul 2>&1
-goto "Mount"
+goto "MountDiskImageinstallationmedia"
 
-:"Mount"
+:"MountDiskImageinstallationmedia"
 echo.
 echo Please mount your Windows Disk Image/Windows installation media then press any key to continue.
 pause > nul 2>&1
@@ -608,9 +609,10 @@ goto "DriveLetter"
 
 :"Sources"
 set Sources=%DriveLetter%\sources
-if /i "%MountedWindowsimageWindowsimageSxS%"=="Mounted Windows image" goto "ESDSWMWIM"
-if /i "%MountedWindowsimageWindowsimageSxS%"=="Windows image" goto "ESDSWMWIM"
-if /i "%MountedWindowsimageWindowsimageSxS%"=="SxS" goto "SxS"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" goto "ESDSWMWIM"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" goto "ESDSWMWIM"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Windows image" goto "ESDSWMWIM"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="SxS" goto "SxS"
 
 :"Bit"
 echo.
@@ -633,9 +635,10 @@ goto "SureBit"
 :"BitSources"
 if /i "%Bit%"=="32" set Sources=%DriveLetter%\x86\sources
 if /i "%Bit%"=="64" set Sources=%DriveLetter%\x64\sources
-if /i "%MountedWindowsimageWindowsimageSxS%"=="Mounted Windows image" goto "ESDSWMWIM"
-if /i "%MountedWindowsimageWindowsimageSxS%"=="Windows image" goto "ESDSWMWIM"
-if /i "%MountedWindowsimageWindowsimageSxS%"=="SxS" goto "SxS"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" goto "ESDSWMWIM"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" goto "ESDSWMWIM"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Windows image" goto "ESDSWMWIM"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="SxS" goto "SxS"
 
 :"ESDSWMWIM"
 if exist "%Sources%\install.esd" set Install=install.esd
@@ -696,8 +699,9 @@ goto "Index3"
 echo.
 set SureIndex=
 set /p SureIndex="Are you sure you want Index %Index%? (Yes/No) "
-if /i "%MountedWindowsimageWindowsimageSxS%"=="Mounted Windows image" if /i "%SureIndex%"=="Yes" goto "Mount"
-if /i "%MountedWindowsimageWindowsimageSxS%"=="Windows image" if /i "%SureIndex%"=="Yes" goto "Windowsimage"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" if /i "%SureIndex%"=="Yes" goto "Mount"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" if /i "%SureIndex%"=="Yes" goto "Mount"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Windows image" if /i "%SureIndex%"=="Yes" goto "Windowsimage"
 if /i "%SureIndex%"=="No" goto "Index3"
 echo Invalid syntax!
 goto "SureIndex3"
@@ -720,8 +724,9 @@ goto "Index7"
 echo.
 set SureIndex=
 set /p SureIndex="Are you sure you want Index %Index%? (Yes/No) "
-if /i "%MountedWindowsimageWindowsimageSxS%"=="Mounted Windows image" if /i "%SureIndex%"=="Yes" goto "Mount"
-if /i "%MountedWindowsimageWindowsimageSxS%"=="Windows image" if /i "%SureIndex%"=="Yes" goto "Windowsimage"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" if /i "%SureIndex%"=="Yes" goto "Mount"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" if /i "%SureIndex%"=="Yes" goto "Mount"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Windows image" if /i "%SureIndex%"=="Yes" goto "Windowsimage"
 if /i "%SureIndex%"=="No" goto "Index7"
 echo Invalid syntax!
 goto "SureIndex7"
@@ -748,8 +753,9 @@ goto "Index11"
 echo.
 set SureIndex=
 set /p SureIndex="Are you sure you want Index %Index%? (Yes/No) "
-if /i "%MountedWindowsimageWindowsimageSxS%"=="Mounted Windows image" if /i "%SureIndex%"=="Yes" goto "Mount"
-if /i "%MountedWindowsimageWindowsimageSxS%"=="Windows image" if /i "%SureIndex%"=="Yes" goto "Windowsimage"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" if /i "%SureIndex%"=="Yes" goto "Mount"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" if /i "%SureIndex%"=="Yes" goto "Mount"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Windows image" if /i "%SureIndex%"=="Yes" goto "Windowsimage"
 if /i "%SureIndex%"=="No" goto "Index11"
 echo Invalid syntax!
 goto "SureIndex11"
@@ -762,15 +768,17 @@ md "%SystemDrive%\Mount" > nul 2>&1
 "%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%Sources%\%Install%" /Index:%Index% /MountDir:"%SystemDrive%\Mount" /ReadOnly
 if not "%errorlevel%"=="0" goto "MountError"
 echo Windows image mounted to "%SystemDrive%\Mount".
-if /i "%OnlineOffline%"=="Online" goto "DISMUpdateCheckOnlineMountedWindowsimage"
-if /i "%OnlineOffline%"=="Offline" goto "DISMUpdateCheckOfflineMountedWindowsimage"
+if /i "%OnlineOffline%"=="Online" if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" goto "DISMOnlineMountedWindowsimage"
+if /i "%OnlineOffline%"=="Online" if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" goto "DISMOnlineMountedSxS"
+if /i "%OnlineOffline%"=="Offline" if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" goto "DISMOfflineMountedWindowsimage"
+if /i "%OnlineOffline%"=="Offline" if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" goto "DISMOfflineMountedSxS"
 
 :"MountExist"
-set Mount=True
+set Mount=True  `
 echo.
 echo Please temporarily rename to something else or temporarily move to another location "%SystemDrive%\Mount" in order for this batch file to proceed. "%SystemDrive%\Mount" is not a system file. Press any key to continue when "%SystemDrive%\Mount" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
 pause > nul 2>&1
-goto "Bit3MountedWindowsimage"
+goto "Mount"
 
 :"MountError"
 echo.
@@ -794,176 +802,106 @@ if /i "%Mount%"=="True" goto "MountDone"
 goto "Update"
 
 :"Windowsimage"
-if /i "%OnlineOffline%"=="Online" goto "DISMUpdateCheckOnlineWindowsimage"
-if /i "%OnlineOffline%"=="Offline" goto "DISMUpdateCheckOfflineWindowsimage"
+if /i "%OnlineOffline%"=="Online" goto "DISMOnlineWindowsimage"
+if /i "%OnlineOffline%"=="Offline" goto "DISMOfflineWindowsimage"
 
 :"SxS"
-if /i "%OnlineOffline%"=="Online" goto "DISMUpdateCheckOnlineSxS"
-if /i "%OnlineOffline%"=="Offline" goto "DISMUpdateCheckOfflineSxS"
-
-:"DISMUpdateCheckOnlineNoImage"
-if /i "%Update%"=="Yes" goto "DISMOnlineNoImage"
-if /i "%Update%"=="No" goto "DISMNoUpdateOnlineNoImage"
+if /i "%OnlineOffline%"=="Online" goto "DISMOnlineSxS"
+if /i "%OnlineOffline%"=="Offline" goto "DISMOfflineSxS"
 
 :"DISMOnlineNoImage"
 echo.
 echo Restoring health on Windows installation "%SystemDrive%".
-"%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth
+if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth
+if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /LimitAccess
 if not "%errorlevel%"=="0" goto "Update"
 echo Health restored on Windows installation "%SystemDrive%".
 goto "Start"
-
-:"DISMNoUpdateOnlineNoImage"
-echo.
-echo Restoring health on Windows installation "%SystemDrive%".
-"%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /LimitAccess
-if not "%errorlevel%"=="0" goto "Update"
-echo Health restored on Windows installation "%SystemDrive%".
-goto "Start"
-
-:"DISMUpdateCheckOnlineMountedWindowsimage"
-if /i "%Update%"=="Yes" goto "DISMOnlineMountedWindowsimage"
-if /i "%Update%"=="No" goto "DISMNoUpdateOnlineMountedWindowsimage"
 
 :"DISMOnlineMountedWindowsimage"
 echo.
 echo Restoring health on Windows installation "%SystemDrive%".
-"%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows"
+if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows"
+if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows" /LimitAccess
 if not "%errorlevel%"=="0" goto "Update"
 echo Health restored on Windows installation "%SystemDrive%".
 goto "Unmount"
 
-:"DISMNoUpdateOnlineMountedWindowsimage"
+:"DISMOnlineMountedSxS"
 echo.
 echo Restoring health on Windows installation "%SystemDrive%".
-"%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows" /LimitAccess
+if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows\WinSxS"
+if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows\WinSxS" /LimitAccess
 if not "%errorlevel%"=="0" goto "Update"
 echo Health restored on Windows installation "%SystemDrive%".
 goto "Unmount"
-
-:"DISMUpdateCheckOnlineWindowsimage"
-if /i "%Update%"=="Yes" goto "DISMOnlineWindowsimage"
-if /i "%Update%"=="No" goto "DISMNoUpdateOnlineWindowsimage"
 
 :"DISMOnlineWindowsimage"
 echo.
 echo Restoring health on Windows installation "%SystemDrive%".
-"%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%Sources%\%Install%":%Index%
+if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%Sources%\%Install%":%Index%
+if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%Sources%\%Install%":%Index% /LimitAccess
 if not "%errorlevel%"=="0" goto "Update"
 echo Health restored on Windows installation "%SystemDrive%".
 goto "Start"
-
-:"DISMNoUpdateOnlineWindowsimage"
-echo.
-echo Restoring health on Windows installation "%SystemDrive%".
-"%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%Sources%\%Install%":%Index% /LimitAccess
-if not "%errorlevel%"=="0" goto "Update"
-echo Health restored on Windows installation "%SystemDrive%".
-goto "Start"
-
-:"DISMUpdateCheckOnlineSxS"
-if /i "%Update%"=="Yes" goto "DISMOnlineSxS"
-if /i "%Update%"=="No" goto "DISMNoUpdateOnlineSxS"
 
 :"DISMOnlineSxS"
 echo.
 echo Restoring health on Windows installation "%SystemDrive%".
-"%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%Sources%\sxs"
+if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%Sources%\sxs"
+if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%Sources%\sxs" /LimitAccess
 if not "%errorlevel%"=="0" goto "Update"
 echo Health restored on Windows installation "%SystemDrive%".
 goto "Start"
-
-:"DISMNoUpdateOnlineSxS"
-echo.
-echo Restoring health on Windows installation "%SystemDrive%".
-"%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%Sources%\sxs" /LimitAccess
-if not "%errorlevel%"=="0" goto "Update"
-echo Health restored on Windows installation "%SystemDrive%".
-goto "Start"
-
-:"DISMUpdateCheckOfflineNoImage"
-if /i "%Update%"=="Yes" goto "DISMOfflineNoImage"
-if /i "%Update%"=="No" goto "DISMNoUpdateOfflineNoImage"
 
 :"DISMOfflineNoImage"
 echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
-"%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "Update"
 echo Health restored on Windows installation "%InstallationRestore%".
 goto "Start"
-
-:"DISMNoUpdateOfflineNoImage"
-echo.
-echo Restoring health on Windows installation "%InstallationRestore%".
-if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
-"%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
-if not "%errorlevel%"=="0" goto "Update"
-echo Health restored on Windows installation "%InstallationRestore%".
-goto "Start"
-
-:"DISMUpdateCheckOfflineMountedWindowsimage"
-if /i "%Update%"=="Yes" goto "DISMOfflineMountedWindowsimage"
-if /i "%Update%"=="No" goto "DISMNoUpdateOfflineMountedWindowsimage"
 
 :"DISMOfflineMountedWindowsimage"
 echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
-"%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows" /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "Update"
 echo Health restored on Windows installation "%InstallationRestore%".
 goto "Unmount"
 
-:"DISMNoUpdateOfflineMountedWindowsimage"
+:"DISMOfflineMountedSxS"
 echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
-"%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows" /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows\WinSxS" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%SystemDrive%\Mount\Windows\WinSxS" /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "Update"
+echo Health restored on Windows installation "%InstallationRestore%".
 goto "Unmount"
-
-:"DISMUpdateCheckOfflineWindowsimage"
-if /i "%Update%"=="Yes" goto "DISMOfflineWindowsimage"
-if /i "%Update%"=="No" goto "DISMNoUpdateOfflineWindowsimage"
 
 :"DISMOfflineWindowsimage"
 echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
-"%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Sources%\%Install%":%Index% /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Sources%\%Install%":%Index% /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Sources%\%Install%":%Index% /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "Update"
 echo Health restored on Windows installation "%InstallationRestore%".
 goto "Start"
-
-:"DISMNoUpdateOfflineWindowsimage"
-echo.
-echo Restoring health on Windows installation "%InstallationRestore%".
-if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
-"%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Sources%\%Install%":%Index% /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
-if not "%errorlevel%"=="0" goto "Update"
-goto "Start"
-
-:"DISMUpdateCheckOfflineSxS"
-if /i "%Update%"=="Yes" goto "DISMOfflineSxS"
-if /i "%Update%"=="No" goto "DISMNoUpdateOfflineSxS"
 
 :"DISMOfflineSxS"
 echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
-"%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Sources%\sxs" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Sources%\sxs" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Sources%\sxs" /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "Update"
 echo Health restored on Windows installation "%InstallationRestore%".
-goto "Start"
-
-:"DISMNoUpdateOfflineSxS"
-echo.
-echo Restoring health on Windows installation "%InstallationRestore%".
-if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
-"%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Sources%\sxs" /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
-if not "%errorlevel%"=="0" goto "Update"
 goto "Start"
 
 :"Unmount"
