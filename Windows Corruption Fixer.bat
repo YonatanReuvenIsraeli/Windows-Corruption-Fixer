@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 13.1.0
+echo Version: 13.1.1
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -688,7 +688,7 @@ goto "DriveLetter"
 :"Index3"
 echo.
 set Index=
-set /p Index="Which one do you have on your PC? (1-3)? "
+set /p Index="Which one do you have on your PC? (1-3) "
 if /i "%Index%"=="1" goto "SureIndex3"
 if /i "%Index%"=="2" goto "SureIndex3"
 if /i "%Index%"=="3" goto "SureIndex3"
@@ -709,7 +709,7 @@ goto "SureIndex3"
 :"Index7"
 echo.
 set Index=
-set /p Index="Which one do you have on your PC? (1-7)? "
+set /p Index="Which one do you have on your PC? (1-7) "
 if /i "%Index%"=="1" goto "SureIndex7"
 if /i "%Index%"=="2" goto "SureIndex7"
 if /i "%Index%"=="3" goto "SureIndex7"
@@ -734,7 +734,7 @@ goto "SureIndex7"
 :"Index11"
 echo.
 set Index=
-set /p Index="Which one do you have on your PC? (1-11)? "
+set /p Index="Which one do you have on your PC? (1-11) "
 if /i "%Index%"=="1" goto "SureIndex11"
 if /i "%Index%"=="2" goto "SureIndex11"
 if /i "%Index%"=="3" goto "SureIndex11"
