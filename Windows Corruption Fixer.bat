@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 13.1.4
+echo Version: 13.1.5
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -612,7 +612,7 @@ set Sources=%DriveLetter%\sources
 if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" goto "ESDSWMWIM"
 if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" goto "ESDSWMWIM"
 if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Windows image" goto "ESDSWMWIM"
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="SxS" goto "SxS"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="SxS" goto "WindowsimageSxS"
 
 :"Bit"
 echo.
@@ -638,7 +638,7 @@ if /i "%Bit%"=="64" set Sources=%DriveLetter%\x64\sources
 if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" goto "ESDSWMWIM"
 if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" goto "ESDSWMWIM"
 if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Windows image" goto "ESDSWMWIM"
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="SxS" goto "SxS"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="SxS" goto "WindowsimageSxS"
 
 :"ESDSWMWIM"
 if exist "%Sources%\install.esd" set Install=install.esd
@@ -701,7 +701,7 @@ set SureIndex=
 set /p SureIndex="Are you sure you want Index %Index%? (Yes/No) "
 if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" if /i "%SureIndex%"=="Yes" goto "MountPath"
 if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" if /i "%SureIndex%"=="Yes" goto "MountPath"
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Windows image" if /i "%SureIndex%"=="Yes" goto "Windowsimage"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Windows image" if /i "%SureIndex%"=="Yes" goto "WindowsimageSxS"
 if /i "%SureIndex%"=="No" goto "Index3"
 echo Invalid syntax!
 goto "SureIndex3"
@@ -726,7 +726,7 @@ set SureIndex=
 set /p SureIndex="Are you sure you want Index %Index%? (Yes/No) "
 if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" if /i "%SureIndex%"=="Yes" goto "MountPath"
 if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" if /i "%SureIndex%"=="Yes" goto "MountPath"
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Windows image" if /i "%SureIndex%"=="Yes" goto "Windowsimage"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Windows image" if /i "%SureIndex%"=="Yes" goto "WindowsimageSxS"
 if /i "%SureIndex%"=="No" goto "Index7"
 echo Invalid syntax!
 goto "SureIndex7"
@@ -755,7 +755,7 @@ set SureIndex=
 set /p SureIndex="Are you sure you want Index %Index%? (Yes/No) "
 if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" if /i "%SureIndex%"=="Yes" goto "MountPath"
 if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" if /i "%SureIndex%"=="Yes" goto "MountPath"
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Windows image" if /i "%SureIndex%"=="Yes" goto "Windowsimage"
+if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Windows image" if /i "%SureIndex%"=="Yes" goto "WindowsimageSxS"
 if /i "%SureIndex%"=="No" goto "Index11"
 echo Invalid syntax!
 goto "SureIndex11"
@@ -816,12 +816,10 @@ echo Mounted images cleaned up.
 if /i "%MountPath%"=="True" goto "MountDone"
 goto "Update"
 
-:"Windowsimage"
+:"WindowsimageSxS"
 if /i "%OnlineOffline%"=="Online" goto "DISMOnlineWindowsimage"
-if /i "%OnlineOffline%"=="Offline" goto "DISMOfflineWindowsimage"
-
-:"SxS"
 if /i "%OnlineOffline%"=="Online" goto "DISMOnlineSxS"
+if /i "%OnlineOffline%"=="Offline" goto "DISMOfflineWindowsimage"
 if /i "%OnlineOffline%"=="Offline" goto "DISMOfflineSxS"
 
 :"DISMOnlineNoImage"
