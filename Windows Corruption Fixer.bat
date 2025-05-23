@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 13.1.7
+echo Version: 13.1.8
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -169,23 +169,23 @@ goto "Start"
 echo.
 set Recent=
 set /p Recent="How many of the most recent CHKDSK logs to you want to view? (1-?/All) "
-if /i "%Recent%"=="All" goto "SureRecentAll"
+if /i "%Recent%"=="All" goto "SureAll"
 goto "SureRecent"
 
-:"SureRecentAll"
+:"SureAll"
 echo.
-set SureRecent=
-set /p SureRecent="Are you sure you want to view all CHKDSK logs? (Yes/No) "
-if /i "%SureRecent%"=="Yes" goto "wevtutilAll"
-if /i "%SureRecent%"=="No" goto "3"
+set SureAll=
+set /p SureAll="Are you sure you want to view all CHKDSK logs? (Yes/No) "
+if /i "%SureAll%"=="Yes" goto "wevtutilAll"
+if /i "%SureAll%"=="No" goto "3"
 echo Invalid syntax!
-goto "SureRecentAll"
+goto "SureAll"
 
 :"SureRecent"
 echo.
 set SureRecent=
 set /p SureRecent="Are you sure you want to view the %Recent% most recent CHKDSK logs? (Yes/No) "
-if /i "%SureRecent%"=="Yes" goto "wevtutilMost"
+if /i "%SureRecent%"=="Yes" goto "wevtutilRecent"
 if /i "%SureRecent%"=="No" goto "3"
 echo Invalid syntax!
 goto "SureRecent"
@@ -196,7 +196,7 @@ echo.
 if not "%errorlevel%"=="0" goto "wevtutilError"
 goto "Start"
 
-:"wevtutilMost"
+:"wevtutilRecent"
 echo.
 "%windir%\System32\wevtutil.exe" qe Application "/q:*[System[Provider[@Name='chkdsk'] or Provider[@Name='wininit']]]" /f:text /c:%Recent%
 if not "%errorlevel%"=="0" goto "wevtutilError"
