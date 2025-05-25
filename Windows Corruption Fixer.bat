@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 13.2.2
+echo Version: 13.2.3
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -812,7 +812,7 @@ echo.
 echo Mounting Windows image to "%MountDrive%\Mount".
 md "%MountDrive%\Mount" > nul 2>&1
 if /i "%ExportWIM%"=="" "%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%Sources%\%Install%" /Index:%Index% /MountDir:"%MountDrive%\Mount" /ReadOnly
-if /i "%ExportWIM%"=="True" "%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%MountDrive%\WIM\install.wim" /Index:1 /MountDir:"%MountDrive%\Mount" /ReadOnly
+if /i "%ExportWIM%"=="True" "%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%MountDrive%\install.wim" /Index:1 /MountDir:"%MountDrive%\Mount" /ReadOnly
 if not "%errorlevel%"=="0" goto "MountError"
 echo Windows image mounted to "%MountDrive%\Mount".
 if /i "%OnlineOffline%"=="Online" if /i "%RestoreType%"=="1" goto "DISMOnlineMountedWindowsimage"
