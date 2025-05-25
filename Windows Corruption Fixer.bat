@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 13.1.8
+echo Version: 13.1.9
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -349,7 +349,7 @@ if "%InstallationScan%"=="%SystemDrive%" goto "InstallationScanIsOnline"
 if not exist "%InstallationScan%\Windows" goto "InstallationScanNotWindows"
 goto "ScanOffline"
 
-:"NotExistInstallationCheck"
+:"NotExistInstallationScan"
 echo "%InstallationScan%" does not exist!
 goto "InstallationScan"
 
@@ -372,7 +372,7 @@ goto "Start"
 :"ScanOffline"
 echo.
 echo Scanning health on Windows installation "%InstallationScan%".
-if not exist "%InstallationScane%\Windows\Logs\DISM" md "%InstallationScan%\Windows\Logs\DISM" > nul 2>&1
+if not exist "%InstallationScan%\Windows\Logs\DISM" md "%InstallationScan%\Windows\Logs\DISM" > nul 2>&1
 "%windir%\System32\Dism.exe" /Image:"%InstallationScan%" /Cleanup-Image /ScanHealth /LogPath:"%InstallationScan%"\Windows\Logs\DISM\dism.log
 if not "%errorlevel%"=="0" goto "InstallationScan"
 echo Scanned health on Windows installation "%InstallationScan%".
