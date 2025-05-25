@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 13.2.7
+echo Version: 13.2.8
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -786,7 +786,7 @@ goto "ExportWIM"
 if exist "%MountDrive%\install.wim" goto "WIMExist"
 echo.
 echo Exporting Windows image to "%MountDrive%\install.wim".
-"%windir%\System32\Dism.exe" /Export-Image /SourceImageFile:"%Sources%\%Install%" /SourceIndex:%Index% /DestinationImageFile:"%MountDrive%\install.wim"
+"%windir%\System32\Dism.exe" /Export-Image /SourceImageFile:"%Sources%\%Install%" /SourceIndex:%Index% /DestinationImageFile:"%MountDrive%\install.wim" /Compress:None
 if not "%errorlevel%"=="0" goto "WIMError"
 echo Windows image exported to "%MountDrive%\install.wim".
 goto "MountSet"
@@ -838,7 +838,7 @@ if not "%errorlevel%"=="0" goto "MountErrorError"
 rd "%MountDrive%\Mount" /s /q > nul 2>&1
 echo Windows image unmounted from "%MountDrive%\Mount".
 if /i "%MountDrive%"=="True" goto "MountDoneMount"
-goto "Update"
+goto "WIMCheckMount"
 
 :"MountErrorError"
 echo There has been an error and all images need to be unmounted! Make sure to save all changes you have made to your mounted images before pressing any key to unmount all images. Press any key to unmount all images when you are ready to unmount all images.
@@ -849,7 +849,7 @@ echo Cleaning up mounted images.
 rd "%MountDrive%\Mount" /s /q > nul 2>&1
 echo Mounted images cleaned up.
 if /i "%MountDrive%"=="True" goto "MountDoneMount"
-goto "Update"
+goto "WIMCheckMount"
 
 :"MountDoneMount"
 set Mount=
