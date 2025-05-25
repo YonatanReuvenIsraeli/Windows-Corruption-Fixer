@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 13.1.9
+echo Version: 13.1.10
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -168,7 +168,7 @@ goto "Start"
 :"3"
 echo.
 set Recent=
-set /p Recent="How many of the most recent CHKDSK logs to you want to view? (1-?/All) "
+set /p Recent="How many of the most recent CHKDSK logs do you want to view? (1-?/All) "
 if /i "%Recent%"=="All" goto "SureAll"
 goto "SureRecent"
 
