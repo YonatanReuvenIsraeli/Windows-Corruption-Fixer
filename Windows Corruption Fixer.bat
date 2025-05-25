@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 13.2.6
+echo Version: 13.2.7
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -786,7 +786,7 @@ goto "ExportWIM"
 if exist "%MountDrive%\install.wim" goto "WIMExist"
 echo.
 echo Exporting Windows image to "%MountDrive%\install.wim".
-"%windir%\System32\Dism.exe" /Export-Image /SourceImageFile:"%Sources%\%Install%" /SourceIndex:%Index% /DestinationImageFile:"%MountDrive%\install.wim" /Compress:None /CheckIntegrity
+"%windir%\System32\Dism.exe" /Export-Image /SourceImageFile:"%Sources%\%Install%" /SourceIndex:%Index% /DestinationImageFile:"%MountDrive%\install.wim"
 if not "%errorlevel%"=="0" goto "WIMError"
 echo Windows image exported to "%MountDrive%\install.wim".
 goto "MountSet"
