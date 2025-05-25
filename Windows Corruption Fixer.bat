@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 13.2.4
+echo Version: 13.2.5
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -768,9 +768,9 @@ goto "SureIndex11"
 :"MountDrive"
 if /i "%OnlineOffline%"=="Online" set MountDrive=%SystemDrive%
 if /i "%OnlineOffline%"=="Offline" set MountDrive=%InstallationRestore%
-goto "MountCheck"
+goto "WIMCheck"
 
-:"MountCheck"
+:"WIMCheck"
 if /i "%Install%"=="install.esd" goto "ExportWIMSet"
 if /i "%Install%"=="install.swm" goto "ExportWIMSet"
 if /i "%Install%"=="install.wim" goto "MountSet"
