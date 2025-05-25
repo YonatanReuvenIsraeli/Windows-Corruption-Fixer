@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 13.2.3
+echo Version: 13.2.4
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -834,7 +834,7 @@ echo Unmounting Windows image from "%MountDrive%\Mount".
 if not "%errorlevel%"=="0" goto "MountErrorError"
 rd "%MountDrive%\Mount" /s /q > nul 2>&1
 echo Windows image unmounted from "%MountDrive%\Mount".
-if /i "%MountDrive%"=="True" goto "MountDone"
+if /i "%MountDrive%"=="True" goto "MountDoneMount"
 goto "Update"
 
 :"MountErrorError"
@@ -845,7 +845,34 @@ echo Cleaning up mounted images.
 "%windir%\System32\Dism.exe" /Cleanup-Mountpoints
 rd "%MountDrive%\Mount" /s /q > nul 2>&1
 echo Mounted images cleaned up.
-if /i "%MountDrive%"=="True" goto "MountDone"
+if /i "%MountDrive%"=="True" goto "MountDoneMount"
+goto "Update"
+
+:"MountDoneMount"
+set Mount=
+echo.
+echo You can now rename or move back the file back to "%MountDrive%\Mount". Press any key to continue.
+pause > nul 2>&1
+goto "WIMCheckMount"
+
+:"WIMCheckMount"
+if /i "%ExportWIM%"=="True" goto "WIMDeleteMount"
+goto "Update"
+
+:"WIMDeleteMount"
+set ExportWIM=
+echo.
+echo Deleting Windows image from "%MountDrive%\install.wim".
+del "%MountDrive%\install.wim" /f /q > nul 2>&1
+echo Windows image deleted from "%MountDrive%\install.wim".
+if /i "%WIM%"=="True" goto "WIMDoneMount"
+goto "Update"
+
+:"WIMDoneMount"
+set WIM=
+echo.
+echo You can now rename or move back the file back to "%MountDrive%\install.wim". Press any key to continue.
+pause > nul 2>&1
 goto "Update"
 
 :"WindowsimageSxS"
@@ -971,6 +998,7 @@ if /i "%Mount%"=="True" goto "MountDone"
 goto "WIMCheck"
 
 :"MountDone"
+set Mount=
 echo.
 echo You can now rename or move back the file back to "%MountDrive%\Mount". Press any key to continue.
 pause > nul 2>&1
@@ -981,6 +1009,7 @@ if /i "%ExportWIM%"=="True" goto "WIMDelete"
 goto "Start"
 
 :"WIMDelete"
+set ExportWIM=
 echo.
 echo Deleting Windows image from "%MountDrive%\install.wim".
 del "%MountDrive%\install.wim" /f /q > nul 2>&1
@@ -989,6 +1018,7 @@ if /i "%WIM%"=="True" goto "WIMDone"
 goto "Start"
 
 :"WIMDone"
+set WIM=
 echo.
 echo You can now rename or move back the file back to "%MountDrive%\install.wim". Press any key to continue.
 pause > nul 2>&1
