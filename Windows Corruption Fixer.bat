@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 13.1.10
+echo Version: 13.2.0
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -460,22 +460,27 @@ goto "Update"
 echo.
 set Media=
 set /p Media="Do you want to use a Windows Disk Image/Windows installation media? (Yes/No) "
-if /i "%Media%"=="Yes" goto "MountedWindowsimageMountedSxSWindowsimageSxS"
+if /i "%Media%"=="Yes" goto "RestoreType"
 if /i "%OnlineOffline%"=="Online" if /i "%Media%"=="No" goto "DISMOnlineNoImage"
 if /i "%OnlineOffline%"=="Offline" if /i "%Media%"=="No" goto "DISMOfflineNoImage"
 echo Invalid syntax!
 goto "Media"
 
-:"MountedWindowsimageMountedSxSWindowsimageSxS"
+:"RestoreType"
 echo.
-set MountedWindowsimageMountedSxSWindowsimageSxS=
-set /p MountedWindowsimageMountedSxSWindowsimageSxS="Do you want to use a mounted Windows image, mounted side by side (SxS) folder, Windows image or side by side (SxS) folder? (Mounted Windows image/Mounted SxS/Windows image/SxS) "
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" goto "Download"
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" goto "Download"
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Windows image" goto "Download"
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="SxS" goto "Download"
+echo [1] Mounted Windows image.
+echo [2] Mounted side by side (SxS) folder.
+echo [3] Windows image.
+echo [4] Side by side (SxS) folder.
+echo.
+set RestoreType=
+set /p RestoreType="What do you want to use? (1-4) "
+if /i "%RestoreType%"=="1" goto "Download"
+if /i "%RestoreType%"=="2" goto "Download"
+if /i "%RestoreType%"=="3" goto "Download"
+if /i "%RestoreType%"=="4" goto "Download"
 echo Invalid syntax!
-goto "MountedWindowsimageMountedSxSWindowsimageSxS"
+goto "RestoreType"
 
 :"Download"
 echo.
@@ -609,10 +614,10 @@ goto "DriveLetter"
 
 :"Sources"
 set Sources=%DriveLetter%\sources
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" goto "ESDSWMWIM"
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" goto "ESDSWMWIM"
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Windows image" goto "ESDSWMWIM"
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="SxS" goto "WindowsimageSxS"
+if /i "%RestoreType%"=="1" goto "ESDSWMWIM"
+if /i "%RestoreType%"=="2" goto "ESDSWMWIM"
+if /i "%RestoreType%"=="3" goto "ESDSWMWIM"
+if /i "%RestoreType%"=="4" goto "WindowsimageSxS"
 
 :"Bit"
 echo.
@@ -635,10 +640,10 @@ goto "SureBit"
 :"BitSources"
 if /i "%Bit%"=="32" set Sources=%DriveLetter%\x86\sources
 if /i "%Bit%"=="64" set Sources=%DriveLetter%\x64\sources
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" goto "ESDSWMWIM"
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" goto "ESDSWMWIM"
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Windows image" goto "ESDSWMWIM"
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="SxS" goto "WindowsimageSxS"
+if /i "%RestoreType%"=="1" goto "ESDSWMWIM"
+if /i "%RestoreType%"=="2" goto "ESDSWMWIM"
+if /i "%RestoreType%"=="3" goto "ESDSWMWIM"
+if /i "%RestoreType%"=="4" goto "WindowsimageSxS"
 
 :"ESDSWMWIM"
 if exist "%Sources%\install.esd" set Install=install.esd
@@ -699,9 +704,9 @@ goto "Index3"
 echo.
 set SureIndex=
 set /p SureIndex="Are you sure you want Index %Index%? (Yes/No) "
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" if /i "%SureIndex%"=="Yes" goto "MountDrive"
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" if /i "%SureIndex%"=="Yes" goto "MountDrive"
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Windows image" if /i "%SureIndex%"=="Yes" goto "WindowsimageSxS"
+if /i "%RestoreType%"=="1" if /i "%SureIndex%"=="Yes" goto "MountDrive"
+if /i "%RestoreType%"=="2" if /i "%SureIndex%"=="Yes" goto "MountDrive"
+if /i "%RestoreType%"=="3" if /i "%SureIndex%"=="Yes" goto "WindowsimageSxS"
 if /i "%SureIndex%"=="No" goto "Index3"
 echo Invalid syntax!
 goto "SureIndex3"
@@ -724,9 +729,9 @@ goto "Index7"
 echo.
 set SureIndex=
 set /p SureIndex="Are you sure you want Index %Index%? (Yes/No) "
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" if /i "%SureIndex%"=="Yes" goto "MountDrive"
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" if /i "%SureIndex%"=="Yes" goto "MountDrive"
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Windows image" if /i "%SureIndex%"=="Yes" goto "WindowsimageSxS"
+if /i "%RestoreType%"=="1" if /i "%SureIndex%"=="Yes" goto "MountDrive"
+if /i "%RestoreType%"=="2" if /i "%SureIndex%"=="Yes" goto "MountDrive"
+if /i "%RestoreType%"=="3" if /i "%SureIndex%"=="Yes" goto "WindowsimageSxS"
 if /i "%SureIndex%"=="No" goto "Index7"
 echo Invalid syntax!
 goto "SureIndex7"
@@ -753,9 +758,9 @@ goto "Index11"
 echo.
 set SureIndex=
 set /p SureIndex="Are you sure you want Index %Index%? (Yes/No) "
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" if /i "%SureIndex%"=="Yes" goto "MountDrive"
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" if /i "%SureIndex%"=="Yes" goto "MountDrive"
-if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Windows image" if /i "%SureIndex%"=="Yes" goto "WindowsimageSxS"
+if /i "%RestoreType%"=="1" if /i "%SureIndex%"=="Yes" goto "MountDrive"
+if /i "%RestoreType%"=="2" if /i "%SureIndex%"=="Yes" goto "MountDrive"
+if /i "%RestoreType%"=="3" if /i "%SureIndex%"=="Yes" goto "WindowsimageSxS"
 if /i "%SureIndex%"=="No" goto "Index11"
 echo Invalid syntax!
 goto "SureIndex11"
@@ -763,7 +768,39 @@ goto "SureIndex11"
 :"MountDrive"
 if /i "%OnlineOffline%"=="Online" set MountDrive=%SystemDrive%
 if /i "%OnlineOffline%"=="Offline" set MountDrive=%InstallationRestore%
+goto "MountCheck"
+
+:"MountCheck"
+if /i "%Install%"=="install.esd" goto "ExportWIMSet"
+if /i "%Install%"=="install.swm" goto "ExportWIMSet"
+if /i "%Install%"=="install.wim" goto "MountSet"
+
+:"ExportWIMSet"
+set ExportWIM=True
+goto "ExportWIM"
+
+:"ExportWIM"
+if exist "%MountDrive%\install.wim" goto "WIMExist"
+echo.
+echo Exporting Windows image to "%MountDrive%\install.wim".
+"%windir%\System32\Dism.exe" /Export-Image /SourceImageFile:"%Sources%\%Install%" /SourceIndex:%Index% /DestinationImageFile:"%MountDrive%\install.wim" /Compress:None /CheckIntegrity
+if not "%errorlevel%"=="0" goto "WIMError"
+echo Windows image exported to "%MountDrive%\install.wim".
 goto "MountSet"
+
+:"WIMExist"
+set WIM=True
+echo.
+echo Please temporarily rename to something else or temporarily move to another location "%MountDrive%\install.wim" in order for this batch file to proceed. "%MountDrive%\install.wim" is not a system file. Press any key to continue when "%MountDrive%\install.wim" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
+pause > nul 2>&1
+goto "ExportWIM"
+
+:"WIMError"
+echo.
+echo Deleting Windows image from "%MountDrive%\install.wim".
+del "%MountDrive%\install.wim" /f /q > nul 2>&1
+echo Windows image deleted from "%MountDrive%\install.wim".
+goto "Update"
 
 :"MountSet"
 set Mount=
@@ -774,13 +811,14 @@ if exist "%MountDrive%\Mount" goto "MountExist"
 echo.
 echo Mounting Windows image to "%MountDrive%\Mount".
 md "%MountDrive%\Mount" > nul 2>&1
-"%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%Sources%\%Install%" /Index:%Index% /MountDir:"%MountDrive%\Mount" /ReadOnly
+if /i "%ExportWIM%"=="" "%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%Sources%\%Install%" /Index:%Index% /MountDir:"%MountDrive%\Mount" /ReadOnly
+if /i "%ExportWIM%"=="True" "%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%MountDrive%\WIM\install.wim" /Index:1 /MountDir:"%MountDrive%\Mount" /ReadOnly
 if not "%errorlevel%"=="0" goto "MountError"
 echo Windows image mounted to "%MountDrive%\Mount".
-if /i "%OnlineOffline%"=="Online" if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" goto "DISMOnlineMountedWindowsimage"
-if /i "%OnlineOffline%"=="Online" if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" goto "DISMOnlineMountedSxS"
-if /i "%OnlineOffline%"=="Offline" if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted Windows image" goto "DISMOfflineMountedWindowsimage"
-if /i "%OnlineOffline%"=="Offline" if /i "%MountedWindowsimageMountedSxSWindowsimageSxS%"=="Mounted SxS" goto "DISMOfflineMountedSxS"
+if /i "%OnlineOffline%"=="Online" if /i "%RestoreType%"=="1" goto "DISMOnlineMountedWindowsimage"
+if /i "%OnlineOffline%"=="Online" if /i "%RestoreType%"=="2" goto "DISMOnlineMountedSxS"
+if /i "%OnlineOffline%"=="Offline" if /i "%RestoreType%"=="1" goto "DISMOfflineMountedWindowsimage"
+if /i "%OnlineOffline%"=="Offline" if /i "%RestoreType%"=="2" goto "DISMOfflineMountedSxS"
 
 :"MountExist"
 set Mount=True
@@ -918,8 +956,8 @@ echo Unmounting Windows image from "%MountDrive%\Mount".
 if not "%errorlevel%"=="0" goto "UnmountError"
 rd "%MountDrive%\Mount" /s /q > nul 2>&1
 echo Windows image unmounted from "%MountDrive%\Mount".
-if /i "%MountDrive%"=="True" goto "MountDone"
-goto "Start"
+if /i "%Mount%"=="True" goto "MountDone"
+goto "WIMCheck"
 
 :"UnmountError"
 echo There has been an error and all images need to be unmounted! Make sure to save all changes you have made to your mounted images before pressing any key to unmount all images. Press any key to unmount all images when you are ready to unmount all images.
@@ -929,12 +967,30 @@ echo Cleaning up mounted images.
 "%windir%\System32\Dism.exe" /Cleanup-Mountpoints
 rd "%MountDrive%\Mount" /s /q > nul 2>&1
 echo Mounted images cleaned up.
-if /i "%MountDrive%"=="True" goto "MountDone"
-goto "Start"
+if /i "%Mount%"=="True" goto "MountDone"
+goto "WIMCheck"
 
 :"MountDone"
 echo.
 echo You can now rename or move back the file back to "%MountDrive%\Mount". Press any key to continue.
+pause > nul 2>&1
+goto "WIMCheck"
+
+:"WIMCheck"
+if /i "%ExportWIM%"=="True" goto "WIMDelete"
+goto "Start"
+
+:"WIMDelete"
+echo.
+echo Deleting Windows image from "%MountDrive%\install.wim".
+del "%MountDrive%\install.wim" /f /q > nul 2>&1
+echo Windows image deleted from "%MountDrive%\install.wim".
+if /i "%WIM%"=="True" goto "WIMDone"
+goto "Start"
+
+:"WIMDone"
+echo.
+echo You can now rename or move back the file back to "%MountDrive%\install.wim". Press any key to continue.
 pause > nul 2>&1
 goto "Start"
 
