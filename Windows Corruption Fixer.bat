@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 13.2.1
+echo Version: 13.2.2
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -558,7 +558,7 @@ goto "DriveLetter"
 :"DriveLetter"
 echo.
 set DriveLetter=
-set /p DriveLetter="What is the drive letter of your Windows Disk Image/Windows installation media? (A:-Z:) "
+set /p DriveLetter="What is the drive letter of your mounted Windows Disk Image/Windows installation media? (A:-Z:) "
 if /i "%DriveLetter%"=="A:" goto "SureDriveLetterDISM"
 if /i "%DriveLetter%"=="B:" goto "SureDriveLetterDISM"
 if /i "%DriveLetter%"=="C:" goto "SureDriveLetterDISM"
