@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 13.2.8
+echo Version: 13.2.9
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -35,7 +35,7 @@ echo [13] View SFC logs.
 echo [14] Close.
 echo.
 set Input=
-set /p Input="Which one do you want to do? (1-14) "
+set /p Input="What do you want to do? (1-14) "
 if /i "%Input%"=="1" goto "1"
 if /i "%Input%"=="2" goto "2"
 if /i "%Input%"=="3" goto "3"
@@ -696,7 +696,7 @@ goto "DriveLetter"
 :"Index3"
 echo.
 set Index=
-set /p Index="Which one do you have on your PC? (1-3) "
+set /p Index="What do you have on your PC? (1-3) "
 if /i "%Index%"=="1" goto "SureIndex3"
 if /i "%Index%"=="2" goto "SureIndex3"
 if /i "%Index%"=="3" goto "SureIndex3"
@@ -717,7 +717,7 @@ goto "SureIndex3"
 :"Index7"
 echo.
 set Index=
-set /p Index="Which one do you have on your PC? (1-7) "
+set /p Index="What do you have on your PC? (1-7) "
 if /i "%Index%"=="1" goto "SureIndex7"
 if /i "%Index%"=="2" goto "SureIndex7"
 if /i "%Index%"=="3" goto "SureIndex7"
@@ -742,7 +742,7 @@ goto "SureIndex7"
 :"Index11"
 echo.
 set Index=
-set /p Index="Which one do you have on your PC? (1-11) "
+set /p Index="What do you have on your PC? (1-11) "
 if /i "%Index%"=="1" goto "SureIndex11"
 if /i "%Index%"=="2" goto "SureIndex11"
 if /i "%Index%"=="3" goto "SureIndex11"
