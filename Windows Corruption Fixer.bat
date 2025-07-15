@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 13.2.9
+echo Version: 13.2.10
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -634,7 +634,7 @@ goto "Bit"
 :"SureBit"
 echo.
 set SureBit=
-set /p SureBit="Are you sure you have a %Bit%-bit version of Windows? "
+set /p SureBit="Are you sure you have a %Bit%-bit version of Windows? (Yes/No) "
 if /i "%SureBit%"=="Yes" goto "BitSources"
 if /i "%SureBit%"=="No" goto "Bit"
 echo Invalid syntax!
@@ -685,7 +685,7 @@ goto "DISM"
 
 :"IndexDone"
 echo.
-echo You can now rename or move back the file back to "Index.txt".
+echo You can now rename or move the file back to "Index.txt".
 if "%IndexNumber%"=="3" goto "Index3"
 if "%IndexNumber%"=="7" goto "Index7"
 if "%IndexNumber%"=="11" goto "Index11"
@@ -854,7 +854,7 @@ goto "WIMCheckMount"
 :"MountDoneMount"
 set Mount=
 echo.
-echo You can now rename or move back the file back to "%MountDrive%\Mount". Press any key to continue.
+echo You can now rename or move the file back to "%MountDrive%\Mount". Press any key to continue.
 pause > nul 2>&1
 goto "WIMCheckMount"
 
@@ -874,7 +874,7 @@ goto "Update"
 :"WIMDoneMount"
 set WIM=
 echo.
-echo You can now rename or move back the file back to "%MountDrive%\install.wim". Press any key to continue.
+echo You can now rename or move the file back to "%MountDrive%\install.wim". Press any key to continue.
 pause > nul 2>&1
 goto "Update"
 
@@ -1003,7 +1003,7 @@ goto "WIMCheck"
 :"MountDone"
 set Mount=
 echo.
-echo You can now rename or move back the file back to "%MountDrive%\Mount". Press any key to continue.
+echo You can now rename or move the file back to "%MountDrive%\Mount". Press any key to continue.
 pause > nul 2>&1
 goto "WIMCheck"
 
@@ -1023,7 +1023,7 @@ goto "Start"
 :"WIMDone"
 set WIM=
 echo.
-echo You can now rename or move back the file back to "%MountDrive%\install.wim". Press any key to continue.
+echo You can now rename or move the file back to "%MountDrive%\install.wim". Press any key to continue.
 pause > nul 2>&1
 goto "Start"
 
