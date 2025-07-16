@@ -89,10 +89,10 @@ goto "1"
 
 :"SureDriveLetterCHKDSKCheck"
 echo.
-set SureDriveLetter=
-set /p SureDriveLetter="Are you sure "%CHKDSKCheck%" is the drive letter that you want to run CHKDSK check on? (Yes/No) "
-if /i "%SureDriveLetter%"=="Yes" goto "CheckExistCHKDSKCheck"
-if /i "%SureDriveLetter%"=="No" goto "1"
+set SureCHKDSKCheckr=
+set /p SureCHKDSKCheck="Are you sure "%CHKDSKCheck%" is the drive letter that you want to run CHKDSK check on? (Yes/No) "
+if /i "%SureCHKDSKCheckr%"=="Yes" goto "CheckExistCHKDSKCheck"
+if /i "%SureCHKDSKCheck%"=="No" goto "1"
 echo Invalid syntax!
 goto "SureDriveLetterCHKDSKCheck"
 
@@ -145,10 +145,10 @@ goto "2"
 
 :"SureDriveLetterCHKDSKCheckFix"
 echo.
-set SureDriveLetter=
-set /p SureDriveLetter="Are you sure "%CHKDSKCheckFix%" is the drive letter that you want to run CHKDSK check and fix on? (Yes/No) "
-if /i "%SureDriveLetter%"=="Yes" goto "CheckExistCHKDSKCheckFix"
-if /i "%SureDriveLetter%"=="No" goto "2"
+set SureCHKDSKCheckFix=
+set /p SureCHKDSKCheckFix="Are you sure "%CHKDSKCheckFix%" is the drive letter that you want to run CHKDSK check and fix on? (Yes/No) "
+if /i "%SureCHKDSKCheckFix%"=="Yes" goto "CheckExistCHKDSKCheckFix"
+if /i "%SureCHKDSKCheckFix%"=="No" goto "2"
 echo Invalid syntax!
 goto "SureDriveLetterCHKDSKCheckFix"
 
