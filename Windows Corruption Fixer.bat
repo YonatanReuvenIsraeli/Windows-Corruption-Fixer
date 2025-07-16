@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 14.0.1
+echo Version: 14.0.2
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -169,7 +169,7 @@ goto "Start"
 echo.
 echo.
 set OnlineOffline=
-set /p OnlineOffline="Are you viewings the logs of an online or offline Windows installation? (Online/Offline) "
+set /p OnlineOffline="Are you viewing the logs of an online or offline Windows installation? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "AllRecent"
 if /i "%OnlineOffline%"=="Offline" goto "CHKDSKLogDriveLetter"
 echo Invalid syntax!
@@ -1191,7 +1191,7 @@ goto "Start"
 :"8"
 echo.
 set OnlineOffline=
-set /p OnlineOffline="Are you viewings the logs of an online or offline Windows installation? (Online/Offline) "
+set /p OnlineOffline="Are you viewing the logs of an online or offline Windows installation? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "DISMOnlineLog"
 if /i "%OnlineOffline%"=="Offline" goto "DISMLog"
 echo Invalid syntax!
@@ -1652,7 +1652,7 @@ goto "Start"
 :"13"
 echo.
 set OnlineOffline=
-set /p OnlineOffline="Are you viewings the logs of an online or offline Windows installation? (Online/Offline) "
+set /p OnlineOffline="Are you viewing the logs of an online or offline Windows installation? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "SFCOnlineLog"
 if /i "%OnlineOffline%"=="Offline" goto "SFCLog"
 echo Invalid syntax!
