@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 13.2.10
+echo Version: 14.0.0
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -55,117 +55,178 @@ goto "Start"
 
 :"1"
 echo.
-set DriveLetter=
-set /p DriveLetter="Which drive do you want to run CHKDSK check on? (A:-Z:) "
-if /i "%DriveLetter%"=="" set DriveLetter=%SystemDrive%
-if /i "%DriveLetter%"=="A:" goto "SureDriveLetterCHKDSKCheck"
-if /i "%DriveLetter%"=="B:" goto "SureDriveLetterCHKDSKCheck"
-if /i "%DriveLetter%"=="C:" goto "SureDriveLetterCHKDSKCheck"
-if /i "%DriveLetter%"=="D:" goto "SureDriveLetterCHKDSKCheck"
-if /i "%DriveLetter%"=="E:" goto "SureDriveLetterCHKDSKCheck"
-if /i "%DriveLetter%"=="F:" goto "SureDriveLetterCHKDSKCheck"
-if /i "%DriveLetter%"=="G:" goto "SureDriveLetterCHKDSKCheck"
-if /i "%DriveLetter%"=="H:" goto "SureDriveLetterCHKDSKCheck"
-if /i "%DriveLetter%"=="I:" goto "SureDriveLetterCHKDSKCheck"
-if /i "%DriveLetter%"=="J:" goto "SureDriveLetterCHKDSKCheck"
-if /i "%DriveLetter%"=="K:" goto "SureDriveLetterCHKDSKCheck"
-if /i "%DriveLetter%"=="L:" goto "SureDriveLetterCHKDSKCheck"
-if /i "%DriveLetter%"=="M:" goto "SureDriveLetterCHKDSKCheck"
-if /i "%DriveLetter%"=="N:" goto "SureDriveLetterCHKDSKCheck"
-if /i "%DriveLetter%"=="O:" goto "SureDriveLetterCHKDSKCheck"
-if /i "%DriveLetter%"=="P:" goto "SureDriveLetterCHKDSKCheck"
-if /i "%DriveLetter%"=="Q:" goto "SureDriveLetterCHKDSKCheck"
-if /i "%DriveLetter%"=="R:" goto "SureDriveLetterCHKDSKCheck"
-if /i "%DriveLetter%"=="S:" goto "SureDriveLetterCHKDSKCheck"
-if /i "%DriveLetter%"=="T:" goto "SureDriveLetterCHKDSKCheck"
-if /i "%DriveLetter%"=="U:" goto "SureDriveLetterCHKDSKCheck"
-if /i "%DriveLetter%"=="V:" goto "SureDriveLetterCHKDSKCheck"
-if /i "%DriveLetter%"=="W:" goto "SureDriveLetterCHKDSKCheck"
-if /i "%DriveLetter%"=="X:" goto "SureDriveLetterCHKDSKCheck"
-if /i "%DriveLetter%"=="Y:" goto "SureDriveLetterCHKDSKCheck"
-if /i "%DriveLetter%"=="Z:" goto "SureDriveLetterCHKDSKCheck"
+set CHKDSKCheck=
+set /p CHKDSKCheck="Which drive do you want to run CHKDSK check on? (A:-Z:) "
+if /i "%CHKDSKCheck%"=="" set DriveLetter=%SystemDrive%
+if /i "%CHKDSKCheck%"=="A:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%CHKDSKCheck%"=="B:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%CHKDSKCheck%"=="C:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%CHKDSKCheck%"=="D:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%CHKDSKCheck%"=="E:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%CHKDSKCheck%"=="F:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%CHKDSKCheck%"=="G:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%CHKDSKCheck%"=="H:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%CHKDSKCheck%"=="I:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%CHKDSKCheck%"=="J:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%CHKDSKCheck%"=="K:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%CHKDSKCheck%"=="L:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%CHKDSKCheck%"=="M:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%CHKDSKCheck%"=="N:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%CHKDSKCheck%"=="O:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%CHKDSKCheck%"=="P:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%CHKDSKCheck%"=="Q:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%CHKDSKCheck%"=="R:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%CHKDSKCheck%"=="S:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%CHKDSKCheck%"=="T:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%CHKDSKCheck%"=="U:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%CHKDSKCheck%"=="V:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%CHKDSKCheck%"=="W:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%CHKDSKCheck%"=="X:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%CHKDSKCheck%"=="Y:" goto "SureDriveLetterCHKDSKCheck"
+if /i "%CHKDSKCheck%"=="Z:" goto "SureDriveLetterCHKDSKCheck"
 echo Invalid syntax!
 goto "1"
 
 :"SureDriveLetterCHKDSKCheck"
 echo.
 set SureDriveLetter=
-set /p SureDriveLetter="Are you sure "%DriveLetter%" is the drive letter that you want to run CHKDSK check on? (Yes/No) "
+set /p SureDriveLetter="Are you sure "%CHKDSKCheck%" is the drive letter that you want to run CHKDSK check on? (Yes/No) "
 if /i "%SureDriveLetter%"=="Yes" goto "CheckExistCHKDSKCheck"
 if /i "%SureDriveLetter%"=="No" goto "1"
 echo Invalid syntax!
 goto "SureDriveLetterCHKDSKCheck"
 
 :"CheckExistCHKDSKCheck"
-if not exist "%DriveLetter%" goto "DriveLetterNotExistCHKDSKCheck"
+if not exist "%CHKDSKCheck%" goto "DriveLetterNotExistCHKDSKCheck"
 goto "CHKDSKCheck"
 
 :"DriveLetterNotExistCHKDSKCheck"
-echo "%DriveLetter%" does not exist! Please try again.
+echo "%CHKDSKCheck%" does not exist! Please try again.
 goto "1"
 
 :"CHKDSKCheck"
 echo.
-"%windir%\System32\chkdsk.exe" "%DriveLetter%"
+"%windir%\System32\chkdsk.exe" "%CHKDSKCheck%"
 goto "Start"
 
 :"2"
 echo.
-set DriveLetter=
-set /p DriveLetter="Which drive do you want to run CHKDSK check and fix on? (A:-Z:) "
-if /i "%DriveLetter%"=="" set DriveLetter=%SystemDrive%
-if /i "%DriveLetter%"=="A:" goto "SureDriveLetterCHKDSKCheckFix"
-if /i "%DriveLetter%"=="B:" goto "SureDriveLetterCHKDSKCheckFix"
-if /i "%DriveLetter%"=="C:" goto "SureDriveLetterCHKDSKCheckFix"
-if /i "%DriveLetter%"=="D:" goto "SureDriveLetterCHKDSKCheckFix"
-if /i "%DriveLetter%"=="E:" goto "SureDriveLetterCHKDSKCheckFix"
-if /i "%DriveLetter%"=="F:" goto "SureDriveLetterCHKDSKCheckFix"
-if /i "%DriveLetter%"=="G:" goto "SureDriveLetterCHKDSKCheckFix"
-if /i "%DriveLetter%"=="H:" goto "SureDriveLetterCHKDSKCheckFix"
-if /i "%DriveLetter%"=="I:" goto "SureDriveLetterCHKDSKCheckFix"
-if /i "%DriveLetter%"=="J:" goto "SureDriveLetterCHKDSKCheckFix"
-if /i "%DriveLetter%"=="K:" goto "SureDriveLetterCHKDSKCheckFix"
-if /i "%DriveLetter%"=="L:" goto "SureDriveLetterCHKDSKCheckFix"
-if /i "%DriveLetter%"=="M:" goto "SureDriveLetterCHKDSKCheckFix"
-if /i "%DriveLetter%"=="N:" goto "SureDriveLetterCHKDSKCheckFix"
-if /i "%DriveLetter%"=="O:" goto "SureDriveLetterCHKDSKCheckFix"
-if /i "%DriveLetter%"=="P:" goto "SureDriveLetterCHKDSKCheckFix"
-if /i "%DriveLetter%"=="Q:" goto "SureDriveLetterCHKDSKCheckFix"
-if /i "%DriveLetter%"=="R:" goto "SureDriveLetterCHKDSKCheckFix"
-if /i "%DriveLetter%"=="S:" goto "SureDriveLetterCHKDSKCheckFix"
-if /i "%DriveLetter%"=="T:" goto "SureDriveLetterCHKDSKCheckFix"
-if /i "%DriveLetter%"=="U:" goto "SureDriveLetterCHKDSKCheckFix"
-if /i "%DriveLetter%"=="V:" goto "SureDriveLetterCHKDSKCheckFix"
-if /i "%DriveLetter%"=="W:" goto "SureDriveLetterCHKDSKCheckFix"
-if /i "%DriveLetter%"=="X:" goto "SureDriveLetterCHKDSKCheckFix"
-if /i "%DriveLetter%"=="Y:" goto "SureDriveLetterCHKDSKCheckFix"
-if /i "%DriveLetter%"=="Z:" goto "SureDriveLetterCHKDSKCheckFix"
+set CHKDSKCheckFix=
+set /p CHKDSKCheckFix="Which drive do you want to run CHKDSK check and fix on? (A:-Z:) "
+if /i "%CHKDSKCheckFix%"=="" set DriveLetter=%SystemDrive%
+if /i "%CHKDSKCheckFix%"=="A:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%CHKDSKCheckFix%"=="B:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%CHKDSKCheckFix%"=="C:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%CHKDSKCheckFix%"=="D:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%CHKDSKCheckFix%"=="E:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%CHKDSKCheckFix%"=="F:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%CHKDSKCheckFix%"=="G:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%CHKDSKCheckFix%"=="H:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%CHKDSKCheckFix%"=="I:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%CHKDSKCheckFix%"=="J:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%CHKDSKCheckFix%"=="K:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%CHKDSKCheckFix%"=="L:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%CHKDSKCheckFix%"=="M:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%CHKDSKCheckFix%"=="N:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%CHKDSKCheckFix%"=="O:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%CHKDSKCheckFix%"=="P:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%CHKDSKCheckFix%"=="Q:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%CHKDSKCheckFix%"=="R:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%CHKDSKCheckFix%"=="S:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%CHKDSKCheckFix%"=="T:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%CHKDSKCheckFix%"=="U:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%CHKDSKCheckFix%"=="V:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%CHKDSKCheckFix%"=="W:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%CHKDSKCheckFix%"=="X:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%CHKDSKCheckFix%"=="Y:" goto "SureDriveLetterCHKDSKCheckFix"
+if /i "%CHKDSKCheckFix%"=="Z:" goto "SureDriveLetterCHKDSKCheckFix"
 echo Invalid syntax!
 goto "2"
 
 :"SureDriveLetterCHKDSKCheckFix"
 echo.
 set SureDriveLetter=
-set /p SureDriveLetter="Are you sure "%DriveLetter%" is the drive letter that you want to run CHKDSK check and fix on? (Yes/No) "
+set /p SureDriveLetter="Are you sure "%CHKDSKCheckFix%" is the drive letter that you want to run CHKDSK check and fix on? (Yes/No) "
 if /i "%SureDriveLetter%"=="Yes" goto "CheckExistCHKDSKCheckFix"
 if /i "%SureDriveLetter%"=="No" goto "2"
 echo Invalid syntax!
 goto "SureDriveLetterCHKDSKCheckFix"
 
 :"CheckExistCHKDSKCheckFix"
-if not exist "%DriveLetter%" goto "DriveLetterNotExistCHKDSKCheckFix"
+if not exist "%CHKDSKCheckFix%" goto "DriveLetterNotExistCHKDSKCheckFix"
 goto "CHKDSKCheckFix"
 
 :"DriveLetterNotExistCHKDSKCheckFix"
-echo "%DriveLetter%" does not exist! Please try again.
+echo "%CHKDSKCheckFix%" does not exist! Please try again.
 goto "2"
 
 :"CHKDSKCheckFix"
 echo.
-"%windir%\System32\chkdsk.exe" "%DriveLetter%" /r
+"%windir%\System32\chkdsk.exe" "%CHKDSKCheckFix%" /r
 goto "Start"
 
 :"3"
+echo.
+echo.
+set OnlineOffline=
+set /p OnlineOffline="Are you viewings the logs of an online or offline Windows installation? (Online/Offline) "
+if /i "%OnlineOffline%"=="Online" goto "AllRecent"
+if /i "%OnlineOffline%"=="Offline" goto "CHKDSKLogDriveLetter"
+echo Invalid syntax!
+goto "3"
+
+:"CHKDSKLogDriveLetter"
+echo.
+set CHKDSKLogDriveLetter=
+set /p CHKDSKLogDriveLetter="What is the drive letter of the offline Windows installation? (A:-Z:) "
+if /i "%CHKDSKLogDriveLetter%"=="A:" goto "CheckExistCHKDSKOfflineLog"
+if /i "%CHKDSKLogDriveLetter%"=="B:" goto "CheckExistCHKDSKOfflineLog"
+if /i "%CHKDSKLogDriveLetter%"=="C:" goto "CheckExistCHKDSKOfflineLog"
+if /i "%CHKDSKLogDriveLetter%"=="D:" goto "CheckExistCHKDSKOfflineLog"
+if /i "%CHKDSKLogDriveLetter%"=="E:" goto "CheckExistCHKDSKOfflineLog"
+if /i "%CHKDSKLogDriveLetter%"=="F:" goto "CheckExistCHKDSKOfflineLog"
+if /i "%CHKDSKLogDriveLetter%"=="G:" goto "CheckExistCHKDSKOfflineLog"
+if /i "%CHKDSKLogDriveLetter%"=="H:" goto "CheckExistCHKDSKOfflineLog"
+if /i "%CHKDSKLogDriveLetter%"=="I:" goto "CheckExistCHKDSKOfflineLog"
+if /i "%CHKDSKLogDriveLetter%"=="J:" goto "CheckExistCHKDSKOfflineLog"
+if /i "%CHKDSKLogDriveLetter%"=="K:" goto "CheckExistCHKDSKOfflineLog"
+if /i "%CHKDSKLogDriveLetter%"=="L:" goto "CheckExistCHKDSKOfflineLog"
+if /i "%CHKDSKLogDriveLetter%"=="M:" goto "CheckExistCHKDSKOfflineLog"
+if /i "%CHKDSKLogDriveLetter%"=="N:" goto "CheckExistCHKDSKOfflineLog"
+if /i "%CHKDSKLogDriveLetter%"=="O:" goto "CheckExistCHKDSKOfflineLog"
+if /i "%CHKDSKLogDriveLetter%"=="P:" goto "CheckExistCHKDSKOfflineLog"
+if /i "%CHKDSKLogDriveLetter%"=="Q:" goto "CheckExistCHKDSKOfflineLog"
+if /i "%CHKDSKLogDriveLetter%"=="R:" goto "CheckExistCHKDSKOfflineLog"
+if /i "%CHKDSKLogDriveLetter%"=="S:" goto "CheckExistCHKDSKOfflineLog"
+if /i "%CHKDSKLogDriveLetter%"=="T:" goto "CheckExistCHKDSKOfflineLog"
+if /i "%CHKDSKLogDriveLetter%"=="U:" goto "CheckExistCHKDSKOfflineLog"
+if /i "%CHKDSKLogDriveLetter%"=="V:" goto "CheckExistCHKDSKOfflineLog"
+if /i "%CHKDSKLogDriveLetter%"=="W:" goto "CheckExistCHKDSKOfflineLog"
+if /i "%CHKDSKLogDriveLetter%"=="X:" goto "CheckExistCHKDSKOfflineLog"
+if /i "%CHKDSKLogDriveLetter%"=="Y:" goto "CheckExistCHKDSKOfflineLog"
+if /i "%CHKDSKLogDriveLetter%"=="Z:" goto "CheckExistCHKDSKOfflineLog"
+echo Invalid syntax!
+goto "CHKDSKLogDriveLetter"
+
+:"CheckExistCHKDSKOfflineLog"
+if not exist "%CHKDSKLogDriveLetter%" goto "CHKDSKLogDriveLetterNotExist"
+if /i "%CHKDSKLogDriveLetter%"=="%SystemDrive%" goto "CHKDSKLogDriveLetterIsOnline"
+if not exist "%CHKDSKLogDriveLetter%\Windows" goto "CHKDSKLogDriveLetterNotWindows"
+goto "AllRecent"
+
+:"CHKDSKLogDriveLetterNotExist"
+echo "%CHKDSKLogDriveLetter%" does not exist!
+goto "CHKDSKLogDriveLetter"
+
+:"CHKDSKLogDriveLetterIsOnline"
+echo "%CHKDSKLogDriveLetter%" is an online Windows installation!
+goto "3"
+
+:"CHKDSKLogDriveLetterNotWindows"
+echo "%CHKDSKLogDriveLetter%" is not an offline Windows installation!
+goto "CHKDSKLogDriveLetter"
+
+:"AllRecent"
 echo.
 set Recent=
 set /p Recent="How many of the most recent CHKDSK logs do you want to view? (1-?/All) "
@@ -176,7 +237,8 @@ goto "SureRecent"
 echo.
 set SureAll=
 set /p SureAll="Are you sure you want to view all CHKDSK logs? (Yes/No) "
-if /i "%SureAll%"=="Yes" goto "wevtutilAll"
+if /i "%OnlineOffline%"=="Online"  if /i "%SureAll%"=="Yes" goto "wevtutilAllOnline"
+if /i "%OnlineOffline%"=="Offline"  if /i "%SureAll%"=="Yes" goto "wevtutilAllOffline"
 if /i "%SureAll%"=="No" goto "3"
 echo Invalid syntax!
 goto "SureAll"
@@ -185,20 +247,33 @@ goto "SureAll"
 echo.
 set SureRecent=
 set /p SureRecent="Are you sure you want to view the %Recent% most recent CHKDSK logs? (Yes/No) "
-if /i "%SureRecent%"=="Yes" goto "wevtutilRecent"
+if /i "%OnlineOffline%"=="Online" if /i "%SureRecent%"=="Yes" goto "wevtutilRecentOnline"
+if /i "%OnlineOffline%"=="Offline" if /i "%SureRecent%"=="Yes" goto "wevtutilRecentOffline"
 if /i "%SureRecent%"=="No" goto "3"
 echo Invalid syntax!
 goto "SureRecent"
 
-:"wevtutilAll"
+:"wevtutilAllOnline"
 echo.
-"%windir%\System32\wevtutil.exe" qe Application "/q:*[System[Provider[@Name='chkdsk'] or Provider[@Name='wininit']]]" /f:text
+"%windir%\System32\wevtutil.exe" qe Application "/q:*[System[Provider[@Name='chkdsk'] or Provider[@Name='wininit']]]" /lf:False /f:text
 if not "%errorlevel%"=="0" goto "wevtutilError"
 goto "Start"
 
-:"wevtutilRecent"
+:"wevtutilRecentOnline"
 echo.
-"%windir%\System32\wevtutil.exe" qe Application "/q:*[System[Provider[@Name='chkdsk'] or Provider[@Name='wininit']]]" /f:text /c:%Recent%
+"%windir%\System32\wevtutil.exe" qe Application "/q:*[System[Provider[@Name='chkdsk'] or Provider[@Name='wininit']]]" /lf:False /f:text /c:%Recent%
+if not "%errorlevel%"=="0" goto "wevtutilError"
+goto "Start"
+
+:"wevtutilAllOffline"
+echo.
+"%windir%\System32\wevtutil.exe" qe C:\Windows\System32\winevt\Logs "/q:*[System[Provider[@Name='chkdsk'] or Provider[@Name='wininit']]]" /lf:True /f:text
+if not "%errorlevel%"=="0" goto "wevtutilError"
+goto "Start"
+
+:"wevtutilRecentOffline"
+echo.
+"%windir%\System32\wevtutil.exe" qe C:\Windows\System32\winevt\Logs "/q:*[System[Provider[@Name='chkdsk'] or Provider[@Name='wininit']]]" /lf:True /f:text /c:%Recent%
 if not "%errorlevel%"=="0" goto "wevtutilError"
 goto "Start"
 
@@ -259,7 +334,7 @@ goto "SureInstallationCheck"
 
 :"CheckExistInstallationCheck"
 if not exist "%InstallationCheck%" goto "NotExistInstallationCheck"
-if "%InstallationCheck%"=="%SystemDrive%" goto "InstallationCheckIsOnline"
+if /i "%InstallationCheck%"=="%SystemDrive%" goto "InstallationCheckIsOnline"
 if not exist "%InstallationCheck%\Windows" goto "InstallationCheckNotWindows"
 goto "CheckOffline"
 
@@ -431,7 +506,7 @@ goto "SureInstallationRestore"
 
 :"CheckExistInstallationRestore"
 if not exist "%InstallationRestore%" goto "NotExistInstallationRestore"
-if "%InstallationRestore%"=="%SystemDrive%" goto "InstallationRestoreIsOnline"
+if /i "%InstallationRestore%"=="%SystemDrive%" goto "InstallationRestoreIsOnline"
 if not exist "%InstallationRestore%\Windows" goto "InstallationRestoreNotWindows"
 goto "Update"
 
@@ -1080,7 +1155,7 @@ goto "SureInstallationRevert"
 
 :"CheckExistInstallationRevert"
 if not exist "%InstallationRevert%" goto "NotExistInstallationRevert"
-if "%InstallationRevert%"=="%SystemDrive%" goto "InstallationRevertIsOnline"
+if /i "%InstallationRevert%"=="%SystemDrive%" goto "InstallationRevertIsOnline"
 if not exist "%InstallationRevert%\Windows" goto "InstallationRevertNotWindows"
 goto "RevertOffline"
 
@@ -1126,38 +1201,47 @@ goto "8"
 echo.
 set DISMLogDriveLetter=
 set /p DISMLogDriveLetter="What is the drive letter of the offline Windows installation? (A:-Z:) "
-if /i "%DISMLogDriveLetter%"=="A:" goto "CheckExistDISMOfflineLog"
-if /i "%DISMLogDriveLetter%"=="B:" goto "CheckExistDISMOfflineLog"
-if /i "%DISMLogDriveLetter%"=="C:" goto "CheckExistDISMOfflineLog"
-if /i "%DISMLogDriveLetter%"=="D:" goto "CheckExistDISMOfflineLog"
-if /i "%DISMLogDriveLetter%"=="E:" goto "CheckExistDISMOfflineLog"
-if /i "%DISMLogDriveLetter%"=="F:" goto "CheckExistDISMOfflineLog"
-if /i "%DISMLogDriveLetter%"=="G:" goto "CheckExistDISMOfflineLog"
-if /i "%DISMLogDriveLetter%"=="H:" goto "CheckExistDISMOfflineLog"
-if /i "%DISMLogDriveLetter%"=="I:" goto "CheckExistDISMOfflineLog"
-if /i "%DISMLogDriveLetter%"=="J:" goto "CheckExistDISMOfflineLog"
-if /i "%DISMLogDriveLetter%"=="K:" goto "CheckExistDISMOfflineLog"
-if /i "%DISMLogDriveLetter%"=="L:" goto "CheckExistDISMOfflineLog"
-if /i "%DISMLogDriveLetter%"=="M:" goto "CheckExistDISMOfflineLog"
-if /i "%DISMLogDriveLetter%"=="N:" goto "CheckExistDISMOfflineLog"
-if /i "%DISMLogDriveLetter%"=="O:" goto "CheckExistDISMOfflineLog"
-if /i "%DISMLogDriveLetter%"=="P:" goto "CheckExistDISMOfflineLog"
-if /i "%DISMLogDriveLetter%"=="Q:" goto "CheckExistDISMOfflineLog"
-if /i "%DISMLogDriveLetter%"=="R:" goto "CheckExistDISMOfflineLog"
-if /i "%DISMLogDriveLetter%"=="S:" goto "CheckExistDISMOfflineLog"
-if /i "%DISMLogDriveLetter%"=="T:" goto "CheckExistDISMOfflineLog"
-if /i "%DISMLogDriveLetter%"=="U:" goto "CheckExistDISMOfflineLog"
-if /i "%DISMLogDriveLetter%"=="V:" goto "CheckExistDISMOfflineLog"
-if /i "%DISMLogDriveLetter%"=="W:" goto "CheckExistDISMOfflineLog"
-if /i "%DISMLogDriveLetter%"=="X:" goto "CheckExistDISMOfflineLog"
-if /i "%DISMLogDriveLetter%"=="Y:" goto "CheckExistDISMOfflineLog"
-if /i "%DISMLogDriveLetter%"=="Z:" goto "CheckExistDISMOfflineLog"
+if /i "%DISMLogDriveLetter%"=="A:" goto "SureDISMLogDriveLetter"
+if /i "%DISMLogDriveLetter%"=="B:" goto "SureDISMLogDriveLetter"
+if /i "%DISMLogDriveLetter%"=="C:" goto "SureDISMLogDriveLetter"
+if /i "%DISMLogDriveLetter%"=="D:" goto "SureDISMLogDriveLetter"
+if /i "%DISMLogDriveLetter%"=="E:" goto "SureDISMLogDriveLetter"
+if /i "%DISMLogDriveLetter%"=="F:" goto "SureDISMLogDriveLetter"
+if /i "%DISMLogDriveLetter%"=="G:" goto "SureDISMLogDriveLetter"
+if /i "%DISMLogDriveLetter%"=="H:" goto "SureDISMLogDriveLetter"
+if /i "%DISMLogDriveLetter%"=="I:" goto "SureDISMLogDriveLetter"
+if /i "%DISMLogDriveLetter%"=="J:" goto "SureDISMLogDriveLetter"
+if /i "%DISMLogDriveLetter%"=="K:" goto "SureDISMLogDriveLetter"
+if /i "%DISMLogDriveLetter%"=="L:" goto "SureDISMLogDriveLetter"
+if /i "%DISMLogDriveLetter%"=="M:" goto "SureDISMLogDriveLetter"
+if /i "%DISMLogDriveLetter%"=="N:" goto "SureDISMLogDriveLetter"
+if /i "%DISMLogDriveLetter%"=="O:" goto "SureDISMLogDriveLetter"
+if /i "%DISMLogDriveLetter%"=="P:" goto "SureDISMLogDriveLetter"
+if /i "%DISMLogDriveLetter%"=="Q:" goto "SureDISMLogDriveLetter"
+if /i "%DISMLogDriveLetter%"=="R:" goto "SureDISMLogDriveLetter"
+if /i "%DISMLogDriveLetter%"=="S:" goto "SureDISMLogDriveLetter"
+if /i "%DISMLogDriveLetter%"=="T:" goto "SureDISMLogDriveLetter"
+if /i "%DISMLogDriveLetter%"=="U:" goto "SureDISMLogDriveLetter"
+if /i "%DISMLogDriveLetter%"=="V:" goto "SureDISMLogDriveLetter"
+if /i "%DISMLogDriveLetter%"=="W:" goto "SureDISMLogDriveLetter"
+if /i "%DISMLogDriveLetter%"=="X:" goto "SureDISMLogDriveLetter"
+if /i "%DISMLogDriveLetter%"=="Y:" goto "SureDISMLogDriveLetter"
+if /i "%DISMLogDriveLetter%"=="Z:" goto "SureDISMLogDriveLetter"
 echo Invalid syntax!
 goto "DISMLogDriveLetter"
 
+:"SureDISMLogDriveLetter"
+echo.
+set SureDriveLetter=
+set /p SureDriveLetter="Are you sure "%DISMLogDriveLetter%" is the drive letter of your offline Windows installation? (Yes/No) "
+if /i "%SureDriveLetter%"=="Yes" goto "CheckExistDISMOfflineLog"
+if /i "%SureDriveLetter%"=="No" goto "DISMLogDriveLetter"
+echo Invalid syntax!
+goto "SureDISMLogDriveLetter"
+
 :"CheckExistDISMOfflineLog"
 if not exist "%DISMLogDriveLetter%" goto "DISMLogDriveLetterNotExist"
-if "%DISMLogDriveLetter%"=="%SystemDrive%" goto "DISMLogDriveLetterIsOnline"
+if /i "%DISMLogDriveLetter%"=="%SystemDrive%" goto "DISMLogDriveLetterIsOnline"
 if not exist "%DISMLogDriveLetter%\Windows" goto "DISMLogDriveLetterNotWindows"
 goto "DISMOfflineLog"
 
@@ -1210,38 +1294,47 @@ goto "9"
 echo.
 set ScanNowDriveLetter=
 set /p ScanNowDriveLetter="What is the drive letter of the offline Windows installation? (A:-Z:) "
-if /i "%ScanNowDriveLetter%"=="A:" goto "CheckExistScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="B:" goto "CheckExistScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="C:" goto "CheckExistScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="D:" goto "CheckExistScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="E:" goto "CheckExistScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="F:" goto "CheckExistScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="G:" goto "CheckExistScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="H:" goto "CheckExistScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="I:" goto "CheckExistScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="J:" goto "CheckExistScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="K:" goto "CheckExistScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="L:" goto "CheckExistScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="M:" goto "CheckExistScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="N:" goto "CheckExistScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="O:" goto "CheckExistScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="P:" goto "CheckExistScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="Q:" goto "CheckExistScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="R:" goto "CheckExistScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="S:" goto "CheckExistScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="T:" goto "CheckExistScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="U:" goto "CheckExistScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="V:" goto "CheckExistScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="W:" goto "CheckExistScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="X:" goto "CheckExistScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="Y:" goto "CheckExistScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="Z:" goto "CheckExistScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="A:" goto "SureScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="B:" goto "SureScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="C:" goto "SureScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="D:" goto "SureScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="E:" goto "SureScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="F:" goto "SureScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="G:" goto "SureScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="H:" goto "SureScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="I:" goto "SureScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="J:" goto "SureScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="K:" goto "SureScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="L:" goto "SureScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="M:" goto "SureScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="N:" goto "SureScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="O:" goto "SureScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="P:" goto "SureScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="Q:" goto "SureScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="R:" goto "SureScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="S:" goto "SureScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="T:" goto "SureScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="U:" goto "SureScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="V:" goto "SureScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="W:" goto "SureScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="X:" goto "SureScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="Y:" goto "SureScanNowDriveLetter"
+if /i "%ScanNowDriveLetter%"=="Z:" goto "SureScanNowDriveLetter"
 echo Invalid syntax!
 goto "ScanNowDriveLetter"
 
+:"SureScanNowDriveLetter"
+echo.
+set SureDriveLetter=
+set /p SureDriveLetter="Are you sure "%ScanNowDriveLetter%" is the drive letter of your offline Windows installation? (Yes/No) "
+if /i "%SureDriveLetter%"=="Yes" goto "CheckExistScanNowDriveLetter"
+if /i "%SureDriveLetter%"=="No" goto "ScanNowDriveLetter"
+echo Invalid syntax!
+goto "SureScanNowDriveLetter"
+
 :"CheckExistScanNowDriveLetter"
 if not exist "%ScanNowDriveLetter%" goto "ScanNowDriveLetterNotExist"
-if "%ScanNowDriveLetter%"=="%SystemDrive%" goto "ScanNowDriveLetterIsOnline"
+if /i "%ScanNowDriveLetter%"=="%SystemDrive%" goto "ScanNowDriveLetterIsOnline"
 if not exist "%ScanNowDriveLetter%\Windows" goto "ScanNowDriveLetterNotWindows"
 goto "ScanNowOffline"
 
@@ -1287,38 +1380,47 @@ goto "10"
 echo.
 set VerifyOnlyDriveLetter=
 set /p VerifyOnlyDriveLetter="What is the drive letter of the offline Windows installation? (A:-Z:) "
-if /i "%VerifyOnlyDriveLetter%"=="A:" goto "CheckExistVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="B:" goto "CheckExistVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="C:" goto "CheckExistVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="D:" goto "CheckExistVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="E:" goto "CheckExistVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="F:" goto "CheckExistVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="G:" goto "CheckExistVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="H:" goto "CheckExistVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="I:" goto "CheckExistVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="J:" goto "CheckExistVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="K:" goto "CheckExistVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="L:" goto "CheckExistVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="M:" goto "CheckExistVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="N:" goto "CheckExistVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="O:" goto "CheckExistVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="P:" goto "CheckExistVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="Q:" goto "CheckExistVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="R:" goto "CheckExistVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="S:" goto "CheckExistVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="T:" goto "CheckExistVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="U:" goto "CheckExistVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="V:" goto "CheckExistVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="W:" goto "CheckExistVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="X:" goto "CheckExistVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="Y:" goto "CheckExistVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="Z:" goto "CheckExistVerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="A:" goto "VerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="B:" goto "VerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="C:" goto "VerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="D:" goto "VerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="E:" goto "VerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="F:" goto "VerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="G:" goto "VerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="H:" goto "VerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="I:" goto "VerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="J:" goto "VerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="K:" goto "VerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="L:" goto "VerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="M:" goto "VerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="N:" goto "VerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="O:" goto "VerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="P:" goto "VerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="Q:" goto "VerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="R:" goto "VerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="S:" goto "VerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="T:" goto "VerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="U:" goto "VerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="V:" goto "VerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="W:" goto "VerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="X:" goto "VerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="Y:" goto "VerifyOnlyDriveLetter"
+if /i "%VerifyOnlyDriveLetter%"=="Z:" goto "VerifyOnlyDriveLetter"
+echo Invalid syntax!
+goto "VerifyOnlyDriveLetter"
+
+:"VerifyOnlyDriveLetter"
+echo.
+set SureDriveLetter=
+set /p SureDriveLetter="Are you sure "%VerifyOnlyDriveLetter%" is the drive letter of your offline Windows installation? (Yes/No) "
+if /i "%SureDriveLetter%"=="Yes" goto "CheckExistVerifyOnlyDriveLetter"
+if /i "%SureDriveLetter%"=="No" goto "VerifyOnlyDriveLetter"
 echo Invalid syntax!
 goto "VerifyOnlyDriveLetter"
 
 :"CheckExistVerifyOnlyDriveLetter"
 if not exist "%VerifyOnlyDriveLetter%" goto "VerifyOnlyDriveLetterNotExist"
-if "%VerifyOnlyDriveLetter%"=="%SystemDrive%" goto "VerifyOnlyDriveLetterIsOnline"
+if /i "%VerifyOnlyDriveLetter%"=="%SystemDrive%" goto "VerifyOnlyDriveLetterIsOnline"
 if not exist "%VerifyOnlyDriveLetter%\Windows" goto "VerfiyOnlyDriveLetterNotWindows"
 goto "VerifyOnlyOffline"
 
@@ -1407,7 +1509,7 @@ goto "ScanFileDriveLetter"
 
 :"CheckExistScanFileDriveLetter"
 if not exist "%ScanFileDriveLetter%" goto "ScanFileDriveLetterNotExist"
-if "%ScanFileDriveLetter%"=="%SystemDrive%" goto "ScanFileDriveLetterIsOnline"
+if /i "%ScanFileDriveLetter%"=="%SystemDrive%" goto "ScanFileDriveLetterIsOnline"
 if not exist "%ScanFileDriveLetter%\Windows" goto "ScanFileDriveLetterNotWindows"
 goto "ScanFileOffline"
 
@@ -1496,7 +1598,7 @@ goto "VerifyFileDriveLetter"
 
 :"CheckExistVerifyFileDriveLetter"
 if not exist "%VerifyFileDriveLetter%" goto "VerifyFileDriveLetterNotExist"
-if "%VerifyFileDriveLetter%"=="%SystemDrive%" goto "VerifyFileDriveLetterIsOnline"
+if /i "%VerifyFileDriveLetter%"=="%SystemDrive%" goto "VerifyFileDriveLetterIsOnline"
 if not exist "%VerifyFileDriveLetter%\Windows" goto "VerifyFileDriveLetterNotWindows"
 goto "VerifyFileOffline"
 
@@ -1573,7 +1675,7 @@ goto "SFCLogDriveLetter"
 
 :"CheckExistSFCOfflineLog"
 if not exist "%SFCLogDriveLetter%" goto "SFCLogDriveLetterNotExist"
-if "%SFCLogDriveLetter%"=="%SystemDrive%" goto "SFCLogDriveLetterIsOnline"
+if /i "%SFCLogDriveLetter%"=="%SystemDrive%" goto "SFCLogDriveLetterIsOnline"
 if not exist "%SFCLogDriveLetter%\Windows" goto "SFCLogDriveLetterNotWindows"
 goto "SFCOfflineLog"
 
