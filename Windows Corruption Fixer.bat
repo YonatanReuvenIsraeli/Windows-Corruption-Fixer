@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 14.0.6
+echo Version: 14.0.7
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -645,43 +645,43 @@ goto "DriveLetter"
 echo.
 set DriveLetter=
 set /p DriveLetter="What is the drive letter of your mounted Windows Disk Image/Windows installation media? (A:-Z:) "
-if /i "%DriveLetter%"=="A:" goto "SureDriveLetterDISM"
-if /i "%DriveLetter%"=="B:" goto "SureDriveLetterDISM"
-if /i "%DriveLetter%"=="C:" goto "SureDriveLetterDISM"
-if /i "%DriveLetter%"=="D:" goto "SureDriveLetterDISM"
-if /i "%DriveLetter%"=="E:" goto "SureDriveLetterDISM"
-if /i "%DriveLetter%"=="F:" goto "SureDriveLetterDISM"
-if /i "%DriveLetter%"=="G:" goto "SureDriveLetterDISM"
-if /i "%DriveLetter%"=="H:" goto "SureDriveLetterDISM"
-if /i "%DriveLetter%"=="I:" goto "SureDriveLetterDISM"
-if /i "%DriveLetter%"=="J:" goto "SureDriveLetterDISM"
-if /i "%DriveLetter%"=="K:" goto "SureDriveLetterDISM"
-if /i "%DriveLetter%"=="L:" goto "SureDriveLetterDISM"
-if /i "%DriveLetter%"=="M:" goto "SureDriveLetterDISM"
-if /i "%DriveLetter%"=="N:" goto "SureDriveLetterDISM"
-if /i "%DriveLetter%"=="O:" goto "SureDriveLetterDISM"
-if /i "%DriveLetter%"=="P:" goto "SureDriveLetterDISM"
-if /i "%DriveLetter%"=="Q:" goto "SureDriveLetterDISM"
-if /i "%DriveLetter%"=="R:" goto "SureDriveLetterDISM"
-if /i "%DriveLetter%"=="S:" goto "SureDriveLetterDISM"
-if /i "%DriveLetter%"=="T:" goto "SureDriveLetterDISM"
-if /i "%DriveLetter%"=="U:" goto "SureDriveLetterDISM"
-if /i "%DriveLetter%"=="V:" goto "SureDriveLetterDISM"
-if /i "%DriveLetter%"=="W:" goto "SureDriveLetterDISM"
-if /i "%DriveLetter%"=="X:" goto "SureDriveLetterDISM"
-if /i "%DriveLetter%"=="Y:" goto "SureDriveLetterDISM"
-if /i "%DriveLetter%"=="Z:" goto "SureDriveLetterDISM"
+if /i "%DriveLetter%"=="A:" goto "SureDriveLetter"
+if /i "%DriveLetter%"=="B:" goto "SureDriveLetter"
+if /i "%DriveLetter%"=="C:" goto "SureDriveLetter"
+if /i "%DriveLetter%"=="D:" goto "SureDriveLetter"
+if /i "%DriveLetter%"=="E:" goto "SureDriveLetter"
+if /i "%DriveLetter%"=="F:" goto "SureDriveLetter"
+if /i "%DriveLetter%"=="G:" goto "SureDriveLetter"
+if /i "%DriveLetter%"=="H:" goto "SureDriveLetter"
+if /i "%DriveLetter%"=="I:" goto "SureDriveLetter"
+if /i "%DriveLetter%"=="J:" goto "SureDriveLetter"
+if /i "%DriveLetter%"=="K:" goto "SureDriveLetter"
+if /i "%DriveLetter%"=="L:" goto "SureDriveLetter"
+if /i "%DriveLetter%"=="M:" goto "SureDriveLetter"
+if /i "%DriveLetter%"=="N:" goto "SureDriveLetter"
+if /i "%DriveLetter%"=="O:" goto "SureDriveLetter"
+if /i "%DriveLetter%"=="P:" goto "SureDriveLetter"
+if /i "%DriveLetter%"=="Q:" goto "SureDriveLetter"
+if /i "%DriveLetter%"=="R:" goto "SureDriveLetter"
+if /i "%DriveLetter%"=="S:" goto "SureDriveLetter"
+if /i "%DriveLetter%"=="T:" goto "SureDriveLetter"
+if /i "%DriveLetter%"=="U:" goto "SureDriveLetter"
+if /i "%DriveLetter%"=="V:" goto "SureDriveLetter"
+if /i "%DriveLetter%"=="W:" goto "SureDriveLetter"
+if /i "%DriveLetter%"=="X:" goto "SureDriveLetter"
+if /i "%DriveLetter%"=="Y:" goto "SureDriveLetter"
+if /i "%DriveLetter%"=="Z:" goto "SureDriveLetter"
 echo Invalid syntax!
 goto "DriveLetter"
 
-:"SureDriveLetterDISM"
+:"SureDriveLetter"
 echo.
 set SureDriveLetter=
 set /p SureDriveLetter="Are you sure "%DriveLetter%" is the drive letter of your Windows Disk Image/Windows installation media? (Yes/No) "
 if /i "%SureDriveLetter%"=="Yes" goto "CheckExistDriveLetter"
 if /i "%SureDriveLetter%"=="No" goto "DriveLetter"
 echo Invalid syntax!
-goto "SureDriveLetterDISM"
+goto "SureDriveLetter"
 
 :"CheckExistDriveLetter"
 if not exist "%DriveLetter%" goto "NotExist"
