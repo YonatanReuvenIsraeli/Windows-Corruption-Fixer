@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 14.0.5
+echo Version: 14.0.6
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -177,7 +177,7 @@ goto "3"
 :"CHKDSKLog"
 echo.
 set CHKDSKLog=
-set /p CHKDSKLog="What is the drive letter of the offline Windows installation? (A:-Z:) "
+set /p CHKDSKLog="What is the drive letter of your offline Windows installation? (A:-Z:) "
 if /i "%CHKDSKLog%"=="A:" goto "SureCHKDSKLog"
 if /i "%CHKDSKLog%"=="B:" goto "SureCHKDSKLog"
 if /i "%CHKDSKLog%"=="C:" goto "SureCHKDSKLog"
@@ -1208,7 +1208,7 @@ goto "8"
 :"DISMLog"
 echo.
 set DISMLog=
-set /p DISMLog="What is the drive letter of the offline Windows installation? (A:-Z:) "
+set /p DISMLog="What is the drive letter of your offline Windows installation? (A:-Z:) "
 if /i "%DISMLog%"=="A:" goto "SureDISMLog"
 if /i "%DISMLog%"=="B:" goto "SureDISMLog"
 if /i "%DISMLog%"=="C:" goto "SureDISMLog"
@@ -1301,7 +1301,7 @@ goto "9"
 :"ScanNow"
 echo.
 set ScanNow=
-set /p ScanNow="What is the drive letter of the offline Windows installation? (A:-Z:) "
+set /p ScanNow="What is the drive letter of your offline Windows installation? (A:-Z:) "
 if /i "%ScanNow%"=="A:" goto "SureScanNow"
 if /i "%ScanNow%"=="B:" goto "SureScanNow"
 if /i "%ScanNow%"=="C:" goto "SureScanNow"
@@ -1387,7 +1387,7 @@ goto "10"
 :"VerifyOnly"
 echo.
 set VerifyOnly=
-set /p VerifyOnly="What is the drive letter of the offline Windows installation? (A:-Z:) "
+set /p VerifyOnly="What is the drive letter of your offline Windows installation? (A:-Z:) "
 if /i "%VerifyOnly%"=="A:" goto "SureVerifyOnly"
 if /i "%VerifyOnly%"=="B:" goto "SureVerifyOnly"
 if /i "%VerifyOnly%"=="C:" goto "SureVerifyOnly"
@@ -1485,7 +1485,7 @@ goto "ScanFileFile"
 :"ScanFile"
 echo.
 set ScanFile=
-set /p ScanFile="What is the drive letter of the offline Windows installation? (A:-Z:) "
+set /p ScanFile="What is the drive letter of your offline Windows installation? (A:-Z:) "
 if /i "%ScanFile%"=="A:" goto "SureScanFile"
 if /i "%ScanFile%"=="B:" goto "SureScanFile"
 if /i "%ScanFile%"=="C:" goto "SureScanFile"
@@ -1583,7 +1583,7 @@ goto "VerifyFileFile"
 :"VerifyFile"
 echo.
 set VerifyFile=
-set /p VerifyFile="What is the drive letter of the offline Windows installation? (A:-Z:) "
+set /p VerifyFile="What is the drive letter of your offline Windows installation? (A:-Z:) "
 if /i "%VerifyFile%"=="A:" goto "SureVerifyFile"
 if /i "%VerifyFile%"=="B:" goto "SureVerifyFile"
 if /i "%VerifyFile%"=="C:" goto "SureVerifyFile"
@@ -1669,7 +1669,7 @@ goto "13"
 :"SFCLog"
 echo.
 set SFCLog=
-set /p SFCLog="What is the drive letter of the offline Windows installation? (A:-Z:) "
+set /p SFCLog="What is the drive letter of your offline Windows installation? (A:-Z:) "
 if /i "%SFCLog%"=="A:" goto "SureSFCLog"
 if /i "%SFCLog%"=="B:" goto "SureSFCLog"
 if /i "%SFCLog%"=="C:" goto "SureSFCLog"
