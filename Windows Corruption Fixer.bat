@@ -57,7 +57,7 @@ goto "Start"
 echo.
 set CHKDSKCheck=
 set /p CHKDSKCheck="Which drive do you want to run CHKDSK check on? (A:-Z:) "
-if /i "%CHKDSKCheck%"=="" set DriveLetter=%SystemDrive%
+if /i "%CHKDSKCheck%"=="" set CHKDSKCheck=%SystemDrive%
 if /i "%CHKDSKCheck%"=="A:" goto "SureDriveLetterCHKDSKCheck"
 if /i "%CHKDSKCheck%"=="B:" goto "SureDriveLetterCHKDSKCheck"
 if /i "%CHKDSKCheck%"=="C:" goto "SureDriveLetterCHKDSKCheck"
@@ -113,7 +113,7 @@ goto "Start"
 echo.
 set CHKDSKCheckFix=
 set /p CHKDSKCheckFix="Which drive do you want to run CHKDSK check and fix on? (A:-Z:) "
-if /i "%CHKDSKCheckFix%"=="" set DriveLetter=%SystemDrive%
+if /i "%CHKDSKCheckFix%"=="" set CHKDSKCheckFix=%SystemDrive%
 if /i "%CHKDSKCheckFix%"=="A:" goto "SureDriveLetterCHKDSKCheckFix"
 if /i "%CHKDSKCheckFix%"=="B:" goto "SureDriveLetterCHKDSKCheckFix"
 if /i "%CHKDSKCheckFix%"=="C:" goto "SureDriveLetterCHKDSKCheckFix"
