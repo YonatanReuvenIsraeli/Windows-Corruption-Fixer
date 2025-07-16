@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 14.0.2
+echo Version: 14.0.3
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -166,7 +166,6 @@ echo.
 goto "Start"
 
 :"3"
-echo.
 echo.
 set OnlineOffline=
 set /p OnlineOffline="Are you viewing the logs of an online or offline Windows installation? (Online/Offline) "
