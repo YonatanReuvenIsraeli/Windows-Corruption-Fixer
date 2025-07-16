@@ -1193,69 +1193,69 @@ echo.
 set OnlineOffline=
 set /p OnlineOffline="Are you viewings the logs of an online or offline Windows installation? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "DISMOnlineLog"
-if /i "%OnlineOffline%"=="Offline" goto "DISMLogDriveLetter"
+if /i "%OnlineOffline%"=="Offline" goto "DISMLog"
 echo Invalid syntax!
 goto "8"
 
-:"DISMLogDriveLetter"
+:"DISMLog"
 echo.
-set DISMLogDriveLetter=
-set /p DISMLogDriveLetter="What is the drive letter of the offline Windows installation? (A:-Z:) "
-if /i "%DISMLogDriveLetter%"=="A:" goto "SureDISMLogDriveLetter"
-if /i "%DISMLogDriveLetter%"=="B:" goto "SureDISMLogDriveLetter"
-if /i "%DISMLogDriveLetter%"=="C:" goto "SureDISMLogDriveLetter"
-if /i "%DISMLogDriveLetter%"=="D:" goto "SureDISMLogDriveLetter"
-if /i "%DISMLogDriveLetter%"=="E:" goto "SureDISMLogDriveLetter"
-if /i "%DISMLogDriveLetter%"=="F:" goto "SureDISMLogDriveLetter"
-if /i "%DISMLogDriveLetter%"=="G:" goto "SureDISMLogDriveLetter"
-if /i "%DISMLogDriveLetter%"=="H:" goto "SureDISMLogDriveLetter"
-if /i "%DISMLogDriveLetter%"=="I:" goto "SureDISMLogDriveLetter"
-if /i "%DISMLogDriveLetter%"=="J:" goto "SureDISMLogDriveLetter"
-if /i "%DISMLogDriveLetter%"=="K:" goto "SureDISMLogDriveLetter"
-if /i "%DISMLogDriveLetter%"=="L:" goto "SureDISMLogDriveLetter"
-if /i "%DISMLogDriveLetter%"=="M:" goto "SureDISMLogDriveLetter"
-if /i "%DISMLogDriveLetter%"=="N:" goto "SureDISMLogDriveLetter"
-if /i "%DISMLogDriveLetter%"=="O:" goto "SureDISMLogDriveLetter"
-if /i "%DISMLogDriveLetter%"=="P:" goto "SureDISMLogDriveLetter"
-if /i "%DISMLogDriveLetter%"=="Q:" goto "SureDISMLogDriveLetter"
-if /i "%DISMLogDriveLetter%"=="R:" goto "SureDISMLogDriveLetter"
-if /i "%DISMLogDriveLetter%"=="S:" goto "SureDISMLogDriveLetter"
-if /i "%DISMLogDriveLetter%"=="T:" goto "SureDISMLogDriveLetter"
-if /i "%DISMLogDriveLetter%"=="U:" goto "SureDISMLogDriveLetter"
-if /i "%DISMLogDriveLetter%"=="V:" goto "SureDISMLogDriveLetter"
-if /i "%DISMLogDriveLetter%"=="W:" goto "SureDISMLogDriveLetter"
-if /i "%DISMLogDriveLetter%"=="X:" goto "SureDISMLogDriveLetter"
-if /i "%DISMLogDriveLetter%"=="Y:" goto "SureDISMLogDriveLetter"
-if /i "%DISMLogDriveLetter%"=="Z:" goto "SureDISMLogDriveLetter"
+set DISMLog=
+set /p DISMLog="What is the drive letter of the offline Windows installation? (A:-Z:) "
+if /i "%DISMLog%"=="A:" goto "SureDISMLog"
+if /i "%DISMLog%"=="B:" goto "SureDISMLog"
+if /i "%DISMLog%"=="C:" goto "SureDISMLog"
+if /i "%DISMLog%"=="D:" goto "SureDISMLog"
+if /i "%DISMLog%"=="E:" goto "SureDISMLog"
+if /i "%DISMLog%"=="F:" goto "SureDISMLog"
+if /i "%DISMLog%"=="G:" goto "SureDISMLog"
+if /i "%DISMLog%"=="H:" goto "SureDISMLog"
+if /i "%DISMLog%"=="I:" goto "SureDISMLog"
+if /i "%DISMLog%"=="J:" goto "SureDISMLog"
+if /i "%DISMLog%"=="K:" goto "SureDISMLog"
+if /i "%DISMLog%"=="L:" goto "SureDISMLog"
+if /i "%DISMLog%"=="M:" goto "SureDISMLog"
+if /i "%DISMLog%"=="N:" goto "SureDISMLog"
+if /i "%DISMLog%"=="O:" goto "SureDISMLog"
+if /i "%DISMLog%"=="P:" goto "SureDISMLog"
+if /i "%DISMLog%"=="Q:" goto "SureDISMLog"
+if /i "%DISMLog%"=="R:" goto "SureDISMLog"
+if /i "%DISMLog%"=="S:" goto "SureDISMLog"
+if /i "%DISMLog%"=="T:" goto "SureDISMLog"
+if /i "%DISMLog%"=="U:" goto "SureDISMLog"
+if /i "%DISMLog%"=="V:" goto "SureDISMLog"
+if /i "%DISMLog%"=="W:" goto "SureDISMLog"
+if /i "%DISMLog%"=="X:" goto "SureDISMLog"
+if /i "%DISMLog%"=="Y:" goto "SureDISMLog"
+if /i "%DISMLog%"=="Z:" goto "SureDISMLog"
 echo Invalid syntax!
-goto "DISMLogDriveLetter"
+goto "DISMLog"
 
-:"SureDISMLogDriveLetter"
+:"SureDISMLog"
 echo.
-set SureDISMLogDriveLetter=
-set /p SureDISMLogDriveLetter="Are you sure "%DISMLogDriveLetter%" is the drive letter of your offline Windows installation? (Yes/No) "
-if /i "%SureDISMLogDriveLetter%"=="Yes" goto "CheckExistDISMOfflineLog"
-if /i "%SureDISMLogDriveLetter%"=="No" goto "DISMLogDriveLetter"
+set SureDISMLog=
+set /p SureDISMLog="Are you sure "%DISMLog%" is the drive letter of your offline Windows installation? (Yes/No) "
+if /i "%SureDISMLog%"=="Yes" goto "CheckExistDISMOfflineLog"
+if /i "%SureDISMLog%"=="No" goto "DISMLog"
 echo Invalid syntax!
-goto "SureDISMLogDriveLetter"
+goto "SureDISMLog"
 
 :"CheckExistDISMOfflineLog"
-if not exist "%DISMLogDriveLetter%" goto "DISMLogDriveLetterNotExist"
-if /i "%DISMLogDriveLetter%"=="%SystemDrive%" goto "DISMLogDriveLetterIsOnline"
-if not exist "%DISMLogDriveLetter%\Windows" goto "DISMLogDriveLetterNotWindows"
+if not exist "%DISMLog%" goto "DISMLogNotExist"
+if /i "%DISMLog%"=="%SystemDrive%" goto "DISMLogIsOnline"
+if not exist "%DISMLog%\Windows" goto "DISMLogNotWindows"
 goto "DISMOfflineLog"
 
-:"DISMLogDriveLetterNotExist"
-echo "%DISMLogDriveLetter%" does not exist!
-goto "DISMLogDriveLetter"
+:"DISMLogNotExist"
+echo "%DISMLog%" does not exist!
+goto "DISMLog"
 
-:"DISMLogDriveLetterIsOnline"
-echo "%DISMLogDriveLetter%" is an online Windows installation!
+:"DISMLogIsOnline"
+echo "%DISMLog%" is an online Windows installation!
 goto "8"
 
-:"DISMLogDriveLetterNotWindows"
-echo "%DISMLogDriveLetter%" is not an offline Windows installation!
-goto "DISMLogDriveLetter"
+:"DISMLogNotWindows"
+echo "%DISMLog%" is not an offline Windows installation!
+goto "DISMLog"
 
 :"DISMOnlineLog"
 if not exist "%windir%\Logs\DISM\dism.log" goto "DISMOnlineLogNotExist"
@@ -1268,13 +1268,13 @@ echo DISM log file ("%windir%\Logs\DISM\dism.log") does not exist!
 goto "Start"
 
 :"DISMOfflineLog"
-if not exist "%DISMLogDriveLetter%\Windows\Logs\DISM\dism.log" goto "DISMOfflineLogNotExist"
-"%windir%\notepad.exe" "%DISMLogDriveLetter%\Windows\Logs\DISM\dism.log"
+if not exist "%DISMLog%\Windows\Logs\DISM\dism.log" goto "DISMOfflineLogNotExist"
+"%windir%\notepad.exe" "%DISMLog%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "ErrorDISMLog"
 goto "Start"
 
 :"DISMOfflineLogNotExist"
-echo DISM log file ("%DISMLogDriveLetter%\Windows\Logs\DISM\dism.log") does not exist!
+echo DISM log file ("%DISMLog%\Windows\Logs\DISM\dism.log") does not exist!
 goto "Start"
 
 :"ErrorDISMLog"
@@ -1286,69 +1286,69 @@ echo.
 set OnlineOffline=
 set /p OnlineOffline="Are you scanning an online or offline Windows installation? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "ScanNowOnline"
-if /i "%OnlineOffline%"=="Offline" goto "ScanNowDriveLetter"
+if /i "%OnlineOffline%"=="Offline" goto "ScanNow"
 echo Invalid syntax!
 goto "9"
 
-:"ScanNowDriveLetter"
+:"ScanNow"
 echo.
-set ScanNowDriveLetter=
-set /p ScanNowDriveLetter="What is the drive letter of the offline Windows installation? (A:-Z:) "
-if /i "%ScanNowDriveLetter%"=="A:" goto "SureScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="B:" goto "SureScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="C:" goto "SureScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="D:" goto "SureScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="E:" goto "SureScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="F:" goto "SureScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="G:" goto "SureScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="H:" goto "SureScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="I:" goto "SureScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="J:" goto "SureScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="K:" goto "SureScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="L:" goto "SureScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="M:" goto "SureScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="N:" goto "SureScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="O:" goto "SureScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="P:" goto "SureScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="Q:" goto "SureScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="R:" goto "SureScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="S:" goto "SureScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="T:" goto "SureScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="U:" goto "SureScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="V:" goto "SureScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="W:" goto "SureScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="X:" goto "SureScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="Y:" goto "SureScanNowDriveLetter"
-if /i "%ScanNowDriveLetter%"=="Z:" goto "SureScanNowDriveLetter"
+set ScanNow=
+set /p ScanNow="What is the drive letter of the offline Windows installation? (A:-Z:) "
+if /i "%ScanNow%"=="A:" goto "SureScanNow"
+if /i "%ScanNow%"=="B:" goto "SureScanNow"
+if /i "%ScanNow%"=="C:" goto "SureScanNow"
+if /i "%ScanNow%"=="D:" goto "SureScanNow"
+if /i "%ScanNow%"=="E:" goto "SureScanNow"
+if /i "%ScanNow%"=="F:" goto "SureScanNow"
+if /i "%ScanNow%"=="G:" goto "SureScanNow"
+if /i "%ScanNow%"=="H:" goto "SureScanNow"
+if /i "%ScanNow%"=="I:" goto "SureScanNow"
+if /i "%ScanNow%"=="J:" goto "SureScanNow"
+if /i "%ScanNow%"=="K:" goto "SureScanNow"
+if /i "%ScanNow%"=="L:" goto "SureScanNow"
+if /i "%ScanNow%"=="M:" goto "SureScanNow"
+if /i "%ScanNow%"=="N:" goto "SureScanNow"
+if /i "%ScanNow%"=="O:" goto "SureScanNow"
+if /i "%ScanNow%"=="P:" goto "SureScanNow"
+if /i "%ScanNow%"=="Q:" goto "SureScanNow"
+if /i "%ScanNow%"=="R:" goto "SureScanNow"
+if /i "%ScanNow%"=="S:" goto "SureScanNow"
+if /i "%ScanNow%"=="T:" goto "SureScanNow"
+if /i "%ScanNow%"=="U:" goto "SureScanNow"
+if /i "%ScanNow%"=="V:" goto "SureScanNow"
+if /i "%ScanNow%"=="W:" goto "SureScanNow"
+if /i "%ScanNow%"=="X:" goto "SureScanNow"
+if /i "%ScanNow%"=="Y:" goto "SureScanNow"
+if /i "%ScanNow%"=="Z:" goto "SureScanNow"
 echo Invalid syntax!
-goto "ScanNowDriveLetter"
+goto "ScanNow"
 
-:"SureScanNowDriveLetter"
+:"SureScanNow"
 echo.
-set SureScanNowDriveLetter=
-set /p SureScanNowDriveLetter="Are you sure "%ScanNowDriveLetter%" is the drive letter of your offline Windows installation? (Yes/No) "
-if /i "%SureScanNowDriveLetter%"=="Yes" goto "CheckExistScanNowDriveLetter"
-if /i "%SureScanNowDriveLetter%"=="No" goto "ScanNowDriveLetter"
+set SureScanNow=
+set /p SureScanNow="Are you sure "%ScanNow%" is the drive letter of your offline Windows installation? (Yes/No) "
+if /i "%SureScanNow%"=="Yes" goto "CheckExistScanNow"
+if /i "%SureScanNow%"=="No" goto "ScanNow"
 echo Invalid syntax!
-goto "SureScanNowDriveLetter"
+goto "SureScanNow"
 
-:"CheckExistScanNowDriveLetter"
-if not exist "%ScanNowDriveLetter%" goto "ScanNowDriveLetterNotExist"
-if /i "%ScanNowDriveLetter%"=="%SystemDrive%" goto "ScanNowDriveLetterIsOnline"
-if not exist "%ScanNowDriveLetter%\Windows" goto "ScanNowDriveLetterNotWindows"
+:"CheckExistScanNow"
+if not exist "%ScanNow%" goto "ScanNowNotExist"
+if /i "%ScanNow%"=="%SystemDrive%" goto "ScanNowIsOnline"
+if not exist "%ScanNow%\Windows" goto "ScanNowNotWindows"
 goto "ScanNowOffline"
 
-:"ScanNowDriveLetterNotExist"
-echo "%ScanNowDriveLetter%" does not exist.
-goto "ScanNowDriveLetter"
+:"ScanNowNotExist"
+echo "%ScanNow%" does not exist.
+goto "ScanNow"
 
-:"ScanNowDriveLetterIsOnline"
-echo "%ScanNowDriveLetter%" is an online Windows installation!
+:"ScanNowIsOnline"
+echo "%ScanNow%" is an online Windows installation!
 goto "9"
 
-:"ScanNowDriveLetterNotWindows"
-echo "%ScanNowDriveLetter%" is not an offline Windows installation!
-goto "ScanNowDriveLetter"
+:"ScanNowNotWindows"
+echo "%ScanNow%" is not an offline Windows installation!
+goto "ScanNow"
 
 :"ScanNowOnline"
 echo.
@@ -1360,11 +1360,11 @@ goto "Start"
 
 :"ScanNowOffline"
 echo.
-echo Scanning Windows installation "%ScanNowDriveLetter%".
-if not exist "%ScanNowDriveLetter%\Windows\Logs\CBS" md "%ScanNowDriveLetter%\Windows\Logs\CBS" > nul 2>&1
-"%windir%\System32\sfc.exe" /scannow /offbootdir="%ScanNowDriveLetter%" /offwindir="%ScanNowDriveLetter%\Windows" /offlogfile="%ScanNowDriveLetter%\Windows\Logs\CBS\CBS.log"
+echo Scanning Windows installation "%ScanNow%".
+if not exist "%ScanNow%\Windows\Logs\CBS" md "%ScanNow%\Windows\Logs\CBS" > nul 2>&1
+"%windir%\System32\sfc.exe" /scannow /offbootdir="%ScanNow%" /offwindir="%ScanNow%\Windows" /offlogfile="%ScanNow%\Windows\Logs\CBS\CBS.log"
 if not "%errorlevel%"=="0" goto "9"
-echo Windows installation "%ScanNowDriveLetter%" scanned.
+echo Windows installation "%ScanNow%" scanned.
 goto "Start"
 
 :"10"
@@ -1372,69 +1372,69 @@ echo.
 set OnlineOffline=
 set /p OnlineOffline="Are you verifying an online or offline Windows installation? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "VerifyOnlyOnline"
-if /i "%OnlineOffline%"=="Offline" goto "VerifyOnlyDriveLetter"
+if /i "%OnlineOffline%"=="Offline" goto "VerifyOnly"
 echo Invalid syntax!
 goto "10"
 
-:"VerifyOnlyDriveLetter"
+:"VerifyOnly"
 echo.
-set VerifyOnlyDriveLetter=
-set /p VerifyOnlyDriveLetter="What is the drive letter of the offline Windows installation? (A:-Z:) "
-if /i "%VerifyOnlyDriveLetter%"=="A:" goto "SureVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="B:" goto "SureVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="C:" goto "SureVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="D:" goto "SureVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="E:" goto "SureVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="F:" goto "SureVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="G:" goto "SureVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="H:" goto "SureVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="I:" goto "SureVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="J:" goto "SureVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="K:" goto "SureVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="L:" goto "SureVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="M:" goto "SureVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="N:" goto "SureVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="O:" goto "SureVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="P:" goto "SureVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="Q:" goto "SureVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="R:" goto "SureVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="S:" goto "SureVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="T:" goto "SureVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="U:" goto "SureVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="V:" goto "SureVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="W:" goto "SureVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="X:" goto "SureVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="Y:" goto "SureVerifyOnlyDriveLetter"
-if /i "%VerifyOnlyDriveLetter%"=="Z:" goto "SureVerifyOnlyDriveLetter"
+set VerifyOnly=
+set /p VerifyOnly="What is the drive letter of the offline Windows installation? (A:-Z:) "
+if /i "%VerifyOnly%"=="A:" goto "SureVerifyOnly"
+if /i "%VerifyOnly%"=="B:" goto "SureVerifyOnly"
+if /i "%VerifyOnly%"=="C:" goto "SureVerifyOnly"
+if /i "%VerifyOnly%"=="D:" goto "SureVerifyOnly"
+if /i "%VerifyOnly%"=="E:" goto "SureVerifyOnly"
+if /i "%VerifyOnly%"=="F:" goto "SureVerifyOnly"
+if /i "%VerifyOnly%"=="G:" goto "SureVerifyOnly"
+if /i "%VerifyOnly%"=="H:" goto "SureVerifyOnly"
+if /i "%VerifyOnly%"=="I:" goto "SureVerifyOnly"
+if /i "%VerifyOnly%"=="J:" goto "SureVerifyOnly"
+if /i "%VerifyOnly%"=="K:" goto "SureVerifyOnly"
+if /i "%VerifyOnly%"=="L:" goto "SureVerifyOnly"
+if /i "%VerifyOnly%"=="M:" goto "SureVerifyOnly"
+if /i "%VerifyOnly%"=="N:" goto "SureVerifyOnly"
+if /i "%VerifyOnly%"=="O:" goto "SureVerifyOnly"
+if /i "%VerifyOnly%"=="P:" goto "SureVerifyOnly"
+if /i "%VerifyOnly%"=="Q:" goto "SureVerifyOnly"
+if /i "%VerifyOnly%"=="R:" goto "SureVerifyOnly"
+if /i "%VerifyOnly%"=="S:" goto "SureVerifyOnly"
+if /i "%VerifyOnly%"=="T:" goto "SureVerifyOnly"
+if /i "%VerifyOnly%"=="U:" goto "SureVerifyOnly"
+if /i "%VerifyOnly%"=="V:" goto "SureVerifyOnly"
+if /i "%VerifyOnly%"=="W:" goto "SureVerifyOnly"
+if /i "%VerifyOnly%"=="X:" goto "SureVerifyOnly"
+if /i "%VerifyOnly%"=="Y:" goto "SureVerifyOnly"
+if /i "%VerifyOnly%"=="Z:" goto "SureVerifyOnly"
 echo Invalid syntax!
-goto "VerifyOnlyDriveLetter"
+goto "VerifyOnly"
 
-:"SureVerifyOnlyDriveLetter"
+:"SureVerifyOnly"
 echo.
-set SureVerifyOnlyDriveLetter=
-set /p SureVerifyOnlyDriveLetter="Are you sure "%VerifyOnlyDriveLetter%" is the drive letter of your offline Windows installation? (Yes/No) "
-if /i "%SureVerifyOnlyDriveLetter%"=="Yes" goto "CheckExistVerifyOnlyDriveLetter"
-if /i "%SureVerifyOnlyDriveLetter%"=="No" goto "VerifyOnlyDriveLetter"
+set SureVerifyOnly=
+set /p SureVerifyOnly="Are you sure "%VerifyOnly%" is the drive letter of your offline Windows installation? (Yes/No) "
+if /i "%SureVerifyOnly%"=="Yes" goto "CheckExistVerifyOnly"
+if /i "%SureVerifyOnly%"=="No" goto "VerifyOnly"
 echo Invalid syntax!
-goto "SureVerifyOnlyDriveLetter"
+goto "SureVerifyOnly"
 
-:"CheckExistVerifyOnlyDriveLetter"
-if not exist "%VerifyOnlyDriveLetter%" goto "VerifyOnlyDriveLetterNotExist"
-if /i "%VerifyOnlyDriveLetter%"=="%SystemDrive%" goto "VerifyOnlyDriveLetterIsOnline"
-if not exist "%VerifyOnlyDriveLetter%\Windows" goto "VerfiyOnlyDriveLetterNotWindows"
+:"CheckExistVerifyOnly"
+if not exist "%VerifyOnly%" goto "VerifyOnlyNotExist"
+if /i "%VerifyOnly%"=="%SystemDrive%" goto "VerifyOnlyIsOnline"
+if not exist "%VerifyOnly%\Windows" goto "VerfiyOnlyNotWindows"
 goto "VerifyOnlyOffline"
 
-:"VerifyOnlyDriveLetterNotExist"
-echo "%VerifyOnlyDriveLetterNotExist%" does not exist!
-goto "VerifyOnlyDriveLetter"
+:"VerifyOnlyNotExist"
+echo "%VerifyOnlyNotExist%" does not exist!
+goto "VerifyOnly"
 
-:"VerifyOnlyDriveLetterIsOnline"
-echo "%VerifyOnlyDriveLetter%" is an online Windows installation!
+:"VerifyOnlyIsOnline"
+echo "%VerifyOnly%" is an online Windows installation!
 goto "10"
 
-:"VerfiyOnlyDriveLetterNotWindows"
-echo "%VerifyOnlyDriveLetter%" is not an offline Windows installation!
-goto "VerifyOnlyDriveLetter"
+:"VerfiyOnlyNotWindows"
+echo "%VerifyOnly%" is not an offline Windows installation!
+goto "VerifyOnly"
 
 :"VerifyOnlyOnline"
 echo.
@@ -1446,11 +1446,11 @@ goto "Start"
 
 :"VerifyOnlyOffline"
 echo.
-echo Verifing Windows installation "%VerifyOnlyDriveLetter%".
-if not exist "%VerifyOnlyDriveLetter%\Windows\Logs\CBS" md "%VerifyOnlyDriveLetter%\Windows\Logs\CBS" > nul 2>&1
-"%windir%\System32\sfc.exe" /verifyonly /offbootdir="%VerifyOnlyDriveLetter%" /offwindir="%VerifyOnlyDriveLetter%\Windows" /offlogfile="%VerifyOnlyDriveLetter%\Windows\Logs\CBS\CBS.log"
+echo Verifing Windows installation "%VerifyOnly%".
+if not exist "%VerifyOnly%\Windows\Logs\CBS" md "%VerifyOnly%\Windows\Logs\CBS" > nul 2>&1
+"%windir%\System32\sfc.exe" /verifyonly /offbootdir="%VerifyOnly%" /offwindir="%VerifyOnly%\Windows" /offlogfile="%VerifyOnly%\Windows\Logs\CBS\CBS.log"
 if not "%errorlevel%"=="0" goto "10"
-echo Windows installation "%VerifyOnlyDriveLetter%" verified.
+echo Windows installation "%VerifyOnly%" verified.
 goto "Start"
 
 :"11"
@@ -1468,71 +1468,71 @@ set File=
 set /p File="What is the file you are repairing? "
 if not exist "%File%" goto "ScanFileFileNotExist"
 if /i "%OnlineOffline%"=="Online" goto "ScanFileOnline"
-if /i "%OnlineOffline%"=="Offline" goto "ScanFileDriveLetter"
+if /i "%OnlineOffline%"=="Offline" goto "ScanFile"
 
 :"ScanFileFileNotExist"
 echo "%File%" does not exist! Please try again.
 goto "ScanFileFile"
 
-:"ScanFileDriveLetter"
+:"ScanFile"
 echo.
-set ScanFileDriveLetter=
-set /p ScanFileDriveLetter="What is the drive letter of the offline Windows installation? (A:-Z:) "
-if /i "%ScanFileDriveLetter%"=="A:" goto "SureScanFileDriveLetter"
-if /i "%ScanFileDriveLetter%"=="B:" goto "SureScanFileDriveLetter"
-if /i "%ScanFileDriveLetter%"=="C:" goto "SureScanFileDriveLetter"
-if /i "%ScanFileDriveLetter%"=="D:" goto "SureScanFileDriveLetter"
-if /i "%ScanFileDriveLetter%"=="E:" goto "SureScanFileDriveLetter"
-if /i "%ScanFileDriveLetter%"=="F:" goto "SureScanFileDriveLetter"
-if /i "%ScanFileDriveLetter%"=="G:" goto "SureScanFileDriveLetter"
-if /i "%ScanFileDriveLetter%"=="H:" goto "SureScanFileDriveLetter"
-if /i "%ScanFileDriveLetter%"=="I:" goto "SureScanFileDriveLetter"
-if /i "%ScanFileDriveLetter%"=="J:" goto "SureScanFileDriveLetter"
-if /i "%ScanFileDriveLetter%"=="K:" goto "SureScanFileDriveLetter"
-if /i "%ScanFileDriveLetter%"=="L:" goto "SureScanFileDriveLetter"
-if /i "%ScanFileDriveLetter%"=="M:" goto "SureScanFileDriveLetter"
-if /i "%ScanFileDriveLetter%"=="N:" goto "SureScanFileDriveLetter"
-if /i "%ScanFileDriveLetter%"=="O:" goto "SureScanFileDriveLetter"
-if /i "%ScanFileDriveLetter%"=="P:" goto "SureScanFileDriveLetter"
-if /i "%ScanFileDriveLetter%"=="Q:" goto "SureScanFileDriveLetter"
-if /i "%ScanFileDriveLetter%"=="R:" goto "SureScanFileDriveLetter"
-if /i "%ScanFileDriveLetter%"=="S:" goto "SureScanFileDriveLetter"
-if /i "%ScanFileDriveLetter%"=="T:" goto "SureScanFileDriveLetter"
-if /i "%ScanFileDriveLetter%"=="U:" goto "SureScanFileDriveLetter"
-if /i "%ScanFileDriveLetter%"=="V:" goto "SureScanFileDriveLetter"
-if /i "%ScanFileDriveLetter%"=="W:" goto "SureScanFileDriveLetter"
-if /i "%ScanFileDriveLetter%"=="X:" goto "SureScanFileDriveLetter"
-if /i "%ScanFileDriveLetter%"=="Y:" goto "SureScanFileDriveLetter"
-if /i "%ScanFileDriveLetter%"=="Z:" goto "SureScanFileDriveLetter"
+set ScanFile=
+set /p ScanFile="What is the drive letter of the offline Windows installation? (A:-Z:) "
+if /i "%ScanFile%"=="A:" goto "SureScanFile"
+if /i "%ScanFile%"=="B:" goto "SureScanFile"
+if /i "%ScanFile%"=="C:" goto "SureScanFile"
+if /i "%ScanFile%"=="D:" goto "SureScanFile"
+if /i "%ScanFile%"=="E:" goto "SureScanFile"
+if /i "%ScanFile%"=="F:" goto "SureScanFile"
+if /i "%ScanFile%"=="G:" goto "SureScanFile"
+if /i "%ScanFile%"=="H:" goto "SureScanFile"
+if /i "%ScanFile%"=="I:" goto "SureScanFile"
+if /i "%ScanFile%"=="J:" goto "SureScanFile"
+if /i "%ScanFile%"=="K:" goto "SureScanFile"
+if /i "%ScanFile%"=="L:" goto "SureScanFile"
+if /i "%ScanFile%"=="M:" goto "SureScanFile"
+if /i "%ScanFile%"=="N:" goto "SureScanFile"
+if /i "%ScanFile%"=="O:" goto "SureScanFile"
+if /i "%ScanFile%"=="P:" goto "SureScanFile"
+if /i "%ScanFile%"=="Q:" goto "SureScanFile"
+if /i "%ScanFile%"=="R:" goto "SureScanFile"
+if /i "%ScanFile%"=="S:" goto "SureScanFile"
+if /i "%ScanFile%"=="T:" goto "SureScanFile"
+if /i "%ScanFile%"=="U:" goto "SureScanFile"
+if /i "%ScanFile%"=="V:" goto "SureScanFile"
+if /i "%ScanFile%"=="W:" goto "SureScanFile"
+if /i "%ScanFile%"=="X:" goto "SureScanFile"
+if /i "%ScanFile%"=="Y:" goto "SureScanFile"
+if /i "%ScanFile%"=="Z:" goto "SureScanFile"
 echo Invalid syntax!
-goto "ScanFileDriveLetter"
+goto "ScanFile"
 
-:"SureScanFileDriveLetter"
+:"SureScanFile"
 echo.
-set SureScanFileDriveLetter=
-set /p SureScanFileDriveLetter="Are you sure "%ScanFileDriveLetter%" is the drive letter of your offline Windows installation? (Yes/No) "
-if /i "%SureScanFileDriveLetter%"=="Yes" goto "CheckExistScanFileDriveLetter"
-if /i "%SureScanFileDriveLetter%"=="No" goto "ScanFileDriveLetter"
+set SureScanFile=
+set /p SureScanFile="Are you sure "%ScanFile%" is the drive letter of your offline Windows installation? (Yes/No) "
+if /i "%SureScanFile%"=="Yes" goto "CheckExistScanFile"
+if /i "%SureScanFile%"=="No" goto "ScanFile"
 echo Invalid syntax!
-goto "SureSureScanFileDriveLetter"
+goto "SureSureScanFile"
 
-:"CheckExistScanFileDriveLetter"
-if not exist "%ScanFileDriveLetter%" goto "ScanFileDriveLetterNotExist"
-if /i "%ScanFileDriveLetter%"=="%SystemDrive%" goto "ScanFileDriveLetterIsOnline"
-if not exist "%ScanFileDriveLetter%\Windows" goto "ScanFileDriveLetterNotWindows"
+:"CheckExistScanFile"
+if not exist "%ScanFile%" goto "ScanFileNotExist"
+if /i "%ScanFile%"=="%SystemDrive%" goto "ScanFileIsOnline"
+if not exist "%ScanFile%\Windows" goto "ScanFileNotWindows"
 goto "ScanFileOffline"
 
-:"ScanFileDriveLetterNotExist"
-echo "%ScanFileDriveLetterNotExist%" does not exist!
-goto "ScanFileDriveLetter"
+:"ScanFileNotExist"
+echo "%ScanFileNotExist%" does not exist!
+goto "ScanFile"
 
-:"ScanFileDriveLetterIsOnline"
-echo "%ScanFileDriveLetter%" is an online Windows installation!
+:"ScanFileIsOnline"
+echo "%ScanFile%" is an online Windows installation!
 goto "11"
 
-:"ScanFileDriveLetterNotWindows"
-echo "%ScanFileDriveLetter%" is not an offline Windows installation!
-goto "ScanFileDriveLetter"
+:"ScanFileNotWindows"
+echo "%ScanFile%" is not an offline Windows installation!
+goto "ScanFile"
 
 :"ScanFileOnline"
 echo.
@@ -1545,8 +1545,8 @@ goto "Start"
 :"ScanFileOffline"
 echo.
 echo Scanning file "%File%".
-if not exist "%ScanFileDriveLetter%\Windows\Logs\CBS" md "%ScanFileDriveLetter%\Windows\Logs\CBS" > nul 2>&1
-"%windir%\System32\sfc.exe" /scannfile="%File%" /offbootdir="%ScanFileDriveLetter%" /offwindir="%ScanFileDriveLetter%\Windows" /offlogfile="%ScanFileDriveLetter%\Windows\Logs\CBS\CBS.log"
+if not exist "%ScanFile%\Windows\Logs\CBS" md "%ScanFile%\Windows\Logs\CBS" > nul 2>&1
+"%windir%\System32\sfc.exe" /scannfile="%File%" /offbootdir="%ScanFile%" /offwindir="%ScanFile%\Windows" /offlogfile="%ScanFile%\Windows\Logs\CBS\CBS.log"
 if not "%errorlevel%"=="0" goto "11"
 echo File "%File%" scanned.
 goto "Start"
@@ -1566,62 +1566,71 @@ set File=
 set /p File="What is the file you are repairing? "
 if not exist "%File%" goto "VerifyFileFileNotExist"
 if /i "%OnlineOffline%"=="Online" goto "VerifyFileOnline"
-if /i "%OnlineOffline%"=="Offline" goto "VerifyFileDriveLetter"
+if /i "%OnlineOffline%"=="Offline" goto "VerifyFile"
 
 :"VerifyFileFileNotExist"
 echo "%File%" does not exist! Please try again.
 goto "VerifyFileFile"
 
-:"VerifyFileDriveLetter"
+:"VerifyFile"
 echo.
-set VerifyFileDriveLetter=
-set /p VerifyFileDriveLetter="What is the drive letter of the offline Windows installation? (A:-Z:) "
-if /i "%VerifyFileDriveLetter%"=="A:" goto "CheckExistVerifyFileDriveLetter"
-if /i "%VerifyFileDriveLetter%"=="B:" goto "CheckExistVerifyFileDriveLetter"
-if /i "%VerifyFileDriveLetter%"=="C:" goto "CheckExistVerifyFileDriveLetter"
-if /i "%VerifyFileDriveLetter%"=="D:" goto "CheckExistVerifyFileDriveLetter"
-if /i "%VerifyFileDriveLetter%"=="E:" goto "CheckExistVerifyFileDriveLetter"
-if /i "%VerifyFileDriveLetter%"=="F:" goto "CheckExistVerifyFileDriveLetter"
-if /i "%VerifyFileDriveLetter%"=="G:" goto "CheckExistVerifyFileDriveLetter"
-if /i "%VerifyFileDriveLetter%"=="H:" goto "CheckExistVerifyFileDriveLetter"
-if /i "%VerifyFileDriveLetter%"=="I:" goto "CheckExistVerifyFileDriveLetter"
-if /i "%VerifyFileDriveLetter%"=="J:" goto "CheckExistVerifyFileDriveLetter"
-if /i "%VerifyFileDriveLetter%"=="K:" goto "CheckExistVerifyFileDriveLetter"
-if /i "%VerifyFileDriveLetter%"=="L:" goto "CheckExistVerifyFileDriveLetter"
-if /i "%VerifyFileDriveLetter%"=="M:" goto "CheckExistVerifyFileDriveLetter"
-if /i "%VerifyFileDriveLetter%"=="N:" goto "CheckExistVerifyFileDriveLetter"
-if /i "%VerifyFileDriveLetter%"=="O:" goto "CheckExistVerifyFileDriveLetter"
-if /i "%VerifyFileDriveLetter%"=="P:" goto "CheckExistVerifyFileDriveLetter"
-if /i "%VerifyFileDriveLetter%"=="Q:" goto "CheckExistVerifyFileDriveLetter"
-if /i "%VerifyFileDriveLetter%"=="R:" goto "CheckExistVerifyFileDriveLetter"
-if /i "%VerifyFileDriveLetter%"=="S:" goto "CheckExistVerifyFileDriveLetter"
-if /i "%VerifyFileDriveLetter%"=="T:" goto "CheckExistVerifyFileDriveLetter"
-if /i "%VerifyFileDriveLetter%"=="U:" goto "CheckExistVerifyFileDriveLetter"
-if /i "%VerifyFileDriveLetter%"=="V:" goto "CheckExistVerifyFileDriveLetter"
-if /i "%VerifyFileDriveLetter%"=="W:" goto "CheckExistVerifyFileDriveLetter"
-if /i "%VerifyFileDriveLetter%"=="X:" goto "CheckExistVerifyFileDriveLetter"
-if /i "%VerifyFileDriveLetter%"=="Y:" goto "CheckExistVerifyFileDriveLetter"
-if /i "%VerifyFileDriveLetter%"=="Z:" goto "CheckExistVerifyFileDriveLetter"
+set VerifyFile=
+set /p VerifyFile="What is the drive letter of the offline Windows installation? (A:-Z:) "
+if /i "%VerifyFile%"=="A:" goto "SureVerifyFile"
+if /i "%VerifyFile%"=="B:" goto "SureVerifyFile"
+if /i "%VerifyFile%"=="C:" goto "SureVerifyFile"
+if /i "%VerifyFile%"=="D:" goto "SureVerifyFile"
+if /i "%VerifyFile%"=="E:" goto "SureVerifyFile"
+if /i "%VerifyFile%"=="F:" goto "SureVerifyFile"
+if /i "%VerifyFile%"=="G:" goto "SureVerifyFile"
+if /i "%VerifyFile%"=="H:" goto "SureVerifyFile"
+if /i "%VerifyFile%"=="I:" goto "SureVerifyFile"
+if /i "%VerifyFile%"=="J:" goto "SureVerifyFile"
+if /i "%VerifyFile%"=="K:" goto "SureVerifyFile"
+if /i "%VerifyFile%"=="L:" goto "SureVerifyFile"
+if /i "%VerifyFile%"=="M:" goto "SureVerifyFile"
+if /i "%VerifyFile%"=="N:" goto "SureVerifyFile"
+if /i "%VerifyFile%"=="O:" goto "SureVerifyFile"
+if /i "%VerifyFile%"=="P:" goto "SureVerifyFile"
+if /i "%VerifyFile%"=="Q:" goto "SureVerifyFile"
+if /i "%VerifyFile%"=="R:" goto "SureVerifyFile"
+if /i "%VerifyFile%"=="S:" goto "SureVerifyFile"
+if /i "%VerifyFile%"=="T:" goto "SureVerifyFile"
+if /i "%VerifyFile%"=="U:" goto "SureVerifyFile"
+if /i "%VerifyFile%"=="V:" goto "SureVerifyFile"
+if /i "%VerifyFile%"=="W:" goto "SureVerifyFile"
+if /i "%VerifyFile%"=="X:" goto "SureVerifyFile"
+if /i "%VerifyFile%"=="Y:" goto "SureVerifyFile"
+if /i "%VerifyFile%"=="Z:" goto "SureVerifyFile"
 echo Invalid syntax!
-goto "VerifyFileDriveLetter"
+goto "VerifyFile"
 
-:"CheckExistVerifyFileDriveLetter"
-if not exist "%VerifyFileDriveLetter%" goto "VerifyFileDriveLetterNotExist"
-if /i "%VerifyFileDriveLetter%"=="%SystemDrive%" goto "VerifyFileDriveLetterIsOnline"
-if not exist "%VerifyFileDriveLetter%\Windows" goto "VerifyFileDriveLetterNotWindows"
+:"SureVerifyFile"
+echo.
+set SureVerifyFile=
+set /p SureVerifyFile="Are you sure "%VerifyFile%" is the drive letter of your offline Windows installation? (Yes/No) "
+if /i "%SureVerifyFile%"=="Yes" goto "CheckExistVerifyFile"
+if /i "%SureVerifyFile%"=="No" goto "VerifyFile"
+echo Invalid syntax!
+goto "SureVerifyFile"
+
+:"CheckExistVerifyFile"
+if not exist "%VerifyFile%" goto "VerifyFileNotExist"
+if /i "%VerifyFile%"=="%SystemDrive%" goto "VerifyFileIsOnline"
+if not exist "%VerifyFile%\Windows" goto "VerifyFileNotWindows"
 goto "VerifyFileOffline"
 
-:"VerifyFileDriveLetterNotExist"
-echo "%VerifyFileDriveLetterNotExist%" does not exist!
-goto "VerifyFileDriveLetter"
+:"VerifyFileNotExist"
+echo "%VerifyFileNotExist%" does not exist!
+goto "VerifyFile"
 
-:"VerifyFileDriveLetterIsOnline"
-echo "%VerifyFileDriveLetter%" is an online Windows installation!
+:"VerifyFileIsOnline"
+echo "%VerifyFile%" is an online Windows installation!
 goto "12"
 
-:"VerifyFileDriveLetterNotWindows"
-echo "%VerifyFileDriveLetter%" is not an offline Windows installation!
-goto "VerifyFileDriveLetter"
+:"VerifyFileNotWindows"
+echo "%VerifyFile%" is not an offline Windows installation!
+goto "VerifyFile"
 
 :"VerifyFileOnline"
 echo.
@@ -1634,8 +1643,8 @@ goto "Start"
 :"VerifyFileOffline"
 echo.
 echo Verifying file "%File%".
-if not exist "%VerifyFileDriveLetter%\Windows\Logs\CBS" md "%VerifyFileDriveLetter%\Windows\Logs\CBS" > nul 2>&1
-"%windir%\System32\sfc.exe" /verifyfile="%File%" /offbootdir="%VerifyFileDriveLetter%" /offwindir="%VerifyFileDriveLetter%\Windows" /offlogfile="%VerifyFileDriveLetter%\Windows\Logs\CBS\CBS.log"
+if not exist "%VerifyFile%\Windows\Logs\CBS" md "%VerifyFile%\Windows\Logs\CBS" > nul 2>&1
+"%windir%\System32\sfc.exe" /verifyfile="%File%" /offbootdir="%VerifyFile%" /offwindir="%VerifyFile%\Windows" /offlogfile="%VerifyFile%\Windows\Logs\CBS\CBS.log"
 if not "%errorlevel%"=="0" goto "12"
 echo File "%File%" verified.
 goto "Start"
@@ -1645,60 +1654,69 @@ echo.
 set OnlineOffline=
 set /p OnlineOffline="Are you viewings the logs of an online or offline Windows installation? (Online/Offline) "
 if /i "%OnlineOffline%"=="Online" goto "SFCOnlineLog"
-if /i "%OnlineOffline%"=="Offline" goto "SFCLogDriveLetter"
+if /i "%OnlineOffline%"=="Offline" goto "SFCLog"
 echo Invalid syntax!
 goto "13"
 
-:"SFCLogDriveLetter"
+:"SFCLog"
 echo.
-set SFCLogDriveLetter=
-set /p SFCLogDriveLetter="What is the drive letter of the offline Windows installation? (A:-Z:) "
-if /i "%SFCLogDriveLetter%"=="A:" goto "CheckExistSFCOfflineLog"
-if /i "%SFCLogDriveLetter%"=="B:" goto "CheckExistSFCOfflineLog"
-if /i "%SFCLogDriveLetter%"=="C:" goto "CheckExistSFCOfflineLog"
-if /i "%SFCLogDriveLetter%"=="D:" goto "CheckExistSFCOfflineLog"
-if /i "%SFCLogDriveLetter%"=="E:" goto "CheckExistSFCOfflineLog"
-if /i "%SFCLogDriveLetter%"=="F:" goto "CheckExistSFCOfflineLog"
-if /i "%SFCLogDriveLetter%"=="G:" goto "CheckExistSFCOfflineLog"
-if /i "%SFCLogDriveLetter%"=="H:" goto "CheckExistSFCOfflineLog"
-if /i "%SFCLogDriveLetter%"=="I:" goto "CheckExistSFCOfflineLog"
-if /i "%SFCLogDriveLetter%"=="J:" goto "CheckExistSFCOfflineLog"
-if /i "%SFCLogDriveLetter%"=="K:" goto "CheckExistSFCOfflineLog"
-if /i "%SFCLogDriveLetter%"=="L:" goto "CheckExistSFCOfflineLog"
-if /i "%SFCLogDriveLetter%"=="M:" goto "CheckExistSFCOfflineLog"
-if /i "%SFCLogDriveLetter%"=="N:" goto "CheckExistSFCOfflineLog"
-if /i "%SFCLogDriveLetter%"=="O:" goto "CheckExistSFCOfflineLog"
-if /i "%SFCLogDriveLetter%"=="P:" goto "CheckExistSFCOfflineLog"
-if /i "%SFCLogDriveLetter%"=="Q:" goto "CheckExistSFCOfflineLog"
-if /i "%SFCLogDriveLetter%"=="R:" goto "CheckExistSFCOfflineLog"
-if /i "%SFCLogDriveLetter%"=="S:" goto "CheckExistSFCOfflineLog"
-if /i "%SFCLogDriveLetter%"=="T:" goto "CheckExistSFCOfflineLog"
-if /i "%SFCLogDriveLetter%"=="U:" goto "CheckExistSFCOfflineLog"
-if /i "%SFCLogDriveLetter%"=="V:" goto "CheckExistSFCOfflineLog"
-if /i "%SFCLogDriveLetter%"=="W:" goto "CheckExistSFCOfflineLog"
-if /i "%SFCLogDriveLetter%"=="X:" goto "CheckExistSFCOfflineLog"
-if /i "%SFCLogDriveLetter%"=="Y:" goto "CheckExistSFCOfflineLog"
-if /i "%SFCLogDriveLetter%"=="Z:" goto "CheckExistSFCOfflineLog"
+set SFCLog=
+set /p SFCLog="What is the drive letter of the offline Windows installation? (A:-Z:) "
+if /i "%SFCLog%"=="A:" goto "SureSFCLog"
+if /i "%SFCLog%"=="B:" goto "SureSFCLog"
+if /i "%SFCLog%"=="C:" goto "SureSFCLog"
+if /i "%SFCLog%"=="D:" goto "SureSFCLog"
+if /i "%SFCLog%"=="E:" goto "SureSFCLog"
+if /i "%SFCLog%"=="F:" goto "SureSFCLog"
+if /i "%SFCLog%"=="G:" goto "SureSFCLog"
+if /i "%SFCLog%"=="H:" goto "SureSFCLog"
+if /i "%SFCLog%"=="I:" goto "SureSFCLog"
+if /i "%SFCLog%"=="J:" goto "SureSFCLog"
+if /i "%SFCLog%"=="K:" goto "SureSFCLog"
+if /i "%SFCLog%"=="L:" goto "SureSFCLog"
+if /i "%SFCLog%"=="M:" goto "SureSFCLog"
+if /i "%SFCLog%"=="N:" goto "SureSFCLog"
+if /i "%SFCLog%"=="O:" goto "SureSFCLog"
+if /i "%SFCLog%"=="P:" goto "SureSFCLog"
+if /i "%SFCLog%"=="Q:" goto "SureSFCLog"
+if /i "%SFCLog%"=="R:" goto "SureSFCLog"
+if /i "%SFCLog%"=="S:" goto "SureSFCLog"
+if /i "%SFCLog%"=="T:" goto "SureSFCLog"
+if /i "%SFCLog%"=="U:" goto "SureSFCLog"
+if /i "%SFCLog%"=="V:" goto "SureSFCLog"
+if /i "%SFCLog%"=="W:" goto "SureSFCLog"
+if /i "%SFCLog%"=="X:" goto "SureSFCLog"
+if /i "%SFCLog%"=="Y:" goto "SureSFCLog"
+if /i "%SFCLog%"=="Z:" goto "SureSFCLog"
 echo Invalid syntax!
-goto "SFCLogDriveLetter"
+goto "SFCLog"
+
+:"SureSFCLog"
+echo.
+set SureSFCLog=
+set /p SureSFCLog="Are you sure "%SFCLog%" is the drive letter of your offline Windows installation? (Yes/No) "
+if /i "%SureSFCLog%"=="Yes" goto "CheckExistSFCOfflineLog"
+if /i "%SureSFCLog%"=="No" goto "SFCLog"
+echo Invalid syntax!
+goto "SureSFCLog"
 
 :"CheckExistSFCOfflineLog"
-if not exist "%SFCLogDriveLetter%" goto "SFCLogDriveLetterNotExist"
-if /i "%SFCLogDriveLetter%"=="%SystemDrive%" goto "SFCLogDriveLetterIsOnline"
-if not exist "%SFCLogDriveLetter%\Windows" goto "SFCLogDriveLetterNotWindows"
+if not exist "%SFCLog%" goto "SFCLogNotExist"
+if /i "%SFCLog%"=="%SystemDrive%" goto "SFCLogIsOnline"
+if not exist "%SFCLog%\Windows" goto "SFCLogNotWindows"
 goto "SFCOfflineLog"
 
-:"SFCLogDriveLetterNotExist"
-echo "%SFCLogDriveLetter%" does not exist!
-goto "SFCLogDriveLetter"
+:"SFCLogNotExist"
+echo "%SFCLog%" does not exist!
+goto "SFCLog"
 
-:"SFCLogDriveLetterIsOnline"
-echo "%SFCLogDriveLetter%" is an online Windows installation!
+:"SFCLogIsOnline"
+echo "%SFCLog%" is an online Windows installation!
 goto "13"
 
-:"SFCLogDriveLetterNotWindows"
-echo "%SFCLogDriveLetter%" is not an offline Windows installation!
-goto "SFCLogDriveLetter"
+:"SFCLogNotWindows"
+echo "%SFCLog%" is not an offline Windows installation!
+goto "SFCLog"
 
 :"SFCOnlineLog"
 if not exist "%windir%\Logs\CBS\CBS.log" goto "SFCOnlineLogNotExist"
@@ -1711,13 +1729,13 @@ echo SFC log file ("%windir%\Logs\CBS\CBS.log") does not exist!
 goto "Start"
 
 :"SFCOfflineLog"
-if not exist "%SFCLogDriveLetter%\Windows\Logs\CBS\CBS.log" goto "SFCOfflineLogNotExist"
-"%windir%\notepad.exe" "%SFCLogDriveLetter%\Windows\Logs\CBS\CBS.log"
+if not exist "%SFCLog%\Windows\Logs\CBS\CBS.log" goto "SFCOfflineLogNotExist"
+"%windir%\notepad.exe" "%SFCLog%\Windows\Logs\CBS\CBS.log"
 if not "%errorlevel%"=="0" goto "ErrorSFCLog"
 goto "Start"
 
 :"SFCOfflineLogNotExist"
-echo SFC log file ("%SFCLogDriveLetter%\Windows\Logs\CBS\CBS.log") does not exist!
+echo SFC log file ("%SFCLog%\Windows\Logs\CBS\CBS.log") does not exist!
 goto "Start"
 
 :"ErrorSFCLog"
