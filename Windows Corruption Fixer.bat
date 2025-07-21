@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 14.0.8
+echo Version: 14.0.9
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -1267,7 +1267,7 @@ goto "DISMLog"
 
 :"DISMOnlineLog"
 if not exist "%windir%\Logs\DISM\dism.log" goto "DISMOnlineLogNotExist"
-"%windir%\notepad.exe" "%windir%\Logs\DISM\dism.log"
+"%windir%\notepad.exe" "%windir%\Logs\DISM\dism.log" > nul 2>&1
 if not "%errorlevel%"=="0" goto "ErrorDISMLog"
 goto "Start"
 
@@ -1277,7 +1277,7 @@ goto "Start"
 
 :"DISMOfflineLog"
 if not exist "%DISMLog%\Windows\Logs\DISM\dism.log" goto "DISMOfflineLogNotExist"
-"%windir%\notepad.exe" "%DISMLog%\Windows\Logs\DISM\dism.log"
+"%windir%\notepad.exe" "%DISMLog%\Windows\Logs\DISM\dism.log" > nul 2>&1
 if not "%errorlevel%"=="0" goto "ErrorDISMLog"
 goto "Start"
 
@@ -1738,7 +1738,7 @@ goto "Start"
 
 :"SFCOfflineLog"
 if not exist "%SFCLog%\Windows\Logs\CBS\CBS.log" goto "SFCOfflineLogNotExist"
-"%windir%\notepad.exe" "%SFCLog%\Windows\Logs\CBS\CBS.log"
+"%windir%\notepad.exe" "%SFCLog%\Windows\Logs\CBS\CBS.log" > nul 2>&1
 if not "%errorlevel%"=="0" goto "ErrorSFCLog"
 goto "Start"
 
