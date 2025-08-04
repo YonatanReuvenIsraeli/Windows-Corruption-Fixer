@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 14.0.9
+echo Version: 14.0.10
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -857,11 +857,15 @@ if /i "%OnlineOffline%"=="Offline" set MountDrive=%InstallationRestore%
 goto "WIMCheck"
 
 :"WIMCheck"
-if /i "%Install%"=="install.esd" goto "ExportWIMSet"
-if /i "%Install%"=="install.swm" goto "ExportWIMSet"
-if /i "%Install%"=="install.wim" goto "MountSet"
+if /i "%Install%"=="install.esd" goto "ExportWIMSetTrue"
+if /i "%Install%"=="install.swm" goto "ExportWIMSetTrue"
+if /i "%Install%"=="install.wim" goto "ExportWIMSet"
 
 :"ExportWIMSet"
+set ExportWIM=
+goto "MountSet"
+
+:"ExportWIMSetTrue"
 set ExportWIM=True
 goto "ExportWIM"
 
@@ -1753,3 +1757,4 @@ goto "13"
 :"Exit"
 endlocal
 exit
+
