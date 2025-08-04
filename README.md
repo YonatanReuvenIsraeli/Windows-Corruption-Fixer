@@ -1,26 +1,26 @@
 # Windows Corruption Fixer v14.0.9
 Fixes corrupted Windows.
 
-## CHKDSK check
+## CHKDSK Check
 - Supports any mounted drive letter.
 - Log is saved to the online Windows installation.
 
-## CHKDSK check and fix
+## CHKDSK Check and Fix
 - Supports any mounted drive letter.
 - Log is saved to the online Windows installation.
 
-## View CHKDSK logs
+## View CHKDSK Logs
 - Supports viewing logs from online and offline Windows installations.
 
-## DISM check health
+## DISM Check Health
 - Supports online and offline Windows installations.
 - Log is saved to the Windows installation you check health on.
   
-## DISM scan health
+## DISM Scan Health
 - Supports online and offline Windows installations.
 - Log is saved to the Windows installation you scan health on.
 
-## DISM restore health
+## DISM Restore Health
 - Supports online and offline Windows installations.
 - Supports using or not using Windows Update.
 - Supports using or not using  Windows Disk Image/Windows installation media.
@@ -28,28 +28,28 @@ Fixes corrupted Windows.
 - Supports restoring health with Mounted Windows image, Mounted side by side (SxS) folder, Windows image and Side by side (SxS) folder from a Windows Disk Image/Windows installation media.
 - Log is saved to the Windows installation you restore health on.
 
-## DISM revert pending actions
+## DISM Revert Pending Actions
 - Supports online and offline Windows installations.
 - Log is saved to the Windows installation you revert pending actions on.
 
-## View DISM logs
+## View DISM Logs
 - Supports viewing logs from online and offline Windows installations.
 
-## SFC scan now
+## SFC Scan Now
 - Supports online and offline Windows installations.
 - Log is saved to the Windows installation you scan now on.
   
-## SFC verify only
+## SFC Verify Only
 - Supports online and offline Windows installations.
 - Log is saved to the Windows installation you verify only on.
 
-## SFC scan file
+## SFC Scan File
 - Supports online and offline Windows installations.
 - Log is saved to the Windows installation you scan file on.
 
-## SFC verify file
+## SFC Verify File
 - Supports online and offline Windows installations.
 - Log is saved to the Windows installation you verify file on.
 
-## View SFC logs
+## View SFC Logs
 - Supports viewing logs from online and offline Windows installations.
