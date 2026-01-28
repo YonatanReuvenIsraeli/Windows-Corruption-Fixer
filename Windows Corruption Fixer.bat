@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 14.0.11
+echo Version: 14.0.12
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -223,15 +223,15 @@ if not exist "%CHKDSKLog%\Windows" goto "CHKDSKLogNotWindows"
 goto "AllRecent"
 
 :"CHKDSKLogNotExist"
-echo "%CHKDSKLog%" does not exist!
+echo "%CHKDSKLog%" does not exist! Please try again.
 goto "CHKDSKLog"
 
 :"CHKDSKLogIsOnline"
-echo "%CHKDSKLog%" is an online Windows installation!
+echo "%CHKDSKLog%" is an online Windows installation! Please try again.
 goto "3"
 
 :"CHKDSKLogNotWindows"
-echo "%CHKDSKLog%" is not an offline Windows installation!
+echo "%CHKDSKLog%" is not an offline Windows installation! Please try again.
 goto "CHKDSKLog"
 
 :"AllRecent"
@@ -347,15 +347,15 @@ if not exist "%InstallationCheck%\Windows" goto "InstallationCheckNotWindows"
 goto "CheckOffline"
 
 :"NotExistInstallationCheck"
-echo "%InstallationCheck%" does not exist!
+echo "%InstallationCheck%" does not exist! Please try again.
 goto "InstallationCheck"
 
 :"InstallationCheckIsOnline"
-echo "%InstallationCheck%" is an online Windows installation!
+echo "%InstallationCheck%" is an online Windows installation! Please try again.
 goto "4"
 
 :"InstallationCheckNotWindows"
-echo "%InstallationCheck%" is not an offline Windows installation!
+echo "%InstallationCheck%" is not an offline Windows installation! Please try again.
 goto "InstallationCheck"
 
 :"CheckOnline"
@@ -433,15 +433,15 @@ if not exist "%InstallationScan%\Windows" goto "InstallationScanNotWindows"
 goto "ScanOffline"
 
 :"NotExistInstallationScan"
-echo "%InstallationScan%" does not exist!
+echo "%InstallationScan%" does not exist! Please try again.
 goto "InstallationScan"
 
 :"InstallationScanIsOnline"
-echo "%InstallationScan%" is an online Windows installation!
+echo "%InstallationScan%" is an online Windows installation! Please try again.
 goto "5"
 
 :"InstallationScanNotWindows"
-echo "%InstallationScan%" is not an offline Windows installation!
+echo "%InstallationScan%" is not an offline Windows installation! Please try again.
 goto "InstallationScan"
 
 :"ScanOnline"
@@ -519,15 +519,15 @@ if not exist "%InstallationRestore%\Windows" goto "InstallationRestoreNotWindows
 goto "Update"
 
 :"NotExistInstallationRestore"
-echo "%InstallationRestore%" does not exist!
+echo "%InstallationRestore%" does not exist! Please try again.
 goto "InstallationRestore"
 
 :"InstallationRestoreIsOnline"
-echo "%InstallationRestore%" is an online Windows installation!
+echo "%InstallationRestore%" is an online Windows installation! Please try again.
 goto "6"
 
 :"InstallationRestoreNotWindows"
-echo "%InstallationRestore%" is not an offline Windows installation!
+echo "%InstallationRestore%" is not an offline Windows installation! Please try again.
 goto "InstallationRestore"
 
 :"Update"
@@ -1172,15 +1172,15 @@ if not exist "%InstallationRevert%\Windows" goto "InstallationRevertNotWindows"
 goto "RevertOffline"
 
 :"NotExistInstallationRevert"
-echo "%InstallationRevert%" does not exist!
+echo "%InstallationRevert%" does not exist! Please try again.
 goto "InstallationRevert"
 
 :"InstallationRevertIsOnline"
-echo "%InstallationRevert%" is an online Windows installation!
+echo "%InstallationRevert%" is an online Windows installation! Please try again.
 goto "7"
 
 :"InstallationRevertNotWindows"
-echo "%InstallationRevert%" is not an offline Windows installation!
+echo "%InstallationRevert%" is not an offline Windows installation! Please try again.
 goto "InstallationRevert"
 
 :"RevertOnline"
@@ -1258,15 +1258,15 @@ if not exist "%DISMLog%\Windows" goto "DISMLogNotWindows"
 goto "DISMOfflineLog"
 
 :"DISMLogNotExist"
-echo "%DISMLog%" does not exist!
+echo "%DISMLog%" does not exist! Please try again.
 goto "DISMLog"
 
 :"DISMLogIsOnline"
-echo "%DISMLog%" is an online Windows installation!
+echo "%DISMLog%" is an online Windows installation! Please try again.
 goto "8"
 
 :"DISMLogNotWindows"
-echo "%DISMLog%" is not an offline Windows installation!
+echo "%DISMLog%" is not an offline Windows installation! Please try again.
 goto "DISMLog"
 
 :"DISMOnlineLog"
@@ -1351,15 +1351,15 @@ if not exist "%ScanNow%\Windows" goto "ScanNowNotWindows"
 goto "ScanNowOffline"
 
 :"ScanNowNotExist"
-echo "%ScanNow%" does not exist.
+echo "%ScanNow%" does not exist. Please try again.
 goto "ScanNow"
 
 :"ScanNowIsOnline"
-echo "%ScanNow%" is an online Windows installation!
+echo "%ScanNow%" is an online Windows installation! Please try again.
 goto "9"
 
 :"ScanNowNotWindows"
-echo "%ScanNow%" is not an offline Windows installation!
+echo "%ScanNow%" is not an offline Windows installation! Please try again.
 goto "ScanNow"
 
 :"ScanNowOnline"
@@ -1437,15 +1437,15 @@ if not exist "%VerifyOnly%\Windows" goto "VerfiyOnlyNotWindows"
 goto "VerifyOnlyOffline"
 
 :"VerifyOnlyNotExist"
-echo "%VerifyOnlyNotExist%" does not exist!
+echo "%VerifyOnlyNotExist%" does not exist! Please try again.
 goto "VerifyOnly"
 
 :"VerifyOnlyIsOnline"
-echo "%VerifyOnly%" is an online Windows installation!
+echo "%VerifyOnly%" is an online Windows installation! Please try again.
 goto "10"
 
 :"VerfiyOnlyNotWindows"
-echo "%VerifyOnly%" is not an offline Windows installation!
+echo "%VerifyOnly%" is not an offline Windows installation! Please try again.
 goto "VerifyOnly"
 
 :"VerifyOnlyOnline"
@@ -1535,15 +1535,15 @@ if not exist "%ScanFile%\Windows" goto "ScanFileNotWindows"
 goto "ScanFileOffline"
 
 :"ScanFileNotExist"
-echo "%ScanFileNotExist%" does not exist!
+echo "%ScanFileNotExist%" does not exist! Please try again.
 goto "ScanFile"
 
 :"ScanFileIsOnline"
-echo "%ScanFile%" is an online Windows installation!
+echo "%ScanFile%" is an online Windows installation! Please try again.
 goto "11"
 
 :"ScanFileNotWindows"
-echo "%ScanFile%" is not an offline Windows installation!
+echo "%ScanFile%" is not an offline Windows installation! Please try again.
 goto "ScanFile"
 
 :"ScanFileOnline"
@@ -1633,15 +1633,15 @@ if not exist "%VerifyFile%\Windows" goto "VerifyFileNotWindows"
 goto "VerifyFileOffline"
 
 :"VerifyFileNotExist"
-echo "%VerifyFileNotExist%" does not exist!
+echo "%VerifyFileNotExist%" does not exist! Please try again.
 goto "VerifyFile"
 
 :"VerifyFileIsOnline"
-echo "%VerifyFile%" is an online Windows installation!
+echo "%VerifyFile%" is an online Windows installation! Please try again.
 goto "12"
 
 :"VerifyFileNotWindows"
-echo "%VerifyFile%" is not an offline Windows installation!
+echo "%VerifyFile%" is not an offline Windows installation! Please try again.
 goto "VerifyFile"
 
 :"VerifyFileOnline"
@@ -1719,15 +1719,15 @@ if not exist "%SFCLog%\Windows" goto "SFCLogNotWindows"
 goto "SFCOfflineLog"
 
 :"SFCLogNotExist"
-echo "%SFCLog%" does not exist!
+echo "%SFCLog%" does not exist! Please try again.
 goto "SFCLog"
 
 :"SFCLogIsOnline"
-echo "%SFCLog%" is an online Windows installation!
+echo "%SFCLog%" is an online Windows installation! Please try again.
 goto "13"
 
 :"SFCLogNotWindows"
-echo "%SFCLog%" is not an offline Windows installation!
+echo "%SFCLog%" is not an offline Windows installation! Please try again.
 goto "SFCLog"
 
 :"SFCOnlineLog"
