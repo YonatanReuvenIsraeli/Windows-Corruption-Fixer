@@ -1,4 +1,4 @@
-# Windows Corruption Fixer v14.0.12
+# Windows Corruption Fixer v14.0.13
 Fixes corrupted Windows.
 
 ## CHKDSK Check
