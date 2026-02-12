@@ -2,13 +2,16 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 14.0.14
+echo Version: 14.0.15
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
 echo Sponsor: https://github.com/sponsors/YonatanReuvenIsraeli
 "%windir%\System32\net.exe" session > nul 2>&1
 if not "%errorlevel%"=="0" goto "NotAdministrator"
+"%windir%\System32\net.exe" user > nul 2>&1
+if "%errorlevel%"=="0" set PERE=False
+if not "%errorlevel%"=="0" set PERE=True
 goto "Start"
 
 :"NotAdministrator"
@@ -558,10 +561,14 @@ echo [4] Side by side (SxS) folder.
 echo.
 set RestoreType=
 set /p RestoreType="What do you want to use? (1-4) "
-if /i "%RestoreType%"=="1" goto "Download"
-if /i "%RestoreType%"=="2" goto "Download"
-if /i "%RestoreType%"=="3" goto "Download"
-if /i "%RestoreType%"=="4" goto "Download"
+if /i "%PERE%"=="False" if /i "%RestoreType%"=="1" goto "Download"
+if /i "%PERE%"=="True" if /i "%RestoreType%"=="1" goto "MountDiskImageinstallationmedia"
+if /i "%PERE%"=="False" if /i "%RestoreType%"=="2" goto "Download"
+if /i "%PERE%"=="True" if /i "%RestoreType%"=="2" goto "MountDiskImageinstallationmedia"
+if /i "%PERE%"=="False" if /i "%RestoreType%"=="3" goto "Download"
+if /i "%PERE%"=="True" if /i "%RestoreType%"=="3" goto "MountDiskImageinstallationmedia"
+if /i "%PERE%"=="False" if /i "%RestoreType%"=="4" goto "Download"
+if /i "%PERE%"=="True" if /i "%RestoreType%"=="4" goto "MountDiskImageinstallationmedia"
 echo Invalid syntax!
 goto "RestoreType"
 
