@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 14.0.16
+echo Version: 14.0.17
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -1711,7 +1711,7 @@ goto "Start"
 echo.
 set OnlineOffline=
 set /p OnlineOffline="Are you viewing the logs of an online or offline Windows installation? (Online/Offline) "
-if /i "%OnlineOffline%"=="Online" goto "SFCOnlineLog"
+if /i "%OnlineOffline%"=="Online" goto "sfcdetailsSet"
 if /i "%OnlineOffline%"=="Offline" goto "SFCLog"
 echo Invalid syntax!
 goto "13"
@@ -1762,7 +1762,7 @@ goto "SureSFCLog"
 if not exist "%SFCLog%" goto "SFCLogNotExist"
 if /i "%SFCLog%"=="%SystemDrive%" goto "SFCLogIsOnline"
 if not exist "%SFCLog%\Windows" goto "SFCLogNotWindows"
-goto "SFCOfflineLog"
+goto "sfcdetailsSet"
 
 :"SFCLogNotExist"
 echo "%SFCLog%" does not exist! Please try again.
@@ -1776,10 +1776,19 @@ goto "13"
 echo "%SFCLog%" is not an offline Windows installation! Please try again.
 goto "SFCLog"
 
+:"sfcdetailsSet"
+set sfcdetails=
+if /i "%OnlineOffline%"=="Online" goto "SFCOnlineLog"
+if /i "%OnlineOffline%"=="Offline" goto "SFCOfflineLog"
+
 :"SFCOnlineLog"
 if not exist "%windir%\Logs\CBS\CBS.log" goto "SFCOnlineLogNotExist"
-"%windir%\notepad.exe" "%windir%\Logs\CBS\CBS.log"
+if exist "sfcdetails.txt" goto "sfcdetailsExist"
+"%windir%\System32\find.exe" "[SR]" "%windir%\Logs\CBS\CBS.log" > "sfcdetails.txt"
+"%windir%\notepad.exe" "sfcdetails.txt"
 if not "%errorlevel%"=="0" goto "ErrorSFCLog"
+del "sfcdetails.txt" /f /q > nul 2>&1
+if /i "%sfcdetails%"=="True" goto "sfcdetailsDone"
 goto "Start"
 
 :"SFCOnlineLogNotExist"
@@ -1788,8 +1797,12 @@ goto "Start"
 
 :"SFCOfflineLog"
 if not exist "%SFCLog%\Windows\Logs\CBS\CBS.log" goto "SFCOfflineLogNotExist"
-"%windir%\notepad.exe" "%SFCLog%\Windows\Logs\CBS\CBS.log" > nul 2>&1
+if exist "sfcdetails.txt" goto "sfcdetailsExist"
+"%windir%\System32\find.exe" "[SR]" "%SFCLog%\Windows\Logs\CBS\CBS.log" > "sfcdetails.txt"
+"%windir%\notepad.exe" "sfcdetails.txt"
 if not "%errorlevel%"=="0" goto "ErrorSFCLog"
+del "sfcdetails.txt" /f /q > nul 2>&1
+if /i "%sfcdetails%"=="True" goto "sfcdetailsDone"
 goto "Start"
 
 :"SFCOfflineLogNotExist"
@@ -1799,6 +1812,19 @@ goto "Start"
 :"ErrorSFCLog"
 echo There has been an error! Please try again.
 goto "13"
+
+:"sfcdetailsExist"
+set sfcdetails=True
+echo.
+echo Please temporarily rename to something else or temporarily move to another location "sfcdetails.txt" in order for this batch file to proceed. "sfcdetails.txt" is not a system file. "sfcdetails.txt" is located in the folder "%cd%". Press any key to continue when "sfcdetails.txt" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
+pause > nul 2>&1
+if /i "%OnlineOffline%"=="Online" goto "SFCOnlineLog"
+if /i "%OnlineOffline%"=="Offline" goto "SFCOfflineLog"
+
+:"sfcdetailsDone"
+echo.
+echo You can now rename or move the file back to "sfcdetails.txt".
+goto "Start"
 
 :"Exit"
 endlocal
