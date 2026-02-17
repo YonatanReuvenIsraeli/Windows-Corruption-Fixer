@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 14.0.17
+echo Version: 14.0.15
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -248,8 +248,8 @@ goto "SureRecent"
 echo.
 set SureAll=
 set /p SureAll="Are you sure you want to view all CHKDSK logs? (Yes/No) "
-if /i "%OnlineOffline%"=="Online"  if /i "%SureAll%"=="Yes" goto "wevtutilSet"
-if /i "%OnlineOffline%"=="Offline"  if /i "%SureAll%"=="Yes" goto "wevtutilSet"
+if /i "%OnlineOffline%"=="Online"  if /i "%SureAll%"=="Yes" goto "wevtutilAllOnline"
+if /i "%OnlineOffline%"=="Offline"  if /i "%SureAll%"=="Yes" goto "wevtutilAllOffline"
 if /i "%SureAll%"=="No" goto "3"
 echo Invalid syntax!
 goto "SureAll"
@@ -258,72 +258,34 @@ goto "SureAll"
 echo.
 set SureRecent=
 set /p SureRecent="Are you sure you want to view the %Recent% most recent CHKDSK logs? (Yes/No) "
-if /i "%OnlineOffline%"=="Online" if /i "%SureRecent%"=="Yes" goto "wevtutilSet"
-if /i "%OnlineOffline%"=="Offline" if /i "%SureRecent%"=="Yes" goto "wevtutilSet"
+if /i "%OnlineOffline%"=="Online" if /i "%SureRecent%"=="Yes" goto "wevtutilRecentOnline"
+if /i "%OnlineOffline%"=="Offline" if /i "%SureRecent%"=="Yes" goto "wevtutilRecentOffline"
 if /i "%SureRecent%"=="No" goto "3"
 echo Invalid syntax!
 goto "SureRecent"
 
-:"wevtutilSet"
-set set wevutil=
-if /i "%Recent%"=="All" if /i "%OnlineOffline%"=="Online" goto "wevtutilAllOnline"
-if /i "%Recent%"=="All" if /i "%OnlineOffline%"=="Offline" goto "wevtutilAllOffline"
-if /i not "%Recent%"=="All" if /i "%OnlineOffline%"=="Online" goto "wevtutilRecentOnline"
-if /i not "%Recent%"=="All" if /i "%OnlineOffline%"=="Offline" goto "wevtutilRecentOffline"
-
 :"wevtutilAllOnline"
-if exist "wevtutil.txt" goto "wevutilExist"
 echo.
-"%windir%\System32\wevtutil.exe" qe Application "/q:*[System[Provider[@Name='chkdsk'] or Provider[@Name='wininit']]]" /lf:False /f:text > "wevtutil.txt"
+"%windir%\System32\wevtutil.exe" qe Application "/q:*[System[Provider[@Name='chkdsk'] or Provider[@Name='wininit']]]" /lf:False /f:text
 if not "%errorlevel%"=="0" goto "wevtutilError"
-"%windir%\notepad.exe" "wevtutil.txt"
-del "wevtutil.txt" /f /q > nul 2>&1
-if /i "%wevutil%"=="True" goto "wevutilDone"
 goto "Start"
 
 :"wevtutilRecentOnline"
-if exist "wevtutil.txt" goto "wevutilExist"
 echo.
-"%windir%\System32\wevtutil.exe" qe Application "/q:*[System[Provider[@Name='chkdsk'] or Provider[@Name='wininit']]]" /lf:False /f:text /c:%Recent% > "wevtutil.txt"
+"%windir%\System32\wevtutil.exe" qe Application "/q:*[System[Provider[@Name='chkdsk'] or Provider[@Name='wininit']]]" /lf:False /f:text /c:%Recent%
 if not "%errorlevel%"=="0" goto "wevtutilError"
-"%windir%\notepad.exe" "wevtutil.txt"
-del "wevtutil.txt" /f /q > nul 2>&1
-if /i "%wevutil%"=="True" goto "wevutilDone"
 goto "Start"
 
 :"wevtutilAllOffline"
-if exist "wevtutil.txt" goto "wevutilExist"
 echo.
-"%windir%\System32\wevtutil.exe" qe C:\Windows\System32\winevt\Logs "/q:*[System[Provider[@Name='chkdsk'] or Provider[@Name='wininit']]]" /lf:True /f:text > "wevtutil.txt"
+"%windir%\System32\wevtutil.exe" qe C:\Windows\System32\winevt\Logs "/q:*[System[Provider[@Name='chkdsk'] or Provider[@Name='wininit']]]" /lf:True /f:text
 if not "%errorlevel%"=="0" goto "wevtutilError"
-"%windir%\notepad.exe" "wevtutil.txt"
-del "wevtutil.txt" /f /q > nul 2>&1
-if /i "%wevutil%"=="True" goto "wevutilDone"
 goto "Start"
 
 :"wevtutilRecentOffline"
-if exist "wevtutil.txt" goto "wevutilExist"
 echo.
-"%windir%\System32\wevtutil.exe" qe C:\Windows\System32\winevt\Logs "/q:*[System[Provider[@Name='chkdsk'] or Provider[@Name='wininit']]]" /lf:True /f:text /c:%Recent% > "wevtutil.txt"
+"%windir%\System32\wevtutil.exe" qe C:\Windows\System32\winevt\Logs "/q:*[System[Provider[@Name='chkdsk'] or Provider[@Name='wininit']]]" /lf:True /f:text /c:%Recent%
 if not "%errorlevel%"=="0" goto "wevtutilError"
-"%windir%\notepad.exe" "wevtutil.txt"
-del "wevtutil.txt" /f /q > nul 2>&1
-if /i "%wevutil%"=="True" goto "wevutilDone"
-goto "Start"
-
-:"wevutilExist"
-set wevutil=True
-echo.
-echo Please temporarily rename to something else or temporarily move to another location "wevtutil.txt" in order for this batch file to proceed. "wevtutil.txt" is not a system file. "wevtutil.txt" is located in the folder "%cd%". Press any key to continue when "wevtutil.txt" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
-pause > nul 2>&1
-if /i "%Recent%"=="All" if /i "%OnlineOffline%"=="Online" goto "wevtutilAllOnline"
-if /i "%Recent%"=="All" if /i "%OnlineOffline%"=="Offline" goto "wevtutilAllOffline"
-if /i not "%Recent%"=="All" if /i "%OnlineOffline%"=="Online" goto "wevtutilRecentOnline"
-if /i not "%Recent%"=="All" if /i "%OnlineOffline%"=="Offline" goto "wevtutilRecentOffline"
-
-:"wevutilDone"
-echo.
-echo You can now rename or move the file back to "wevutil.txt".
 goto "Start"
 
 :"wevtutilError"
@@ -1711,7 +1673,7 @@ goto "Start"
 echo.
 set OnlineOffline=
 set /p OnlineOffline="Are you viewing the logs of an online or offline Windows installation? (Online/Offline) "
-if /i "%OnlineOffline%"=="Online" goto "sfcdetailsSet"
+if /i "%OnlineOffline%"=="Online" goto "SFCOnlineLog"
 if /i "%OnlineOffline%"=="Offline" goto "SFCLog"
 echo Invalid syntax!
 goto "13"
@@ -1762,7 +1724,7 @@ goto "SureSFCLog"
 if not exist "%SFCLog%" goto "SFCLogNotExist"
 if /i "%SFCLog%"=="%SystemDrive%" goto "SFCLogIsOnline"
 if not exist "%SFCLog%\Windows" goto "SFCLogNotWindows"
-goto "sfcdetailsSet"
+goto "SFCOfflineLog"
 
 :"SFCLogNotExist"
 echo "%SFCLog%" does not exist! Please try again.
@@ -1776,19 +1738,10 @@ goto "13"
 echo "%SFCLog%" is not an offline Windows installation! Please try again.
 goto "SFCLog"
 
-:"sfcdetailsSet"
-set sfcdetails=
-if /i "%OnlineOffline%"=="Online" goto "SFCOnlineLog"
-if /i "%OnlineOffline%"=="Offline" goto "SFCOfflineLog"
-
 :"SFCOnlineLog"
 if not exist "%windir%\Logs\CBS\CBS.log" goto "SFCOnlineLogNotExist"
-if exist "sfcdetails.txt" goto "sfcdetailsExist"
-"%windir%\System32\find.exe" "[SR]" "%windir%\Logs\CBS\CBS.log" > "sfcdetails.txt"
-"%windir%\notepad.exe" "sfcdetails.txt"
+"%windir%\notepad.exe" "%windir%\Logs\CBS\CBS.log"
 if not "%errorlevel%"=="0" goto "ErrorSFCLog"
-del "sfcdetails.txt" /f /q > nul 2>&1
-if /i "%sfcdetails%"=="True" goto "sfcdetailsDone"
 goto "Start"
 
 :"SFCOnlineLogNotExist"
@@ -1797,12 +1750,8 @@ goto "Start"
 
 :"SFCOfflineLog"
 if not exist "%SFCLog%\Windows\Logs\CBS\CBS.log" goto "SFCOfflineLogNotExist"
-if exist "sfcdetails.txt" goto "sfcdetailsExist"
-"%windir%\System32\find.exe" "[SR]" "%SFCLog%\Windows\Logs\CBS\CBS.log" > "sfcdetails.txt"
-"%windir%\notepad.exe" "sfcdetails.txt"
+"%windir%\notepad.exe" "%SFCLog%\Windows\Logs\CBS\CBS.log" > nul 2>&1
 if not "%errorlevel%"=="0" goto "ErrorSFCLog"
-del "sfcdetails.txt" /f /q > nul 2>&1
-if /i "%sfcdetails%"=="True" goto "sfcdetailsDone"
 goto "Start"
 
 :"SFCOfflineLogNotExist"
@@ -1812,19 +1761,6 @@ goto "Start"
 :"ErrorSFCLog"
 echo There has been an error! Please try again.
 goto "13"
-
-:"sfcdetailsExist"
-set sfcdetails=True
-echo.
-echo Please temporarily rename to something else or temporarily move to another location "sfcdetails.txt" in order for this batch file to proceed. "sfcdetails.txt" is not a system file. "sfcdetails.txt" is located in the folder "%cd%". Press any key to continue when "sfcdetails.txt" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
-pause > nul 2>&1
-if /i "%OnlineOffline%"=="Online" goto "SFCOnlineLog"
-if /i "%OnlineOffline%"=="Offline" goto "SFCOfflineLog"
-
-:"sfcdetailsDone"
-echo.
-echo You can now rename or move the file back to "sfcdetails.txt".
-goto "Start"
 
 :"Exit"
 endlocal
