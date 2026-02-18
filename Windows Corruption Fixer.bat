@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 14.0.15
+echo Version: 14.1.0
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -548,9 +548,13 @@ set Media=
 set /p Media="Do you want to use a Windows Disk Image/Windows installation media? (Yes/No) "
 if /i "%Media%"=="Yes" goto "RestoreType"
 if /i "%OnlineOffline%"=="Online" if /i "%Media%"=="No" goto "DISMOnlineNoImage"
-if /i "%OnlineOffline%"=="Offline" if /i "%Media%"=="No" goto "DISMOfflineNoImage"
+if /i "%OnlineOffline%"=="Offline" if /i "%Media%"=="No" goto "RestoreTypeSet"
 echo Invalid syntax!
 goto "Media"
+
+:"RestoreTypeSet"
+set RestoreType=
+goto "DISMOfflineNoImage"
 
 :"RestoreType"
 echo.
@@ -710,7 +714,8 @@ set Sources=%DriveLetter%\sources
 if /i "%RestoreType%"=="1" goto "ESDSWMWIM"
 if /i "%RestoreType%"=="2" goto "ESDSWMWIM"
 if /i "%RestoreType%"=="3" goto "ESDSWMWIM"
-if /i "%RestoreType%"=="4" goto "WindowsimageSxS"
+if /i "%OnlineOffline%"=="Online" if /i "%RestoreType%"=="4" goto "DISMGo"
+if /i "%OnlineOffline%"=="Offline" if /i "%RestoreType%"=="4" goto "ScratchSet"
 
 :"Bit"
 echo.
@@ -736,7 +741,8 @@ if /i "%Bit%"=="64" set Sources=%DriveLetter%\x64\sources
 if /i "%RestoreType%"=="1" goto "ESDSWMWIM"
 if /i "%RestoreType%"=="2" goto "ESDSWMWIM"
 if /i "%RestoreType%"=="3" goto "ESDSWMWIM"
-if /i "%RestoreType%"=="4" goto "WindowsimageSxS"
+if /i "%OnlineOffline%"=="Online" if /i "%RestoreType%"=="4" goto "DISMGo"
+if /i "%OnlineOffline%"=="Offline" if /i "%RestoreType%"=="4" goto "ScratchSet"
 
 :"ESDSWMWIM"
 if exist "%Sources%\install.esd" set Install=install.esd
@@ -799,7 +805,8 @@ set SureIndex=
 set /p SureIndex="Are you sure you want index %Index%? (Yes/No) "
 if /i "%RestoreType%"=="1" if /i "%SureIndex%"=="Yes" goto "MountDrive"
 if /i "%RestoreType%"=="2" if /i "%SureIndex%"=="Yes" goto "MountDrive"
-if /i "%RestoreType%"=="3" if /i "%SureIndex%"=="Yes" goto "WindowsimageSxS"
+if /i "%OnlineOffline%"=="Online" if /i "%RestoreType%"=="3" if /i "%SureIndex%"=="Yes" goto "DISMGo"
+if /i "%OnlineOffline%"=="Offline" if /i "%RestoreType%"=="3" if /i "%SureIndex%"=="Yes" goto "ScratchSet"
 if /i "%SureIndex%"=="No" goto "Index3"
 echo Invalid syntax!
 goto "SureIndex3"
@@ -824,7 +831,8 @@ set SureIndex=
 set /p SureIndex="Are you sure you want index %Index%? (Yes/No) "
 if /i "%RestoreType%"=="1" if /i "%SureIndex%"=="Yes" goto "MountDrive"
 if /i "%RestoreType%"=="2" if /i "%SureIndex%"=="Yes" goto "MountDrive"
-if /i "%RestoreType%"=="3" if /i "%SureIndex%"=="Yes" goto "WindowsimageSxS"
+if /i "%OnlineOffline%"=="Online" if /i "%RestoreType%"=="3" if /i "%SureIndex%"=="Yes" goto "DISMGo"
+if /i "%OnlineOffline%"=="Offline" if /i "%RestoreType%"=="3" if /i "%SureIndex%"=="Yes" goto "ScratchSet"
 if /i "%SureIndex%"=="No" goto "Index7"
 echo Invalid syntax!
 goto "SureIndex7"
@@ -853,7 +861,8 @@ set SureIndex=
 set /p SureIndex="Are you sure you want index %Index%? (Yes/No) "
 if /i "%RestoreType%"=="1" if /i "%SureIndex%"=="Yes" goto "MountDrive"
 if /i "%RestoreType%"=="2" if /i "%SureIndex%"=="Yes" goto "MountDrive"
-if /i "%RestoreType%"=="3" if /i "%SureIndex%"=="Yes" goto "WindowsimageSxS"
+if /i "%OnlineOffline%"=="Online" if /i "%RestoreType%"=="3" if /i "%SureIndex%"=="Yes" goto "DISMGo"
+if /i "%OnlineOffline%"=="Offline" if /i "%RestoreType%"=="3" if /i "%SureIndex%"=="Yes" goto "ScratchSet"
 if /i "%SureIndex%"=="No" goto "Index11"
 echo Invalid syntax!
 goto "SureIndex11"
@@ -913,15 +922,13 @@ if /i "%ExportWIM%"=="" "%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%S
 if /i "%ExportWIM%"=="True" "%windir%\System32\Dism.exe" /Mount-Image /ImageFile:"%MountDrive%\install.wim" /Index:1 /MountDir:"%MountDrive%\Mount" /ReadOnly
 if not "%errorlevel%"=="0" goto "MountError"
 echo Windows image mounted to "%MountDrive%\Mount".
-if /i "%OnlineOffline%"=="Online" if /i "%RestoreType%"=="1" goto "DISMOnlineMountedWindowsimage"
-if /i "%OnlineOffline%"=="Online" if /i "%RestoreType%"=="2" goto "DISMOnlineMountedSxS"
-if /i "%OnlineOffline%"=="Offline" if /i "%RestoreType%"=="1" goto "DISMOfflineMountedWindowsimage"
-if /i "%OnlineOffline%"=="Offline" if /i "%RestoreType%"=="2" goto "DISMOfflineMountedSxS"
+if /i "%OnlineOffline%"=="Online" goto "DISMGo"
+if /i "%OnlineOffline%"=="Offline" goto "ScratchSet"
 
 :"MountExist"
 set Mount=True
 echo.
-echo Please temporarily rename to something else or temporarily move to another location "%MountDrive%\Mount" in order for this batch file to proceed. "%MountDrive%\Mount" is not a system file. Press any key to continue when "%MountDrive%\Mount" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
+echo Please temporarily rename to something else or temporarily move to another location "%MountDrive%\Mount" in order for this batch file to proceed. "%MountDrive%\Mount" is not a system folder. Press any key to continue when "%MountDrive%\Mount" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
 pause > nul 2>&1
 goto "Mount"
 
@@ -949,7 +956,7 @@ goto "WIMCheckMount"
 :"MountDoneMount"
 set Mount=
 echo.
-echo You can now rename or move the file back to "%MountDrive%\Mount". Press any key to continue.
+echo You can now rename or move the folder back to "%MountDrive%\Mount". Press any key to continue.
 pause > nul 2>&1
 goto "WIMCheckMount"
 
@@ -973,11 +980,30 @@ echo You can now rename or move the file back to "%MountDrive%\install.wim". Pre
 pause > nul 2>&1
 goto "Update"
 
-:"WindowsimageSxS"
-if /i "%OnlineOffline%"=="Online" goto "DISMOnlineWindowsimage"
-if /i "%OnlineOffline%"=="Online" goto "DISMOnlineSxS"
-if /i "%OnlineOffline%"=="Offline" goto "DISMOfflineWindowsimage"
-if /i "%OnlineOffline%"=="Offline" goto "DISMOfflineSxS"
+:"ScratchSet"
+set Scratch=
+goto "CheckExistScratch"
+
+:"CheckExistScratch"
+if exist "%InstallationRestore%\Scratch" goto "ScratchExist"
+goto "DISMGo"
+
+:"ScratchExist"
+set Scratch=True
+echo.
+echo Please temporarily rename to something else or temporarily move to another location "%InstallationRestore%\Scratch" in order for this batch file to proceed. "%InstallationRestore%\Scratch" is not a system folder. Press any key to continue when "%InstallationRestore%\Scratch" is renamed to something else or moved to another location. This batch file will let you know when you can rename it back to its original name or move it back to its original location.
+pause > nul 2>&1
+goto "CheckExistScratch"
+
+:"DISMGo"
+if /i "%OnlineOffline%"=="Online" if /i "%RestoreType%"=="1" goto "DISMOnlineMountedWindowsimage"
+if /i "%OnlineOffline%"=="Online" if /i "%RestoreType%"=="2" goto "DISMOnlineMountedSxS"
+if /i "%OnlineOffline%"=="Online" if /i "%RestoreType%"=="3" goto "DISMOnlineWindowsimage"
+if /i "%OnlineOffline%"=="Online" if /i "%RestoreType%"=="4" goto "DISMOnlineSxS"
+if /i "%OnlineOffline%"=="Offline" if /i "%RestoreType%"=="1" goto "DISMOfflineMountedWindowsimage"
+if /i "%OnlineOffline%"=="Offline" if /i "%RestoreType%"=="2" goto "DISMOfflineMountedSxS"
+if /i "%OnlineOffline%"=="Offline" if /i "%RestoreType%"=="3" goto "DISMOfflineWindowsimage"
+if /i "%OnlineOffline%"=="Offline" if /i "%RestoreType%"=="4" goto "DISMOfflineSxS"
 
 :"DISMOnlineNoImage"
 echo.
@@ -1027,51 +1053,75 @@ goto "Start"
 :"DISMOfflineNoImage"
 echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
+md "%InstallationRestore%\Scratch" > nul 2>&1
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
-if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
-if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /ScratchDir:"%InstallationRestore%\Scratch" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /LimitAccess /ScratchDir:"%InstallationRestore%\Scratch" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "Update"
+del "%InstallationRestore%\Scratch" /s /q > nul 2>&1
 echo Health restored on Windows installation "%InstallationRestore%".
+if /i "%Scratch%"=="True" goto "ScratchDone"
 goto "Start"
 
 :"DISMOfflineMountedWindowsimage"
 echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
+md "%InstallationRestore%\Scratch" > nul 2>&1
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
-if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%MountDrive%\Mount\Windows" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
-if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%MountDrive%\Mount\Windows" /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%MountDrive%\Mount\Windows" /ScratchDir:"%InstallationRestore%\Scratch" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%MountDrive%\Mount\Windows" /LimitAccess /ScratchDir:"%InstallationRestore%\Scratch" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "Update"
+del "%InstallationRestore%\Scratch" /s /q > nul 2>&1
 echo Health restored on Windows installation "%InstallationRestore%".
+if /i "%Scratch%"=="True" goto "ScratchDone"
 goto "Unmount"
 
 :"DISMOfflineMountedSxS"
 echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
+md "%InstallationRestore%\Scratch" > nul 2>&1
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
-if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%MountDrive%\Mount\Windows\WinSxS" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
-if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%MountDrive%\Mount\Windows\WinSxS" /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%MountDrive%\Mount\Windows\WinSxS" /ScratchDir:"%InstallationRestore%\Scratch" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%MountDrive%\Mount\Windows\WinSxS" /LimitAccess /ScratchDir:"%InstallationRestore%\Scratch" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "Update"
+del "%InstallationRestore%\Scratch" /s /q > nul 2>&1
 echo Health restored on Windows installation "%InstallationRestore%".
+if /i "%Scratch%"=="True" goto "ScratchDone"
 goto "Unmount"
 
 :"DISMOfflineWindowsimage"
 echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
+md "%InstallationRestore%\Scratch" > nul 2>&1
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
-if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Sources%\%Install%":%Index% /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
-if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Sources%\%Install%":%Index% /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Sources%\%Install%":%Index% /ScratchDir:"%InstallationRestore%\Scratch" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Sources%\%Install%":%Index% /LimitAccess /ScratchDir:"%InstallationRestore%\Scratch" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "Update"
+del "%InstallationRestore%\Scratch" /s /q > nul 2>&1
 echo Health restored on Windows installation "%InstallationRestore%".
+if /i "%Scratch%"=="True" goto "ScratchDone"
 goto "Start"
 
 :"DISMOfflineSxS"
 echo.
 echo Restoring health on Windows installation "%InstallationRestore%".
+md "%InstallationRestore%\Scratch" > nul 2>&1
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
-if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Sources%\sxs" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
-if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Sources%\sxs" /LimitAccess /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Sources%\sxs" /ScratchDir:"%InstallationRestore%\Scratch" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
+if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Sources%\sxs" /LimitAccess /ScratchDir:"%InstallationRestore%\Scratch" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if not "%errorlevel%"=="0" goto "Update"
+del "%InstallationRestore%\Scratch" /s /q > nul 2>&1
 echo Health restored on Windows installation "%InstallationRestore%".
+if /i "%Scratch%"=="True" goto "ScratchDone"
+goto "Start"
+
+:"ScratchDone"
+set Scratch=
+echo.
+echo You can now rename or move the folder back to "%InstallationRestore%\Scratch". Press any key to continue.
+pause > nul 2>&1
+if /i "%RestoreType%"=="1" goto "Unmount"
+if /i "%RestoreType%"=="2" goto "Unmount"
 goto "Start"
 
 :"Unmount"
@@ -1098,7 +1148,7 @@ goto "WIMCheck"
 :"MountDone"
 set Mount=
 echo.
-echo You can now rename or move the file back to "%MountDrive%\Mount". Press any key to continue.
+echo You can now rename or move the folder back to "%MountDrive%\Mount". Press any key to continue.
 pause > nul 2>&1
 goto "WIMCheck"
 
