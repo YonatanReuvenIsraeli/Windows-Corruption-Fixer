@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 14.1.0
+echo Version: 14.1.1
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -1010,7 +1010,6 @@ echo.
 echo Restoring health on Windows installation "%SystemDrive%".
 if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth
 if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /LimitAccess
-if not "%errorlevel%"=="0" goto "Update"
 echo Health restored on Windows installation "%SystemDrive%".
 goto "Start"
 
@@ -1019,7 +1018,6 @@ echo.
 echo Restoring health on Windows installation "%SystemDrive%".
 if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%MountDrive%\Mount\Windows"
 if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%MountDrive%\Mount\Windows" /LimitAccess
-if not "%errorlevel%"=="0" goto "Update"
 echo Health restored on Windows installation "%SystemDrive%".
 goto "Unmount"
 
@@ -1028,7 +1026,6 @@ echo.
 echo Restoring health on Windows installation "%SystemDrive%".
 if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%MountDrive%\Mount\Windows\WinSxS"
 if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%MountDrive%\Mount\Windows\WinSxS" /LimitAccess
-if not "%errorlevel%"=="0" goto "Update"
 echo Health restored on Windows installation "%SystemDrive%".
 goto "Unmount"
 
@@ -1037,7 +1034,6 @@ echo.
 echo Restoring health on Windows installation "%SystemDrive%".
 if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%Sources%\%Install%":%Index%
 if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%Sources%\%Install%":%Index% /LimitAccess
-if not "%errorlevel%"=="0" goto "Update"
 echo Health restored on Windows installation "%SystemDrive%".
 goto "Start"
 
@@ -1046,7 +1042,6 @@ echo.
 echo Restoring health on Windows installation "%SystemDrive%".
 if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%Sources%\sxs"
 if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Online /Cleanup-Image /RestoreHealth /Source:"%Sources%\sxs" /LimitAccess
-if not "%errorlevel%"=="0" goto "Update"
 echo Health restored on Windows installation "%SystemDrive%".
 goto "Start"
 
@@ -1057,7 +1052,6 @@ md "%InstallationRestore%\Scratch" > nul 2>&1
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
 if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /ScratchDir:"%InstallationRestore%\Scratch" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /LimitAccess /ScratchDir:"%InstallationRestore%\Scratch" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
-if not "%errorlevel%"=="0" goto "Update"
 del "%InstallationRestore%\Scratch" /s /q > nul 2>&1
 echo Health restored on Windows installation "%InstallationRestore%".
 if /i "%Scratch%"=="True" goto "ScratchDone"
@@ -1070,7 +1064,6 @@ md "%InstallationRestore%\Scratch" > nul 2>&1
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
 if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%MountDrive%\Mount\Windows" /ScratchDir:"%InstallationRestore%\Scratch" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%MountDrive%\Mount\Windows" /LimitAccess /ScratchDir:"%InstallationRestore%\Scratch" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
-if not "%errorlevel%"=="0" goto "Update"
 del "%InstallationRestore%\Scratch" /s /q > nul 2>&1
 echo Health restored on Windows installation "%InstallationRestore%".
 if /i "%Scratch%"=="True" goto "ScratchDone"
@@ -1083,7 +1076,6 @@ md "%InstallationRestore%\Scratch" > nul 2>&1
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
 if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%MountDrive%\Mount\Windows\WinSxS" /ScratchDir:"%InstallationRestore%\Scratch" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%MountDrive%\Mount\Windows\WinSxS" /LimitAccess /ScratchDir:"%InstallationRestore%\Scratch" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
-if not "%errorlevel%"=="0" goto "Update"
 del "%InstallationRestore%\Scratch" /s /q > nul 2>&1
 echo Health restored on Windows installation "%InstallationRestore%".
 if /i "%Scratch%"=="True" goto "ScratchDone"
@@ -1096,7 +1088,6 @@ md "%InstallationRestore%\Scratch" > nul 2>&1
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
 if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Sources%\%Install%":%Index% /ScratchDir:"%InstallationRestore%\Scratch" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Sources%\%Install%":%Index% /LimitAccess /ScratchDir:"%InstallationRestore%\Scratch" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
-if not "%errorlevel%"=="0" goto "Update"
 del "%InstallationRestore%\Scratch" /s /q > nul 2>&1
 echo Health restored on Windows installation "%InstallationRestore%".
 if /i "%Scratch%"=="True" goto "ScratchDone"
@@ -1109,7 +1100,6 @@ md "%InstallationRestore%\Scratch" > nul 2>&1
 if not exist "%InstallationRestore%\Windows\Logs\DISM" md "%InstallationRestore%\Windows\Logs\DISM" > nul 2>&1
 if /i "%Update%"=="Yes" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Sources%\sxs" /ScratchDir:"%InstallationRestore%\Scratch" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
 if /i "%Update%"=="No" "%windir%\System32\Dism.exe" /Image:"%InstallationRestore%" /Cleanup-Image /RestoreHealth /Source:"%Sources%\sxs" /LimitAccess /ScratchDir:"%InstallationRestore%\Scratch" /LogPath:"%InstallationRestore%\Windows\Logs\DISM\dism.log"
-if not "%errorlevel%"=="0" goto "Update"
 del "%InstallationRestore%\Scratch" /s /q > nul 2>&1
 echo Health restored on Windows installation "%InstallationRestore%".
 if /i "%Scratch%"=="True" goto "ScratchDone"
