@@ -1,4 +1,4 @@
-# Windows Corruption Fixer v14.1.1
+# Windows Corruption Fixer v14.1.2
 Fixes corrupted Windows.
 
 ## CHKDSK Check
@@ -46,7 +46,6 @@ Fixes corrupted Windows.
 ## SFC Scan File
 - Supports online and offline Windows installations.
 - Log is saved to the Windows installation you scan file on.
-
 ## SFC Verify File
 - Supports online and offline Windows installations.
 - Log is saved to the Windows installation you verify file on.
