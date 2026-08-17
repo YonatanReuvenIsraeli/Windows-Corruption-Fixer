@@ -1,14 +1,18 @@
-# Windows Corruption Fixer v14.1.2
+# Windows Corruption Fixer v15.0.1
 Fixes corrupted Windows.
 
 ## CHKDSK Check
 - Supports any mounted drive letter.
 - Log is saved to the online Windows installation.
 
-## CHKDSK Check and Fix
+## CHKDSK Fix Errors
 - Supports any mounted drive letter.
 - Log is saved to the online Windows installation.
 
+## CHKDSK Fix Errors and Bad Sectors
+- Supports any mounted drive letter.
+- Log is saved to the online Windows installation.
+- 
 ## View CHKDSK Logs
 - Supports viewing logs from online and offline Windows installations.
 
