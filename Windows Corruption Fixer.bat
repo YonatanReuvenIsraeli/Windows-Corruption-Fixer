@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 15.0.0
+echo Version: 15.0.1
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -39,7 +39,7 @@ echo [14] View SFC logs.
 echo [15] Close.
 echo.
 set Input=
-set /p Input="What do you want to do? (1-14) "
+set /p Input="What do you want to do? (1-15) "
 if /i "%Input%"=="1" goto "1"
 if /i "%Input%"=="2" goto "2"
 if /i "%Input%"=="3" goto "3"
