@@ -12,7 +12,7 @@ Fixes corrupted Windows.
 ## CHKDSK Fix Errors and Bad Sectors
 - Supports any mounted drive letter.
 - Log is saved to the online Windows installation.
-- 
+
 ## View CHKDSK Logs
 - Supports viewing logs from online and offline Windows installations.
 
