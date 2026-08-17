@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 15.0.1
+echo Version: 15.0.2
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -172,7 +172,7 @@ goto "Start"
 :"3"
 echo.
 set CHKDSKCheckFix=
-set /p CHKDSKCheckFix="Which drive do you want to run CHKDSK fix errors and bad sectors on? (A:-Z:) "
+set /p CHKDSKCheckFix="Which drive do you want to run CHKDSK fix errors and recover bad sectors on? (A:-Z:) "
 if /i "%CHKDSKCheckFix%"=="" set CHKDSKCheckFix=%SystemDrive%
 if /i "%CHKDSKCheckFix%"=="A:" goto "SureCHKDSKCheckFix"
 if /i "%CHKDSKCheckFix%"=="B:" goto "SureCHKDSKCheckFix"
@@ -206,7 +206,7 @@ goto "3"
 :"SureCHKDSKCheckFix"
 echo.
 set SureCHKDSKCheckFix=
-set /p SureCHKDSKCheckFix="Are you sure "%CHKDSKCheckFix%" is the drive letter that you want to run CHKDSK fix errors and bad sectors on? (Yes/No) "
+set /p SureCHKDSKCheckFix="Are you sure "%CHKDSKCheckFix%" is the drive letter that you want to run CHKDSK fix errors and recover bad sectors on? (Yes/No) "
 if /i "%SureCHKDSKCheckFix%"=="Yes" goto "CheckExistCHKDSKCheckFix"
 if /i "%SureCHKDSKCheckFix%"=="No" goto "3"
 echo Invalid syntax!
