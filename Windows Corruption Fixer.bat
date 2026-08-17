@@ -2,7 +2,7 @@
 title Windows Corruption Fixer
 setlocal
 echo Program Name: Windows Corruption Fixer
-echo Version: 15.0.2
+echo Version: 15.0.3
 echo License: GNU General Public License v3.0
 echo Developer: @YonatanReuvenIsraeli
 echo GitHub: https://github.com/YonatanReuvenIsraeli
@@ -53,7 +53,8 @@ if /i "%Input%"=="10" goto "10"
 if /i "%Input%"=="11" goto "11"
 if /i "%Input%"=="12" goto "12"
 if /i "%Input%"=="13" goto "13"
-if /i "%Input%"=="14" goto "Exit"
+if /i "%Input%"=="14" goto "14"
+if /i "%Input%"=="15" goto "Exit"
 echo Invalid syntax!
 goto "Start"
 
